@@ -1,0 +1,199 @@
+/* src/pages/ProfilePage.css */
+
+.profile-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px; /* Padding menor para mobile */
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(to bottom, #1a1a1a, #21331D);
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 800px;
+  background-color: #2c2c2c;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: rgb(17, 17, 17);
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column; /* Começa como coluna no mobile */
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primaryGreen);
+}
+
+.profile-name {
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+  font-size: 2em;
+}
+
+.profile-email {
+  margin: 0;
+  color: #aaa;
+  font-size: 1em;
+}
+
+.consistency-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.foguinho { font-size: 2em; }
+.foguinho-text { display: flex; flex-direction: column; align-items: flex-start; }
+.foguinho-text strong { font-size: 1.5em; color: #f39c12; }
+.foguinho-text span { color: #ccc; font-weight: bold; }
+
+.profile-section { margin-bottom: 30px; }
+.section-title {
+  text-align: left;
+  font-size: 1.3em;
+  color: var(--primaryGreen);
+  margin-bottom: 15px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas sempre */
+  gap: 10px;
+}
+
+.stat-item {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+.stat-item span { display: block; color: #aaa; font-size: 0.8em; margin-bottom: 5px; }
+.stat-item strong { font-size: 1.2em; color: white; }
+
+/* Grade de Navegação do Hub - Mobile-first */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Começa com 2 colunas no mobile */
+  gap: 15px;
+}
+
+.hub-card {
+  background-color: #3a3a3a;
+  padding: 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.hub-card:hover {
+  transform: translateY(-3px);
+  background-color: var(--primaryGreen);
+  color: var(--darkText);
+}
+
+.profile-actions {
+  display: grid;
+  grid-template-columns: 1fr; /* Uma coluna no mobile */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.action-button { padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1em; cursor: pointer; text-align: center; text-decoration: none; transition: all 0.2s ease; }
+.action-button.edit-profile { background-color: var(--primaryGreen); color: var(--darkText); border: none; }
+.action-button.logout { background-color: transparent; color: #e74c3c; border: 1px solid #e74c3c; }
+
+/* --- Media Queries para Telas Maiores (Tablet e Desktop) --- */
+@media (min-width: 600px) {
+  .profile-page-container {
+    padding: 40px;
+  }
+  .profile-header {
+    flex-direction: row; /* Volta a ser linha em telas maiores */
+    text-align: left;
+  }
+  .hub-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas em telas maiores */
+  }
+  .profile-actions {
+    grid-template-columns: 1fr 1fr; /* Duas colunas em telas maiores */
+  }
+}
+
+/* src/pages/ProfilePage.css - ADICIONE NO FINAL */
+
+/* Efeito de hover na foto de perfil */
+.profile-avatar-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.change-photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0 0 50px 50px;
+}
+
+.profile-avatar-container:hover .change-photo-overlay {
+  opacity: 1;
+}
+
+/* Novo layout para os botões de ação */
+.profile-actions {
+  display: grid;
+  grid-template-columns: 1fr; /* Uma coluna no mobile */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Botão de Idioma */
+.action-button.language-button {
+  background-color: #4a4a4a;
+  color: white;
+  border: 1px solid #666;
+}
+
+.action-button.language-button:hover {
+    background-color: #5a5a5a;
+}
+
+/* Ajuste para telas maiores */
+@media (min-width: 600px) {
+  .profile-actions {
+    grid-template-columns: repeat(3, 1fr); /* 3 botões lado a lado */
+  }
+}

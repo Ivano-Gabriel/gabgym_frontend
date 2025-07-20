@@ -1,0 +1,54 @@
+/* src/pages/TrainingHubPage.css */
+.hub-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hub-portals-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.portal-card {
+  background-color: rgba(44, 44, 44, 0.7);
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.portal-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primaryGreen);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.portal-icon {
+  font-size: 3.5em;
+  margin-bottom: 15px;
+}
+
+.portal-card h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8em;
+  color: var(--primaryGreen);
+  margin: 0 0 10px 0;
+}
+
+.portal-card p {
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+}

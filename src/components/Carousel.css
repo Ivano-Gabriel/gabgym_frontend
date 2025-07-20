@@ -1,0 +1,70 @@
+/* src/components/Carousel.css */
+.scroll-section {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.scroll-section-title {
+  text-align: left;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto 15px auto;
+  font-size: 1.5em;
+  color: var(--whiteText);
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px 5%;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.topic-card-vertical {
+  flex: 0 0 70%; /* Card ocupa 70% da tela no mobile */
+  height: 220px;
+  max-width: 350px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--whiteText);
+  scroll-snap-align: center;
+  transition: transform 0.3s ease;
+  
+  /* ESTILOS PARA A IMAGEM DE FUNDO */
+  background-size: cover;
+  background-position: center;
+  
+  /* Alinha o texto na parte de baixo */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card-vertical:hover {
+  transform: scale(1.03);
+}
+
+.topic-card-vertical .card-content-vertical h4 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--whiteText);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* Sombra para legibilidade */
+}
+
+@media (min-width: 768px) {
+  .topic-card-vertical {
+    flex-basis: 300px;
+  }
+}

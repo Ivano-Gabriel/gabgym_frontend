@@ -1,0 +1,89 @@
+/* src/components/ValueProposition.css */
+.value-prop-section {
+    /* O DEGRADÊ ATIVO: */
+    background-image: linear-gradient(to bottom, var(--darkText), var(--darkGreen)); /* Um gradiente do nosso preto para o nosso verde escuro */
+    
+    /* Deixando a imagem 'dormindo' caso você mude de ideia no futuro: */
+    /* background-image: url('/images/back.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    */
+    
+    padding: 10px 0;
+    width: 100%;
+  }
+  
+  .value-prop-title {
+    color: var(--whiteText);
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom:70px;
+    font-family: 'Anton', sans-serif;
+    font-weight: normal;
+
+  }
+  
+  /* ESTILO MOBILE-FIRST (Carrossel) */
+  .value-prop-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 5%;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .value-prop-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .feature-card {
+    flex: 0 0 80%;
+    max-width: 300px;
+    background-color: #2a2a2a; /* MUDANÇA: Um cinza escuro um pouco mais claro que o fundo */
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    scroll-snap-align: center;
+    border: 1px solid var(--mediumDarkGray); /* Uma borda sutil */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px); /* Efeito de 'levantar' no hover */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.feature-icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: var(--whiteText); /* O ícone terá a cor verde principal */
+}
+  
+  .feature-title {
+    color: var(--whiteText);
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    min-height: 3em; /* Garante altura mínima para os títulos */
+  }
+  
+  .feature-description {
+    color: var(--lightGray);
+    line-height: 1.6;
+  }
+  
+  /* ESTILO DESKTOP (Grid Fixo) */
+  @media (min-width: 992px) {
+    .value-prop-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1100px;
+      margin: 0 auto;
+      overflow-x: visible;
+      padding: 10px;
+      gap: 30px; /* Aumenta o espaço no desktop */
+    }
+    .feature-card {
+      max-width: none; /* Remove a largura máxima no desktop */
+    }
+  }

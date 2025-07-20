@@ -1,0 +1,59 @@
+/* src/pages/TrainingModels.css */
+.training-hub-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hub-portals-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap; /* Para o layout ficar bom no mobile */
+}
+
+.portal-card {
+  background-color: rgba(44, 44, 44, 0.7);
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 250px; /* Altura mínima para os cards ficarem uniformes */
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.portal-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primaryGreen);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.portal-icon {
+  font-size: 3.5em;
+  margin-bottom: 15px;
+}
+
+.portal-card h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8em;
+  color: var(--primaryGreen);
+  margin: 0 0 10px 0;
+}
+
+.portal-card p {
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1; /* Faz a descrição ocupar o espaço restante */
+}

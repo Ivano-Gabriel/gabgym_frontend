@@ -1,0 +1,33 @@
+/* src/components/CallToAction.css */
+.cta-section {
+    background-image: linear-gradient(to bottom, var(--darkGreen), var(--darkText)); /* Fundo com nosso verde principal */
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .cta-title {
+    color: var(--whiteText); /* Texto escuro para contrastar com o fundo verde */
+    font-family: 'Anton', sans-serif; /* Usando nossa fonte de impacto */
+    font-size: 2.3em;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: normal;
+  }
+  
+  .cta-button-final {
+    background-color: var(--primaryGreen); /* Botão preto */
+    color: var(--darkText); /* Texto branco */
+    padding: 20px 40px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px; /* Botão bem arredondado */
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  
+  .cta-button-final:hover {
+    transform: scale(1.05); /* Efeito de crescer no hover */
+    background-color: #000; /* Preto um pouco mais forte no hover */
+  }

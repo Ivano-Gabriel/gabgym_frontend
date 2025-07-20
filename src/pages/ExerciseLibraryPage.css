@@ -1,0 +1,42 @@
+/* src/pages/ExerciseLibraryPage.css */
+/* O estilo dessa página pode reutilizar muito do que já temos.
+   Vamos usar as classes genéricas para manter a consistência. */
+
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    padding: 10px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: transparent;
+    color: #ccc;
+    border: 2px solid #555;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    border-color: var(--primaryGreen);
+    color: var(--primaryGreen);
+}
+
+.tab-button.active {
+    background-color: var(--primaryGreen);
+    border-color: var(--primaryGreen);
+    color: var(--darkText);
+    transform: scale(1.05);
+}
+
+.carousels-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}

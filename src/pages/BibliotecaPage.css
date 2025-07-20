@@ -1,0 +1,227 @@
+/* src/pages/BibliotecaPage.css */
+
+.biblioteca-page {
+  background-color: var(--darkText); /* Cor de fallback caso a imagem não carregue */
+  color: var(--whiteText);
+  padding-bottom: 50px;
+  
+  /* --- O COMBO DO BACKGROUND PERFEITO --- */
+  
+  /* 1. Adiciona uma camada escura para o texto ficar legível */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/public/images/qq.jpg');
+  
+  /* 2. Garante que a imagem cubra toda a área */
+  background-size: cover;
+
+  /* 3. Centraliza a imagem */
+  background-position: center center;
+  
+  /* 4. Impede a repetição (como você bem pensou) */
+  background-repeat: no-repeat;
+  
+  /* 5. A MÁGICA ACONTECE AQUI: fixa a imagem na tela */
+  background-attachment: fixed; 
+}
+  .biblioteca-main-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.8em;
+    color: var(--primaryGreen);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .biblioteca-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    border-bottom: 2px solid var(--mediumDarkGray);
+    margin-bottom: 40px;
+    width: 90%;
+    max-width: 800px;
+    flex-wrap: wrap;
+  }
+  .biblioteca-tabs .tab-button {
+    padding: 15px 25px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-bottom: 4px solid transparent;
+    color: var(--lightGray);
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: all 0.2s ease-in-out;
+    transform: translateY(2px);
+  }
+  .biblioteca-tabs .tab-button:hover {
+    color: var(--whiteText);
+  }
+  .biblioteca-tabs .tab-button.active {
+    color: var(--primaryGreen);
+    border-bottom-color: var(--primaryGreen);
+  }
+  .biblioteca-content {
+    width: 90%;
+    max-width: 900px;
+    text-align: left;
+    font-size: 1.1em;
+    line-height: 1.7;
+  }
+  .article-card {
+    background-color: #1c1c1c;
+    padding: 25px 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--primaryGreen);
+    scroll-margin-top: 100px;
+  }
+  .article-title {
+    font-size: 2.2em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--whiteText);
+  }
+  .article-body h2 {
+    font-size: 1.8em;
+    margin-top: 25px;
+    color: var(--whiteText);
+  }
+  .article-body p {
+    line-height: 1.8;
+    color: #cccccc;
+  }
+  .article-body ul {
+    padding-left: 20px;
+    list-style-type: '✓ ';
+  }
+  .article-image {
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    margin: 30px auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .youtube-link-card {
+    display: block;
+    text-decoration: none;
+    color: var(--whiteText);
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+  .youtube-link-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  }
+  .youtube-thumbnail {
+    width: 100%;
+    display: block;
+    border-bottom: 2px solid var(--primaryGreen);
+  }
+  .youtube-title {
+    padding: 15px;
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+  .play-icon-overlay {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+  .youtube-link-card:hover .play-icon-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  @media (max-width: 768px) {
+    .biblioteca-main-title { font-size: 2.2em; }
+    .biblioteca-tabs { gap: 5px; }
+    .biblioteca-tabs .tab-button { font-size: 1em; padding: 12px 15px; }
+    .article-card { padding: 20px; }
+  }
+  /* Estilos para o botão flutuante "Voltar ao Topo" */
+.floating-back-button {
+  position: fixed;
+  bottom: 30px;
+  left: 30px; /* <<< MUDANÇA PARA A ESQUERDA */
+  background-color: var(--darkText);
+  color: var(--primaryGreen) !important;
+  border: 2px solid var(--primaryGreen);
+  border-radius: 8px; /* <<< DEIXANDO RETANGULAR */
+  width: auto; /* Largura automática baseada no conteúdo */
+  height: 50px;
+  padding: 0 20px; /* Espaçamento interno */
+  font-size: 1em; /* Tamanho do texto */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.floating-back-button:hover {
+  background-color: var(--primaryGreen);
+  color: var(--darkText) !important;
+  transform: scale(1.05);
+}
+
+/* Estilos para a navegação flutuante de artigos */
+.article-nav-buttons {
+  position: fixed;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-arrow-button {
+  background-color: var(--darkText);
+  color: var(--primaryGreen);
+  border: 2px solid var(--primaryGreen);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.nav-arrow-button:hover {
+  background-color: var(--primaryGreen);
+  color: var(--darkText);
+  transform: scale(1.1);
+}
+
+.nav-arrow-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: scale(1);
+}
