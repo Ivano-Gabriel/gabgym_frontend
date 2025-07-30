@@ -1,4 +1,5 @@
 /* src/pages/TrainingModels.css */
+
 .training-hub-container {
   display: flex;
   flex-direction: column;
@@ -6,54 +7,62 @@
   align-items: center;
 }
 
+/* Container dos cards, agora em coluna e com largura máxima */
 .hub-portals-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+  flex-direction: column; /* Coloca um card abaixo do outro */
+  gap: 20px; /* Espaço entre os cards */
   margin-top: 40px;
-  flex-wrap: wrap; /* Para o layout ficar bom no mobile */
+  width: 90%;
+  max-width: 650px; /* Controla a largura máxima em telas grandes */
 }
 
+/* O novo card, agora retangular e com alinhamento horizontal */
 .portal-card {
-  background-color: rgba(44, 44, 44, 0.7);
-  border: 1px solid #555;
-  border-radius: 12px;
-  padding: 30px 40px;
-  width: 100%;
-  max-width: 400px;
-  min-height: 250px; /* Altura mínima para os cards ficarem uniformes */
-  text-align: center;
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid #444; /* Borda mais sutil */
+  border-radius: 10px;
+  padding: 20px 25px;
   text-decoration: none;
   color: white;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease-in-out;
   backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex; /* <-- A MÁGICA PARA ALINHAR ÍCONE E TEXTO */
+  align-items: center; /* Alinha verticalmente no centro */
+  gap: 25px; /* Espaço entre o ícone e o texto */
 }
 
 .portal-card:hover {
-  transform: translateY(-10px);
+  transform: scale(1.02); /* Efeito de zoom sutil */
   border-color: var(--primaryGreen);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  background-color: rgba(40, 40, 40, 0.8);
 }
 
+/* Estilo do ícone */
 .portal-icon {
-  font-size: 3.5em;
-  margin-bottom: 15px;
+  font-size: 2.5em; /* Tamanho do ícone */
+  color: var(--primaryGreen);
 }
 
+/* Container para o texto, para melhor organização */
+.portal-text-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título com a fonte menos grossa */
 .portal-card h3 {
   font-family: 'Anton', sans-serif;
-  font-size: 1.8em;
-  color: var(--primaryGreen);
-  margin: 0 0 10px 0;
+  font-size: 1.6em;
+  color: white; /* Deixei branco para mais contraste e minimalismo */
+  margin: 0 0 5px 0;
+  font-weight: 400; /* << Deixa a fonte 'normal', não bold */
 }
 
+/* Descrição com a fonte mais leve */
 .portal-card p {
-  color: #ccc;
-  line-height: 1.6;
+  color: #b0b0b0; /* Cor mais suave */
+  line-height: 1.5;
   margin: 0;
-  flex-grow: 1; /* Faz a descrição ocupar o espaço restante */
+  font-weight: 300; /* << Deixa a fonte bem leve */
 }

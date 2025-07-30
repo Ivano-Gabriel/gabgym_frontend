@@ -2,6 +2,8 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import LazyLoadVideo from '../components/LazyLoadVideo'; 
+import FloatingBackButton from '../components/FloatingBackButton';
+
 
 function MuscleGroupPage() {
   const location = useLocation();
@@ -59,9 +61,7 @@ function MuscleGroupPage() {
         })}
       </div>
 
-      <Link to="/training-models" className="back-button-general">
-        Voltar
-      </Link>
+      <FloatingBackButton />
     </div>
   );
 }

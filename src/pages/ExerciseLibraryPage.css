@@ -2,6 +2,8 @@
 /* O estilo dessa página pode reutilizar muito do que já temos.
    Vamos usar as classes genéricas para manter a consistência. */
 
+
+   
 .tabs-container {
     display: flex;
     justify-content: center;

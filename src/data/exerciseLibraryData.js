@@ -5,18 +5,24 @@ const exerciseLibraryData = {
   superior: {
     title: 'Membros Superiores',
     muscleGroups: [
-      { name: 'Ombros', items: MUSCLE_GROUP_WORKOUTS['ombro-completo'].exercises },
-      { name: 'Costas & Bíceps', items: MUSCLE_GROUP_WORKOUTS['costas-biceps'].exercises },
       { name: 'Peito & Tríceps', items: MUSCLE_GROUP_WORKOUTS['peito-triceps'].exercises },
+      { name: 'Costas & Bíceps', items: MUSCLE_GROUP_WORKOUTS['costas-biceps'].exercises },
+      { name: 'Ombros', items: MUSCLE_GROUP_WORKOUTS['ombro-completo'].exercises },
+      { name: 'Trapézio', items: MUSCLE_GROUP_WORKOUTS['trapezio'].exercises },
+      { name: 'Antebraços', items: MUSCLE_GROUP_WORKOUTS['antebraco'].exercises }, // <-- CORRIGIDO AQUI
+      { name: 'Abdômen', items: MUSCLE_GROUP_WORKOUTS['abdomen'].exercises }
     ]
   },
   inferior: {
     title: 'Membros Inferiores',
     muscleGroups: [
-      { name: 'Pernas Completo', items: MUSCLE_GROUP_WORKOUTS['pernas-completo'].exercises },
-      // Podemos adicionar mais grupos aqui no futuro, como "Glúteos" ou "Panturrilhas"
+      { name: 'Quadríceps', items: MUSCLE_GROUP_WORKOUTS['quadriceps'].exercises },
+      { name: 'Posterior de Coxa', items: MUSCLE_GROUP_WORKOUTS['posterior-coxa'].exercises },
+      { name: 'Glúteos', items: MUSCLE_GROUP_WORKOUTS['gluteos'].exercises },
+      { name: 'Panturrilhas', items: MUSCLE_GROUP_WORKOUTS['panturrilhas'].exercises },
+      { name: 'Adutores & Abdutores', items: MUSCLE_GROUP_WORKOUTS['adutores-abdutores'].exercises } // <-- ADICIONADO AQUI
     ]
   }
 };
 
-export default exerciseLibraryData; // Exportando como default
+export default exerciseLibraryData;

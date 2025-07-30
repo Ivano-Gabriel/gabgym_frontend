@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { trainingPlans } from '../data/trainingPlans'; // Importando nossos planos de treino
+import FloatingBackButton from '../components/FloatingBackButton';
 import './RoutineGeneratorPage.css';
 
 function RoutineGeneratorPage() {
@@ -55,6 +56,8 @@ function RoutineGeneratorPage() {
           </div>
         ))}
       </div>
+
+      <FloatingBackButton to="/training-models" />
     </div>
   );
 }

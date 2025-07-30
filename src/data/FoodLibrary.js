@@ -1,6 +1,8 @@
 // src/data/FoodLibrary.js (Versão Final Master-List)
+
 export const FOOD_DATABASE = {
   'Proteínas': [
+
     { id: 1, name: 'Ovo Cozido', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 78, protein: 6, carbs: 1, fat: 5, image: '/images/foods/ovo.jpg' },
     { id: 2, name: 'Ovo Frito', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 90, protein: 6, carbs: 1, fat: 7, image: '/images/foods/ovo_frito.jpg' },
     { id: 101, name: 'Frango Grelhado', unit: '100g', serving_desc: '1 filé pequeno', calories: 165, protein: 31, carbs: 0, fat: 3.6, image: '/images/foods/frango.jpg' },
@@ -8,16 +10,22 @@ export const FOOD_DATABASE = {
     { id: 12, name: 'Bife Grelhado', unit: '100g', serving_desc: '1 bife do tamanho da palma da mão', calories: 250, protein: 26, carbs: 0, fat: 15, image: '/images/foods/bife.jpg' },
     { id: 13, name: 'Carne Cozida', unit: '100g', serving_desc: 'Aprox. 4 colheres de sopa', calories: 215, protein: 30, carbs: 0, fat: 10, image: '/images/foods/carne_cozida.jpg' },
     { id: 35, name: 'Carne Moída', unit: '100g', serving_desc: 'Aprox. 4 colheres de sopa', calories: 220, protein: 28, carbs: 0, fat: 12, image: '/images/foods/carne_moida.jpg' },
-    { id: 602, name: 'Peixe Cozido', unit: '100g', serving_desc: '1 filé médio', calories: 130, protein: 26, carbs: 0, fat: 2.5, image: '/images/foods/peixe_cozido.jpg' },
+    { id: 602, name: 'Peixe Cozido (Tilápia)', unit: '100g', serving_desc: '1 filé médio', calories: 130, protein: 26, carbs: 0, fat: 2.5, image: '/images/foods/peixe_cozido.jpg' },
     { id: 34, name: 'Peixe Frito', unit: '100g', serving_desc: '1 filé médio', calories: 200, protein: 20, carbs: 8, fat: 10, image: '/images/foods/peixe_frito.jpg' },
-    { id: 36, name: 'Sardinha em Lata', unit: '85g', serving_desc: '1 lata pequena drenada', calories: 180, protein: 21, carbs: 0, fat: 10, image: '/images/foods/sardinha.jpg' },
+    { id: 36, name: 'Sardinha em Lata (em óleo)', unit: '85g', serving_desc: '1 lata pequena drenada', calories: 180, protein: 21, carbs: 0, fat: 10, image: '/images/foods/sardinha.jpg' },
     { id: 32, name: 'Queijo Coalho', unit: '1 fatia média', serving_desc: 'Aprox. 30g', calories: 100, protein: 7, carbs: 1, fat: 8, image: '/images/foods/queijo_coalho.jpg' },
     { id: 11, name: 'Salsicha Cozida', unit: '1 unidade', serving_desc: 'Aprox. 50g', calories: 150, protein: 5, carbs: 1, fat: 14, image: '/images/foods/salsicha.jpg' },
     { id: 37, name: 'Calabresa Frita', unit: '50g', serving_desc: 'Aprox. 1/2 gomo pequeno', calories: 200, protein: 10, carbs: 2, fat: 17, image: '/images/foods/calabresa.jpg' },
     { id: 14, name: 'Mortadela', unit: '2 fatias', serving_desc: 'Aprox. 40g', calories: 160, protein: 8, carbs: 2, fat: 14, image: '/images/foods/kitut.jpg' },
     { id: 33, name: 'Presunto Cozido', unit: '2 fatias', serving_desc: 'Aprox. 40g', calories: 60, protein: 7, carbs: 1, fat: 3, image: '/images/foods/presunto.jpg' },
+  
+    { id: 1001, name: 'Bisteca Suína', unit: '100g', serving_desc: '1 bisteca média', calories: 230, protein: 25, carbs: 0, fat: 14, image: '/images/foods/bisteca.jpg' },
+    { id: 1002, name: 'Fígado de Boi Grelhado', unit: '100g', serving_desc: '1 bife médio', calories: 140, protein: 20, carbs: 4, fat: 4, image: '/images/foods/figado.jpg' },
+    { id: 1003, name: 'Queijo Minas Frescal', unit: '30g', serving_desc: '1 fatia grossa', calories: 70, protein: 5, carbs: 1, fat: 5, image: '/images/foods/queijo_minas.jpg' },
+    { id: 1004, name: 'Iogurte Grego Natural', unit: '100g', serving_desc: '1 pote pequeno', calories: 95, protein: 10, carbs: 4, fat: 4.5, image: '/images/foods/iogurte_grego.jpg' },
   ],
   'Carboidratos': [
+    // --- O que você já tinha (mantido) ---
     { id: 3, name: 'Cuscuz Nordestino', unit: '100g', serving_desc: 'Aprox. 1 pires cheio', calories: 112, protein: 3.5, carbs: 25, fat: 0, image: '/images/foods/cuscuz.jpg' },
     { id: 4, name: 'Batata Doce Cozida', unit: '100g', serving_desc: 'Aprox. 1 unidade pequena', calories: 86, protein: 1.6, carbs: 20, fat: 0.1, image: '/images/foods/batata-doce.jpg' },
     { id: 5, name: 'Macaxeira (Aipim)', unit: '100g', serving_desc: 'Aprox. 3 pedaços médios', calories: 160, protein: 1.4, carbs: 38, fat: 0.3, image: '/images/foods/macaxeira.jpg' },
@@ -28,6 +36,11 @@ export const FOOD_DATABASE = {
     { id: 31, name: 'Aveia em Flocos', unit: '40g', serving_desc: 'Aprox. 4 colheres de sopa', calories: 150, protein: 6, carbs: 27, fat: 3, image: '/images/foods/aveia.jpg' },
     { id: 7, name: 'Pão Francês', unit: '1 unidade', serving_desc: '1 pão de 50g', calories: 140, protein: 4, carbs: 29, fat: 1.5, image: '/images/foods/pao_frances.jpg' },
     { id: 27, name: 'Bolacha Cream Cracker', unit: '3 unidades', serving_desc: 'Porção individual', calories: 100, protein: 2, carbs: 15, fat: 3, image: '/images/foods/cream_cracker.jpg' },
+
+    { id: 1005, name: 'Pão de Queijo', unit: '1 unidade', serving_desc: '1 unidade média de padaria', calories: 170, protein: 5, carbs: 20, fat: 7, image: '/images/foods/pao_de_queijo.jpg' },
+    { id: 1006, name: 'Tapioca (só a goma)', unit: '100g', serving_desc: '1 tapioca grande', calories: 240, protein: 0, carbs: 60, fat: 0, image: '/images/foods/tapioca.jpg' },
+    { id: 1007, name: 'Batata Frita', unit: '100g', serving_desc: '1 porção pequena', calories: 312, protein: 3.4, carbs: 41, fat: 15, image: '/images/foods/batata_frita.jpg' },
+    { id: 1008, name: 'Arroz Integral Cozido', unit: '100g', serving_desc: 'Aprox. 4 colheres de sopa', calories: 111, protein: 2.6, carbs: 23, fat: 0.9, image: '/images/foods/arroz_integral.jpg' },
   ],
   'Frutas & Legumes': [
     { id: 17, name: 'Maçã', unit: '1 unidade', serving_desc: '1 unidade média', calories: 95, protein: 0.5, carbs: 25, fat: 0.3, image: '/images/foods/maca.jpg' },
@@ -39,34 +52,46 @@ export const FOOD_DATABASE = {
     { id: 703, name: 'Morango', unit: '1 xícara', serving_desc: 'Aprox. 150g', calories: 48, protein: 1, carbs: 12, fat: 0.5, image: '/images/foods/morango.jpg' },
     { id: 19, name: 'Tomate', unit: '1 unidade', serving_desc: '1 unidade média', calories: 22, protein: 1, carbs: 5, fat: 0.2, image: '/images/foods/tomate.jpg' },
     { id: 43, name: 'Alface', unit: '50g', serving_desc: '5 folhas grandes', calories: 8, protein: 0.7, carbs: 1.5, fat: 0.1, image: '/images/foods/alface.jpg' },
+  
+    { id: 1009, name: 'Brócolis Cozido', unit: '100g', serving_desc: '1 xícara de floretes', calories: 35, protein: 2.4, carbs: 7, fat: 0.4, image: '/images/foods/brocolis.jpg' },
+    { id: 1010, name: 'Cenoura Cozida', unit: '100g', serving_desc: '1 unidade média picada', calories: 35, protein: 0.8, carbs: 8, fat: 0.2, image: '/images/foods/cenoura.jpg' },
+    { id: 1011, name: 'Melancia', unit: '1 fatia', serving_desc: 'Aprox. 150g', calories: 45, protein: 1, carbs: 11, fat: 0.2, image: '/images/foods/melancia.jpg' },
+    { id: 1012, name: 'Abacaxi', unit: '1 fatia', serving_desc: 'Aprox. 80g', calories: 40, protein: 0.4, carbs: 10, fat: 0.1, image: '/images/foods/abacaxi.jpg' },
   ],
   'Gorduras Boas': [
     { id: 20, name: 'Abacate', unit: '100g', serving_desc: '1/4 de unidade grande', calories: 160, protein: 2, carbs: 9, fat: 15, image: '/images/foods/abacate.jpg' },
-    { id: 10, name: 'Manteiga de Amendoim', unit: '1 colher de sopa', serving_desc: 'Aprox. 15g', calories: 94, protein: 4, carbs: 3, fat: 8, image: '/images/foods/pasta_amendoim.jpg' },
+    { id: 10, name: 'Pasta de Amendoim', unit: '1 colher de sopa', serving_desc: 'Aprox. 15g', calories: 94, protein: 4, carbs: 3, fat: 8, image: '/images/foods/pasta_amendoim.jpg' },
     { id: 104, name: 'Azeite de Oliva Extra Virgem', unit: '1 colher de sopa', serving_desc: 'Aprox. 15ml', calories: 119, protein: 0, carbs: 0, fat: 14, image: '/images/foods/azeite.jpg' },
     { id: 45, name: 'Castanha-do-Pará', unit: '2 unidades', serving_desc: 'O suficiente por dia!', calories: 66, protein: 1.4, carbs: 1.2, fat: 6.7, image: '/images/foods/castanha_para.jpg' },
+    { id: 1013, name: 'Castanha-de-Caju', unit: '30g', serving_desc: 'Um punhado', calories: 165, protein: 5, carbs: 9, fat: 13, image: '/images/foods/castanha_caju.jpg' },
   ],
   'Bebidas': [
-    { id: 8, name: 'Café Preto', unit: '1 xícara', serving_desc: 'Aprox. 150ml', calories: 2, protein: 0, carbs: 0, fat: 0, image: '/images/foods/cafe.jpg' },
-    { id: 901, name: 'Café com Leite', unit: '1 xícara', serving_desc: 'Aprox. 150ml', calories: 50, protein: 3, carbs: 5, fat: 2, image: '/images/foods/cafe_leite.jpg' },
+    { id: 8, name: 'Café Preto (sem açúcar)', unit: '1 xícara', serving_desc: 'Aprox. 150ml', calories: 2, protein: 0, carbs: 0, fat: 0, image: '/images/foods/cafe.jpg' },
+    { id: 901, name: 'Café com Leite (sem açúcar)', unit: '1 xícara', serving_desc: 'Aprox. 150ml', calories: 50, protein: 3, carbs: 5, fat: 2, image: '/images/foods/cafe_leite.jpg' },
     { id: 29, name: 'Vitamina de Banana', unit: '1 copo (200ml)', serving_desc: '1 copo americano', calories: 150, protein: 4, carbs: 30, fat: 2, image: '/images/foods/vitamina_banana.jpg' },
     { id: 30, name: 'Vitamina de Abacate', unit: '1 copo (200ml)', serving_desc: '1 copo americano', calories: 220, protein: 3, carbs: 15, fat: 18, image: '/images/foods/vitamina_abacate.jpg' },
     { id: 902, name: 'Vitamina de Mamão', unit: '1 copo (200ml)', serving_desc: '1 copo americano', calories: 110, protein: 4, carbs: 20, fat: 2, image: '/images/foods/vitamina_mamao.jpg' },
-    { id: 603, name: 'Suco de Maracujá', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 140, protein: 1, carbs: 34, fat: 0, image: '/images/foods/suco_maracuja.jpg' },
-    { id: 604, name: 'Suco de Abacaxi', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 100, protein: 1, carbs: 25, fat: 0, image: '/images/foods/suco_abacaxi.jpg' },
-    { id: 605, name: 'Suco de Acerola', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 46, protein: 1, carbs: 11, fat: 0, image: '/images/foods/suco_acerola.jpg' },
-    { id: 903, name: 'Suco de Cajá', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 90, protein: 1, carbs: 22, fat: 0, image: '/images/foods/suco_caja.jpg' },
+    { id: 603, name: 'Suco de Maracujá (com açúcar)', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 140, protein: 1, carbs: 34, fat: 0, image: '/images/foods/suco_maracuja.jpg' },
+    { id: 604, name: 'Suco de Abacaxi (com açúcar)', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 100, protein: 1, carbs: 25, fat: 0, image: '/images/foods/suco_abacaxi.jpg' },
+    { id: 605, name: 'Suco de Acerola (com açúcar)', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 46, protein: 1, carbs: 11, fat: 0, image: '/images/foods/suco_acerola.jpg' },
+    { id: 903, name: 'Suco de Cajá (com açúcar)', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 90, protein: 1, carbs: 22, fat: 0, image: '/images/foods/suco_caja.jpg' },
   ],
   'Doces & Sobremesas': [
+    // --- O que você já tinha (mantido) ---
     { id: 904, name: 'Achocolatado (Toddy/Nescau)', unit: '1 copo (200ml)', serving_desc: 'Leite com 2 colheres de sopa', calories: 200, protein: 7, carbs: 28, fat: 6, image: '/images/foods/achocolatado.jpg' },
-    { id: 24, name: 'Iogurte (Danone)', unit: '1 pote', serving_desc: 'Aprox. 170g', calories: 98, protein: 17, carbs: 6, fat: 0, image: '/images/foods/danone.jpg' },
+    { id: 24, name: 'Iogurte Grego (adoçado)', unit: '1 pote', serving_desc: 'Aprox. 100g', calories: 120, protein: 8, carbs: 15, fat: 3, image: '/images/foods/danone.jpg' },
     { id: 606, name: 'Goiabada Cascão', unit: '1 fatia (40g)', serving_desc: '1 fatia grossa', calories: 140, protein: 0.5, carbs: 35, fat: 0, image: '/images/foods/goiabada.jpg' },
     { id: 808, name: 'Bombom', unit: '1 unidade', serving_desc: 'Sonho de Valsa, Ouro Branco...', calories: 115, protein: 1, carbs: 13, fat: 6, image: '/images/foods/bombom.jpg' },
     { id: 809, name: 'Barra de Chocolate', unit: '25g', serving_desc: 'Aprox. 4 quadradinhos', calories: 135, protein: 1.5, carbs: 15, fat: 8, image: '/images/foods/barra_chocolate.jpg' },
     { id: 905, name: 'Brigadeiro', unit: '1 unidade', serving_desc: 'Tamanho de festa', calories: 50, protein: 1, carbs: 8, fat: 2, image: '/images/foods/brigadeiro.jpg' },
+
+    { id: 1014, name: 'Açaí na Tigela (com Xarope)', unit: '300g', serving_desc: '1 tigela pequena', calories: 450, protein: 5, carbs: 70, fat: 15, image: '/images/foods/acai_tigela.jpg' },
+    { id: 1015, name: 'Pudim de Leite', unit: '1 fatia', serving_desc: '1 fatia média', calories: 300, protein: 8, carbs: 45, fat: 10, image: '/images/foods/pudim.jpg' },
   ],
   'Suplementos': [
     { id: 201, name: 'Whey Protein', unit: '1 scoop (30g)', serving_desc: '1 medidor padrão', calories: 120, protein: 24, carbs: 3, fat: 1.5, image: '/images/foods/whey.jpg' },
+
+    { id: 1016, name: 'Creatina', unit: '1 dose (3g)', serving_desc: '1 medidor padrão', calories: 0, protein: 0, carbs: 0, fat: 0, image: '/images/foods/creatina.jpg' },
   ],
   'Dia do Lixo': [
     { id: 801, name: 'Pizza (Fatia)', unit: '1 fatia grande', serving_desc: 'Calabresa, Mussarela, etc.', calories: 350, protein: 15, carbs: 35, fat: 15, image: '/images/foods/pizza.jpg' },
@@ -78,5 +103,7 @@ export const FOOD_DATABASE = {
     { id: 810, name: 'Coca-Cola', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 137, protein: 0, carbs: 35, fat: 0, image: '/images/foods/coca_cola.jpg' },
     { id: 813, name: 'Caldo de Cana', unit: '1 copo (300ml)', serving_desc: '1 copo grande', calories: 250, protein: 0, carbs: 65, fat: 0, image: '/images/foods/caldo_de_cana.jpg' },
     { id: 700, name: 'Vinho Tinto Seco', unit: '1 taça (150ml)', serving_desc: '1 taça padrão', calories: 125, protein: 0.1, carbs: 4, fat: 0, image: '/images/foods/vinho.jpg' },
+    { id: 1017, name: 'Cerveja (Skol)', unit: '1 lata (350ml)', serving_desc: '1 lata padrão', calories:  148, protein: 1.5, carbs: 13, fat: 0, image: '/images/foods/cerveja.jpg' },
+    { id: 1018, name: 'Pastel de Queijo', unit: '1 unidade', serving_desc: 'Tamanho de feira', calories: 400, protein: 15, carbs: 30, fat: 25, image: '/images/foods/pastel_queijo.jpg' },
   ],
 };

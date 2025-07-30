@@ -1,0 +1,44 @@
+/* src/components/FloatingBackButton.css (Estilo Barra de Rodapé) */
+
+.floating-back-button {
+  /* --- MUDANÇAS PRINCIPAIS --- */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Ocupa a largura toda da tela */
+  height: 60px;  /* <-- AQUI A GENTE CONTROLA A ALTURA. Sinta-se livre para ajustar! */
+  
+  /* --- Estilos para deixar profissional --- */
+  background-color: #1a1a1a; /* Um preto um pouco mais suave que o fundo do app */
+  border-top: 1px solid #333; /* Uma linha sutil para separar do conteúdo */
+  display: flex;
+  justify-content: center; /* Centraliza a seta na barra */
+  align-items: center;
+  text-decoration: none;
+  z-index: 1000;
+  transition: background-color 0.2s ease;
+
+  /* Removemos o que era do antigo círculo */
+  /* border-radius: 50%; */
+  /* box-shadow: ... */
+}
+
+.floating-back-button:hover {
+  background-color: #252525; /* Muda a cor levemente no hover */
+  transform: none; /* Remove o efeito de scale que não faz sentido aqui */
+  filter: none; /* Remove o efeito de brilho */
+}
+
+/* A seta (SVG) dentro da barra */
+.floating-back-button svg {
+  width: 30px;
+  height: 30px;
+  color: var(--primaryGreen); /* Deixei a seta verde para dar o toque GabGym */
+  fill: var(--primaryGreen);
+  stroke: var(--primaryGreen);
+  transition: transform 0.2s ease;
+}
+
+.floating-back-button:hover svg {
+  transform: scale(1.1); /* Efeito de crescimento na seta ao passar o mouse na barra */
+}

@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from '../components/Carousel';
 import exerciseLibraryData from '../data/exerciseLibraryData';
+import FloatingBackButton from '../components/FloatingBackButton';
 import './ExerciseLibraryPage.css';
 
 function ExerciseLibraryPage() {
   const [activeTab, setActiveTab] = useState('superior');
 
   const pageStyle = {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('/images/library-bg.jpg')`,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('/images/run.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',
@@ -42,7 +43,7 @@ function ExerciseLibraryPage() {
           />
         ))}
       </div>
-      <Link to="/training-models" className="back-button-general" style={{marginTop: '40px'}}>Voltar</Link>
+    <FloatingBackButton to="/training-models" />
     </div>
   );
 }

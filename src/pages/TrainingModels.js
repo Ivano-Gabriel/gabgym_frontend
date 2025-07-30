@@ -1,11 +1,12 @@
 // src/pages/TrainingModels.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+// 1. IMPORTANDO OS ÍCONES QUE VAMOS USAR
+import { BsBook, BsGear } from 'react-icons/bs'; 
 import './TrainingModels.css';
 
 function TrainingModels() {
   const pageStyle = {
-    // Usando o background que você lembrou!
     backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/run.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -18,20 +19,31 @@ function TrainingModels() {
       <p className="content-description">O que você busca hoje? Conhecimento ou um plano para seguir?</p>
       
       <div className="hub-portals-container">
-        {/* Este link levará para a futura página da Biblioteca de Exercícios */}
+        
+        {/* CARD 1: AGORA COM O ÍCONE BSBOOK */}
         <Link to="/exercise-library" className="portal-card">
-          <div className="portal-icon">📚</div>
-          <h3>Explorar Exercícios</h3>
-          <p>Navegue por nossa biblioteca de movimentos, veja vídeos e aprenda a execução correta.</p>
+          <BsBook className="portal-icon" />
+          <div className="portal-text-content">
+            <h3>Explorar Exercícios</h3>
+            <p>Navegue por nossa biblioteca de movimentos, veja vídeos e aprenda a execução correta.</p>
+          </div>
         </Link>
         
-        {/* Este link levará para a futura página do Gerador de Rotinas */}
+        {/* CARD 2: AGORA COM O ÍCONE BSGEAR */}
         <Link to="/routine-generator" className="portal-card">
-          <div className="portal-icon">⚙️</div>
-          <h3>Gerar Rotina Semanal</h3>
-          <p>Nos diga sua frequência e gênero, e nós montaremos um plano completo para você seguir.</p>
+          <BsGear className="portal-icon" />
+          <div className="portal-text-content">
+            <h3>Gerar Rotina Semanal</h3>
+            <p>Nos diga sua frequência e gênero, e nós montaremos um plano completo para você seguir.</p>
+          </div>
         </Link>
+
       </div>
+
+      <Link to="/perfil" className="back-button-general">
+        Voltar para o Perfil
+      </Link>
+
     </div>
   );
 }
