@@ -1,21 +1,21 @@
-// src/components/FloatingBackButton.js
+// src/components/FloatingBackButton.js (Versão Corrigida com Destino Fixo)
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Trocamos Link por useNavigate
+// 1. Voltamos a usar o Link, que é a ferramenta certa para destinos fixos.
+import { Link } from 'react-router-dom'; 
 import { IoArrowBack } from 'react-icons/io5';
 import './FloatingBackButton.css';
 
-function FloatingBackButton() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1); // A mágica: -1 significa "volte uma página"
-  };
-
+// 2. O componente agora recebe uma propriedade (prop) chamada 'to'
+function FloatingBackButton({ to }) {
+  // 3. Removemos toda a lógica do useNavigate, não precisamos mais dela.
+  
   return (
-    // Agora é um botão normal que chama a função goBack
-    <button onClick={goBack} className="floating-back-button">
-      <IoArrowBack />
-    </button>
+    // 4. Em vez de um <button>, agora temos um <Link> que leva para o destino 'to'.
+    // O className continua o mesmo, então o seu estilo CSS não muda nada.
+    <Link to={to} className="floating-back-button">
+      <IoArrowBack size={24} /> {/* Adicionei um tamanho para o ícone ficar consistente */}
+    </Link>
   );
 }
 

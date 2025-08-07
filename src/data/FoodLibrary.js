@@ -85,7 +85,7 @@ export const FOOD_DATABASE = {
     { id: 809, name: 'Barra de Chocolate', unit: '25g', serving_desc: 'Aprox. 4 quadradinhos', calories: 135, protein: 1.5, carbs: 15, fat: 8, image: '/images/foods/barra_chocolate.jpg' },
     { id: 905, name: 'Brigadeiro', unit: '1 unidade', serving_desc: 'Tamanho de festa', calories: 50, protein: 1, carbs: 8, fat: 2, image: '/images/foods/brigadeiro.jpg' },
 
-    { id: 1014, name: 'Açaí na Tigela (com Xarope)', unit: '300g', serving_desc: '1 tigela pequena', calories: 450, protein: 5, carbs: 70, fat: 15, image: '/images/foods/acai_tigela.jpg' },
+    { id: 1014, name: 'Açaí na Tigela (com Xarope)', unit: '300g', serving_desc: '1 tigela pequena', calories: 450, protein: 5, carbs: 70, fat: 15, image: '/images/foods/acai-tigela.jpg' },
     { id: 1015, name: 'Pudim de Leite', unit: '1 fatia', serving_desc: '1 fatia média', calories: 300, protein: 8, carbs: 45, fat: 10, image: '/images/foods/pudim.jpg' },
   ],
   'Suplementos': [

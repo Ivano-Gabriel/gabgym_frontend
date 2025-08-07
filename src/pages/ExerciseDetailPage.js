@@ -1,24 +1,20 @@
-// src/pages/ExerciseDetailPage.js
+// src/pages/ExerciseDetailPage.js (Versão Final Refatorada)
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MUSCLE_GROUP_WORKOUTS } from '../data/workoutDatabase';
+// 1. A TROCA DE INTELIGÊNCIA: Importamos nossa nova e única fonte da verdade!
+import { EXERCISE_LIBRARY } from '../data/workoutDatabase';
 import LazyLoadVideo from '../components/LazyLoadVideo';
 import './ExerciseDetailPage.css';
 
-// Função auxiliar para encontrar o exercício pelo ID que vem da URL
+// 2. A BUSCA A LASER: Nossa função de busca ficou 1000x mais simples e rápida!
+// Em vez de procurar em vários lugares, agora a gente só pega o exercício pelo seu ID direto na nossa "enciclopédia".
 const findExerciseById = (id) => {
-  for (const groupKey in MUSCLE_GROUP_WORKOUTS) {
-    const group = MUSCLE_GROUP_WORKOUTS[groupKey];
-    const foundExercise = group.exercises.find(ex => ex.name && ex.name.toLowerCase().replace(/\s/g, '-') === id);
-    if (foundExercise) {
-      return foundExercise;
-    }
-  }
-  return null;
+  return EXERCISE_LIBRARY[id] || null; // Retorna o exercício se o ID existir, senão retorna nulo.
 };
 
 function ExerciseDetailPage() {
-  const { exerciseId } = useParams(); // Pega o ID do exercício da URL
+  const { exerciseId } = useParams(); // Pega o ID do exercício da URL (ex: 'supino-reto-halter')
   const exercise = findExerciseById(exerciseId);
 
   const pageStyle = {
@@ -32,11 +28,13 @@ function ExerciseDetailPage() {
     return (
       <div className="content-page" style={pageStyle}>
         <h2 className="workout-page-title">Exercício não encontrado</h2>
+        <p>O exercício que você procurou não existe na nossa base de dados.</p>
         <Link to="/exercise-library" className="back-button-general">Voltar para a Biblioteca</Link>
       </div>
     );
   }
 
+  // O resto do seu código já era perfeito e não precisa mudar nada!
   return (
     <div className="content-page" style={pageStyle}>
       <div className="exercise-detail-container">
@@ -48,6 +46,10 @@ function ExerciseDetailPage() {
           <h3>Como Executar:</h3>
           <p>{exercise.description}</p>
         </div>
+        {/*
+          Aqui no futuro a gente pode adicionar mais detalhes da EXERCISE_LIBRARY,
+          como o muscleGroup, etc.
+        */}
         <Link to="/exercise-library" className="back-button-general">Voltar para a Biblioteca</Link>
       </div>
     </div>

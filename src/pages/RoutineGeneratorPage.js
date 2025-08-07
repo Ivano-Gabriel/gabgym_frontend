@@ -57,7 +57,7 @@ function RoutineGeneratorPage() {
         ))}
       </div>
 
-      <FloatingBackButton to="/training-models" />
+      <FloatingBackButton to="/training-models" /> 
     </div>
   );
 }

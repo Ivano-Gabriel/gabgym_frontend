@@ -1,12 +1,14 @@
-// src/pages/TrainingPlanPage.js
+// src/pages/TrainingPlanPage.js (Versão Final "Bestaferamente Clean")
+
 import React from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+// 1. IMPORTAMOS A ENCICLOPÉDIA! Agora esta página tem acesso a todos os detalhes dos exercícios.
+import { EXERCISE_LIBRARY } from '../data/workoutDatabase'; 
 import './TrainingPlanPage.css';
 
 function TrainingPlanPage() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { weeklyPlan } = location.state || {};
+  const { weeklyPlan } = location.state || {}; // Os dados do plano vêm da página anterior
 
   const pageStyle = {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/ee.jpg')`,
@@ -25,13 +27,7 @@ function TrainingPlanPage() {
     );
   }
 
-  const handleWorkoutClick = (workout) => {
-    // Criamos um ID a partir do título para a URL
-    const workoutId = workout.title.toLowerCase().replace(/ & /g, '-').replace(/\s/g, '-');
-    navigate(`/exercicios/${workoutId}`, { state: { workoutData: workout } });
-  };
-
-  const weekDays = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+  const weekDays = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
 
   return (
     <div className="content-page" style={pageStyle}>
@@ -42,7 +38,7 @@ function TrainingPlanPage() {
       
       <div className="weekly-plan-container">
         {weeklyPlan.schedule.map((dayPlan, index) => {
-          // Se for um dia de descanso
+          // Se for um dia de descanso, continua igual
           if (dayPlan.type === 'rest') {
             return (
               <div key={index} className="day-card rest-day-card">
@@ -52,14 +48,35 @@ function TrainingPlanPage() {
               </div>
             );
           }
-          // Se for um dia de treino normal
+
+          // 2. A MÁGICA ACONTECE AQUI! Se for dia de treino...
           return (
             <div key={index} className="day-card">
               <span className="day-name">{weekDays[index]}</span>
               <h3 className="day-workout-title">{dayPlan.title}</h3>
-              <button onClick={() => handleWorkoutClick(dayPlan)} className="view-workout-button">
-                Ver Treino do Dia
-              </button>
+              
+              {/* Criamos a lista de exercícios do dia AQUI MESMO */}
+              <ul className="daily-exercise-list">
+                {dayPlan.plan.map((exerciseRef, exIndex) => {
+                  // Para cada ID de exercício no plano, buscamos os detalhes na nossa enciclopédia
+                  const exercise = EXERCISE_LIBRARY[exerciseRef.exerciseId];
+                  
+                  // Se, por algum motivo, o exercício não for encontrado, não quebra a página
+                  if (!exercise) return null; 
+
+                  return (
+                    <li key={exIndex} className="daily-exercise-item">
+                      {/* O nome do exercício agora é um link para a página de detalhes que JÁ FUNCIONA! */}
+                      <Link to={`/exercicio/${exercise.id}`} className="exercise-name-link">
+                        {exercise.name}
+                      </Link>
+                      <span className="exercise-sets-reps">
+                        {exerciseRef.sets}x {exerciseRef.reps} {exerciseRef.note && `(${exerciseRef.note})`}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           );
         })}

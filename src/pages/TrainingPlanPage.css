@@ -1,68 +1,30 @@
-/* src/pages/TrainingPlanPage.css */
+/* src/pages/TrainingPlanPage.css (Versão Final com Alinhamento Perfeito) */
 
 .weekly-plan-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  width: 90%;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Um pouco mais de espaço */
+  gap: 25px;
+  width: 95%;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 .day-card {
-  background-color: #2c2c2c;
+  background-color: rgba(44, 44, 44, 0.8);
   border: 1px solid #444;
   border-radius: 12px;
   padding: 25px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 200px;
+  backdrop-filter: blur(5px);
 }
 
-.day-number {
-  display: inline-block;
-  background-color: var(--primaryGreen);
-  color: var(--darkText);
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-weight: bold;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-  align-self: center; /* Centraliza o "Dia X" */
-}
-
-.day-workout-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.8em;
-  color: white;
-  margin: 0 0 20px 0;
-  flex-grow: 1; /* Faz o título ocupar o espaço disponível */
-}
-
-.view-workout-button {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--primaryGreen);
-  color: var(--darkText);
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.view-workout-button:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-/* Estilo para o card de Descanso */
 .rest-day-card {
-  background-color: #1e1e1e;
+  background-color: rgba(30, 30, 30, 0.7);
   border-style: dashed;
+  justify-content: center;
+  min-height: 250px; /* Altura mínima para alinhar com os outros cards */
 }
 
 .rest-day-text {
@@ -70,4 +32,67 @@
   font-style: italic;
   font-size: 1.1em;
   margin-top: 10px;
+}
+
+.day-name {
+  color: var(--primaryGreen);
+  font-weight: bold;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.day-workout-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8em;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+/* ====================================================== */
+/* === AQUI ESTÁ A CORREÇÃO PARA O ALINHAMENTO === */
+/* ====================================================== */
+
+.daily-exercise-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  flex-grow: 1; 
+}
+
+.daily-exercise-item {
+  display: flex; /* A MÁGICA ACONTECE AQUI! */
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5px; /* Adicionei um padding lateral */
+  border-bottom: 1px solid #3a3a3a;
+  gap: 10px; /* Espaço entre os itens */
+}
+
+.daily-exercise-item:last-child {
+  border-bottom: none;
+}
+
+.exercise-name-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  flex-grow: 1; /* Faz o nome do exercício ocupar o espaço que sobrar */
+  text-align: left;
+}
+
+.exercise-name-link:hover {
+  color: var(--primaryGreen);
+}
+
+.exercise-sets-reps {
+  color: #aaa;
+  font-size: 0.9em;
+  font-style: italic;
+  white-space: nowrap; 
+  flex-shrink: 0; /* Impede que ele seja espremido e quebre linha */
+  text-align: right;
 }
