@@ -1,0 +1,53 @@
+/* src/components/GoalTracker.css */
+.goal-tracker-container {
+  background-color: rgba(44, 44, 44, 0.7);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.goal-tracker-title {
+  text-align: left;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--primaryGreen);
+  padding-bottom: 10px;
+}
+
+.goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: rgba(0,0,0,0.3);
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.goal-icon {
+  font-size: 1.5em;
+}
+
+.goal-text {
+  margin: 0;
+  color: #f1f1f1;
+  font-weight: 500;
+}
+
+.no-goals-message {
+  color: #aaa;
+  font-style: italic;
+}

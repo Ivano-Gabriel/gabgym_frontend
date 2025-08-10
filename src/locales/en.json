@@ -91,5 +91,23 @@
     "aba_treinamento": "Training",
     "aba_alimentacao": "Nutrition",
     "botao_voltar_curiosidades": "Back to Curiosities"
-  }
+  },
+  "trainingHub": {
+    "title": "Training Hub",
+    "subtitle": "What are you looking for today? Knowledge or a plan to follow?",
+    "exploreTitle": "Explore Exercises",
+    "exploreDescription": "Browse our library of movements, watch videos, and learn the correct execution.",
+    "generateTitle": "Generate Weekly Routine",
+    "generateDescription": "Tell us your frequency and gender, and we'll build a complete plan for you to follow.",
+    "backToProfile": "Back to Profile"
+  },
+  "goals": {
+    "quickGoalsTitle": "Quick Goals",
+    "noQuickGoals": "No quick goals at the moment. Add one!",
+    "longTermGoalsTitle": "Long-Term Goals",
+    "noLongTermGoals": "Set a big goal to keep you motivated!",
+    "achievementsTitle": "Achievements",
+    "noAchievements": "Complete a goal to see it here!"
+}
+  
 }
