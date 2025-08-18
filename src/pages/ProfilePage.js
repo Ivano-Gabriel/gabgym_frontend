@@ -1,20 +1,22 @@
-// src/pages/ProfilePage.js
+// src/pages/ProfilePage.js (Versão Final com Streak À Prova de Balas)
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './ProfilePage.css';
 
 function ProfilePage() {
-  const { t, i18n } = useTranslation(); // Pegamos o i18n para trocar o idioma
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   
   const [userData, setUserData] = useState(null);
   const [imc, setImc] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState('/images/default-avatar.png');
-  const fileInputRef = useRef(null); // Referência para o input de arquivo escondido
+  const fileInputRef = useRef(null);
+  const [streak, setStreak] = useState(0);
 
-  // Carrega dados do usuário e a foto do perfil
   useEffect(() => {
+    // Carrega dados do usuário e avatar (sem mudanças aqui)
     const storedUserData = JSON.parse(localStorage.getItem('gabgymUserData'));
     if (storedUserData) {
       setUserData(storedUserData);
@@ -28,36 +30,64 @@ function ProfilePage() {
     if (storedAvatar) {
       setAvatarUrl(storedAvatar);
     }
+    
+    // =================================================================
+    // LÓGICA DO STREAK - VERSÃO "TANQUE DE GUERRA"
+    // =================================================================
+    
+    // Pega a data de hoje no formato YYYY-MM-DD, que não tem fuso horário
+    const todayString = new Date().toLocaleDateString('en-CA');
+    
+    // Pega a data de ontem no mesmo formato
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayString = yesterday.toLocaleDateString('en-CA');
+
+    const streakDataString = localStorage.getItem('gabgymStreakData');
+    let streakData = streakDataString ? JSON.parse(streakDataString) : { count: 0, lastVisit: null };
+
+    // A mágica: só fazemos qualquer cálculo SE o texto da última visita não for igual ao texto de hoje
+    if (streakData.lastVisit !== todayString) {
+      if (streakData.lastVisit === yesterdayString) {
+        // Dia consecutivo! Aumenta o streak.
+        streakData.count++;
+      } else {
+        // Quebrou o streak ou é o primeiro acesso de todos. Reseta para 1.
+        streakData.count = 1;
+      }
+      
+      // Salva a data de hoje (em texto) como a última visita
+      streakData.lastVisit = todayString;
+      localStorage.setItem('gabgymStreakData', JSON.stringify(streakData));
+    }
+    
+    setStreak(streakData.count);
+    // =================================================================
+
   }, []);
 
-  // --- LÓGICA DO BOTÃO SAIR ---
+  // O resto do seu código (handleLogout, etc.) continua perfeito
   const handleLogout = () => {
-    localStorage.removeItem('gabgymUserData');
-    localStorage.removeItem('gabgymAvatar');
-    localStorage.removeItem('gabgymTodaysLog');
-    // Adicione outros 'remove' se tiver mais dados salvos
+    localStorage.clear(); // Limpa TUDO para garantir um logout limpo
     navigate('/');
-    window.location.reload(); // Força o refresh para limpar tudo
+    window.location.reload(); 
   };
-
-  // --- LÓGICA DO BOTÃO DE IDIOMA ---
+  
   const toggleLanguage = () => {
     const newLang = i18n.language === 'pt' ? 'en' : 'pt';
     i18n.changeLanguage(newLang);
   };
 
-  // --- LÓGICA DA FOTO DE PERFIL ---
   const handleAvatarClick = () => {
-    fileInputRef.current.click(); // Clica no input de arquivo escondido
+    fileInputRef.current.click();
   };
 
   const handlePhotoUpload = (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const newAvatarUrl = URL.createObjectURL(file);
-      setAvatarUrl(newAvatarUrl); // Atualiza a foto na tela
+      setAvatarUrl(newAvatarUrl);
       
-      // Salva a foto no localStorage (converte para base64)
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -67,6 +97,7 @@ function ProfilePage() {
   };
 
   return (
+    // O seu JSX continua exatamente o mesmo
     <div className="profile-page-container">
       <div className="profile-card">
         
@@ -91,7 +122,7 @@ function ProfilePage() {
         <div className="consistency-tracker">
           <div className="foguinho">🔥</div>
           <div className="foguinho-text">
-            <strong>15</strong>
+            <strong>{streak}</strong>
             <span>{t('hub.dias_foco')}</span>
           </div>
         </div>

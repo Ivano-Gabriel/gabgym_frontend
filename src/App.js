@@ -27,7 +27,7 @@ import ProfilePage from './pages/ProfilePage';
 import RoutineGeneratorPage from './pages/RoutineGeneratorPage';
 import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 import ExerciseDetailPage from './pages/ExerciseDetailPage';
-
+import LoginPage from './pages/LoginPage';
 
 
 import { ToastContainer } from 'react-toastify';
@@ -151,6 +151,7 @@ function AppContent() {
           <Route path="/routine-generator" element={<RoutineGeneratorPage />} />
           <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>
       

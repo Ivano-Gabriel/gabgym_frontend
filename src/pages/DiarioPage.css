@@ -511,3 +511,17 @@
 .salvar-foto-button:hover {
   transform: scale(1.02);
 }
+
+/* Adicione no final do seu src/pages/DiarioPage.css */
+
+.status-message {
+  color: #ccc;
+  font-size: 1.2em;
+  font-style: italic;
+  margin-top: 40px;
+}
+
+.status-message.error {
+  color: #e74c3c; /* Vermelho para erros */
+  font-weight: bold;
+}

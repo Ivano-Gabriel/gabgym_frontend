@@ -38,11 +38,12 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  color: #ccc; 
 }
 
 .activity-details strong {
   font-size: 1.2em;
-  color: #f1f1f1;
+   color: #f1f1f1;
 }
 
 .activity-details span {
