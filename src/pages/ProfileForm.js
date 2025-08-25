@@ -1,6 +1,6 @@
-// src/pages/ProfileForm.js
+// src/pages/ProfileForm.js (Versão Reformada)
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -12,13 +12,13 @@ function ProfileForm() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
+    name: '', // <<< CAMPO "NOME" DE VOLTA!
     age: '',
     weight: '',
-    height: '', // Em CM
+    height: '',
     gender: 'male',
     objective: 'maintain-weight',
-    activityLevel: 'moderate',
+    activityLevel: 'light', // <<< CAMPO "NÍVEL DE ATIVIDADE" ADICIONADO!
   });
   const [calculatedGoals, setCalculatedGoals] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,18 +37,18 @@ function ProfileForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, age, weight, height, gender, objective
-
-
-     } = formData;
-    if (!name || !age || !weight || !height || !gender || !objective) {
+    // Agora validamos o 'activityLevel' também
+    const { name, age, weight, height, gender, objective, activityLevel } = formData;
+    if (!name || !age || !weight || !height || !gender || !objective || !activityLevel) {
       toast.error(t('profile_form.erro_campos'));
       return;
     }
 
     const bmr = calculateBMR(gender, parseFloat(weight), parseFloat(height), parseFloat(age));
-    const tdee = calculateTDEE(bmr);
-    const goals = calculateMacros(tdee, objective);
+    // Passamos o 'activityLevel' para o cálculo do TDEE
+    const tdee = calculateTDEE(bmr, activityLevel); 
+    const goals = calculateMacros(tdee, objective, parseFloat(weight));
+    
     setCalculatedGoals(goals);
     setIsModalOpen(true);
   };
@@ -63,19 +63,17 @@ function ProfileForm() {
   return (
     <div className="profile-form-container">
       <form className="profile-form" onSubmit={handleSubmit}>
+        <Link to="/perfil" className="back-button-form">← Voltar</Link>
         <h2>{t('profile_form.titulo')}</h2>
         <p>{t('profile_form.descricao')}</p>
 
+        {/* ================================================== */}
+        {/* === CAMPO "NOME" REINTRODUZIDO AQUI === */}
+        {/* ================================================== */}
         <div className="form-group">
-  <label htmlFor="activityLevel">{t('perfil.nivel_atividade')}</label>
-  <select id="activityLevel" name="activityLevel" value={formData.activityLevel} onChange={handleChange} required>
-    <option value="">{t('perfil.selecione_atividade')}</option>
-    <option value="sedentary">{t('perfil.sedentario')}</option>
-    <option value="light">{t('perfil.leve')}</option>
-    <option value="moderate">{t('perfil.moderado')}</option>
-    <option value="very_active">{t('perfil.muito_ativo')}</option>
-  </select>
-</div>
+            <label htmlFor="name">{t('profile_form.nome_label')}</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+        </div>
 
         <div className="form-row">
           <div className="form-group">
@@ -90,6 +88,19 @@ function ProfileForm() {
             <label htmlFor="height">{t('profile_form.altura_label')}</label>
             <input type="number" id="height" name="height" value={formData.height} onChange={handleChange} placeholder="Ex: 180" required />
           </div>
+        </div>
+        
+        {/* ================================================== */}
+        {/* === NOVO SELETOR DE NÍVEL DE ATIVIDADE === */}
+        {/* ================================================== */}
+        <div className="form-group">
+          <label htmlFor="activityLevel">{t('profile_form.atividade_label')}</label>
+          <select id="activityLevel" name="activityLevel" value={formData.activityLevel} onChange={handleChange}>
+            <option value="sedentary">{t('profile_form.atividade_sedentario')}</option>
+            <option value="light">{t('profile_form.atividade_leve')}</option>
+            <option value="moderate">{t('profile_form.atividade_moderado')}</option>
+            <option value="very_active">{t('profile_form.atividade_ativo')}</option>
+          </select>
         </div>
 
         <div className="form-group">
