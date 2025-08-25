@@ -18,6 +18,7 @@ function ProfileForm() {
     height: '', // Em CM
     gender: 'male',
     objective: 'maintain-weight',
+    activityLevel: 'moderate',
   });
   const [calculatedGoals, setCalculatedGoals] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +37,10 @@ function ProfileForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, age, weight, height, gender, objective } = formData;
+    const { name, age, weight, height, gender, objective
+
+
+     } = formData;
     if (!name || !age || !weight || !height || !gender || !objective) {
       toast.error(t('profile_form.erro_campos'));
       return;
@@ -63,9 +67,15 @@ function ProfileForm() {
         <p>{t('profile_form.descricao')}</p>
 
         <div className="form-group">
-          <label htmlFor="name">{t('profile_form.nome_label')}</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-        </div>
+  <label htmlFor="activityLevel">{t('perfil.nivel_atividade')}</label>
+  <select id="activityLevel" name="activityLevel" value={formData.activityLevel} onChange={handleChange} required>
+    <option value="">{t('perfil.selecione_atividade')}</option>
+    <option value="sedentary">{t('perfil.sedentario')}</option>
+    <option value="light">{t('perfil.leve')}</option>
+    <option value="moderate">{t('perfil.moderado')}</option>
+    <option value="very_active">{t('perfil.muito_ativo')}</option>
+  </select>
+</div>
 
         <div className="form-row">
           <div className="form-group">

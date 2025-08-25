@@ -7,89 +7,80 @@
 
 export const EXERCISE_LIBRARY = {
   // --- PEITO ---
-  'supino-reto-halter': { id: 'supino-reto-halter', name: 'Supino reto com halter', description: 'Principal construtor de massa para o peitoral.', muscleGroup: 'peito', localVideo: '/videos/supinu.mp4', image: '/images/supino.jpg' },
-  'supino-inclinado-halter': { id: 'supino-inclinado-halter', name: 'Supino inclinado com halter', description: 'Foco na porção superior (clavicular) do peito.', muscleGroup: 'peito', localVideo: '/videos/su.mp4', image: '/images/inclinado.jpg' },
-  'supino-reto-polia': { id: 'supino-reto-polia', name: 'Supino reto polia', description: 'Excelente para alongar e trabalhar a parte interna do peitoral.', muscleGroup: 'peito', localVideo: '/videos/p.mp4', image: '/images/cruci.jpg' },
-  'crossover-polia-alta': { id: 'crossover-polia-alta', name: 'Crossover na polia alta', description: 'Ótimo para definição e pico de contração.', muscleGroup: 'peito', localVideo: '/videos/cro.mp4', image: '/images/cross.jpg' },
-  'supino-reto-barra': { id: 'supino-reto-barra', name: 'Supino reto com barra', description: 'Exercício base para força e volume no peitoral.', muscleGroup: 'peito', localVideo: '/videos/supino-reto-com-barra.mp4', image: '/images/supino-reto-com-barra-card.jpg' },
+  'supino-reto-halter': { id: 'supino-reto-halter', name: 'Supino reto com halter', description: 'Principal construtor de massa para o peitoral.', muscleGroup: 'peito', localVideo: '/media/videos/supinu.mp4', image: '/media/images/biblioteca/supino.jpg' },
+  'supino-inclinado-halter': { id: 'supino-inclinado-halter', name: 'Supino inclinado com halter', description: 'Foco na porção superior (clavicular) do peito.', muscleGroup: 'peito', localVideo: '/media/videos/su.mp4', image: '/media/images/biblioteca/inclinado.jpg' },
+  'supino-reto-polia': { id: 'supino-reto-polia', name: 'Supino reto polia', description: 'Excelente para alongar e trabalhar a parte interna do peitoral.', muscleGroup: 'peito', localVideo: '/media/videos/p.mp4', image: '/media/images/biblioteca/cruci.jpg' },
+  'crossover-polia-alta': { id: 'crossover-polia-alta', name: 'Crossover na polia alta', description: 'Ótimo para definição e pico de contração.', muscleGroup: 'peito', localVideo: '/media/videos/cro.mp4', image: '/media/images/biblioteca/cross.jpg' },
+  'supino-reto-barra': { id: 'supino-reto-barra', name: 'Supino reto com barra', description: 'Exercício base para força e volume no peitoral.', muscleGroup: 'peito', localVideo: '/media/videos/supino-reto-com-barra.mp4', image: '/media/images/biblioteca/supino-reto-com-barra-card.jpg' },
 
   // --- TRÍCEPS ---
-  'triceps-corda-polia': { id: 'triceps-corda-polia', name: 'Tríceps corda na polia', description: 'Isolamento eficaz para todas as cabeças do tríceps.', muscleGroup: 'triceps', localVideo: '/videos/polia.mp4', image: '/images/corda.jpg' },
-  'triceps-testa-barra': { id: 'triceps-testa-barra', name: 'Tríceps testa com barra', description: 'Foco na cabeça longa do tríceps, ótimo para volume.', muscleGroup: 'triceps', localVideo: '/videos/tes.mp4', image: '/images/testa.jpg' },
-  'triceps-mergulho': { id: 'triceps-mergulho', name: 'Tríceps mergulho', description: 'Exercício com peso corporal que trabalha força e resistência.', muscleGroup: 'triceps', localVideo: '/videos/mergulho.mp4', image: '/images/mergulho.jpg' },
+  'triceps-corda-polia': { id: 'triceps-corda-polia', name: 'Tríceps corda na polia', description: 'Isolamento eficaz para todas as cabeças do tríceps.', muscleGroup: 'triceps', localVideo: '/media/videos/polia.mp4', image: '/media/images/biblioteca/corda.jpg' },
+  'triceps-testa-barra': { id: 'triceps-testa-barra', name: 'Tríceps testa com barra', description: 'Foco na cabeça longa do tríceps, ótimo para volume.', muscleGroup: 'triceps', localVideo: '/media/videos/tes.mp4', image: '/media/images/biblioteca/testa.jpg' },
+  'triceps-mergulho': { id: 'triceps-mergulho', name: 'Tríceps mergulho', description: 'Exercício com peso corporal que trabalha força e resistência.', muscleGroup: 'triceps', localVideo: '/media/videos/mergulho.mp4', image: '/media/images/biblioteca/mergulho.jpg' },
 
   // --- COSTAS ---
-  'puxada-frente': { id: 'puxada-frente', name: 'Puxada na frente', description: 'Construtor de largura para as costas (dorsais).', muscleGroup: 'costas', localVideo: '/videos/pux.mp4', image: '/images/puxada.jpg' },
-  'remada-curvada-barra': { id: 'remada-curvada-barra', name: 'Remada curvada com barra', description: 'Trabalha a espessura do meio das costas.', muscleGroup: 'costas', localVideo: '/videos/cur.mp4', image: '/images/remada1.jpg' },
-  'remada-serrote': { id: 'remada-serrote', name: 'Remada serrote', description: 'Corrige desequilíbrios e trabalha cada lado individualmente.', muscleGroup: 'costas', localVideo: '/videos/ser.mp4', image: '/images/unilateral.jpg' },
-  'remada-baixa-polia': { id: 'remada-baixa-polia', name: 'Remada baixa na polia', description: 'Foco na parte inferior da dorsal e trapézio.', muscleGroup: 'costas', localVideo: '/videos/re.mp4', image: '/images/remada.jpg' },
+  'puxada-frente': { id: 'puxada-frente', name: 'Puxada na frente', description: 'Construtor de largura para as costas (dorsais).', muscleGroup: 'costas', localVideo: '/media/videos/pux.mp4', image: '/media/images/biblioteca/puxada.jpg' },
+  'remada-curvada-barra': { id: 'remada-curvada-barra', name: 'Remada curvada com barra', description: 'Trabalha a espessura do meio das costas.', muscleGroup: 'costas', localVideo: '/media/videos/cur.mp4', image: '/media/images/biblioteca/remada1.jpg' },
+  'remada-serrote': { id: 'remada-serrote', name: 'Remada serrote', description: 'Corrige desequilíbrios e trabalha cada lado individualmente.', muscleGroup: 'costas', localVideo: '/media/videos/ser.mp4', image: '/media/images/biblioteca/unilateral.jpg' },
+  'remada-baixa-polia': { id: 'remada-baixa-polia', name: 'Remada baixa na polia', description: 'Foco na parte inferior da dorsal e trapézio.', muscleGroup: 'costas', localVideo: '/media/videos/re.mp4', image: '/media/images/biblioteca/remada.jpg' },
   
   // --- BÍCEPS ---
-  'rosca-direta-barra': { id: 'rosca-direta-barra', name: 'Rosca direta com barra', description: 'O principal construtor de massa para o bíceps.', muscleGroup: 'biceps', localVideo: '/videos/ro.mp4', image: '/images/rosca.jpg' },
-  'rosca-alternada-halteres': { id: 'rosca-alternada-halteres', name: 'Rosca alternada com halteres', description: 'Trabalha cada braço individualmente, focando na supinação.', muscleGroup: 'biceps', localVideo: '/videos/rosca.mp4', image: '/images/alternada.jpg' },
-  'rosca-martelo': { id: 'rosca-martelo', name: 'Rosca martelo', description: 'Trabalha o braquial e o antebraço, dando espessura ao braço.', muscleGroup: 'biceps', localVideo: '/videos/mar.mp4', image: '/images/martelo.jpg' },
+  'rosca-direta-barra': { id: 'rosca-direta-barra', name: 'Rosca direta com barra', description: 'O principal construtor de massa para o bíceps.', muscleGroup: 'biceps', localVideo: '/media/videos/ro.mp4', image: '/media/images/biblioteca/rosca.jpg' },
+  'rosca-alternada-halteres': { id: 'rosca-alternada-halteres', name: 'Rosca alternada com halteres', description: 'Trabalha cada braço individualmente, focando na supinação.', muscleGroup: 'biceps', localVideo: '/media/videos/rosca.mp4', image: '/media/images/biblioteca/alternada.jpg' },
+  'rosca-martelo': { id: 'rosca-martelo', name: 'Rosca martelo', description: 'Trabalha o braquial e o antebraço, dando espessura ao braço.', muscleGroup: 'biceps', localVideo: '/media/videos/mar.mp4', image: '/media/images/biblioteca/martelo.jpg' },
   
   // --- OMBROS ---
-  'desenvolvimento-halteres': { id: 'desenvolvimento-halteres', name: 'Desenvolvimento com halteres', description: 'Trabalha todas as cabeças do deltoide.', muscleGroup: 'ombros', localVideo: '/videos/desen.mp4', image: '/images/desenvolvimento-card.jpg' },
-  'elevacao-lateral': { id: 'elevacao-lateral', name: 'Elevação lateral', description: 'O melhor exercício para criar o aspecto de ombros largos.', muscleGroup: 'ombros', localVideo: '/videos/lat.mp4', image: '/images/elevacao-card.jpg' },
-  'elevacao-frontal': { id: 'elevacao-frontal', name: 'Elevação frontal', description: 'Isola a parte frontal do deltoide.', muscleGroup: 'ombros', localVideo: '/videos/front.mp4', image: '/images/frontal-card.jpg' },
-  'crucifixo-invertido': { id: 'crucifixo-invertido', name: 'Crucifixo invertido', description: 'Foco nos deltoides posteriores e miolo das costas.', muscleGroup: 'ombros', localVideo: '/videos/inv.mp4', image: '/images/inv.jpg' },
+  'desenvolvimento-halteres': { id: 'desenvolvimento-halteres', name: 'Desenvolvimento com halteres', description: 'Trabalha todas as cabeças do deltoide.', muscleGroup: 'ombros', localVideo: '/media/videos/desen.mp4', image: '/media/images/biblioteca/desenvolvimento-card.jpg' },
+  'elevacao-lateral': { id: 'elevacao-lateral', name: 'Elevação lateral', description: 'O melhor exercício para criar o aspecto de ombros largos.', muscleGroup: 'ombros', localVideo: '/media/videos/lat.mp4', image: '/media/images/biblioteca/elevacao-card.jpg' },
+  'elevacao-frontal': { id: 'elevacao-frontal', name: 'Elevação frontal', description: 'Isola a parte frontal do deltoide.', muscleGroup: 'ombros', localVideo: '/media/videos/front.mp4', image: '/media/images/biblioteca/frontal-card.jpg' },
+  'crucifixo-invertido': { id: 'crucifixo-invertido', name: 'Crucifixo invertido', description: 'Foco nos deltoides posteriores e miolo das costas.', muscleGroup: 'ombros', localVideo: '/media/videos/inv.mp4', image: '/media/images/biblioteca/inv.jpg' },
 
   // --- QUADRÍCEPS ---
-  'agachamento-livre': { id: 'agachamento-livre', name: 'Agachamento livre', description: 'O rei dos exercícios de perna.', muscleGroup: 'quadriceps', localVideo: '/videos/agacholivre.mp4', image: '/images/agachamento-card.jpg' },
-  'leg-press': { id: 'leg-press', name: 'Leg press', description: 'Permite mover cargas altas com segurança.', muscleGroup: 'quadriceps', localVideo: '/videos/leg-press.mp4', image: '/images/leg-card.jpg' },
-  'agachamento-invertido': { id: 'agachamento-invertido', name: 'Agachamento invertido', description: 'Variação que pode focar mais em glúteos ou quadríceps.', muscleGroup: 'quadriceps', localVideo: '/videos/invergacho.mp4', image: '/images/againv.jpg' },
-  'cadeira-extensora': { id: 'cadeira-extensora', name: 'Cadeira extensora', description: 'Isolamento máximo para o quadríceps.', muscleGroup: 'quadriceps', localVideo: '/videos/cadeira-extensora.mp4', image: '/images/cadeira-card.jpg' },
-  'agachamento-bulgaro': { id: 'agachamento-bulgaro', name: 'Agachamento búlgaro', description: 'Excelente para equilíbrio e trabalho unilateral.', muscleGroup: 'quadriceps', localVideo: '/videos/agachamento-bulgaro.mp4', image: '/images/bulgaro-card.jpg' },
-  'leg-press-sumo': { id: 'leg-press-sumo', name: 'Leg press sumô', description: 'Foco nos adutores e glúteos além do quadríceps.', muscleGroup: 'quadriceps', localVideo: '/videos/leg-sumoxd.mp4', image: '/images/legsumo.jpg' },
-  'agachamento-smith': { id: 'agachamento-smith', name: 'Agachamento smith', description: 'Permite uma execução mais controlada e segura.', muscleGroup: 'quadriceps', localVideo: '/videos/controlada.mp4', image: '/images/smitiaga.jpg' },
+  'agachamento-livre': { id: 'agachamento-livre', name: 'Agachamento livre', description: 'O rei dos exercícios de perna.', muscleGroup: 'quadriceps', localVideo: '/media/videos/agacholivre.mp4', image: '/media/images/biblioteca/agachamento-card.jpg' },
+  'leg-press': { id: 'leg-press', name: 'Leg press', description: 'Permite mover cargas altas com segurança.', muscleGroup: 'quadriceps', localVideo: '/media/videos/leg-press.mp4', image: '/media/images/biblioteca/leg-card.jpg' },
+  'agachamento-invertido': { id: 'agachamento-invertido', name: 'Agachamento invertido', description: 'Variação que pode focar mais em glúteos ou quadríceps.', muscleGroup: 'quadriceps', localVideo: '/media/videos/invergacho.mp4', image: '/media/images/biblioteca/againv.jpg' },
+  'cadeira-extensora': { id: 'cadeira-extensora', name: 'Cadeira extensora', description: 'Isolamento máximo para o quadríceps.', muscleGroup: 'quadriceps', localVideo: '/media/videos/cadeira-extensora.mp4', image: '/media/images/biblioteca/cadeira-card.jpg' },
+  'agachamento-bulgaro': { id: 'agachamento-bulgaro', name: 'Agachamento búlgaro', description: 'Excelente para equilíbrio e trabalho unilateral.', muscleGroup: 'quadriceps', localVideo: '/media/videos/agachamento-bulgaro.mp4', image: '/media/images/biblioteca/bulgaro-card.jpg' },
+  'leg-press-sumo': { id: 'leg-press-sumo', name: 'Leg press sumô', description: 'Foco nos adutores e glúteos além do quadríceps.', muscleGroup: 'quadriceps', localVideo: '/media/videos/leg-sumoxd.mp4', image: '/media/images/biblioteca/legsumo.jpg' },
+  'agachamento-smith': { id: 'agachamento-smith', name: 'Agachamento smith', description: 'Permite uma execução mais controlada e segura.', muscleGroup: 'quadriceps', localVideo: '/media/videos/controlada.mp4', image: '/media/images/biblioteca/smitiaga.jpg' },
   
   // --- POSTERIOR DE COXA ---
-  'stiff-barra': { id: 'stiff-barra', name: 'Stiff com barra', description: 'Excelente para alongar e fortalecer o posterior.', muscleGroup: 'posterior-coxa', localVideo: '/videos/stiff-com-barra.mp4', image: '/images/stiff-card.jpg' },
-  'mesa-flexora': { id: 'mesa-flexora', name: 'Mesa flexora', description: 'Isolamento para os isquiotibiais (posteriores).', muscleGroup: 'posterior-coxa', localVideo: '/videos/mes.mp4', image: '/images/mesa-flexora-card.jpg' },
-  'cadeira-flexora': { id: 'cadeira-flexora', name: 'Cadeira flexora', description: 'Ótimo isolamento para posteriores, sentado.', muscleGroup: 'posterior-coxa', localVideo: '/videos/posteripos.mp4', image: '/images/cadpost.jpg' },
-  'levantamento-terra-romeno': { id: 'levantamento-terra-romeno', name: 'Levantamento terra romeno', description: 'Variação do Stiff com foco na contração.', muscleGroup: 'posterior-coxa', localVideo: '/videos/levantamento-terra-romeno.mp4', image: '/images/terra-romeno-card.jpg' },
-  'good-morning': { id: 'good-morning', name: '"Good morning"', description: 'Exige mais elasticidade. Ótima ativação.', muscleGroup: 'posterior-coxa', localVideo: '/videos/xaaxa.mp4', image: '/images/goodmorning.jpg' },
+  'stiff-barra': { id: 'stiff-barra', name: 'Stiff com barra', description: 'Excelente para alongar e fortalecer o posterior.', muscleGroup: 'posterior-coxa', localVideo: '/media/videos/stiff-com-barra.mp4', image: '/media/images/biblioteca/stiff-card.jpg' },
+  'mesa-flexora': { id: 'mesa-flexora', name: 'Mesa flexora', description: 'Isolamento para os isquiotibiais (posteriores).', muscleGroup: 'posterior-coxa', localVideo: '/media/videos/mes.mp4', image: '/media/images/biblioteca/mesa-flexora-card.jpg' },
+  'cadeira-flexora': { id: 'cadeira-flexora', name: 'Cadeira flexora', description: 'Ótimo isolamento para posteriores, sentado.', muscleGroup: 'posterior-coxa', localVideo: '/media/videos/posteripos.mp4', image: '/media/images/biblioteca/cadpost.jpg' },
+  'levantamento-terra-romeno': { id: 'levantamento-terra-romeno', name: 'Levantamento terra romeno', description: 'Variação do Stiff com foco na contração.', muscleGroup: 'posterior-coxa', localVideo: '/media/videos/levantamento-terra-romeno.mp4', image: '/media/images/biblioteca/terra-romeno-card.jpg' },
+  'good-morning': { id: 'good-morning', name: '"Good morning"', description: 'Exige mais elasticidade. Ótima ativação.', muscleGroup: 'posterior-coxa', localVideo: '/media/videos/xaaxa.mp4', image: '/media/images/biblioteca/goodmorning.jpg' },
   
   // --- GLÚTEOS ---
-  'elevacao-quadril': { id: 'elevacao-quadril', name: 'Elevação de quadril (hip thrust)', description: 'O melhor exercício para ativação dos glúteos.', muscleGroup: 'gluteos', localVideo: '/videos/elevacao-de-quadril.mp4', image: '/images/elevacao-de-quadril-card.jpg' }, 
-  'agachamento-sumo': { id: 'agachamento-sumo', name: 'Agachamento sumô', description: 'Foco nos glúteos e na parte interna da coxa.', muscleGroup: 'gluteos', localVideo: '/videos/sumo.mp4', image: '/images/sumo-card.jpg' },
-  'coice-cabo': { id: 'coice-cabo', name: 'Coice no cabo', description: 'Isolamento que permite um pico de contração no glúteo.', muscleGroup: 'gluteos', localVideo: '/videos/coice-no-cabo.mp4', image: '/images/coice-card.jpg' },
-  'passada-lateral': { id: 'passada-lateral', name: 'Passada lateral', description: 'Boa ativação de glúteos, com foco no glúteo médio.', muscleGroup: 'gluteos', localVideo: '/videos/xixixixix.mp4', image: '/images/passadaa.jpg' },
+  'elevacao-quadril': { id: 'elevacao-quadril', name: 'Elevação de quadril (hip thrust)', description: 'O melhor exercício para ativação dos glúteos.', muscleGroup: 'gluteos', localVideo: '/media/videos/elevacao-de-quadril.mp4', image: '/media/images/biblioteca/elevacao-de-quadril-card.jpg' }, 
+  'agachamento-sumo': { id: 'agachamento-sumo', name: 'Agachamento sumô', description: 'Foco nos glúteos e na parte interna da coxa.', muscleGroup: 'gluteos', localVideo: '/media/videos/sumo.mp4', image: '/media/images/biblioteca/sumo-card.jpg' },
+  'coice-cabo': { id: 'coice-cabo', name: 'Coice no cabo', description: 'Isolamento que permite um pico de contração no glúteo.', muscleGroup: 'gluteos', localVideo: '/media/videos/coice-no-cabo.mp4', image: '/media/images/biblioteca/coice-card.jpg' },
+  'passada-lateral': { id: 'passada-lateral', name: 'Passada lateral', description: 'Boa ativação de glúteos, com foco no glúteo médio.', muscleGroup: 'gluteos', localVideo: '/media/videos/xixixixix.mp4', image: '/media/images/biblioteca/passadaa.jpg' },
 
   // --- PANTURRILHAS ---
-  'panturrilha-em-pe': { id: 'panturrilha-em-pe', name: 'Panturrilha em pé', description: 'Trabalha o gastrocnêmio, a parte maior da panturrilha.', muscleGroup: 'panturrilhas', localVideo: '/videos/panturrilha-em-pe.mp4', image: '/images/pantu.jpg' },
-  'panturrilha-sentado': { id: 'panturrilha-sentado', name: 'Elevação de panturrilha sentado', description: 'Foco no sóleo, músculo que dá espessura à panturrilha.', muscleGroup: 'panturrilhas', localVideo: '/videos/panturrilha-sentado.mp4', image: '/images/sentado-car.jpg' },
-  'panturrilha-leg-press': { id: 'panturrilha-leg-press', name: 'Panturrilha no leg press', description: 'Permite usar altas cargas de forma estável.', muscleGroup: 'panturrilhas', localVideo: '/videos/panturrilha-no-leg-press.mp4', image: '/images/pantu-leg.jpg' },
+  'panturrilha-em-pe': { id: 'panturrilha-em-pe', name: 'Panturrilha em pé', description: 'Trabalha o gastrocnêmio, a parte maior da panturrilha.', muscleGroup: 'panturrilhas', localVideo: '/media/videos/panturrilha-em-pe.mp4', image: '/media/images/biblioteca/pantu.jpg' },
+  'panturrilha-sentado': { id: 'panturrilha-sentado', name: 'Elevação de panturrilha sentado', description: 'Foco no sóleo, músculo que dá espessura à panturrilha.', muscleGroup: 'panturrilhas', localVideo: '/media/videos/panturrilha-sentado.mp4', image: '/media/images/biblioteca/sentado-car.jpg' },
+  'panturrilha-leg-press': { id: 'panturrilha-leg-press', name: 'Panturrilha no leg press', description: 'Permite usar altas cargas de forma estável.', muscleGroup: 'panturrilhas', localVideo: '/media/videos/panturrilha-no-leg-press.mp4', image: '/media/images/biblioteca/pantu-leg.jpg' },
 
   // --- ABDUTORES / ADUTORES ---
-  'cadeira-adutora': { id: 'cadeira-adutora', name: 'Cadeira adutora', description: 'Foco na parte interna da coxa.', muscleGroup: 'adutores-abdutores', localVideo: '/videos/adutora.mp4', image: '/images/adutora-card.jpg' },
-  'cadeira-abdutora': { id: 'cadeira-abdutora', name: 'Cadeira abdutora', description: 'Trabalha o glúteo médio, na parte externa do quadril.', muscleGroup: 'adutores-abdutores', localVideo: '/videos/abdutora.mp4', image: '/images/abdutora-card.jpg' },
+  'cadeira-adutora': { id: 'cadeira-adutora', name: 'Cadeira adutora', description: 'Foco na parte interna da coxa.', muscleGroup: 'adutores-abdutores', localVideo: '/media/videos/adutora.mp4', image: '/media/images/biblioteca/adutora-card.jpg' },
+  'cadeira-abdutora': { id: 'cadeira-abdutora', name: 'Cadeira abdutora', description: 'Trabalha o glúteo médio, na parte externa do quadril.', muscleGroup: 'adutores-abdutores', localVideo: '/media/videos/abdutora.mp4', image: '/media/images/biblioteca/abdutora-card.jpg' },
 
   // --- ABDÔMEN ---
-  'abdomen-encolhimento': { id: 'abdomen-encolhimento', name: 'Encolhimento (Crunch)', description: 'Foco na parte superior do abdômen.', muscleGroup: 'abdomen', localVideo: '/videos/eabc.mp4', image: '/images/ombreta-card.jpg' },
-  'prancha-isometrica': { id: 'prancha-isometrica', name: 'Prancha isométrica', description: 'Fortalece o core como um todo, incluindo lombar.', muscleGroup: 'abdomen', localVideo: '/videos/0725.mp4', image: '/images/prancha-card.jpg' },
+  'abdomen-encolhimento': { id: 'abdomen-encolhimento', name: 'Encolhimento (Crunch)', description: 'Foco na parte superior do abdômen.', muscleGroup: 'abdomen', localVideo: '/media/videos/eabc.mp4', image: '/media/images/biblioteca/ombreta-card.jpg' },
+  'prancha-isometrica': { id: 'prancha-isometrica', name: 'Prancha isométrica', description: 'Fortalece o core como um todo, incluindo lombar.', muscleGroup: 'abdomen', localVideo: '/media/videos/0725.mp4', image: '/media/images/biblioteca/prancha-card.jpg' },
 
   // --- TRAPÉZIO ---
-  'encolhimento-halteres': { id: 'encolhimento-halteres', name: 'Encolhimento com halteres', description: 'Exercício fundamental para a parte superior do trapézio.', muscleGroup: 'trapezio', localVideo: '/videos/en.mp4', image: '/images/encolhimento.jpg' },
-  'encolhimento-barra': { id: 'encolhimento-barra', name: 'Encolhimento com barra', description: 'Permite maior sobrecarga de peso para o trapézio.', muscleGroup: 'trapezio', localVideo: '/videos/e.mp4', image: '/images/iii.jpg' },
-  'remada-alta': { id: 'remada-alta', name: 'Remada alta', description: 'Trabalha o trapézio em conjunto com os deltoides.', muscleGroup: 'trapezio', localVideo: '/videos/alta.mp4', image: '/images/alta-card.jpg' },
+  'encolhimento-halteres': { id: 'encolhimento-halteres', name: 'Encolhimento com halteres', description: 'Exercício fundamental para a parte superior do trapézio.', muscleGroup: 'trapezio', localVideo: '/media/videos/en.mp4', image: '/media/images/biblioteca/encolhimento.jpg' },
+  'encolhimento-barra': { id: 'encolhimento-barra', name: 'Encolhimento com barra', description: 'Permite maior sobrecarga de peso para o trapézio.', muscleGroup: 'trapezio', localVideo: '/media/videos/e.mp4', image: '/media/images/biblioteca/iii.jpg' },
+  'remada-alta': { id: 'remada-alta', name: 'Remada alta', description: 'Trabalha o trapézio em conjunto com os deltoides.', muscleGroup: 'trapezio', localVideo: '/media/videos/alta.mp4', image: '/media/images/biblioteca/alta-card.jpg' },
   
   // --- ANTEBRAÇO ---
-  'rosca-inversa': { id: 'rosca-inversa', name: 'Rosca inversa', description: 'Fortalece os extensores do punho e o braquiorradial.', muscleGroup: 'antebraco', localVideo: '/videos/ros.mp4', image: '/images/invertida.jpg' },
-  'rosca-de-punho': { id: 'rosca-de-punho', name: 'Rosca de punho', description: 'Isolamento para os flexores do punho (parte interna).', muscleGroup: 'antebraco', localVideo: '/videos/ante.mp4', image: '/images/rosca-card.jpg' },
+  'rosca-inversa': { id: 'rosca-inversa', name: 'Rosca inversa', description: 'Fortalece os extensores do punho e o braquiorradial.', muscleGroup: 'antebraco', localVideo: '/media/videos/ros.mp4', image: '/media/images/biblioteca/invertida.jpg' },  'rosca-de-punho': { id: 'rosca-de-punho', name: 'Rosca de punho', description: 'Isolamento para os flexores do punho (parte interna).', muscleGroup: 'antebraco', localVideo: '/media/videos/ante.mp4', image: '/media/images/biblioteca/rosca-card.jpg' },
 };
 
 // ===================================================================================
 // PARTE 2: AS ROTINAS PRONTAS (O CARDÁPIO DE TREINOS)
-// Estruturas de treinos que APENAS referenciam os IDs da nossa Enciclopédia.
-// ===================================================================================
-
-// src/data/workoutDatabase.js -> Substitua esta parte
-
-// ===================================================================================
-// PARTE 2: AS ROTINAS PRONTAS (O CARDÁPIO DE TREINOS) - VERSÃO ALINHADA
-// ===================================================================================
 
 export const ROUTINE_DATABASE = {
   'peito-triceps': {
@@ -284,3 +275,14 @@ function auditRoutines() {
 
 // Chame a função aqui para rodar a auditoria sempre que o app carregar (durante o desenvolvimento)
 auditRoutines();
+
+// Adicione esta nova exportação no seu workoutDatabase.js
+
+export const BODY_PART_MAP = {
+  superior: [
+    'Peito & Tríceceps', 'Costas & Bíceps', 'Ombros Completo', 'Trapézio', 'Antebraço', 'Abdômen', 'Peito', 'Tríceps', 'Costas', 'Bíceps', 'Ombros'
+  ],
+  inferior: [
+    'Pernas Completo', 'Quadríceps', 'Posterior de Coxa', 'Glúteos', 'Panturrilhas', 'Adutores & Abdutores'
+  ]
+};

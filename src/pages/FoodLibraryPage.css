@@ -1,0 +1,42 @@
+/* Adicione no final do src/pages/FoodLibraryPage.css */
+
+.library-search-container {
+  padding: 0 20px 20px 20px;
+}
+
+.library-search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #222;
+  color: #fff;
+  font-size: 1em;
+}
+
+.accordion-item-lib {
+  margin-bottom: 10px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.accordion-header-lib {
+  width: 100%;
+  background-color: rgba(34,34,34,0.8);
+  color: #FFC107;
+  padding: 15px 20px;
+  border: none;
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.accordion-content-lib {
+  padding: 15px;
+  background-color: rgba(0,0,0,0.3);
+}

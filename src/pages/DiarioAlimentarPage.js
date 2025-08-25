@@ -1,28 +1,25 @@
+// src/pages/DiarioAlimentarPage.js (Sua versão + Protocolo 3 Completo)
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FOOD_DATABASE } from '../data/FoodLibrary';
 import { WATER_OPTIONS } from '../data/WaterOptions';
 import { EXERCISE_LIST } from '../data/ExerciseList';
 import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake, calculateSleepDuration } from '../utils/MetabolismCalculator';
 import TodaysLogSidebar from '../components/TodaysLogSidebar';
 
 const calculateLogTotals = (log) => {
-  let cals = 0, prot = 0, carb = 0, fat = 0;
-  log.forEach(item => {
-    if (item.calories) cals += item.calories;
-    if (item.type === 'food' && item.calories > 0) {
-      if(item.protein) prot += item.protein;
-      if(item.carbs) carb += item.carbs;
-      if(item.fat) fat += item.fat;
-    }
-  });
-  return {
-    calories: Math.round(cals), protein: Math.round(prot),
-    carbs: Math.round(carb), fat: Math.round(fat)
-  };
+    let cals = 0, prot = 0, carb = 0, fat = 0;
+    log.forEach(item => {
+      if (item.calories) cals += item.calories;
+      if (item.type === 'food' && item.calories > 0) {
+        if(item.protein) prot += item.protein;
+        if(item.carbs) carb += item.carbs;
+        if(item.fat) fat += item.fat;
+      }
+    });
+    return { calories: Math.round(cals), protein: Math.round(prot), carbs: Math.round(carb), fat: Math.round(fat) };
 };
-
 const calculateBurnedCalories = (log) => {
     let burned = 0;
     log.forEach(item => {
@@ -32,7 +29,6 @@ const calculateBurnedCalories = (log) => {
     });
     return burned;
 };
-
 const calculateWaterTotal = (log) => {
     let water = 0;
     log.forEach(item => {
@@ -43,14 +39,13 @@ const calculateWaterTotal = (log) => {
     return water;
 };
 
+
 function DiarioAlimentarPage() {
   const [todaysLog, setTodaysLog] = useState([]);
   const [totals, setTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 });
   const [userGoals, setUserGoals] = useState(null);
   const [userName, setUserName] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [openCategories, setOpenCategories] = useState({});
   const [waterGoal, setWaterGoal] = useState(3000);
   const [manualCalories, setManualCalories] = useState('');
   const [sleepTime, setSleepTime] = useState('');
@@ -69,6 +64,38 @@ function DiarioAlimentarPage() {
   };
 
   useEffect(() => {
+    // ===================================================================
+    // PROTOCOLO 3: VERIFICADOR DE NOVO DIA E ARQUIVAMENTO HISTÓRICO
+    // ===================================================================
+    const today = new Date().toISOString().split('T')[0];
+    const lastLogDate = localStorage.getItem('gabgymLastLogDate');
+
+    if (lastLogDate && lastLogDate !== today) {
+      const previousLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
+      if (previousLog.length > 0) {
+          const previousTotals = calculateLogTotals(previousLog);
+          const history = JSON.parse(localStorage.getItem('gabgymLogHistory') || '[]');
+          
+          history.push({
+              date: lastLogDate,
+              calories: previousTotals.calories,
+              protein: previousTotals.protein,
+              carbs: previousTotals.carbs,
+              fat: previousTotals.fat,
+          });
+
+          localStorage.setItem('gabgymLogHistory', JSON.stringify(history));
+          
+          localStorage.removeItem('gabgymTodaysLog');
+          localStorage.removeItem('gabgymTodaysSleep');
+          toast.info(`Um novo dia começou! O diário de ontem foi arquivado no seu histórico.`);
+      }
+    }
+    localStorage.setItem('gabgymLastLogDate', today);
+    // ===================================================================
+    // FIM DO PROTOCOLO 3
+    // ===================================================================
+      
     const storedUserDataString = localStorage.getItem('gabgymUserData');
     if (storedUserDataString) {
       const userData = JSON.parse(storedUserDataString);
@@ -152,10 +179,6 @@ function DiarioAlimentarPage() {
     toast.info('Diário limpo com sucesso!');
   };
 
-  const toggleCategory = (category) => {
-    setOpenCategories(prev => ({ ...prev, [category]: !prev[category] }));
-  };
-
   const toggleSection = (section) => {
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
@@ -226,16 +249,6 @@ function DiarioAlimentarPage() {
     );
   };
   
-  const filteredFoodDatabase = Object.keys(FOOD_DATABASE).reduce((acc, category) => {
-    const filteredFoods = FOOD_DATABASE[category].filter(food =>
-      food.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (filteredFoods.length > 0) {
-      acc[category] = filteredFoods;
-    }
-    return acc;
-  }, {});
-
   const sleepGoalInMinutes = 8 * 60;
 
   return (
@@ -268,37 +281,11 @@ function DiarioAlimentarPage() {
                 <span className='accordion-icon'>{openSections.food ? '−' : '+'}</span>
             </button>
             {openSections.food && (
-                <div className="accordion-content">
-                    <div className="search-bar-container">
-                    <input type="text" placeholder="Pesquisar alimento..." className="search-input" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                    </div>
-                    <div className="accordion-container">
-                    {Object.keys(filteredFoodDatabase).map(category => (
-                        <div key={category} className="accordion-item">
-                        <button className="accordion-header" onClick={() => toggleCategory(category)}>
-                            <span>{category}</span>
-                            <span className='accordion-icon'>{openCategories[category] ? '−' : '+'}</span>
-                        </button>
-                        {(openCategories[category] || searchTerm.length > 0) && (
-                            <div className="accordion-content">
-                            <div className="food-list">
-                                {filteredFoodDatabase[category].map(food => (
-                                <div key={food.id} className="food-item-card">
-                                    <img src={food.image} alt={food.name} className="food-item-image" />
-                                    <div className="food-item-info">
-                                    <h4>{food.name}</h4>
-                                    <p>{food.unit} - {food.calories} kcal</p>
-                                    <p className="food-serving-desc">{food.serving_desc}</p>
-                                    </div>
-                                    <button onClick={() => handleAddFood(food)} className="add-food-button">+</button>
-                                </div>
-                                ))}
-                            </div>
-                            </div>
-                        )}
-                        </div>
-                    ))}
-                    </div>
+                <div className="accordion-content simplified-add-food">
+                    <p className="content-description">Adicione alimentos ao seu diário de hoje.</p>
+                    <Link to="/biblioteca-alimentos" className="cta-button">
+                        Consultar Biblioteca de Alimentos
+                    </Link>
                 </div>
             )}
         </div>

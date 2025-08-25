@@ -62,13 +62,13 @@ function ProfilePage() {
     }
     
     setStreak(streakData.count);
-    // =================================================================
+    
 
   }, []);
 
-  // O resto do seu código (handleLogout, etc.) continua perfeito
+  
   const handleLogout = () => {
-    localStorage.clear(); // Limpa TUDO para garantir um logout limpo
+    localStorage.clear(); 
     navigate('/');
     window.location.reload(); 
   };

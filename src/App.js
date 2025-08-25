@@ -15,7 +15,7 @@ import TrainingPlanPage from './pages/TrainingPlanPage';
 import MuscleGroupPage from './pages/MuscleGroupPage';
 import DietPage from './pages/DietPage';
 import CardioPage from './pages/CardioPage';
-import CuriositiesPage from './pages/CuriositiesPage'; // <<< IMPORT QUE FALTAVA
+import CuriositiesPage from './pages/CuriositiesPage';
 import StartCardioPage from './pages/StartCardioPage';
 import SelectActivityPage from './pages/SelectActivityPage';
 import PortfolioPage from './pages/PortfolioPage';
@@ -28,12 +28,14 @@ import RoutineGeneratorPage from './pages/RoutineGeneratorPage';
 import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 import ExerciseDetailPage from './pages/ExerciseDetailPage';
 import LoginPage from './pages/LoginPage';
+import HistoryPage  from './pages/HistoryPage';
+
 
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
-
+import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 // Objeto de cores
 const colors = {
   primaryGreen: '#74E85D',
@@ -136,6 +138,7 @@ function AppContent() {
           <Route path="/profile-form" element={<ProfileForm />} />
           <Route path="/diario" element={<DiarioPage />} />
           <Route path="/diario-alimentar" element={<DiarioAlimentarPage />} />
+          <Route path="/biblioteca-alimentos" element={<FoodLibraryPage />} />
           <Route path="/training-models" element={<TrainingModels />} />
           <Route path="/dietas" element={<DietPage />} />
           <Route path="/cardio" element={<CardioPage />} />
@@ -151,6 +154,7 @@ function AppContent() {
           <Route path="/routine-generator" element={<RoutineGeneratorPage />} />
           <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
+          <Route path="/historico" element={<HistoryPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>

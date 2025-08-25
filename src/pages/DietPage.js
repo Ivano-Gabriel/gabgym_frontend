@@ -24,7 +24,7 @@ function DietPage() {
     const storedUserData = JSON.parse(localStorage.getItem('gabgymUserData'));
 
     if (storedUserData && storedUserData.weight && storedUserData.height && storedUserData.age) {
-      const { gender, weight, height, age, objective } = storedUserData;
+      const { gender, weight, height, age, objective, activityLevel} = storedUserData;
 
 const weightNum = parseFloat(weight) || 0;
 const heightNum = parseFloat(height) || 0;
@@ -46,9 +46,16 @@ if (!weightNum || !heightNum || !ageNum) {
       } else {
         bmr_calculado = 447.593 + (9.247 * weightNum) + (3.098 * heightNum) - (4.330 * ageNum);
       }
-
-      // 2. CALCULA O GASTO TOTAL DO DIA (TDEE)
-      const GASTO_TOTAL_DIARIO = bmr_calculado * 1.55;
+       const activityMultipliers = {
+    sedentary: 1.2,
+    light: 1.375,
+    moderate: 1.55,
+    very_active: 1.725
+  };
+  const multiplier = activityMultipliers[activityLevel] || 1.55; // Usa 1.55 como padrão
+  
+  // 2. CALCULA O GASTO TOTAL DO DIA (TDEE) COM PRECISÃO
+  const GASTO_TOTAL_DIARIO = bmr_calculado * multiplier;
 
       // 3. VAMOS VER NO CONSOLE O QUE ELE CALCULOU
       console.log("BMR (Repouso):", Math.round(bmr_calculado));
@@ -136,7 +143,8 @@ if (!weightNum || !heightNum || !ageNum) {
         </div>
 
         <div className="diet-page-actions">
-        <Link to="/diario-alimentar" className="cta-button">{t('metas.botao_registrar')}</Link>
+        <Link to="/historico" className="secondary-button">{t('metas.botao_historico')}</Link> 
+    <Link to="/diario-alimentar" className="cta-button">{t('metas.botao_registrar')}</Link>
         </div>
         <Link to="/perfil" className="back-button-general" style={{ marginTop: '30px' }}>{t('metas.botao_voltar_hub')}</Link>
       </div>

@@ -1,21 +1,38 @@
-// src/pages/ExerciseDetailPage.js (Versão Final Refatorada)
+// src/pages/ExerciseDetailPage.js (Versão Final Conectada à API)
 
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // Precisamos do useState e useEffect
 import { useParams, Link } from 'react-router-dom';
-// 1. A TROCA DE INTELIGÊNCIA: Importamos nossa nova e única fonte da verdade!
-import { EXERCISE_LIBRARY } from '../data/workoutDatabase';
 import LazyLoadVideo from '../components/LazyLoadVideo';
 import './ExerciseDetailPage.css';
 
-// 2. A BUSCA A LASER: Nossa função de busca ficou 1000x mais simples e rápida!
-// Em vez de procurar em vários lugares, agora a gente só pega o exercício pelo seu ID direto na nossa "enciclopédia".
-const findExerciseById = (id) => {
-  return EXERCISE_LIBRARY[id] || null; // Retorna o exercício se o ID existir, senão retorna nulo.
-};
-
 function ExerciseDetailPage() {
-  const { exerciseId } = useParams(); // Pega o ID do exercício da URL (ex: 'supino-reto-halter')
-  const exercise = findExerciseById(exerciseId);
+  const { exerciseId } = useParams(); // Pega o ID do exercício da URL
+  
+  // 1. NOVOS "CÉREBROS": um para o exercício e outro para o estado de carregamento
+  const [exercise, setExercise] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 2. A MÁGICA DA CONEXÃO: Busca os dados do exercício específico na nossa API
+  useEffect(() => {
+    // Montamos a URL para pedir o exercício exato que queremos
+    const apiUrl = `http://127.0.0.1:8000/api/exercises/${exerciseId}/`;
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) throw new Error('Exercício não encontrado na API');
+        return response.json();
+      })
+      .then(data => {
+        setExercise(data); // Guardamos os dados do exercício no nosso estado
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar exercício:", error);
+        setError(error.message);
+        setLoading(false);
+      });
+  }, [exerciseId]); // Roda essa lógica toda vez que o exerciseId da URL mudar
 
   const pageStyle = {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('/images/detail-bg.jpg')`,
@@ -24,7 +41,12 @@ function ExerciseDetailPage() {
     backgroundAttachment: 'fixed',
   };
 
-  if (!exercise) {
+  // Mensagens de carregando e erro, para uma melhor experiência
+  if (loading) {
+    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title">Carregando Exercício...</h2></div>;
+  }
+  
+  if (error || !exercise) {
     return (
       <div className="content-page" style={pageStyle}>
         <h2 className="workout-page-title">Exercício não encontrado</h2>
@@ -34,22 +56,18 @@ function ExerciseDetailPage() {
     );
   }
 
-  // O resto do seu código já era perfeito e não precisa mudar nada!
+  // 3. O RESULTADO FINAL: O código visual continua o mesmo, mas agora com os dados da API!
   return (
     <div className="content-page" style={pageStyle}>
       <div className="exercise-detail-container">
         <h2 className="exercise-detail-title">{exercise.name}</h2>
         <div className="exercise-detail-video">
-          <LazyLoadVideo src={exercise.localVideo} />
+          <LazyLoadVideo src={`http://127.0.0.1:8000${exercise.local_video_path}`} />
         </div>
         <div className="exercise-detail-description">
           <h3>Como Executar:</h3>
           <p>{exercise.description}</p>
         </div>
-        {/*
-          Aqui no futuro a gente pode adicionar mais detalhes da EXERCISE_LIBRARY,
-          como o muscleGroup, etc.
-        */}
         <Link to="/exercise-library" className="back-button-general">Voltar para a Biblioteca</Link>
       </div>
     </div>
