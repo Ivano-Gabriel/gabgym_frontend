@@ -4042,7 +4042,6 @@ activity-icon {
 .sleep-duration-display.good { color: #3498db; }
 .sleep-duration-display.too-much { color: #f39c12; }
 
-/* Estilos para o Gasto Calórico Manual */
 .manual-calorie-form {
   display: flex;
   gap: 10px;
