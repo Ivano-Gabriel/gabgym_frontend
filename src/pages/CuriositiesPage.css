@@ -1,0 +1,64 @@
+/* src/pages/CuriositiesPage.css */
+
+.curiosities-page-container {
+    min-height: calc(100vh - 60px);
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* A mágica está aqui: */
+    
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .curiosities-title {
+    font-family: 'Anton', sans-serif; /* USA A NOVA FONTE */
+    font-size: 3em;
+    color: var(--whiteText); /* Cor alterada para branco */
+    margin-bottom: 10px;
+    text-transform: uppercase; /* Deixa em maiúsculas para mais impacto */
+    letter-spacing: 2px; /* Um pouco de espaço entre as letras */
+  }
+  
+  .curiosities-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    max-width: 600px;
+    text-align: center;
+    color: var(--whiteText); /* Cor alterada para branco */
+    font-weight: 400; /* Letra um pouco mais fina para contrastar com o título */
+    opacity: 0.9;
+  }
+  /* Estilos para o novo sistema de abas */
+.topics-tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Para quebrar em telas pequenas */
+  }
+  
+  .topic-tab {
+    background-color: transparent;
+    border: 2px solid var(--mediumDarkGray);
+    color: var(--lightGray);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .topic-tab:hover {
+    border-color: var(--primaryGreen);
+    color: var(--primaryGreen);
+  }
+  
+  .topic-tab.active {
+    background-color: var(--primaryGreen);
+    color: var(--darkText);
+    border-color: var(--primaryGreen);
+  }

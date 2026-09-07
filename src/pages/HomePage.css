@@ -1,0 +1,42 @@
+/* Padrão para mobile */
+.home-hero-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: var(--whiteText); /* Garante que o texto seja branco */
+  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/public/images/gym1.jpg');
+  background-size: cover;
+  background-position: top;
+  background-attachment: fixed; /* Opcional, mas dá um efeito legal de parallax */
+}
+  /* Media Queries */
+@media (min-width: 992px) { /* Para telas maiores (ex: laptops grandes/monitores) */
+    .home-hero-container {
+        flex-direction: row; /* Coloca os elementos lado a lado */
+        justify-content: space-around; /* Espaço entre eles */
+        align-items: center;
+        padding: 20px 100px; /* Mais padding em desktop */
+    }
+  
+    .hero-content {
+        margin-right: 50px; /* Espaçamento entre o texto e o EnrollSection */
+    }
+  }
+  
+  .hero-title {
+    font-size: 3em !important; 
+  }
+
+  .hero-subtitle {
+    font-size: 1.1em !important;
+  }
+  /* Se o NextPageButton estiver no App.css, assegure-se que ele tenha este tamanho: */
+.next-page-button { /* Se você tiver uma classe para ele */
+    width: 55px; /* Certifique-se que o tamanho é igual ao help-button */
+    height: 55px;
+    /* Outros estilos como border-radius: 50%; background-color, etc. */
+  }

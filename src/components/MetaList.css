@@ -1,0 +1,15 @@
+.meta-bloco {
+  margin-bottom: 50px; /* Espaço entre os blocos de metas */
+}
+
+.meta-bloco-title {
+  color: #fff;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primaryGreen);
+  font-size: 1.5em;
+}
+.metas-list { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.empty-list-message { color: #888; margin-top: 20px; font-style: italic; }

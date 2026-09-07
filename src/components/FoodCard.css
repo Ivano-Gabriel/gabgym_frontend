@@ -1,0 +1,68 @@
+/* src/components/FoodCard.css */
+
+.food-item-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.food-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid #FFC107;
+}
+
+.food-item-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  height: 3.2em; /* Garante espaço para até 3 linhas de texto */
+  overflow: hidden;
+}
+
+.food-item-info p {
+  margin: 0;
+  font-size: 0.75em;
+  color: #ccc;
+}
+
+.food-item-info .food-calories {
+    font-weight: bold;
+    color: #FFC107;
+    margin-top: 5px;
+}
+
+.add-food-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #FFC107;
+  color: #121212;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-food-button:hover {
+  background-color: #ffda70;
+  transform: scale(1.1);
+}

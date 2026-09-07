@@ -1,0 +1,98 @@
+/* src/pages/TrainingPlanPage.css (Versão Final com Alinhamento Perfeito) */
+
+.weekly-plan-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Um pouco mais de espaço */
+  gap: 25px;
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.day-card {
+  background-color: rgba(44, 44, 44, 0.8);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(5px);
+}
+
+.rest-day-card {
+  background-color: rgba(30, 30, 30, 0.7);
+  border-style: dashed;
+  justify-content: center;
+  min-height: 250px; /* Altura mínima para alinhar com os outros cards */
+}
+
+.rest-day-text {
+  color: #888;
+  font-style: italic;
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.day-name {
+  color: var(--primaryGreen);
+  font-weight: bold;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.day-workout-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8em;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+/* ====================================================== */
+/* === AQUI ESTÁ A CORREÇÃO PARA O ALINHAMENTO === */
+/* ====================================================== */
+
+.daily-exercise-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  flex-grow: 1; 
+}
+
+.daily-exercise-item {
+  display: flex; /* A MÁGICA ACONTECE AQUI! */
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5px; /* Adicionei um padding lateral */
+  border-bottom: 1px solid #3a3a3a;
+  gap: 10px; /* Espaço entre os itens */
+}
+
+.daily-exercise-item:last-child {
+  border-bottom: none;
+}
+
+.exercise-name-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  flex-grow: 1; /* Faz o nome do exercício ocupar o espaço que sobrar */
+  text-align: left;
+}
+
+.exercise-name-link:hover {
+  color: var(--primaryGreen);
+}
+
+.exercise-sets-reps {
+  color: #aaa;
+  font-size: 0.9em;
+  font-style: italic;
+  white-space: nowrap; 
+  flex-shrink: 0; /* Impede que ele seja espremido e quebre linha */
+  text-align: right;
+}

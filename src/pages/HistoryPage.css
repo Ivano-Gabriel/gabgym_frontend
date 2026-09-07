@@ -1,0 +1,50 @@
+.history-container {
+  padding: 0 20px 80px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.history-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.history-date {
+  color: #FFC107;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+  border-bottom: 1px solid #444;
+  padding-bottom: 15px;
+}
+
+.history-macros {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.history-macro-item {
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.history-macro-item .macro-label {
+  display: block;
+  font-size: 0.9em;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.history-macro-item .macro-value {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+}
