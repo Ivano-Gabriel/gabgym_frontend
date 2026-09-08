@@ -5,7 +5,7 @@ import { WATER_OPTIONS } from '../data/WaterOptions';
 import { EXERCISE_LIST } from '../data/ExerciseList';
 import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake, calculateSleepDuration } from '../utils/MetabolismCalculator';
 import TodaysLogSidebar from '../components/TodaysLogSidebar';
-import { getUser } from '../services/apiService'; // Importamos a chamada da API
+import { getUser, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 
 const calculateLogTotals = (log) => {
   let cals = 0, prot = 0, carb = 0, fat = 0;
@@ -63,40 +63,14 @@ function DiarioAlimentarPage() {
     backgroundAttachment: 'fixed',
   };
 
+  const getTodayDateString = () => new Date().toLocaleDateString('en-CA');
+
   useEffect(() => {
-    // ===================================================================
-    // PROTOCOLO 3: VERIFICADOR DE NOVO DIA (Será movido pro backend depois)
-    // ===================================================================
-    const today = new Date().toISOString().split('T')[0];
-    const lastLogDate = localStorage.getItem('gabgymLastLogDate');
-
-    if (lastLogDate && lastLogDate !== today) {
-      const previousLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
-      if (previousLog.length > 0) {
-          const previousTotals = calculateLogTotals(previousLog);
-          const history = JSON.parse(localStorage.getItem('gabgymLogHistory') || '[]');
-          
-          history.push({
-              date: lastLogDate,
-              calories: previousTotals.calories,
-              protein: previousTotals.protein,
-              carbs: previousTotals.carbs,
-              fat: previousTotals.fat,
-          });
-
-          localStorage.setItem('gabgymLogHistory', JSON.stringify(history));
-          localStorage.removeItem('gabgymTodaysLog');
-          localStorage.removeItem('gabgymTodaysSleep');
-          toast.info(`Um novo dia começou! O diário de ontem foi arquivado no seu histórico.`);
-      }
-    }
-    localStorage.setItem('gabgymLastLogDate', today);
-      
-    // ===================================================================
-    // BUSCA DE METAS DO USUÁRIO DIRETO DO BANCO DE DADOS (JAVA)
-    // ===================================================================
     const userId = localStorage.getItem('userId');
+    const today = getTodayDateString();
+
     if (userId) {
+      // 1. Busca os dados físicos do usuário para montar as metas
       getUser(userId).then(response => {
         const userData = response.data;
         setUserName(userData.name);
@@ -105,29 +79,26 @@ function DiarioAlimentarPage() {
           const weightNum = parseFloat(userData.weight);
           const ageNum = parseFloat(userData.age);
           const heightNum = parseFloat(userData.height);
-          
           const bmr = calculateBMR(userData.gender, weightNum, heightNum, ageNum);
-          
-          // BUG RESOLVIDO: Agora passamos o activityLevel real pro cálculo
           const activityLevel = userData.activityLevel || 'sedentary'; 
           const tdee = calculateTDEE(bmr, activityLevel);
-          const goals = calculateMacros(tdee, userData.objective, weightNum);
           
-          setUserGoals(goals);
+          setUserGoals(calculateMacros(tdee, userData.objective, weightNum));
           setWaterGoal(calculateWaterIntake(weightNum));
         }
-      }).catch(err => {
-        console.error("Erro ao buscar dados do usuário pro diário:", err);
-      });
+      }).catch(err => console.error("Erro ao buscar usuário:", err));
+
+      // 2. Busca o histórico de refeições do banco Java para o dia de hoje
+      getDiaryLogs(userId, today).then(response => {
+        const logs = response.data;
+        setTodaysLog(logs);
+        setTotals(calculateLogTotals(logs));
+        setBurnedCalories(calculateBurnedCalories(logs));
+        setTodaysWater(calculateWaterTotal(logs));
+      }).catch(err => console.error("Erro ao buscar logs do diário:", err));
     }
     
-    // TODO: No próximo passo, vamos substituir esse get do localStorage por uma chamada GET /users/{id}/logs
-    const savedLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
-    setTodaysLog(savedLog);
-    setTotals(calculateLogTotals(savedLog));
-    setBurnedCalories(calculateBurnedCalories(savedLog));
-    setTodaysWater(calculateWaterTotal(savedLog));
-    
+    // O sono ainda fica no localStorage temporariamente até migrarmos para a nova feature
     const savedSleep = JSON.parse(localStorage.getItem('gabgymTodaysSleep') || 'null');
     if(savedSleep && savedSleep.sleep && savedSleep.wake) {
         setSleepTime(savedSleep.sleep);
@@ -136,58 +107,85 @@ function DiarioAlimentarPage() {
     }
   }, []);
 
-  const updateLog = (newItem) => {
-    const newLog = [...todaysLog, newItem];
-    setTodaysLog(newLog);
-    setTotals(calculateLogTotals(newLog));
-    setBurnedCalories(calculateBurnedCalories(newLog));
-    setTodaysWater(calculateWaterTotal(newLog));
-    
-    // TODO: Aqui entrará o POST /users/{id}/logs para salvar direto no Java
-    localStorage.setItem('gabgymTodaysLog', JSON.stringify(newLog));
+  // Função centralizada para salvar no banco Java e atualizar a tela
+  const saveItemToDatabase = async (itemData, successMessage) => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const payload = {
+      userId: parseInt(userId, 10),
+      type: itemData.type,
+      name: itemData.name,
+      calories: itemData.calories || 0,
+      protein: itemData.protein || 0,
+      carbs: itemData.carbs || 0,
+      fat: itemData.fat || 0,
+      volume: itemData.volume || 0,
+      logDate: getTodayDateString(),
+      timestamp: Date.now()
+    };
+
+    try {
+      const response = await addDiaryLog(payload);
+      const newLog = [...todaysLog, response.data];
+      setTodaysLog(newLog);
+      setTotals(calculateLogTotals(newLog));
+      setBurnedCalories(calculateBurnedCalories(newLog));
+      setTodaysWater(calculateWaterTotal(newLog));
+      
+      if (successMessage) toast.success(successMessage);
+    } catch (error) {
+      console.error("Erro ao salvar no banco:", error);
+      toast.error("Erro ao sincronizar com a nuvem.");
+    }
   };
   
   const handleAddFood = (food) => {
-    const newLogEntry = { ...food, timestamp: Date.now(), type: 'food' };
-    updateLog(newLogEntry);
-    toast.success(`${food.name} adicionado ao seu diário!`);
+    saveItemToDatabase({ ...food, type: 'food' }, `${food.name} adicionado ao seu diário!`);
   };
   
   const handleAddExercise = (exercise) => {
-    const newLogEntry = { ...exercise, timestamp: Date.now(), type: 'exercise' };
-    updateLog(newLogEntry);
-    // Cosmético ajustado: Removido o toast.error (vermelho) para exercício, agora é success.
-    toast.success(`${Math.abs(exercise.calories)} kcal gastas com ${exercise.name}!`);
+    saveItemToDatabase({ ...exercise, type: 'exercise' }, `${Math.abs(exercise.calories)} kcal gastas com ${exercise.name}!`);
   };
 
   const handleAddWater = (option) => {
-    const newLogEntry = { name: `Água (${option.name})`, volume: option.volume, timestamp: Date.now(), type: 'water' };
-    updateLog(newLogEntry);
+    saveItemToDatabase({ name: `Água (${option.name})`, volume: option.volume, type: 'water' });
     toast.info(`+${option.volume}ml de água adicionados!`);
   };
 
-  const handleRemoveItem = (timestamp) => {
-    const newLog = todaysLog.filter(item => item.timestamp !== timestamp);
-    setTodaysLog(newLog);
-    setTotals(calculateLogTotals(newLog));
-    setBurnedCalories(calculateBurnedCalories(newLog));
-    setTodaysWater(calculateWaterTotal(newLog));
+  const handleRemoveItem = async (identifier) => {
+    // Tenta encontrar o item pelo ID do banco de dados ou pelo timestamp do front
+    const itemToDelete = todaysLog.find(item => item.id === identifier || item.timestamp === identifier);
     
-    // TODO: Aqui entrará o DELETE /users/{id}/logs/{logId} no backend
-    localStorage.setItem('gabgymTodaysLog', JSON.stringify(newLog));
+    if (!itemToDelete || !itemToDelete.id) {
+      toast.error("Erro: ID do registro não encontrado.");
+      return;
+    }
+
+    try {
+      await deleteDiaryLog(itemToDelete.id);
+      const newLog = todaysLog.filter(item => item.id !== itemToDelete.id);
+      setTodaysLog(newLog);
+      setTotals(calculateLogTotals(newLog));
+      setBurnedCalories(calculateBurnedCalories(newLog));
+      setTodaysWater(calculateWaterTotal(newLog));
+    } catch (error) {
+      console.error("Erro ao deletar do banco:", error);
+      toast.error("Falha ao excluir item.");
+    }
   };
   
   const handleClearLog = () => {
+    // Aqui limparemos apenas a UI. A exclusão em massa no banco pode ser feita no futuro.
     setTodaysLog([]);
     setTotals({ calories: 0, protein: 0, carbs: 0, fat: 0 });
     setBurnedCalories(0);
     setTodaysWater(0);
-    localStorage.setItem('gabgymTodaysLog', '[]');
     setSleepDuration(null);
     setSleepTime('');
     setWakeTime('');
     localStorage.removeItem('gabgymTodaysSleep');
-    toast.info('Diário limpo com sucesso!');
+    toast.info('Diário visual limpo! (Itens permanecem no histórico da nuvem)');
   };
 
   const toggleSection = (section) => {
@@ -201,8 +199,7 @@ function DiarioAlimentarPage() {
       toast.warn('Por favor, insira um número de calorias válido.');
       return;
     }
-    const newExercise = { id: `manual-${Date.now()}`, name: 'Atividade Manual', calories: -calories };
-    handleAddExercise(newExercise);
+    handleAddExercise({ id: `manual-${Date.now()}`, name: 'Atividade Manual', calories: -calories });
     setManualCalories('');
   };
 
