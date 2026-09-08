@@ -11,6 +11,23 @@
   background-attachment: fixed;
 }
 
+.back-button-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primaryGreen);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95em;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.back-button-form:hover {
+  transform: translateX(-3px);
+  opacity: 0.85;
+}
+
 .profile-form {
   background-color: rgba(44, 44, 44, 0.9);
   padding: 30px 40px;

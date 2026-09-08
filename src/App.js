@@ -37,6 +37,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
+import { isLoggedIn } from './utils/auth';
 // Objeto de cores
 const colors = {
   primaryGreen: '#74E85D',
@@ -120,8 +121,12 @@ function AppContent() {
           </ul>
         </nav>
         <div style={styles.headerRight}>
-          <Link to="/profile-form" style={styles.headerEnrollButton} className="header-enroll-button">
-            {t('header.criar_perfil')} <span>↗</span>
+          <Link
+            to={isLoggedIn() ? '/perfil' : '/profile-form'}
+            style={styles.headerEnrollButton}
+            className="header-enroll-button"
+          >
+            {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <span>↗</span>
           </Link>
           <div className="hamburger-menu" style={styles.hamburgerMenuStyles} onClick={toggleMobileMenu}>
             <div style={styles.bar}></div><div style={styles.bar}></div><div style={styles.bar}></div>
