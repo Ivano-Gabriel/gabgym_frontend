@@ -25,10 +25,13 @@ function DiarioPage() {
 
   useEffect(() => {
     const buscarDados = async () => {
+      const userId = localStorage.getItem('userId'); // Pega o ID
+      if (!userId) return; // Se não tiver logado, nem tenta
+
       setLoading(true);
       setError(null);
       try {
-        const response = await getAtividades();
+        const response = await getAtividades(userId); // PASSA O ID AQUI!
         setAtividades(response.data);
       } catch (err) {
         setError("Falha ao carregar o histórico de atividades.");
