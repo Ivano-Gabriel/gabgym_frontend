@@ -81,6 +81,6 @@ export const getFoods = () => {
   return apiClient.get('/diet/foods');
 };
 
-export const getDiaryLogs = (userId, date) => api.get(`/logs/user/${userId}?date=${date}`);
-export const addDiaryLog = (logData) => api.post('/logs', logData);
-export const deleteDiaryLog = (logId) => api.delete(`/logs/${logId}`);
+export const getDiaryLogs = (userId, date) => apiClient.get(`/logs/user/${userId}?date=${date}`);
+export const addDiaryLog = (logData) => apiClient.post('/logs', logData);
+export const deleteDiaryLog = (logId) => apiClient.delete(`/logs/${logId}`);
