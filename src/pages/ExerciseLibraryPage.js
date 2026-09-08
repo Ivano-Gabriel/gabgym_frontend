@@ -1,10 +1,10 @@
-// src/pages/ExerciseLibraryPage.js (Versão Final Corrigida)
+// src/pages/ExerciseLibraryPage.js (Versão conectada ao backend Java)
 
 import React, { useState, useEffect } from 'react';
 import Carousel from '../components/Carousel';
-// Importamos nossa nova "cola"
-import { BODY_PART_MAP } from '../data/workoutDatabase'; 
+import { BODY_PART_MAP } from '../data/workoutDatabase';
 import FloatingBackButton from '../components/FloatingBackButton';
+import { getExercises } from '../services/apiService';
 import './ExerciseLibraryPage.css';
 
 function ExerciseLibraryPage() {
@@ -14,34 +14,39 @@ function ExerciseLibraryPage() {
   const [activeTab, setActiveTab] = useState('superior');
 
   useEffect(() => {
-    const apiUrl = 'http://127.0.0.1:8000/api/muscle-groups/';
-
-    fetch(apiUrl)
+    getExercises()
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Não foi possível conectar à API. O servidor Django está rodando?');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setMuscleGroupsData(data);
+        const exercises = response.data; // lista plana, cada exercício com "muscleGroup" dentro
+
+        // Agrupa os exercícios por grupo muscular (o backend Java não manda isso aninhado)
+        const gruposMap = new Map();
+        exercises.forEach(ex => {
+          const groupId = ex.muscleGroup.id;
+          if (!gruposMap.has(groupId)) {
+            gruposMap.set(groupId, {
+              id: groupId,
+              name: ex.muscleGroup.name,
+              exercises: [],
+            });
+          }
+          gruposMap.get(groupId).exercises.push(ex);
+        });
+
+        setMuscleGroupsData(Array.from(gruposMap.values()));
         setLoading(false);
       })
-      .catch(error => {
-        console.error("Erro ao buscar dados:", error);
-        setError(error.message);
+      .catch(err => {
+        console.error("Erro ao buscar dados:", err);
+        setError(err.message);
         setLoading(false);
       });
   }, []);
 
   const getVisibleGroups = () => {
-    // A MÁGICA ACONTECE AQUI!
-    // Usamos nosso BODY_PART_MAP para pegar a lista de nomes corretos para a aba ativa
     const visibleGroupNames = BODY_PART_MAP[activeTab];
-    // E filtramos os dados que vieram da API para mostrar apenas os grupos dessa lista
     return muscleGroupsData.filter(group => visibleGroupNames.includes(group.name));
   };
-  
+
   const pageStyle = {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('/images/run.jpg')`,
     backgroundSize: 'cover',
@@ -53,7 +58,7 @@ function ExerciseLibraryPage() {
     return <div className="content-page" style={pageStyle}><h2 className="workout-page-title">Carregando Biblioteca...</h2></div>;
   }
   if (error) {
-    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title" style={{color: 'red'}}>Erro: {error}</h2></div>;
+    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title" style={{ color: 'red' }}>Erro: {error}</h2></div>;
   }
 
   return (
@@ -68,19 +73,14 @@ function ExerciseLibraryPage() {
 
       <div className="carousels-container">
         {getVisibleGroups().map(group => (
-          // A API nos manda a lista de exercícios dentro de cada grupo. Perfeito!
-          <Carousel 
-            key={group.id} 
+          <Carousel
+            key={group.id}
             title={group.name}
             items={group.exercises.map(exercise => ({
-              // Usamos um ID numérico único vindo do backend
-              id: exercise.id, 
+              id: exercise.id,
               title: exercise.name,
-              // O backend não sabe o endereço do frontend, então não adicionamos a URL base
-              imageSrc: `http://127.0.0.1:8000${exercise.image_path}`, 
-              link: `/exercicio/${exercise.id}`, 
-              // O link agora é para o ID numérico do exercício
-              link: `/exercicio/${exercise.id}` 
+              imageSrc: exercise.imagePath,
+              link: `/exercicio/${exercise.id}`,
             }))}
           />
         ))}

@@ -280,9 +280,9 @@ auditRoutines();
 
 export const BODY_PART_MAP = {
   superior: [
-    'Peito & Tríceceps', 'Costas & Bíceps', 'Ombros Completo', 'Trapézio', 'Antebraço', 'Abdômen', 'Peito', 'Tríceps', 'Costas', 'Bíceps', 'Ombros'
+    'Peito & Tríceceps', 'Costas & Bíceps', 'Ombros Completo', 'Trapézio', 'Antebraço', 'Abdômen', 'Peito', 'Tríceps', 'Costas', 'Bíceps', 'Ombros', 'Braços'
   ],
   inferior: [
-    'Pernas Completo', 'Quadríceps', 'Posterior de Coxa', 'Glúteos', 'Panturrilhas', 'Adutores & Abdutores'
+    'Pernas Completo', 'Quadríceps', 'Posterior de Coxa', 'Glúteos', 'Panturrilhas', 'Adutores & Abdutores', 'Pernas'
   ]
 };

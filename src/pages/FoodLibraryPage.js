@@ -1,52 +1,62 @@
-// src/pages/FoodLibraryPage.js (Versão com Acordeão e Busca)
+// src/pages/FoodLibraryPage.js (Versão conectada ao backend Java)
 
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import FoodCard from '../components/FoodCard';
 import FloatingBackButton from '../components/FloatingBackButton';
-import './FoodLibraryPage.css'; // O CSS também será atualizado
+import { getFoods } from '../services/apiService';
+import './FoodLibraryPage.css';
 
 function FoodLibraryPage() {
   const [foodCategories, setFoodCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // <<< NOVOS ESTADOS PARA O UPGRADE >>>
-  const [openCategory, setOpenCategory] = useState(null); // Controla qual categoria está aberta
-  const [searchTerm, setSearchTerm] = useState('');     // Controla o texto da busca
+
+  const [openCategory, setOpenCategory] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // ... o código de fetch continua o mesmo ...
-    const apiUrl = 'http://127.0.0.1:8000/api/food-categories/';
-    fetch(apiUrl)
+    getFoods()
       .then(response => {
-        if (!response.ok) throw new Error('Falha na comunicação com a API de comidas.');
-        return response.json();
-      })
-      .then(data => {
-        setFoodCategories(data);
-        // Deixa a primeira categoria aberta por padrão
-        if (data && data.length > 0) {
-            setOpenCategory(data[0].id);
+        const items = response.data; // lista plana de alimentos, cada um com "category" dentro
+
+        // Agrupa os itens por categoria (o backend Java não manda isso aninhado)
+        const categoriasMap = new Map();
+        items.forEach(item => {
+          const catId = item.category.id;
+          if (!categoriasMap.has(catId)) {
+            categoriasMap.set(catId, {
+              id: catId,
+              name: item.category.name,
+              food_items: [],
+            });
+          }
+          categoriasMap.get(catId).food_items.push(item);
+        });
+
+        const categorias = Array.from(categoriasMap.values());
+        setFoodCategories(categorias);
+
+        if (categorias.length > 0) {
+          setOpenCategory(categorias[0].id);
         }
         setLoading(false);
       })
-      .catch(error => {
-        console.error("Erro ao buscar dados de comidas:", error);
-        setError(error.message);
+      .catch(err => {
+        console.error("Erro ao buscar dados de comidas:", err);
+        setError(err.message);
         setLoading(false);
       });
   }, []);
 
   const handleAddFoodToLog = (food) => {
-    // ... a função de adicionar ao diário continua a mesma ...
     const currentLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
-    const newLogEntry = { 
-        ...food, 
-        id: food.db_id,
-        calories: Math.round(food.calories), protein: Math.round(food.protein),
-        carbs: Math.round(food.carbs), fat: Math.round(food.fat),
-        timestamp: Date.now(), type: 'food' 
+    const newLogEntry = {
+      ...food,
+      id: food.db_id,
+      calories: Math.round(food.calories), protein: Math.round(food.protein),
+      carbs: Math.round(food.carbs), fat: Math.round(food.fat),
+      timestamp: Date.now(), type: 'food'
     };
     currentLog.push(newLogEntry);
     localStorage.setItem('gabgymTodaysLog', JSON.stringify(currentLog));
@@ -54,11 +64,9 @@ function FoodLibraryPage() {
   };
 
   const toggleCategory = (categoryId) => {
-    // Se a categoria clicada já está aberta, fecha. Senão, abre.
     setOpenCategory(prevOpenCategory => (prevOpenCategory === categoryId ? null : categoryId));
   };
-  
-  // Filtra as categorias e comidas baseado na busca
+
   const filteredCategories = foodCategories
     .map(category => ({
       ...category,
@@ -68,37 +76,37 @@ function FoodLibraryPage() {
     }))
     .filter(category => category.food_items.length > 0);
 
+  const pageStyle = {};
 
-  const pageStyle = { /* ...código de estilo continua igual... */ };
-
-  if (loading) { /* ...código de loading/error continua igual... */ }
-  if (error) { /* ...código de loading/error continua igual... */ }
+  if (loading) {
+    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title">Carregando Biblioteca...</h2></div>;
+  }
+  if (error) {
+    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title" style={{ color: 'red' }}>Erro: {error}</h2></div>;
+  }
 
   return (
     <div className="content-page" style={pageStyle}>
       <h2 className="workout-page-title">Biblioteca de Alimentos</h2>
       <p className="content-description">Clique para expandir e '+' para adicionar ao seu diário.</p>
-      
-      {/* <<< BARRA DE BUSCA IMPLEMENTADA >>> */}
+
       <div className="library-search-container">
         <input
-            type="text"
-            placeholder="Buscar alimento..."
-            className="library-search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+          type="text"
+          placeholder="Buscar alimento..."
+          className="library-search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       <div className="food-library-container">
         {filteredCategories.map(category => (
-          // <<< LÓGICA DO ACORDEÃO IMPLEMENTADA >>>
           <div key={category.id} className="accordion-item-lib">
             <button className="accordion-header-lib" onClick={() => toggleCategory(category.id)}>
               <span>{category.name}</span>
               <span className='accordion-icon-lib'>{openCategory === category.id ? '−' : '+'}</span>
             </button>
-            {/* O conteúdo só aparece se a categoria estiver aberta */}
             {(openCategory === category.id || searchTerm.length > 0) && (
               <div className="accordion-content-lib">
                 <div className="food-items-grid">
@@ -107,10 +115,10 @@ function FoodLibraryPage() {
                       key={item.id}
                       db_id={item.id}
                       name={item.name}
-                      serving_desc={item.serving_desc}
+                      serving_desc={item.servingDesc}
                       calories={item.calories}
                       protein={item.protein} carbs={item.carbs} fat={item.fat}
-                      imageSrc={`http://127.0.0.1:8000${item.image_path}`}
+                      imageSrc={item.imagePath}
                       onAdd={handleAddFoodToLog}
                       showAddButton={true}
                     />
