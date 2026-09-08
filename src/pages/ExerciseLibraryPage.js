@@ -85,7 +85,7 @@ function ExerciseLibraryPage() {
           />
         ))}
       </div>
-      <FloatingBackButton to="/central-treino" />
+      <FloatingBackButton to="/training-models" />
     </div>
   );
 }

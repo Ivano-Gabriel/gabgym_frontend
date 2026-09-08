@@ -3,8 +3,8 @@
 export const FOOD_DATABASE = {
   'Proteínas': [
 
-    { id: 1, name: 'Ovo Cozido', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 78, protein: 6, carbs: 1, fat: 5, image: '/media/images/comida/ovo.jpg' },
-    { id: 2, name: 'Ovo Frito', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 90, protein: 6, carbs: 1, fat: 7, image: '/media/images/comida/ovo_frito.jpg' },
+    { id: 1, name: 'Ovo Cozido', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 78, protein: 6, carbs: 1, fat: 5, image: '/public/imagens_comida/ovo.jpg' },
+    { id: 2, name: 'Ovo Frito', unit: '1 unidade', serving_desc: '1 ovo grande', calories: 90, protein: 6, carbs: 1, fat: 7, image: '/public/imagens_comida/ovo_frito.jpg' },
     { id: 101, name: 'Frango Grelhado', unit: '100g', serving_desc: '1 filé pequeno', calories: 165, protein: 31, carbs: 0, fat: 3.6, image: '/media/images/comida/frango.jpg' },
     { id: 601, name: 'Frango Cozido Desfiado', unit: '100g', serving_desc: 'Aprox. 1 xícara', calories: 170, protein: 32, carbs: 0, fat: 4, image: '/media/images/comida/frango_cozido.jpg' },
     { id: 12, name: 'Bife Grelhado', unit: '100g', serving_desc: '1 bife do tamanho da palma da mão', calories: 250, protein: 26, carbs: 0, fat: 15, image: '/media/images/comida/bife.jpg' },
