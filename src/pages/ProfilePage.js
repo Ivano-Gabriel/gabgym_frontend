@@ -4,6 +4,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUser } from '../services/apiService';
+import {
+  FiActivity, FiPieChart, FiHeart, FiBookOpen, FiZap, FiHelpCircle,
+  FiEdit3, FiLogOut, FiGlobe, FiCamera,
+} from 'react-icons/fi';
 import './ProfilePage.css';
 
 function ProfilePage() {
@@ -109,19 +113,18 @@ function ProfilePage() {
   };
 
   return (
-    // O seu JSX continua exatamente o mesmo
     <div className="profile-page-container">
       <div className="profile-card">
-        
+
         <div className="profile-header">
           <div className="profile-avatar-container" onClick={handleAvatarClick} title={t('hub.mudar_foto')}>
             <img src={avatarUrl} alt="Foto de Perfil" className="profile-avatar" />
-            <div className="change-photo-overlay">📷</div>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
+            <div className="change-photo-overlay"><FiCamera /></div>
+            <input
+              type="file"
+              ref={fileInputRef}
               onChange={handlePhotoUpload}
-              style={{ display: 'none' }} 
+              style={{ display: 'none' }}
               accept="image/*"
             />
           </div>
@@ -129,47 +132,54 @@ function ProfilePage() {
             <h1 className="profile-name">{userData ? userData.name : 'Visitante'}</h1>
             <p className="profile-email">{userData && userData.name ? `${userData.name.toLowerCase().replace(/\s/g, '.')}@gabgym.com` : 'email@exemplo.com'}</p>
           </div>
-        </div>
-
-        <div className="consistency-tracker">
-          <div className="foguinho">🔥</div>
-          <div className="foguinho-text">
-            <strong>{streak}</strong>
-            <span>{t('hub.dias_foco')}</span>
+          <div className="streak-ring" title={`${streak} ${t('hub.dias_foco')}`}>
+            <svg viewBox="0 0 100 100" className="streak-ring-svg">
+              <circle cx="50" cy="50" r="44" className="streak-ring-track" />
+              <circle
+                cx="50" cy="50" r="44"
+                className="streak-ring-progress"
+                style={{ strokeDasharray: 276.5, strokeDashoffset: 276.5 - (Math.min(streak, 7) / 7) * 276.5 }}
+              />
+            </svg>
+            <div className="streak-ring-content">
+              <span className="streak-flame">🔥</span>
+              <strong>{streak}</strong>
+              <span className="streak-label">{t('hub.dias_foco')}</span>
+            </div>
           </div>
         </div>
 
         <div className="profile-section">
           <h3 className="section-title">{t('hub.suas_estatisticas')}</h3>
-          <div className="stats-grid">
-            <div className="stat-item"><span>{t('hub.altura')}</span><strong>{userData ? `${userData.height} cm` : '-'}</strong></div>
-            <div className="stat-item"><span>{t('hub.peso')}</span><strong>{userData ? `${userData.weight} kg` : '-'}</strong></div>
-            <div className="stat-item"><span>{t('hub.idade')}</span><strong>{userData ? `${userData.age} anos` : '-'}</strong></div>
+          <div className="stats-strip">
+            <div className="stat-item"><span>{t('hub.altura')}</span><strong>{userData ? userData.height : '-'}<small>cm</small></strong></div>
+            <div className="stat-item"><span>{t('hub.peso')}</span><strong>{userData ? userData.weight : '-'}<small>kg</small></strong></div>
+            <div className="stat-item"><span>{t('hub.idade')}</span><strong>{userData ? userData.age : '-'}<small>anos</small></strong></div>
             <div className="stat-item"><span>{t('hub.imc')}</span><strong>{imc || '-'}</strong></div>
           </div>
         </div>
-        
+
         <div className="profile-section">
             <h3 className="section-title">{t('hub.navegacao')}</h3>
             <div className="hub-grid">
-                <Link to="/training-models" className="hub-card"><div className="hub-card-title">{t('hub.treinos')}</div></Link>
-                <Link to="/dietas" className="hub-card"><div className="hub-card-title">{t('hub.dietas')}</div></Link>
-                <Link to="/cardio" className="hub-card"><div className="hub-card-title">{t('hub.cardio')}</div></Link>
-                <Link to="/diario" className="hub-card"><div className="hub-card-title">{t('hub.diario')}</div></Link>
-                <Link to="/curiosidades" className="hub-card"><div className="hub-card-title">{t('hub.curiosidades')}</div></Link>
-                <Link to="/me-ajude" className="hub-card"><div className="hub-card-title">{t('hub.me_ajude')}</div></Link>
+                <Link to="/training-models" className="hub-card"><FiActivity className="hub-icon" /><span>{t('hub.treinos')}</span></Link>
+                <Link to="/dietas" className="hub-card"><FiPieChart className="hub-icon" /><span>{t('hub.dietas')}</span></Link>
+                <Link to="/cardio" className="hub-card"><FiHeart className="hub-icon" /><span>{t('hub.cardio')}</span></Link>
+                <Link to="/diario" className="hub-card"><FiBookOpen className="hub-icon" /><span>{t('hub.diario')}</span></Link>
+                <Link to="/curiosidades" className="hub-card"><FiZap className="hub-icon" /><span>{t('hub.curiosidades')}</span></Link>
+                <Link to="/me-ajude" className="hub-card"><FiHelpCircle className="hub-icon" /><span>{t('hub.me_ajude')}</span></Link>
             </div>
         </div>
 
         <div className="profile-actions">
-          <button onClick={toggleLanguage} className="action-button language-button">
-            {i18n.language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
-          </button>
           <Link to="/profile-form" className="action-button edit-profile">
-            {t('hub.editar_perfil')}
+            <FiEdit3 /> {t('hub.editar_perfil')}
           </Link>
+          <button onClick={toggleLanguage} className="action-button language-button">
+            <FiGlobe /> {i18n.language === 'pt' ? 'English' : 'Português'}
+          </button>
           <button className="action-button logout" onClick={handleLogout}>
-            {t('hub.sair')}
+            <FiLogOut /> {t('hub.sair')}
           </button>
         </div>
 
