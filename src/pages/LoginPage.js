@@ -1,7 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginUser } from '../services/apiService';
+import { loginUser, getUser } from '../services/apiService'; // Adicionado o getUser aqui
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -17,12 +17,28 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      // loginUser já salva token, userId e username no localStorage sozinho
+      // loginUser salva token, userId e username no localStorage
       await loginUser({ username, password });
-
       console.log('Login bem-sucedido! Token salvo.');
 
-      navigate('/perfil');
+      // Pega o ID que acabou de ser salvo para checar o status do perfil
+      const userId = localStorage.getItem('userId');
+      
+      try {
+        const userResponse = await getUser(userId);
+        const userData = userResponse.data;
+        
+        // Trava de UX: Se não tiver peso ou altura, é uma conta fantasma. Obriga a preencher!
+        if (!userData.weight || !userData.height) {
+          navigate('/profile-form');
+        } else {
+          navigate('/perfil');
+        }
+      } catch (profileErr) {
+        console.error('Erro ao verificar status do perfil:', profileErr);
+        // Por segurança, se a checagem falhar, manda pro formulário
+        navigate('/profile-form'); 
+      }
 
     } catch (err) {
       console.error('Falha no login:', err);

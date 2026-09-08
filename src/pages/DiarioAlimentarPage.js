@@ -1,5 +1,3 @@
-// src/pages/DiarioAlimentarPage.js (Sua versão + Protocolo 3 Completo)
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -7,38 +5,40 @@ import { WATER_OPTIONS } from '../data/WaterOptions';
 import { EXERCISE_LIST } from '../data/ExerciseList';
 import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake, calculateSleepDuration } from '../utils/MetabolismCalculator';
 import TodaysLogSidebar from '../components/TodaysLogSidebar';
+import { getUser } from '../services/apiService'; // Importamos a chamada da API
 
 const calculateLogTotals = (log) => {
-    let cals = 0, prot = 0, carb = 0, fat = 0;
-    log.forEach(item => {
-      if (item.calories) cals += item.calories;
-      if (item.type === 'food' && item.calories > 0) {
-        if(item.protein) prot += item.protein;
-        if(item.carbs) carb += item.carbs;
-        if(item.fat) fat += item.fat;
-      }
-    });
-    return { calories: Math.round(cals), protein: Math.round(prot), carbs: Math.round(carb), fat: Math.round(fat) };
-};
-const calculateBurnedCalories = (log) => {
-    let burned = 0;
-    log.forEach(item => {
-        if (item.type === 'exercise' && item.calories < 0) {
-            burned += Math.abs(item.calories);
-        }
-    });
-    return burned;
-};
-const calculateWaterTotal = (log) => {
-    let water = 0;
-    log.forEach(item => {
-        if (item.type === 'water' && item.volume > 0) {
-            water += item.volume;
-        }
-    });
-    return water;
+  let cals = 0, prot = 0, carb = 0, fat = 0;
+  log.forEach(item => {
+    if (item.calories) cals += item.calories;
+    if (item.type === 'food' && item.calories > 0) {
+      if(item.protein) prot += item.protein;
+      if(item.carbs) carb += item.carbs;
+      if(item.fat) fat += item.fat;
+    }
+  });
+  return { calories: Math.round(cals), protein: Math.round(prot), carbs: Math.round(carb), fat: Math.round(fat) };
 };
 
+const calculateBurnedCalories = (log) => {
+  let burned = 0;
+  log.forEach(item => {
+    if (item.type === 'exercise' && item.calories < 0) {
+      burned += Math.abs(item.calories);
+    }
+  });
+  return burned;
+};
+
+const calculateWaterTotal = (log) => {
+  let water = 0;
+  log.forEach(item => {
+    if (item.type === 'water' && item.volume > 0) {
+      water += item.volume;
+    }
+  });
+  return water;
+};
 
 function DiarioAlimentarPage() {
   const [todaysLog, setTodaysLog] = useState([]);
@@ -54,7 +54,7 @@ function DiarioAlimentarPage() {
   const [burnedCalories, setBurnedCalories] = useState(0);
   const burnedCaloriesGoal = 600;
   const [todaysWater, setTodaysWater] = useState(0);
-  const [openSections, setOpenSections] = useState({ food: true, exercise: false, water: false, sleep: false, });
+  const [openSections, setOpenSections] = useState({ food: true, exercise: false, water: false, sleep: false });
 
   const pageStyle = {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/dieta.jpg')`,
@@ -65,7 +65,7 @@ function DiarioAlimentarPage() {
 
   useEffect(() => {
     // ===================================================================
-    // PROTOCOLO 3: VERIFICADOR DE NOVO DIA E ARQUIVAMENTO HISTÓRICO
+    // PROTOCOLO 3: VERIFICADOR DE NOVO DIA (Será movido pro backend depois)
     // ===================================================================
     const today = new Date().toISOString().split('T')[0];
     const lastLogDate = localStorage.getItem('gabgymLastLogDate');
@@ -85,37 +85,43 @@ function DiarioAlimentarPage() {
           });
 
           localStorage.setItem('gabgymLogHistory', JSON.stringify(history));
-          
           localStorage.removeItem('gabgymTodaysLog');
           localStorage.removeItem('gabgymTodaysSleep');
           toast.info(`Um novo dia começou! O diário de ontem foi arquivado no seu histórico.`);
       }
     }
     localStorage.setItem('gabgymLastLogDate', today);
-    // ===================================================================
-    // FIM DO PROTOCOLO 3
-    // ===================================================================
       
-    const storedUserDataString = localStorage.getItem('gabgymUserData');
-    if (storedUserDataString) {
-      const userData = JSON.parse(storedUserDataString);
-      setUserName(userData.name);
-      
-      if (userData.age && userData.weight && userData.height && userData.gender && userData.objective) {
-        const weightNum = parseFloat(userData.weight);
-        const ageNum = parseFloat(userData.age);
-        const heightNum = parseFloat(userData.height);
+    // ===================================================================
+    // BUSCA DE METAS DO USUÁRIO DIRETO DO BANCO DE DADOS (JAVA)
+    // ===================================================================
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      getUser(userId).then(response => {
+        const userData = response.data;
+        setUserName(userData.name);
         
-        const bmr = calculateBMR(userData.gender, weightNum, heightNum, ageNum);
-        const tdee = calculateTDEE(bmr);
-        const goals = calculateMacros(tdee, userData.objective, weightNum);
-        setUserGoals(goals);
-
-        const water = calculateWaterIntake(weightNum);
-        setWaterGoal(water);
-      }
+        if (userData.age && userData.weight && userData.height && userData.gender && userData.objective) {
+          const weightNum = parseFloat(userData.weight);
+          const ageNum = parseFloat(userData.age);
+          const heightNum = parseFloat(userData.height);
+          
+          const bmr = calculateBMR(userData.gender, weightNum, heightNum, ageNum);
+          
+          // BUG RESOLVIDO: Agora passamos o activityLevel real pro cálculo
+          const activityLevel = userData.activityLevel || 'sedentary'; 
+          const tdee = calculateTDEE(bmr, activityLevel);
+          const goals = calculateMacros(tdee, userData.objective, weightNum);
+          
+          setUserGoals(goals);
+          setWaterGoal(calculateWaterIntake(weightNum));
+        }
+      }).catch(err => {
+        console.error("Erro ao buscar dados do usuário pro diário:", err);
+      });
     }
     
+    // TODO: No próximo passo, vamos substituir esse get do localStorage por uma chamada GET /users/{id}/logs
     const savedLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
     setTodaysLog(savedLog);
     setTotals(calculateLogTotals(savedLog));
@@ -136,6 +142,8 @@ function DiarioAlimentarPage() {
     setTotals(calculateLogTotals(newLog));
     setBurnedCalories(calculateBurnedCalories(newLog));
     setTodaysWater(calculateWaterTotal(newLog));
+    
+    // TODO: Aqui entrará o POST /users/{id}/logs para salvar direto no Java
     localStorage.setItem('gabgymTodaysLog', JSON.stringify(newLog));
   };
   
@@ -148,7 +156,8 @@ function DiarioAlimentarPage() {
   const handleAddExercise = (exercise) => {
     const newLogEntry = { ...exercise, timestamp: Date.now(), type: 'exercise' };
     updateLog(newLogEntry);
-    toast.error(`${Math.abs(exercise.calories)} kcal gastas com ${exercise.name}!`);
+    // Cosmético ajustado: Removido o toast.error (vermelho) para exercício, agora é success.
+    toast.success(`${Math.abs(exercise.calories)} kcal gastas com ${exercise.name}!`);
   };
 
   const handleAddWater = (option) => {
@@ -163,6 +172,8 @@ function DiarioAlimentarPage() {
     setTotals(calculateLogTotals(newLog));
     setBurnedCalories(calculateBurnedCalories(newLog));
     setTodaysWater(calculateWaterTotal(newLog));
+    
+    // TODO: Aqui entrará o DELETE /users/{id}/logs/{logId} no backend
     localStorage.setItem('gabgymTodaysLog', JSON.stringify(newLog));
   };
   
