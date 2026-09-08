@@ -259,3 +259,59 @@
 
   .profile-actions { grid-template-columns: 1fr 1fr 1fr; }
 }
+
+/* ---------- Sistema de Abas ---------- */
+.tab-navigation {
+  display: flex;
+  gap: 8px;
+  background: var(--pf-surface);
+  padding: 6px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--pf-line);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  color: var(--pf-muted);
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn .tab-icon {
+  font-size: 1.2em;
+}
+
+.tab-btn.active {
+  background: var(--pf-void);
+  color: var(--pf-neon);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(182, 255, 110, 0.1);
+}
+
+/* Animação suave ao trocar de aba */
+.fade-in {
+  animation: fadeInTab 0.3s ease forwards;
+}
+
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

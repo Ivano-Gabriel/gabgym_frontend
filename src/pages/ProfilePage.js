@@ -1,12 +1,10 @@
-// src/pages/ProfilePage.js (Versão Final com Streak À Prova de Balas)
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUser } from '../services/apiService';
 import {
   FiActivity, FiPieChart, FiHeart, FiBookOpen, FiZap, FiHelpCircle,
-  FiEdit3, FiLogOut, FiGlobe, FiCamera,
+  FiEdit3, FiLogOut, FiGlobe, FiCamera, FiBarChart2, FiGrid
 } from 'react-icons/fi';
 import './ProfilePage.css';
 
@@ -19,9 +17,11 @@ function ProfilePage() {
   const [avatarUrl, setAvatarUrl] = useState('/images/default-avatar.png');
   const fileInputRef = useRef(null);
   const [streak, setStreak] = useState(0);
+  
+  // Novo estado para controlar a aba ativa (estatísticas ou navegação)
+  const [activeTab, setActiveTab] = useState('stats'); 
 
   useEffect(() => {
-    // Carrega dados do usuário direto do backend (fonte da verdade agora é o Java, não mais o localStorage)
     const userId = localStorage.getItem('userId');
     if (!userId) {
       navigate('/login');
@@ -41,20 +41,12 @@ function ProfilePage() {
         console.error('Erro ao carregar perfil:', err);
       });
 
-    // Avatar ainda é só local por enquanto (backend não tem upload de imagem ainda — fica pra próxima fase)
     const storedAvatar = localStorage.getItem('gabgymAvatar');
     if (storedAvatar) {
       setAvatarUrl(storedAvatar);
     }
     
-    // =================================================================
-    // LÓGICA DO STREAK - VERSÃO "TANQUE DE GUERRA"
-    // =================================================================
-    
-    // Pega a data de hoje no formato YYYY-MM-DD, que não tem fuso horário
     const todayString = new Date().toLocaleDateString('en-CA');
-    
-    // Pega a data de ontem no mesmo formato
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayString = yesterday.toLocaleDateString('en-CA');
@@ -62,26 +54,18 @@ function ProfilePage() {
     const streakDataString = localStorage.getItem('gabgymStreakData');
     let streakData = streakDataString ? JSON.parse(streakDataString) : { count: 0, lastVisit: null };
 
-    // A mágica: só fazemos qualquer cálculo SE o texto da última visita não for igual ao texto de hoje
     if (streakData.lastVisit !== todayString) {
       if (streakData.lastVisit === yesterdayString) {
-        // Dia consecutivo! Aumenta o streak.
         streakData.count++;
       } else {
-        // Quebrou o streak ou é o primeiro acesso de todos. Reseta para 1.
         streakData.count = 1;
       }
-      
-      // Salva a data de hoje (em texto) como a última visita
       streakData.lastVisit = todayString;
       localStorage.setItem('gabgymStreakData', JSON.stringify(streakData));
     }
     
     setStreak(streakData.count);
-    
-
-  }, []);
-
+  }, [navigate]);
   
   const handleLogout = () => {
     localStorage.clear(); 
@@ -149,26 +133,45 @@ function ProfilePage() {
           </div>
         </div>
 
-        <div className="profile-section">
-          <h3 className="section-title">{t('hub.suas_estatisticas')}</h3>
-          <div className="stats-strip">
-            <div className="stat-item"><span>{t('hub.altura')}</span><strong>{userData ? userData.height : '-'}<small>cm</small></strong></div>
-            <div className="stat-item"><span>{t('hub.peso')}</span><strong>{userData ? userData.weight : '-'}<small>kg</small></strong></div>
-            <div className="stat-item"><span>{t('hub.idade')}</span><strong>{userData ? userData.age : '-'}<small>anos</small></strong></div>
-            <div className="stat-item"><span>{t('hub.imc')}</span><strong>{imc || '-'}</strong></div>
-          </div>
+        {/* Sistema de Abas */}
+        <div className="tab-navigation">
+          <button 
+            className={`tab-btn ${activeTab === 'stats' ? 'active' : ''}`}
+            onClick={() => setActiveTab('stats')}
+          >
+            <FiBarChart2 className="tab-icon" /> Visão Geral
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'nav' ? 'active' : ''}`}
+            onClick={() => setActiveTab('nav')}
+          >
+            <FiGrid className="tab-icon" /> Navegar
+          </button>
         </div>
 
-        <div className="profile-section">
-            <h3 className="section-title">{t('hub.navegacao')}</h3>
-            <div className="hub-grid">
+        {/* Conteúdo Condicional */}
+        <div className="tab-content">
+          {activeTab === 'stats' ? (
+            <div className="profile-section fade-in">
+              <div className="stats-strip">
+                <div className="stat-item"><span>{t('hub.altura')}</span><strong>{userData ? userData.height : '-'}<small>cm</small></strong></div>
+                <div className="stat-item"><span>{t('hub.peso')}</span><strong>{userData ? userData.weight : '-'}<small>kg</small></strong></div>
+                <div className="stat-item"><span>{t('hub.idade')}</span><strong>{userData ? userData.age : '-'}<small>anos</small></strong></div>
+                <div className="stat-item"><span>{t('hub.imc')}</span><strong>{imc || '-'}</strong></div>
+              </div>
+            </div>
+          ) : (
+            <div className="profile-section fade-in">
+              <div className="hub-grid">
                 <Link to="/training-models" className="hub-card"><FiActivity className="hub-icon" /><span>{t('hub.treinos')}</span></Link>
                 <Link to="/dietas" className="hub-card"><FiPieChart className="hub-icon" /><span>{t('hub.dietas')}</span></Link>
                 <Link to="/cardio" className="hub-card"><FiHeart className="hub-icon" /><span>{t('hub.cardio')}</span></Link>
                 <Link to="/diario" className="hub-card"><FiBookOpen className="hub-icon" /><span>{t('hub.diario')}</span></Link>
                 <Link to="/curiosidades" className="hub-card"><FiZap className="hub-icon" /><span>{t('hub.curiosidades')}</span></Link>
                 <Link to="/me-ajude" className="hub-card"><FiHelpCircle className="hub-icon" /><span>{t('hub.me_ajude')}</span></Link>
+              </div>
             </div>
+          )}
         </div>
 
         <div className="profile-actions">
