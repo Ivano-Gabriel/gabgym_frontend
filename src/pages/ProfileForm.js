@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import ConfirmationModal from '../components/ConfirmationModal';
 import { calculateBMR, calculateTDEE, calculateMacros } from '../utils/MetabolismCalculator';
+import { getUser, updateUser } from '../services/apiService';
 import './ProfileForm.css';
 
 function ProfileForm() {
@@ -22,13 +23,35 @@ function ProfileForm() {
   });
   const [calculatedGoals, setCalculatedGoals] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const savedData = localStorage.getItem('gabgymUserData');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
+    if (!userId) {
+      navigate('/login');
+      return;
     }
-  }, []);
+    getUser(userId)
+      .then(response => {
+        const user = response.data;
+        setFormData(prev => ({
+          ...prev,
+          name: user.name || '',
+          age: user.age ?? '',
+          weight: user.weight ?? '',
+          height: user.height ?? '',
+          gender: user.gender || 'male',
+          objective: user.objective || 'maintain-weight',
+          activityLevel: user.activityLevel || 'light',
+        }));
+      })
+      .catch(err => {
+        console.error('Erro ao carregar perfil:', err);
+        toast.error(t('profile_form.erro_carregar') || 'Não foi possível carregar seu perfil.');
+      })
+      .finally(() => setIsLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,11 +77,31 @@ function ProfileForm() {
   };
 
   const handleConfirmSave = () => {
-    localStorage.setItem('gabgymUserData', JSON.stringify(formData));
-    toast.success(t('profile_form.sucesso_salvo'));
-    setIsModalOpen(false);
-    navigate('/perfil');
+    const payload = {
+      ...formData,
+      age: parseInt(formData.age, 10),
+      weight: parseFloat(formData.weight),
+      height: parseFloat(formData.height),
+    };
+    updateUser(userId, payload)
+      .then(() => {
+        toast.success(t('profile_form.sucesso_salvo'));
+        setIsModalOpen(false);
+        navigate('/perfil');
+      })
+      .catch(err => {
+        console.error('Erro ao salvar perfil:', err);
+        toast.error(t('profile_form.erro_salvar') || 'Não foi possível salvar seu perfil.');
+      });
   };
+
+  if (isLoading) {
+    return (
+      <div className="profile-form-container">
+        <p>{t('profile_form.carregando') || 'Carregando...'}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="profile-form-container">

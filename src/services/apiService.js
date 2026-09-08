@@ -50,6 +50,11 @@ export const getUser = (id) => {
   return apiClient.get(`/users/${id}`);
 };
 
+// Atualiza o perfil do usuário logado
+export const updateUser = (id, userData) => {
+  return apiClient.put(`/users/${id}`, userData);
+};
+
 // Diário: agora fica dentro de /users/{id}/logs, não mais /dailylogs/
 export const getAtividades = (userId) => {
   return apiClient.get(`/users/${userId}/logs`);

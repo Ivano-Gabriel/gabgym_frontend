@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getUser } from '../services/apiService';
 import './ProfilePage.css';
 
 function ProfilePage() {
@@ -16,16 +17,27 @@ function ProfilePage() {
   const [streak, setStreak] = useState(0);
 
   useEffect(() => {
-    // Carrega dados do usuário e avatar (sem mudanças aqui)
-    const storedUserData = JSON.parse(localStorage.getItem('gabgymUserData'));
-    if (storedUserData) {
-      setUserData(storedUserData);
-      if (storedUserData.weight && storedUserData.height) {
-        const heightInMeters = parseFloat(storedUserData.height) / 100;
-        const bmi = (parseFloat(storedUserData.weight) / (heightInMeters * heightInMeters)).toFixed(2);
-        setImc(bmi);
-      }
+    // Carrega dados do usuário direto do backend (fonte da verdade agora é o Java, não mais o localStorage)
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      navigate('/login');
+      return;
     }
+    getUser(userId)
+      .then(response => {
+        const user = response.data;
+        setUserData(user);
+        if (user.weight && user.height) {
+          const heightInMeters = parseFloat(user.height) / 100;
+          const bmi = (parseFloat(user.weight) / (heightInMeters * heightInMeters)).toFixed(2);
+          setImc(bmi);
+        }
+      })
+      .catch(err => {
+        console.error('Erro ao carregar perfil:', err);
+      });
+
+    // Avatar ainda é só local por enquanto (backend não tem upload de imagem ainda — fica pra próxima fase)
     const storedAvatar = localStorage.getItem('gabgymAvatar');
     if (storedAvatar) {
       setAvatarUrl(storedAvatar);
