@@ -162,6 +162,7 @@ function AppContent() {
           <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
           <Route path="/historico" element={<HistoryPage />} />
+          <Route path="/minhas-metas" element={<MinhasMetasPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
         </Routes>

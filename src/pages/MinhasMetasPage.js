@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/apiService'; // Ajuste o caminho conforme seu projeto
-import '../styles/MinhasMetas.css'; // Vamos criar este CSS abaixo
+import { getMetas, createMeta, updateMetaStatus } from '../services/apiService';
+import '../styles/MinhasMetas.css';
 
 const MinhasMetasPage = () => {
   const [metas, setMetas] = useState([]);
@@ -17,9 +17,10 @@ const MinhasMetasPage = () => {
   }, []);
 
   const carregarMetas = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
     try {
-      // Supondo que você criou essa rota no Java e no apiService
-      const response = await api.get('/metas'); 
+      const response = await getMetas(userId);
       setMetas(response.data);
     } catch (error) {
       console.error("Erro ao buscar metas:", error);
@@ -28,13 +29,16 @@ const MinhasMetasPage = () => {
 
   const handleCriarMeta = async (e) => {
     e.preventDefault();
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
     try {
       const novaMeta = {
+        userId: parseInt(userId, 10),
         titulo: novaMetaTitulo,
         descricao: novaMetaDescricao,
         status: 'ATIVA'
       };
-      await api.post('/metas', novaMeta);
+      await createMeta(novaMeta);
       setNovaMetaTitulo('');
       setNovaMetaDescricao('');
       setIsModalOpen(false);
@@ -46,7 +50,7 @@ const MinhasMetasPage = () => {
 
   const handleAtualizarStatus = async (id, novoStatus) => {
     try {
-      await api.put(`/metas/${id}/status`, { status: novoStatus });
+      await updateMetaStatus(id, { status: novoStatus });
       carregarMetas(); // Atualiza a lista após concluir/desistir
     } catch (error) {
       console.error(`Erro ao atualizar meta para ${novoStatus}:`, error);

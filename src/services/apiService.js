@@ -84,3 +84,8 @@ export const getFoods = () => {
 export const getDiaryLogs = (userId, date) => apiClient.get(`/logs/user/${userId}?date=${date}`);
 export const addDiaryLog = (logData) => apiClient.post('/logs', logData);
 export const deleteDiaryLog = (logId) => apiClient.delete(`/logs/${logId}`);
+
+// === ROTAS DA ABA: MINHAS METAS ===
+export const getMetas = (userId) => apiClient.get(`/metas/user/${userId}`);
+export const createMeta = (metaData) => apiClient.post('/metas', metaData);
+export const updateMetaStatus = (id, statusData) => apiClient.put(`/metas/${id}/status`, statusData);
