@@ -1,0 +1,274 @@
+/* Container Principal */
+.gg-metas-container {
+  min-height: calc(100vh - 60px);
+  background-color: var(--gg-void); /* Fundo preto do redesign */
+  color: var(--gg-text);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--gg-font-body);
+}
+
+/* Header e Botão + */
+.gg-metas-header {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--gg-line);
+  padding-bottom: 20px;
+}
+
+.gg-metas-header h1 {
+  font-family: var(--gg-font-display);
+  font-size: 2.5rem;
+  color: var(--gg-text);
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+
+.gg-metas-header p {
+  color: var(--gg-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.gg-btn-nova-meta {
+  background-color: var(--gg-green);
+  color: var(--gg-void);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.2);
+}
+
+.gg-btn-nova-meta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(116, 232, 93, 0.4);
+}
+
+/* Seções e Listas */
+.gg-metas-section {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.gg-section-title {
+  font-family: var(--gg-font-display);
+  font-size: 1.2rem;
+  color: var(--gg-text);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--gg-green);
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.gg-empty-text {
+  color: var(--gg-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+  background-color: var(--gg-surface);
+  border-radius: 8px;
+}
+
+.gg-metas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Cards de Meta */
+.gg-meta-card {
+  background-color: var(--gg-surface);
+  border: 1px solid var(--gg-line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.gg-meta-card:hover {
+  border-color: var(--gg-muted);
+}
+
+.gg-meta-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.gg-meta-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gg-meta-title h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--gg-text);
+}
+
+.gg-target-icon {
+  font-size: 1.5rem;
+}
+
+.gg-expand-icon {
+  color: var(--gg-muted);
+  font-size: 0.8rem;
+}
+
+/* Corpo Expansível */
+.gg-meta-body {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid var(--gg-line);
+  margin-top: 10px;
+  padding-top: 15px;
+  animation: slideDown 0.3s ease;
+}
+
+.gg-meta-body p {
+  color: var(--gg-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.gg-meta-controls {
+  display: flex;
+  gap: 15px;
+}
+
+/* Botões Concluir / Desistir */
+.gg-btn-concluir, .gg-btn-desistir {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.gg-btn-concluir {
+  background-color: var(--gg-green);
+  color: var(--gg-void);
+}
+
+.gg-btn-desistir {
+  background-color: var(--gg-danger);
+  color: var(--gg-text);
+}
+
+.gg-btn-concluir:hover, .gg-btn-desistir:hover {
+  opacity: 0.8;
+}
+
+/* Histórico Styles */
+.history-card.concluida {
+  border-left: 4px solid var(--gg-green);
+  opacity: 0.8;
+}
+
+.history-card.desistida {
+  border-left: 4px solid var(--gg-danger);
+  opacity: 0.6;
+}
+
+.gg-status-badge {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.gg-status-badge.concluida {
+  background-color: rgba(116, 232, 93, 0.2);
+  color: var(--gg-green);
+}
+
+.gg-status-badge.desistida {
+  background-color: rgba(255, 107, 92, 0.2);
+  color: var(--gg-danger);
+}
+
+/* Modal de Nova Meta */
+.gg-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 15, 12, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.gg-modal-content {
+  background-color: var(--gg-surface);
+  border: 1px solid var(--gg-line);
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.gg-modal-content h2 {
+  margin-top: 0;
+  color: var(--gg-green);
+}
+
+.gg-modal-content input, .gg-modal-content textarea {
+  width: 100%;
+  background-color: var(--gg-void);
+  border: 1px solid var(--gg-line);
+  color: var(--gg-text);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-family: var(--gg-font-body);
+}
+
+.gg-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.gg-btn-cancelar {
+  background: transparent;
+  color: var(--gg-muted);
+  border: 1px solid var(--gg-line);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gg-btn-salvar {
+  background-color: var(--gg-green);
+  color: var(--gg-void);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

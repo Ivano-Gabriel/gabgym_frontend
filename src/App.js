@@ -30,6 +30,7 @@ import ExerciseDetailPage from './pages/ExerciseDetailPage';
 import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import SignupPage from './pages/SignupPage';
+import MinhasMetasPage from './pages/MinhasMetasPage';
 
 
 
