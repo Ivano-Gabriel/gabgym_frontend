@@ -1,0 +1,116 @@
+/* src/components/TodaysLogSidebar.css */
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 12, 0.75);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 100;
+  font-family: var(--gg-font-body);
+}
+
+.sidebar-content {
+  width: 100%;
+  max-width: 380px;
+  height: 100%;
+  background: var(--gg-void);
+  border-left: 1px solid var(--gg-line);
+  display: flex;
+  flex-direction: column;
+  animation: gg-slide-in 0.25s ease;
+}
+
+@keyframes gg-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--gg-line);
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  color: var(--gg-text);
+  font-size: 1.2em;
+}
+
+.close-sidebar-button {
+  background: none;
+  border: none;
+  color: var(--gg-muted);
+  font-size: 1.6em;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.close-sidebar-button:hover { color: var(--gg-text); }
+
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 20px;
+}
+
+.sidebar-body p { color: var(--gg-muted); text-align: center; margin-top: 30px; font-size: 0.9em; }
+
+.log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gg-line);
+  font-size: 0.88em;
+  color: var(--gg-text);
+}
+
+.log-item:last-child { border-bottom: none; }
+
+.log-value { font-weight: 700; white-space: nowrap; }
+.log-value.food { color: var(--gg-green); }
+.log-value.exercise { color: var(--gg-danger); }
+.log-value.water { color: var(--gg-water); }
+
+.remove-food-button {
+  background: none;
+  border: none;
+  color: var(--gg-muted);
+  font-size: 1.3em;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 6px;
+}
+
+.remove-food-button:hover { color: var(--gg-danger); }
+
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--gg-line); }
+
+.clear-log-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 107, 92, 0.35);
+  background: transparent;
+  color: var(--gg-danger);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clear-log-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.clear-log-button:not(:disabled):hover {
+  background: rgba(255, 107, 92, 0.1);
+}

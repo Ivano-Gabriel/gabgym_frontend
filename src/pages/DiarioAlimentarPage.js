@@ -6,6 +6,8 @@ import { EXERCISE_LIST } from '../data/ExerciseList';
 import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake, calculateSleepDuration } from '../utils/MetabolismCalculator';
 import TodaysLogSidebar from '../components/TodaysLogSidebar';
 import { getUser, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
+import { FiPlusCircle, FiActivity, FiDroplet, FiMoon, FiList } from 'react-icons/fi';
+import './DiarioAlimentarPage.css';
 
 const calculateLogTotals = (log) => {
   let cals = 0, prot = 0, carb = 0, fat = 0;
@@ -54,14 +56,7 @@ function DiarioAlimentarPage() {
   const [burnedCalories, setBurnedCalories] = useState(0);
   const burnedCaloriesGoal = 600;
   const [todaysWater, setTodaysWater] = useState(0);
-  const [openSections, setOpenSections] = useState({ food: true, exercise: false, water: false, sleep: false });
-
-  const pageStyle = {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/dieta.jpg')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  };
+  const [activeSection, setActiveSection] = useState('food');
 
   const getTodayDateString = () => new Date().toLocaleDateString('en-CA');
 
@@ -189,7 +184,7 @@ function DiarioAlimentarPage() {
   };
 
   const toggleSection = (section) => {
-    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+    setActiveSection(prev => (prev === section ? null : section));
   };
   
   const handleManualCalorieSubmit = (e) => {
@@ -222,175 +217,187 @@ function DiarioAlimentarPage() {
     return 'good';
   };
 
-  const renderGoalSummary = (label, consumed, goal, unit = 'g') => {
+  const renderStatBar = (label, consumed, goal, unit = 'g', icon = null) => {
     const percentage = goal > 0 ? (consumed / goal) * 100 : 0;
-    
-    let barClass = '';
+
+    let barClass = 'status-empty';
     if (percentage > 110 && (label === 'Proteínas' || label === 'Carboidratos' || label === 'Gorduras')) {
-        barClass = 'status-over';
+      barClass = 'status-over';
     } else if (percentage >= 90) {
-        barClass = 'status-good';
+      barClass = 'status-good';
     } else if (percentage > 0) {
-        barClass = 'status-mid';
-    } else {
-        barClass = 'status-empty';
+      barClass = 'status-mid';
     }
-    
-    const isGeneral = label === 'Calorias';
-    const containerClass = isGeneral ? 'general-progress-container' : 'summary-item';
-    const barContainerClass = isGeneral ? 'general-progress-bar-container' : 'progress-bar-container';
 
     const formatMinutesToHours = (minutes) => `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, '0')}min`;
     const goalText = label === 'Sono' ? formatMinutesToHours(goal) : `${goal}${unit}`;
     const consumedText = label === 'Sono' ? (sleepDuration ? sleepDuration.formatted : '0h 00min') : Math.round(consumed);
 
     return (
-      <div className={containerClass}>
-        <div className="summary-labels">
-          <span>{label}</span>
-          <span>{consumedText} / {goalText}</span>
+      <div className="stat-bar" key={label}>
+        <div className="stat-bar-top">
+          <span className="stat-bar-label">{icon}{label}</span>
+          <span className="stat-bar-value">{consumedText} <small>/ {goalText}</small></span>
         </div>
-        <div className={barContainerClass}>
-          <div className={`progress-bar ${barClass}`} style={{ width: `${Math.min(percentage, 100)}%` }}></div>
+        <div className="stat-bar-track">
+          <div className={`stat-bar-fill ${barClass}`} style={{ width: `${Math.min(percentage, 100)}%` }}></div>
         </div>
       </div>
     );
   };
-  
+
+  const caloriePercentage = userGoals && userGoals.calories > 0
+    ? Math.min((totals.calories / userGoals.calories) * 100, 100)
+    : 0;
+  const calorieRingCircumference = 2 * Math.PI * 70;
+  const calorieOverGoal = userGoals && totals.calories > userGoals.calories;
   const sleepGoalInMinutes = 8 * 60;
-
+  
   return (
-    <div className="content-page" style={pageStyle}>
-      <h2 className="workout-page-title">Meu Diário</h2>
-      
-      {userName && userGoals ? (
-        <>
-          <h3 className="user-context-subtitle">
-            Monitorando o dia de <strong>{userName}</strong>
-          </h3>
-          {renderGoalSummary('Calorias', totals.calories, userGoals.calories, 'kcal')}
-          <div className="goal-summary-container">
-            {renderGoalSummary('Proteínas', totals.protein, userGoals.protein)}
-            {renderGoalSummary('Carboidratos', totals.carbs, userGoals.carbs)}
-            {renderGoalSummary('Gorduras', totals.fat, userGoals.fat)}
-            {renderGoalSummary('Água', todaysWater, waterGoal, 'ml')}
-            {renderGoalSummary('Sono', sleepDuration ? sleepDuration.totalMinutes : 0, sleepGoalInMinutes, 'min')}
-            {renderGoalSummary('Gasto Calórico', burnedCalories, burnedCaloriesGoal, 'kcal')}
-          </div>
-        </>
-      ) : (
-        <p>Preencha seu perfil para vermos suas metas aqui!</p>
-      )}
+    <div className="diary-page-container">
+      <div className="diary-card">
 
-      <div className="food-library-section">
-        <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleSection('food')}>
-                <span>Adicionar Alimentos</span>
-                <span className='accordion-icon'>{openSections.food ? '−' : '+'}</span>
-            </button>
-            {openSections.food && (
-                <div className="accordion-content simplified-add-food">
-                    <p className="content-description">Adicione alimentos ao seu diário de hoje.</p>
-                    <Link to="/biblioteca-alimentos" className="cta-button">
-                        Consultar Biblioteca de Alimentos
-                    </Link>
-                </div>
-            )}
+        <div className="diary-top">
+          <h1 className="diary-title">Diário de Hoje</h1>
+          {userName && <p className="diary-subtitle">Monitorando o dia de <strong>{userName}</strong></p>}
         </div>
-      </div>
-      
-      <div className="food-library-section">
-        <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleSection('exercise')}>
-                <span>Gasto Calórico</span>
-                <span className='accordion-icon'>{openSections.exercise ? '−' : '+'}</span>
-            </button>
-            {openSections.exercise && (
-                <div className="accordion-content">
-                    <p className="content-description">Adicione os exercícios que você fez para abater as calorias.</p>
-                    <div className="exercise-options-grid">
-                        {EXERCISE_LIST.map(exercise => (
-                            <button key={exercise.id} className="exercise-option-button" onClick={() => handleAddExercise(exercise)}>
-                              <span className="exercise-name">{exercise.name}</span>
-                              <span className="exercise-calories">{exercise.calories} kcal</span>
-                            </button>
-                        ))}
-                    </div>
-                    <form className="manual-calorie-form" onSubmit={handleManualCalorieSubmit}>
-                        <input type="number" className="manual-calorie-input" value={manualCalories} onChange={(e) => setManualCalories(e.target.value)} placeholder="Kcal" min="1"/>
-                        <button type="submit" className="manual-calorie-button">Adicionar</button>
-                    </form>
-                </div>
-            )}
-        </div>
-      </div>
-      
-      <div className="food-library-section">
-         <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleSection('water')}>
-                <span>Hidratação</span>
-                <span className='accordion-icon'>{openSections.water ? '−' : '+'}</span>
-            </button>
-            {openSections.water && (
-                <div className="accordion-content">
-                    <p className="content-description">Adicione a água que você consumiu hoje.</p>
-                    <div className="water-options-grid">
-                        {WATER_OPTIONS.map(option => (
-                            <button key={option.name} className="water-option-button" onClick={() => handleAddWater(option)}>
-                                <span className="water-name">{option.name}</span>
-                                <span className="water-volume">{option.volume} ml</span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-      </div>
 
-      <div className="food-library-section">
-        <div className="accordion-item">
-            <button className="accordion-header" onClick={() => toggleSection('sleep')}>
-                <span>Controle de Sono</span>
-                <span className='accordion-icon'>{openSections.sleep ? '−' : '+'}</span>
-            </button>
-            {openSections.sleep && (
-                <div className="accordion-content">
-                    <p className="content-description">Registre suas horas de sono para uma melhor recuperação.</p>
-                    <div className="sleep-tracker-section">
-                        <div className="sleep-inputs">
-                            <label htmlFor="sleepTime">Dormi às:</label>
-                            <input type="time" id="sleepTime" value={sleepTime} onChange={(e) => setSleepTime(e.target.value)} />
-                            <label htmlFor="wakeTime">Acordei às:</label>
-                            <input type="time" id="wakeTime" value={wakeTime} onChange={(e) => setWakeTime(e.target.value)} />
-                        </div>
-                        <button onClick={handleLogSleep} className="log-sleep-button">Registrar Sono</button>
-                        {sleepDuration && (
-                            <div className={`sleep-duration-display ${getSleepClass()}`}>
-                            Duração do Sono: {sleepDuration.formatted}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
+        {userGoals ? (
+          <>
+            {/* Anel grande de calorias — o dado mais importante do dia */}
+            <div className="calorie-hero">
+              <svg viewBox="0 0 160 160" className="calorie-ring-svg">
+                <circle cx="80" cy="80" r="70" className="calorie-ring-track" />
+                <circle
+                  cx="80" cy="80" r="70"
+                  className={`calorie-ring-progress ${calorieOverGoal ? 'over' : ''}`}
+                  style={{
+                    strokeDasharray: calorieRingCircumference,
+                    strokeDashoffset: calorieRingCircumference - (caloriePercentage / 100) * calorieRingCircumference,
+                  }}
+                />
+              </svg>
+              <div className="calorie-hero-content">
+                <strong>{Math.round(totals.calories)}</strong>
+                <span>de {userGoals.calories} kcal</span>
+              </div>
+            </div>
+
+            {/* Macros principais */}
+            <div className="macro-bars">
+              {renderStatBar('Proteínas', totals.protein, userGoals.protein)}
+              {renderStatBar('Carboidratos', totals.carbs, userGoals.carbs)}
+              {renderStatBar('Gorduras', totals.fat, userGoals.fat)}
+            </div>
+
+            {/* Métricas secundárias, compactas */}
+            <div className="secondary-stats">
+              {renderStatBar('Água', todaysWater, waterGoal, 'ml')}
+              {renderStatBar('Sono', sleepDuration ? sleepDuration.totalMinutes : 0, sleepGoalInMinutes, 'min')}
+              {renderStatBar('Gasto Calórico', burnedCalories, burnedCaloriesGoal, 'kcal')}
+            </div>
+          </>
+        ) : (
+          <p className="diary-empty-state">Preencha seu perfil para vermos suas metas aqui!</p>
+        )}
+
+        {/* Seletor de seção — só uma aberta por vez, sem scroll infinito de acordeões */}
+        <div className="add-section-tabs">
+          <button className={`add-tab ${activeSection === 'food' ? 'active' : ''}`} onClick={() => toggleSection('food')}>
+            <FiPlusCircle /> Alimentos
+          </button>
+          <button className={`add-tab ${activeSection === 'exercise' ? 'active' : ''}`} onClick={() => toggleSection('exercise')}>
+            <FiActivity /> Exercício
+          </button>
+          <button className={`add-tab ${activeSection === 'water' ? 'active' : ''}`} onClick={() => toggleSection('water')}>
+            <FiDroplet /> Água
+          </button>
+          <button className={`add-tab ${activeSection === 'sleep' ? 'active' : ''}`} onClick={() => toggleSection('sleep')}>
+            <FiMoon /> Sono
+          </button>
         </div>
+
+        <div className="add-panel">
+          {activeSection === 'food' && (
+            <div className="add-panel-content fade-in">
+              <p className="panel-hint">Adicione alimentos ao seu diário de hoje.</p>
+              <Link to="/biblioteca-alimentos" className="panel-cta">
+                Consultar Biblioteca de Alimentos
+              </Link>
+            </div>
+          )}
+
+          {activeSection === 'exercise' && (
+            <div className="add-panel-content fade-in">
+              <p className="panel-hint">Adicione os exercícios que você fez para abater as calorias.</p>
+              <div className="chip-grid">
+                {EXERCISE_LIST.map(exercise => (
+                  <button key={exercise.id} className="chip-button" onClick={() => handleAddExercise(exercise)}>
+                    <span className="chip-name">{exercise.name}</span>
+                    <span className="chip-value">{exercise.calories} kcal</span>
+                  </button>
+                ))}
+              </div>
+              <form className="manual-form" onSubmit={handleManualCalorieSubmit}>
+                <input type="number" className="manual-input" value={manualCalories} onChange={(e) => setManualCalories(e.target.value)} placeholder="Kcal manual" min="1" />
+                <button type="submit" className="manual-submit">Adicionar</button>
+              </form>
+            </div>
+          )}
+
+          {activeSection === 'water' && (
+            <div className="add-panel-content fade-in">
+              <p className="panel-hint">Adicione a água que você consumiu hoje.</p>
+              <div className="chip-grid">
+                {WATER_OPTIONS.map(option => (
+                  <button key={option.name} className="chip-button water" onClick={() => handleAddWater(option)}>
+                    <span className="chip-name">{option.name}</span>
+                    <span className="chip-value">{option.volume} ml</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'sleep' && (
+            <div className="add-panel-content fade-in">
+              <p className="panel-hint">Registre suas horas de sono para uma melhor recuperação.</p>
+              <div className="sleep-inputs-row">
+                <div className="sleep-input-group">
+                  <label htmlFor="sleepTime">Dormi às</label>
+                  <input type="time" id="sleepTime" value={sleepTime} onChange={(e) => setSleepTime(e.target.value)} />
+                </div>
+                <div className="sleep-input-group">
+                  <label htmlFor="wakeTime">Acordei às</label>
+                  <input type="time" id="wakeTime" value={wakeTime} onChange={(e) => setWakeTime(e.target.value)} />
+                </div>
+              </div>
+              <button onClick={handleLogSleep} className="panel-cta">Registrar Sono</button>
+              {sleepDuration && (
+                <div className={`sleep-result ${getSleepClass()}`}>
+                  Duração do sono: {sleepDuration.formatted}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <button className="log-fab" onClick={() => setIsSidebarOpen(true)}>
+          <FiList /> Ver Resumo de Hoje ({todaysLog.length})
+        </button>
+
+        {isSidebarOpen && (
+          <TodaysLogSidebar
+            log={todaysLog}
+            onClose={() => setIsSidebarOpen(false)}
+            onClear={handleClearLog}
+            onRemove={handleRemoveItem}
+          />
+        )}
+
+        <Link to="/dietas" className="diary-back-link">← Voltar para Metas</Link>
+
       </div>
-
-      <button className="log-trigger-button" onClick={() => setIsSidebarOpen(true)}>
-        Ver Resumo de Hoje ({todaysLog.length})
-      </button>
-
-      {isSidebarOpen && (
-        <TodaysLogSidebar 
-          log={todaysLog}
-          onClose={() => setIsSidebarOpen(false)}
-          onClear={handleClearLog}
-          onRemove={handleRemoveItem}
-        />
-      )}
-      
-      <Link to="/dietas" className="back-button-general" style={{ marginTop: '40px' }}>
-        Voltar para Metas
-      </Link>
     </div>
   );
 }

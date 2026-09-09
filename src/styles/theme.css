@@ -1,0 +1,19 @@
+/* src/styles/theme.css
+   Tokens do redesign novo (preto+verde+neon, estilo Apple Fitness).
+   Importado uma vez no index.css. Toda página redesenhada usa essas variáveis
+   em vez de inventar cor nova — é a base pra espalhar esse visual pro app inteiro. */
+
+:root {
+  --gg-void: #0A0F0C;
+  --gg-surface: #12181450;
+  --gg-line: rgba(255, 255, 255, 0.08);
+  --gg-text: #EDF3EE;
+  --gg-muted: #8CA091;
+  --gg-green: #74E85D;
+  --gg-neon: #B6FF6E;
+  --gg-danger: #FF6B5C;
+  --gg-warning: #FFC65C;
+  --gg-water: #5CC2FF;
+  --gg-font-display: 'Anton', sans-serif;
+  --gg-font-body: 'Sora', sans-serif;
+}

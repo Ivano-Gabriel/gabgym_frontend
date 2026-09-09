@@ -1,6 +1,7 @@
 // src/components/TodaysLogSidebar.js
 import React, { useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
+import './TodaysLogSidebar.css';
 
 function TodaysLogSidebar({ log, onClose, onClear, onRemove }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,19 +27,19 @@ function TodaysLogSidebar({ log, onClose, onClear, onRemove }) {
                                     {item.type === 'food' && (
                                         <>
                                             <span>{item.name} ({item.serving_desc})</span>
-                                            <span style={{ color: 'var(--primaryGreen)' }}>+{item.calories} kcal</span>
+                                            <span className="log-value food">+{item.calories} kcal</span>
                                         </>
                                     )}
                                     {item.type === 'exercise' && (
                                         <>
                                             <span>{item.name}</span>
-                                            <span style={{ color: '#e74c3c' }}>{item.calories} kcal</span>
+                                            <span className="log-value exercise">{item.calories} kcal</span>
                                         </>
                                     )}
                                     {item.type === 'water' && (
                                         <>
                                             <span>{item.name}</span>
-                                            <span style={{ color: '#3498db' }}>+{item.volume} ml</span>
+                                            <span className="log-value water">+{item.volume} ml</span>
                                         </>
                                     )}
                                     <button onClick={() => onRemove(item.timestamp)} className="remove-food-button">×</button>
