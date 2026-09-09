@@ -1,10 +1,10 @@
-// src/pages/FoodLibraryPage.js (Versão conectada ao backend Java)
+// src/pages/FoodLibraryPage.js — conectada ao backend Java, add real ao diário, visual novo
 
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import FoodCard from '../components/FoodCard';
 import FloatingBackButton from '../components/FloatingBackButton';
-import { getFoods } from '../services/apiService';
+import { getFoods, addDiaryLog } from '../services/apiService';
 import './FoodLibraryPage.css';
 
 function FoodLibraryPage() {
@@ -12,7 +12,7 @@ function FoodLibraryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [openCategory, setOpenCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function FoodLibraryPage() {
         setFoodCategories(categorias);
 
         if (categorias.length > 0) {
-          setOpenCategory(categorias[0].id);
+          setActiveCategory(categorias[0].id);
         }
         setLoading(false);
       })
@@ -49,85 +49,135 @@ function FoodLibraryPage() {
       });
   }, []);
 
+  // Agora manda de verdade pro Diário no backend, em vez de gravar numa chave morta do localStorage
   const handleAddFoodToLog = (food) => {
-    const currentLog = JSON.parse(localStorage.getItem('gabgymTodaysLog') || '[]');
-    const newLogEntry = {
-      ...food,
-      id: food.db_id,
-      calories: Math.round(food.calories), protein: Math.round(food.protein),
-      carbs: Math.round(food.carbs), fat: Math.round(food.fat),
-      timestamp: Date.now(), type: 'food'
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      toast.error('Você precisa estar logado para registrar alimentos.');
+      return;
+    }
+
+    const payload = {
+      userId: parseInt(userId, 10),
+      type: 'food',
+      name: food.name,
+      calories: Math.round(food.calories) || 0,
+      protein: Math.round(food.protein) || 0,
+      carbs: Math.round(food.carbs) || 0,
+      fat: Math.round(food.fat) || 0,
+      volume: 0,
+      logDate: new Date().toLocaleDateString('en-CA'),
+      timestamp: Date.now(),
     };
-    currentLog.push(newLogEntry);
-    localStorage.setItem('gabgymTodaysLog', JSON.stringify(currentLog));
-    toast.success(`${food.name} adicionado ao seu diário!`);
+
+    addDiaryLog(payload)
+      .then(() => {
+        toast.success(`${food.name} adicionado ao seu diário!`);
+      })
+      .catch(err => {
+        console.error('Erro ao adicionar alimento ao diário:', err);
+        toast.error('Não foi possível salvar esse alimento agora.');
+      });
   };
 
-  const toggleCategory = (categoryId) => {
-    setOpenCategory(prevOpenCategory => (prevOpenCategory === categoryId ? null : categoryId));
-  };
+  const isSearching = searchTerm.trim().length > 0;
 
-  const filteredCategories = foodCategories
-    .map(category => ({
-      ...category,
-      food_items: category.food_items.filter(item =>
+  // Enquanto busca, ignora categorias e mostra tudo que bate, num grid só (sem abrir tudo de uma vez)
+  const searchResults = isSearching
+    ? foodCategories.flatMap(cat => cat.food_items).filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    }))
-    .filter(category => category.food_items.length > 0);
+      )
+    : [];
 
-  const pageStyle = {};
+  const activeCategoryData = foodCategories.find(cat => cat.id === activeCategory);
 
   if (loading) {
-    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title">Carregando Biblioteca...</h2></div>;
+    return (
+      <div className="food-lib-container">
+        <p className="food-lib-status">Carregando biblioteca...</p>
+      </div>
+    );
   }
   if (error) {
-    return <div className="content-page" style={pageStyle}><h2 className="workout-page-title" style={{ color: 'red' }}>Erro: {error}</h2></div>;
+    return (
+      <div className="food-lib-container">
+        <p className="food-lib-status error">Erro ao carregar: {error}</p>
+      </div>
+    );
   }
 
   return (
-    <div className="content-page" style={pageStyle}>
-      <h2 className="workout-page-title">Biblioteca de Alimentos</h2>
-      <p className="content-description">Clique para expandir e '+' para adicionar ao seu diário.</p>
+    <div className="food-lib-container">
+      <div className="food-lib-card">
 
-      <div className="library-search-container">
+        <div className="food-lib-top">
+          <h1 className="food-lib-title">Biblioteca de Alimentos</h1>
+          <p className="food-lib-subtitle">Toque no <strong>+</strong> pra adicionar direto ao seu diário de hoje.</p>
+        </div>
+
         <input
           type="text"
           placeholder="Buscar alimento..."
-          className="library-search-input"
+          className="food-lib-search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
 
-      <div className="food-library-container">
-        {filteredCategories.map(category => (
-          <div key={category.id} className="accordion-item-lib">
-            <button className="accordion-header-lib" onClick={() => toggleCategory(category.id)}>
-              <span>{category.name}</span>
-              <span className='accordion-icon-lib'>{openCategory === category.id ? '−' : '+'}</span>
-            </button>
-            {(openCategory === category.id || searchTerm.length > 0) && (
-              <div className="accordion-content-lib">
-                <div className="food-items-grid">
-                  {category.food_items.map(item => (
-                    <FoodCard
-                      key={item.id}
-                      db_id={item.id}
-                      name={item.name}
-                      serving_desc={item.servingDesc}
-                      calories={item.calories}
-                      protein={item.protein} carbs={item.carbs} fat={item.fat}
-                      imageSrc={item.imagePath}
-                      onAdd={handleAddFoodToLog}
-                      showAddButton={true}
-                    />
-                  ))}
-                </div>
+        {isSearching ? (
+          <>
+            <h3 className="food-lib-section-label">
+              {searchResults.length} resultado{searchResults.length !== 1 ? 's' : ''} pra "{searchTerm}"
+            </h3>
+            <div className="food-lib-grid">
+              {searchResults.map(item => (
+                <FoodCard
+                  key={item.id}
+                  db_id={item.id}
+                  name={item.name}
+                  serving_desc={item.servingDesc}
+                  calories={item.calories}
+                  protein={item.protein} carbs={item.carbs} fat={item.fat}
+                  imageSrc={item.imagePath}
+                  onAdd={handleAddFoodToLog}
+                  showAddButton={true}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="category-pills">
+              {foodCategories.map(category => (
+                <button
+                  key={category.id}
+                  className={`category-pill ${activeCategory === category.id ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(category.id)}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+
+            {activeCategoryData && (
+              <div className="food-lib-grid fade-in-lib">
+                {activeCategoryData.food_items.map(item => (
+                  <FoodCard
+                    key={item.id}
+                    db_id={item.id}
+                    name={item.name}
+                    serving_desc={item.servingDesc}
+                    calories={item.calories}
+                    protein={item.protein} carbs={item.carbs} fat={item.fat}
+                    imageSrc={item.imagePath}
+                    onAdd={handleAddFoodToLog}
+                    showAddButton={true}
+                  />
+                ))}
               </div>
             )}
-          </div>
-        ))}
+          </>
+        )}
+
       </div>
 
       <FloatingBackButton to="/diario-alimentar" />

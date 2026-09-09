@@ -1,42 +1,111 @@
-/* Adicione no final do src/pages/FoodLibraryPage.css */
+/* src/pages/FoodLibraryPage.css — mesma linguagem visual do resto do app novo */
 
-.library-search-container {
-  padding: 0 20px 20px 20px;
-}
-
-.library-search-input {
-  width: 100%;
-  padding: 12px 15px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #222;
-  color: #fff;
-  font-size: 1em;
-}
-
-.accordion-item-lib {
-  margin-bottom: 10px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.accordion-header-lib {
-  width: 100%;
-  background-color: rgba(34,34,34,0.8);
-  color: #FFC107;
-  padding: 15px 20px;
-  border: none;
-  text-align: left;
-  font-size: 1.1em;
-  font-weight: bold;
+.food-lib-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
+  justify-content: center;
+  padding: 24px 16px 90px; /* espaço pro FloatingBackButton não tampar o fim da lista */
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
 }
 
-.accordion-content-lib {
-  padding: 15px;
-  background-color: rgba(0,0,0,0.3);
+.food-lib-card { width: 100%; max-width: 760px; }
+
+.food-lib-status {
+  text-align: center;
+  color: var(--gg-muted);
+  margin-top: 60px;
+}
+.food-lib-status.error { color: var(--gg-danger); }
+
+.food-lib-top { text-align: center; margin-bottom: 18px; }
+
+.food-lib-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.6em;
+  margin: 0;
+}
+
+.food-lib-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.85em;
+  margin: 6px 0 0;
+}
+.food-lib-subtitle strong { color: var(--gg-neon); }
+
+.food-lib-search {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--gg-text);
+  font-family: var(--gg-font-body);
+  font-size: 0.95em;
+  margin-bottom: 18px;
+}
+
+.food-lib-search::placeholder { color: var(--gg-muted); }
+.food-lib-search:focus { outline: none; border-color: var(--gg-neon); }
+
+.food-lib-section-label {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--gg-muted);
+  margin: 0 0 12px;
+}
+
+/* Categorias viram uma fileira de pílulas roláveis — nada de acordeão empilhado */
+.category-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  scrollbar-width: none;
+}
+.category-pills::-webkit-scrollbar { display: none; }
+
+.category-pill {
+  flex: 0 0 auto;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--gg-muted);
+  font-size: 0.82em;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.category-pill.active {
+  background: var(--gg-green);
+  color: #0A0F0C;
+  border-color: var(--gg-green);
+}
+
+/* Grid de verdade — antes essa classe não existia em nenhum CSS, por isso ficava tudo enfileirado */
+.food-lib-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.fade-in-lib { animation: gg-fade-in-lib 0.25s ease; }
+@keyframes gg-fade-in-lib { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 500px) {
+  .food-lib-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 720px) {
+  .food-lib-container { padding: 48px 24px 90px; }
+  .food-lib-grid { grid-template-columns: repeat(4, 1fr); }
 }

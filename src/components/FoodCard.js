@@ -1,12 +1,11 @@
-// src/components/FoodCard.js (Versão Corrigida)
+// src/components/FoodCard.js
 
 import React from 'react';
+import { FiPlus } from 'react-icons/fi';
 import './FoodCard.css';
 
-// 1. A PRIMEIRA MUDANÇA ESTÁ AQUI: Avisamos o componente para também receber protein, carbs, e fat
 function FoodCard({ name, serving_desc, calories, imageSrc, onAdd, showAddButton = false, protein, carbs, fat, db_id }) {
-  
-  // 2. A SEGUNDA MUDANÇA ESTÁ AQUI: Incluímos os macros no pacote que será enviado
+
   const foodItem = { db_id, name, serving_desc, calories, imageSrc, protein, carbs, fat };
 
   return (
@@ -14,11 +13,18 @@ function FoodCard({ name, serving_desc, calories, imageSrc, onAdd, showAddButton
       <img src={imageSrc} alt={name} className="food-item-image" />
       <div className="food-item-info">
         <h4>{name}</h4>
-        <p>{serving_desc}</p>
-        <p className="food-calories">{Math.round(calories)} kcal</p>
+        <p className="food-item-serving">{serving_desc}</p>
+        <div className="food-item-macros">
+          <span>{Math.round(calories)} kcal</span>
+          {protein > 0 && <span>P {Math.round(protein)}g</span>}
+          {carbs > 0 && <span>C {Math.round(carbs)}g</span>}
+          {fat > 0 && <span>G {Math.round(fat)}g</span>}
+        </div>
       </div>
       {showAddButton && (
-         <button onClick={() => onAdd(foodItem)} className="add-food-button">+</button>
+         <button onClick={() => onAdd(foodItem)} className="add-food-button" title={`Adicionar ${name} ao diário`}>
+           <FiPlus />
+         </button>
       )}
     </div>
   );
