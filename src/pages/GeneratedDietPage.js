@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GENERATED_DIETS } from '../data/GeneratedDiets';
+import { getUser } from '../services/apiService';
 
 function GeneratedDietPage() {
   const [userObjective, setUserObjective] = useState(null);
   const [diets, setDiets] = useState([]);
   const [openCard, setOpenCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const pageStyle = {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/dieta.jpg')`,
@@ -15,19 +17,35 @@ function GeneratedDietPage() {
     backgroundAttachment: 'fixed',
   };
   useEffect(() => {
-    const storedUserDataString = localStorage.getItem('gabgymUserData');
-    if (storedUserDataString) {
-      const userData = JSON.parse(storedUserDataString);
-      if (userData.objective) {
-        setUserObjective(userData.objective);
-        setDiets(GENERATED_DIETS[userData.objective] || []);
-      }
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setIsLoading(false);
+      return;
     }
+    getUser(userId)
+      .then(response => {
+        const userData = response.data;
+        if (userData.objective) {
+          setUserObjective(userData.objective);
+          setDiets(GENERATED_DIETS[userData.objective] || []);
+        }
+      })
+      .catch(err => console.error('Erro ao buscar objetivo do perfil:', err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const toggleCard = (index) => {
     setOpenCard(openCard === index ? null : index);
   };
+
+  if (isLoading) {
+    return (
+      <div className="content-page">
+        <h2 className="workout-page-title">Dietas Geradas</h2>
+        <p className="content-description">Carregando...</p>
+      </div>
+    );
+  }
 
   if (!userObjective) {
     return (

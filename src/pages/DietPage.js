@@ -1,14 +1,17 @@
 // src/pages/DietPage.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getUser } from '../services/apiService';
 // A gente não vai mais importar os cálculos daqui, eles estarão na própria página
 // import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake } from '../utils/MetabolismCalculator';
 
 
 function DietPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [userGoals, setUserGoals] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [maintenanceCalories, setMaintenanceCalories] = useState(0);
   const [userName, setUserName] = useState('');
   const [waterGoal, setWaterGoal] = useState(0);
@@ -21,10 +24,18 @@ function DietPage() {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem('gabgymUserData'));
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      navigate('/login');
+      return;
+    }
 
-    if (storedUserData && storedUserData.weight && storedUserData.height && storedUserData.age) {
-      const { gender, weight, height, age, objective, activityLevel} = storedUserData;
+    getUser(userId)
+      .then(response => {
+        const storedUserData = response.data;
+
+        if (storedUserData && storedUserData.weight && storedUserData.height && storedUserData.age) {
+          const { gender, weight, height, age, objective, activityLevel} = storedUserData;
 
 const weightNum = parseFloat(weight) || 0;
 const heightNum = parseFloat(height) || 0;
@@ -35,6 +46,7 @@ if (!weightNum || !heightNum || !ageNum) {
   console.log("Peso:", weight, "→", weightNum);
   console.log("Altura:", height, "→", heightNum);
   console.log("Idade:", age, "→", ageNum);
+  setIsLoading(false);
   return;
 }
       // --- CÁLCULO "À PROVA DE FANTASMAS" ---
@@ -86,8 +98,23 @@ if (!weightNum || !heightNum || !ageNum) {
 
       setUserName(storedUserData.name);
       setWaterGoal(Math.round(weightNum * 35));
-    }
-  }, []);
+        }
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error('Erro ao buscar perfil pra calcular metas:', err);
+        setIsLoading(false);
+      });
+  }, [navigate]);
+
+  if (isLoading) {
+    return (
+      <div className="content-page" style={pageStyle}>
+        <h2 className="workout-page-title">{t('metas.titulo')}</h2>
+        <p className="content-description">Carregando suas metas...</p>
+      </div>
+    );
+  }
 
   if (!userGoals) {
     return (
