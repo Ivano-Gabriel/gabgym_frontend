@@ -1,0 +1,64 @@
+/* src/components/MobileMenu.css */
+
+.gg-mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  max-width: 82vw;
+  height: 100vh;
+  background: var(--gg-void, #0A0F0C);
+  border-left: 1px solid var(--gg-line, rgba(255,255,255,0.08));
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 20px);
+  box-sizing: border-box;
+  font-family: var(--gg-font-body, 'Sora', sans-serif);
+}
+
+.gg-mobile-menu.open { transform: translateX(0); }
+
+.gg-mobile-menu-close {
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid var(--gg-line, rgba(255,255,255,0.08));
+  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gg-muted, #8CA091);
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.gg-mobile-menu-close:hover { color: var(--gg-text, #EDF3EE); border-color: var(--gg-neon, #B6FF6E); }
+
+.gg-mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gg-mobile-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gg-text, #EDF3EE);
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 600;
+  padding: 14px 12px;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gg-mobile-menu-link svg { font-size: 1.15em; color: var(--gg-green, #74E85D); flex-shrink: 0; }
+
+.gg-mobile-menu-link:hover { background: rgba(255, 255, 255, 0.05); }

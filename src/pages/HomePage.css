@@ -1,42 +1,93 @@
-/* Padrão para mobile */
-.home-hero-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  color: var(--whiteText); /* Garante que o texto seja branco */
-  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/public/images/gym1.jpg');
-  background-size: cover;
-  background-position: top;
-  background-attachment: fixed; /* Opcional, mas dá um efeito legal de parallax */
-}
-  /* Media Queries */
-@media (min-width: 992px) { /* Para telas maiores (ex: laptops grandes/monitores) */
-    .home-hero-container {
-        flex-direction: row; /* Coloca os elementos lado a lado */
-        justify-content: space-around; /* Espaço entre eles */
-        align-items: center;
-        padding: 20px 100px; /* Mais padding em desktop */
-    }
-  
-    .hero-content {
-        margin-right: 50px; /* Espaçamento entre o texto e o EnrollSection */
-    }
-  }
-  
-  .hero-title {
-    font-size: 3em !important; 
-  }
+/* src/pages/HomePage.css — tela única (sem scroll), imagem clara, CTA chamativo */
 
-  .hero-subtitle {
-    font-size: 1.1em !important;
-  }
-  /* Se o NextPageButton estiver no App.css, assegure-se que ele tenha este tamanho: */
-.next-page-button { /* Se você tiver uma classe para ele */
-    width: 55px; /* Certifique-se que o tamanho é igual ao help-button */
-    height: 55px;
-    /* Outros estilos como border-radius: 50%; background-color, etc. */
-  }
+.home-hero {
+  position: relative;
+  height: calc(100dvh - 70px);
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: flex-end; /* conteúdo colado embaixo — alcance fácil do polegar no celular */
+  justify-content: center;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to bottom, rgba(10, 15, 12, 0.2) 0%, rgba(10, 15, 12, 0.55) 60%, rgba(10, 15, 12, 0.93) 100%),
+    url('/images/gym1.jpg');
+  background-size: cover;
+  background-position: center 25%;
+}
+
+.home-hero-content {
+  width: 100%;
+  max-width: 460px;
+  padding: 0 24px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  text-align: center;
+  color: var(--gg-text, #EDF3EE);
+  font-family: var(--gg-font-body, 'Sora', sans-serif);
+}
+
+.home-kicker {
+  display: block;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gg-neon, #B6FF6E);
+  margin-bottom: 4px;
+}
+
+.home-logo {
+  font-family: var(--gg-font-display, 'Anton', sans-serif);
+  font-weight: 400;
+  font-size: 2.5em;
+  line-height: 1;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.home-title {
+  font-family: var(--gg-font-display, 'Anton', sans-serif);
+  font-weight: 400;
+  font-size: 1.2em;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+
+.home-subtitle {
+  font-size: 0.88em;
+  color: var(--gg-muted, #b8c4ba);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.home-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: var(--gg-green, #74E85D);
+  color: #0A0F0C;
+  font-weight: 800;
+  font-size: 1.02em;
+  text-decoration: none;
+  box-shadow: 0 0 24px rgba(116, 232, 93, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.home-cta:hover, .home-cta:active {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(116, 232, 93, 0.55), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-height: 720px) {
+  .home-hero { align-items: center; }
+}
+
+@media (min-width: 640px) {
+  .home-hero-content { max-width: 520px; }
+  .home-logo { font-size: 3.2em; }
+  .home-title { font-size: 1.5em; }
+  .home-cta { width: auto; padding: 16px 40px; }
+}

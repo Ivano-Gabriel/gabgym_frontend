@@ -1,28 +1,29 @@
-// src/pages/HomePage.js
+// src/pages/HomePage.js — hero de tela única, sem scroll, CTA chamativo
+
 import React from 'react';
-import NextPageButton from '../components/NextPageButton';
-import ValueProposition from '../components/ValueProposition';
-import CallToAction from '../components/CallToAction';
-import { useTranslation } from 'react-i18next'; // A ferramenta de tradução
-import './HomePage.css'; // USANDO O SEU CSS NORMAL, SEM O '.MODULE'
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { FiArrowRight } from 'react-icons/fi';
+import { isLoggedIn } from '../utils/auth';
+import './HomePage.css';
 
 function HomePage() {
-  const { t } = useTranslation(); // Ativando a ferramenta
+  const { t } = useTranslation();
+  const loggedIn = isLoggedIn();
 
   return (
-    <>
-      {/* As classes voltaram ao normal, com aspas duplas */}
-      <div className="home-hero-container"> 
-        <div className="hero-content">
-        <h1 className="hero-title">{t('home.titulo')}</h1>
-        <p className="hero-subtitle" dangerouslySetInnerHTML={{ __html: t('home.subtitulo') }} />
-        </div>
-        <NextPageButton to="/profile-form" />
-      </div>
+    <div className="home-hero">
+      <div className="home-hero-content">
+        <span className="home-kicker">Bem-vindo ao</span>
+        <h1 className="home-logo">GABGYM</h1>
+        <h2 className="home-title">{t('home.titulo')}</h2>
+        <p className="home-subtitle" dangerouslySetInnerHTML={{ __html: t('home.subtitulo') }} />
 
-      <ValueProposition />
-      <CallToAction />
-    </>
+        <Link to={loggedIn ? '/perfil' : '/profile-form'} className="home-cta">
+          {loggedIn ? 'Meu Perfil' : 'Começar'} <FiArrowRight />
+        </Link>
+      </div>
+    </div>
   );
 }
 

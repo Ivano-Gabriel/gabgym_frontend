@@ -37,35 +37,10 @@ import MinhasMetasPage from './pages/MinhasMetasPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
+import { FiMenu, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 import { isLoggedIn } from './utils/auth';
-// Objeto de cores
-const colors = {
-  primaryGreen: '#74E85D',
-  darkGreen: '#21331D',
-  mediumDarkGray: '#303E2E',
-  lightGray: '#60695E',
-  whiteText: '#f8f9fa',
-  darkText: '#1a1a1a',
-};
-
-// Objeto de estilos para o Header
-const styles = {
-  header: { backgroundColor: colors.darkText, padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 2px 10px rgba(0,0,0,0.5)', },
-  logoContainer: { flexShrink: 0, display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', position: 'relative', zIndex: 211, },
-  logoImage: { height: '40px', width: 'auto', objectFit: 'contain', },
-  logoTextHeader: { color: colors.primaryGreen, fontSize: '2.2em', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', },
-  navList: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', gap: '25px', },
-  navLink: { color: colors.whiteText, textDecoration: 'none', fontSize: '1em', padding: '5px 10px', borderRadius: '5px', transition: 'color 0.3s ease', },
-  headerRight: { display: 'flex', alignItems: 'center', gap: '20px', },
-  headerEnrollButton: { backgroundColor: colors.primaryGreen, color: colors.darkText, textDecoration: 'none', padding: '8px 15px', borderRadius: '5px', fontSize: '0.9em', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '5px', },
-  hamburgerMenuStyles: { width: '30px', height: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', cursor: 'pointer', zIndex: 102, },
-  bar: { width: '100%', height: '3px', backgroundColor: colors.whiteText, borderRadius: '2px', },
-  logoDropdownStyles: { position: 'absolute', top: 'calc(100% + 5px)', left: '0', backgroundColor: colors.mediumDarkGray, padding: '5px 0', borderRadius: '5px', boxShadow: '0 6px 15px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', minWidth: '180px', zIndex: 210, },
-  logoDropdownLink: { color: colors.whiteText, textDecoration: 'none', padding: '15px 25px', fontSize: '1.2em', fontWeight: 'bold', transition: 'all 0.2s ease', display: 'block', textAlign: 'center', borderRadius: '5px', margin: '5px', },
-  contentTitle: { fontSize: '2.5em', color: colors.primaryGreen, marginBottom: '15px' },
-  contentDescription: { fontSize: '1.1em', maxWidth: '700px', opacity: '0.9', color: colors.whiteText },
-};
+import './components/Header.css';
 
 
 function AppContent() {
@@ -99,39 +74,38 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header style={styles.header}>
-        <div style={styles.logoContainer}>
-          <Link to="/" className="logo-link" onClick={handleLogoClick}>
-            <img src="/images/gymlogo.png" alt="GabGym Logo" style={styles.logoImage} />
-            <span className="logo-text-header" style={styles.logoTextHeader}>gabgym</span>
+      <header className="gg-header">
+        <div className="gg-logo-container">
+          <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
+            <img src="/images/gymlogo.png" alt="GabGym Logo" className="gg-logo-image" />
+            <span className="gg-logo-text">gabgym</span>
           </Link>
-          <div className="logo-dropdown-trigger" onClick={toggleLogoMenu}>
+          <div className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
             <BsChevronDown />
           </div>
           {isLogoMenuOpen && (
-            <div className={`logo-dropdown open`} style={styles.logoDropdownStyles}>
-              <Link to="/portfolio" style={styles.logoDropdownLink} onClick={closeAllMenus}>{t('header.sobre_projeto')}</Link>
-              <Link to="/about-me" style={styles.logoDropdownLink} onClick={closeAllMenus}>{t('header.sobre_programador')}</Link>
+            <div className="gg-logo-dropdown">
+              <Link to="/portfolio" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('header.sobre_projeto')}</Link>
+              <Link to="/about-me" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('header.sobre_programador')}</Link>
             </div>
           )}
         </div>
-        <nav className="nav-desktop">
-          <ul style={styles.navList}>
-            <li style={styles.navItem}><Link to="/" style={styles.navLink} onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li style={styles.navItem}><Link to="/perfil" style={styles.navLink} onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
+        <nav className="gg-nav-desktop">
+          <ul className="gg-nav-list">
+            <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
+            <li><Link to="/perfil" className="gg-nav-link" onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
           </ul>
         </nav>
-        <div style={styles.headerRight}>
+        <div className="gg-header-right">
           <Link
             to={isLoggedIn() ? '/perfil' : '/profile-form'}
-            style={styles.headerEnrollButton}
-            className="header-enroll-button"
+            className="gg-header-cta"
           >
-            {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <span>↗</span>
+            {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
-          <div className="hamburger-menu" style={styles.hamburgerMenuStyles} onClick={toggleMobileMenu}>
-            <div style={styles.bar}></div><div style={styles.bar}></div><div style={styles.bar}></div>
-          </div>
+          <button className="gg-hamburger" onClick={toggleMobileMenu} aria-label="Menu">
+            <FiMenu />
+          </button>
         </div>
       </header>
       

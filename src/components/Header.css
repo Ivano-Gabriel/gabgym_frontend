@@ -1,0 +1,154 @@
+/* src/components/Header.css — cabeçalho moderno, mesma linguagem visual do resto do app */
+
+.gg-header {
+  background: rgba(10, 15, 12, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--gg-line, rgba(255,255,255,0.08));
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: var(--gg-font-body, 'Sora', sans-serif);
+}
+
+.gg-logo-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  z-index: 211;
+}
+
+.gg-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.gg-logo-image { height: 32px; width: auto; object-fit: contain; }
+
+.gg-logo-text {
+  font-family: var(--gg-font-display, 'Anton', sans-serif);
+  color: var(--gg-neon, #B6FF6E);
+  font-size: 1.5em;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gg-logo-dropdown-trigger {
+  color: var(--gg-muted, #8CA091);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.gg-logo-dropdown-trigger:hover { color: var(--gg-text, #EDF3EE); }
+.gg-logo-dropdown-trigger.open { transform: rotate(180deg); }
+
+.gg-logo-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: var(--gg-void, #0A0F0C);
+  border: 1px solid var(--gg-line, rgba(255,255,255,0.08));
+  padding: 6px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 210;
+}
+
+.gg-logo-dropdown-link {
+  color: var(--gg-text, #EDF3EE);
+  text-decoration: none;
+  padding: 12px 14px;
+  font-size: 0.9em;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.gg-logo-dropdown-link:hover { background: rgba(255, 255, 255, 0.06); }
+
+.gg-nav-desktop { display: none; }
+
+.gg-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.gg-nav-link {
+  color: var(--gg-muted, #8CA091);
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.gg-nav-link:hover { color: var(--gg-text, #EDF3EE); background: rgba(255, 255, 255, 0.04); }
+
+.gg-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gg-header-cta {
+  background: var(--gg-green, #74E85D);
+  color: #0A0F0C;
+  text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 0.82em;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  box-shadow: 0 0 14px rgba(116, 232, 93, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.gg-header-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(116, 232, 93, 0.4);
+}
+
+.gg-hamburger {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--gg-line, rgba(255,255,255,0.08));
+  border-radius: 10px;
+  color: var(--gg-text, #EDF3EE);
+  cursor: pointer;
+  font-size: 1.2em;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.gg-hamburger:hover { border-color: var(--gg-neon, #B6FF6E); color: var(--gg-neon, #B6FF6E); }
+
+@media (min-width: 860px) {
+  .gg-header { padding: 14px 32px; }
+  .gg-nav-desktop { display: block; margin-left: 20px; margin-right: auto; }
+  .gg-logo-text { font-size: 1.7em; }
+}

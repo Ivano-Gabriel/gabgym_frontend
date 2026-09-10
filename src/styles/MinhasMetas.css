@@ -1,274 +1,354 @@
-/* Container Principal */
+/* src/styles/MinhasMetas.css — reformulado: abas, FAB, mobile-first */
+
 .gg-metas-container {
   min-height: calc(100vh - 60px);
-  background-color: var(--gg-void); /* Fundo preto do redesign */
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
   color: var(--gg-text);
-  padding: 40px 20px;
+  padding: 24px 16px 100px; /* espaço embaixo pro FAB não tampar o último card */
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: var(--gg-font-body);
 }
 
-/* Header e Botão + */
-.gg-metas-header {
+/* ---------- Topo ---------- */
+.gg-metas-top {
   width: 100%;
-  max-width: 800px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  border-bottom: 1px solid var(--gg-line);
-  padding-bottom: 20px;
-}
-
-.gg-metas-header h1 {
-  font-family: var(--gg-font-display);
-  font-size: 2.5rem;
-  color: var(--gg-text);
-  text-transform: uppercase;
-  margin: 0 0 5px 0;
-}
-
-.gg-metas-header p {
-  color: var(--gg-muted);
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.gg-btn-nova-meta {
-  background-color: var(--gg-green);
-  color: var(--gg-void);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.2);
-}
-
-.gg-btn-nova-meta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(116, 232, 93, 0.4);
-}
-
-/* Seções e Listas */
-.gg-metas-section {
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 40px;
-}
-
-.gg-section-title {
-  font-family: var(--gg-font-display);
-  font-size: 1.2rem;
-  color: var(--gg-text);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  border-bottom: 2px solid var(--gg-green);
-  padding-bottom: 5px;
-  display: inline-block;
-}
-
-.gg-empty-text {
-  color: var(--gg-muted);
-  font-style: italic;
+  max-width: 640px;
   text-align: center;
-  padding: 20px;
-  background-color: var(--gg-surface);
-  border-radius: 8px;
+  margin-bottom: 18px;
 }
 
+.gg-metas-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.7em;
+  margin: 0;
+}
+
+.gg-metas-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.88em;
+  margin: 6px 0 0;
+}
+
+/* ---------- Abas (mesmo padrão do Perfil e do Diário) ---------- */
+.gg-metas-tabs {
+  width: 100%;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--gg-line);
+  border-radius: 14px;
+}
+
+.gg-metas-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 4px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--gg-muted);
+  font-weight: 700;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gg-metas-tab.active {
+  background: var(--gg-green);
+  color: #0A0F0C;
+}
+
+.gg-tab-count {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 0.8em;
+}
+
+.gg-metas-tab:not(.active) .gg-tab-count {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Lista de metas ---------- */
 .gg-metas-list {
+  width: 100%;
+  max-width: 640px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
-/* Cards de Meta */
+.fade-in-metas { animation: gg-metas-fade 0.25s ease; }
+@keyframes gg-metas-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.gg-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  color: var(--gg-muted);
+  padding: 48px 20px;
+  border: 1px dashed var(--gg-line);
+  border-radius: 14px;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.gg-empty-icon { font-size: 2em; color: var(--gg-muted); opacity: 0.6; }
+
+/* ---------- Cards de meta ---------- */
 .gg-meta-card {
-  background-color: var(--gg-surface);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--gg-line);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
+.gg-meta-card.expanded,
 .gg-meta-card:hover {
-  border-color: var(--gg-muted);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .gg-meta-header {
-  padding: 20px;
+  padding: 16px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  gap: 10px;
 }
 
 .gg-meta-title {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .gg-meta-title h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.98em;
+  font-weight: 700;
   color: var(--gg-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.gg-target-icon {
-  font-size: 1.5rem;
-}
+.gg-meta-title h3.strike { text-decoration: line-through; opacity: 0.6; }
+
+.gg-meta-icon { font-size: 1.2em; color: var(--gg-green); flex-shrink: 0; }
+.gg-meta-icon.done { color: var(--gg-green); }
+.gg-meta-icon.gave-up { color: var(--gg-danger); }
 
 .gg-expand-icon {
   color: var(--gg-muted);
-  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-/* Corpo Expansível */
+.gg-meta-card.expanded .gg-expand-icon { transform: rotate(180deg); }
+
 .gg-meta-body {
-  padding: 0 20px 20px 20px;
+  padding: 0 18px 18px;
   border-top: 1px solid var(--gg-line);
-  margin-top: 10px;
-  padding-top: 15px;
-  animation: slideDown 0.3s ease;
+  margin-top: 2px;
+  padding-top: 14px;
+  animation: gg-metas-fade 0.2s ease;
 }
 
 .gg-meta-body p {
   color: var(--gg-muted);
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin: 0 0 16px;
+  font-size: 0.88em;
 }
 
-.gg-meta-controls {
-  display: flex;
-  gap: 15px;
-}
+.gg-meta-controls { display: flex; gap: 10px; }
 
-/* Botões Concluir / Desistir */
 .gg-btn-concluir, .gg-btn-desistir {
   flex: 1;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85em;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: filter 0.2s ease;
 }
 
-.gg-btn-concluir {
-  background-color: var(--gg-green);
-  color: var(--gg-void);
-}
+.gg-btn-concluir { background: var(--gg-green); color: #0A0F0C; }
+.gg-btn-desistir { background: transparent; color: var(--gg-danger); border: 1px solid rgba(255, 107, 92, 0.35); }
+.gg-btn-concluir:hover, .gg-btn-desistir:hover { filter: brightness(1.12); }
 
-.gg-btn-desistir {
-  background-color: var(--gg-danger);
-  color: var(--gg-text);
-}
-
-.gg-btn-concluir:hover, .gg-btn-desistir:hover {
-  opacity: 0.8;
-}
-
-/* Histórico Styles */
-.history-card.concluida {
-  border-left: 4px solid var(--gg-green);
-  opacity: 0.8;
-}
-
-.history-card.desistida {
-  border-left: 4px solid var(--gg-danger);
-  opacity: 0.6;
-}
+/* ---------- Histórico ---------- */
+.gg-meta-card.history-card.concluida { border-left: 3px solid var(--gg-green); }
+.gg-meta-card.history-card.desistida { border-left: 3px solid var(--gg-danger); opacity: 0.75; }
+.gg-meta-card.history-card .gg-meta-header { cursor: default; }
 
 .gg-status-badge {
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 50px;
-  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.72em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 700;
 }
 
-.gg-status-badge.concluida {
-  background-color: rgba(116, 232, 93, 0.2);
-  color: var(--gg-green);
+.gg-status-badge.concluida { background: rgba(116, 232, 93, 0.14); color: var(--gg-green); }
+.gg-status-badge.desistida { background: rgba(255, 107, 92, 0.14); color: var(--gg-danger); }
+
+/* ---------- FAB — Nova Meta ---------- */
+.gg-fab-nova-meta {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: none;
+  background: var(--gg-green);
+  color: #0A0F0C;
+  font-weight: 800;
+  font-size: 0.92em;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(116, 232, 93, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
+  z-index: 40;
+  white-space: nowrap;
+  transition: transform 0.15s ease;
 }
 
-.gg-status-badge.desistida {
-  background-color: rgba(255, 107, 92, 0.2);
-  color: var(--gg-danger);
-}
+.gg-fab-nova-meta:hover { transform: translateX(-50%) translateY(-2px); }
 
-/* Modal de Nova Meta */
+/* ---------- Modal ---------- */
 .gg-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(10, 15, 12, 0.8);
+  inset: 0;
+  background: rgba(10, 15, 12, 0.8);
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   z-index: 1000;
+  padding: 0;
 }
 
 .gg-modal-content {
-  background-color: var(--gg-surface);
+  background: var(--gg-void);
   border: 1px solid var(--gg-line);
-  padding: 30px;
-  border-radius: 16px;
-  width: 90%;
+  border-bottom: none;
+  padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 22px);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
   max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: gg-modal-slide-up 0.25s ease;
+}
+
+@keyframes gg-modal-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.gg-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
 .gg-modal-content h2 {
-  margin-top: 0;
-  color: var(--gg-green);
+  margin: 0;
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.3em;
+  color: var(--gg-text);
 }
 
-.gg-modal-content input, .gg-modal-content textarea {
+.gg-modal-close {
+  background: none;
+  border: none;
+  color: var(--gg-muted);
+  font-size: 1.3em;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.gg-modal-close:hover { color: var(--gg-text); }
+
+.gg-modal-content input,
+.gg-modal-content textarea {
   width: 100%;
-  background-color: var(--gg-void);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--gg-line);
   color: var(--gg-text);
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  padding: 13px;
+  border-radius: 10px;
+  margin-bottom: 12px;
   font-family: var(--gg-font-body);
+  font-size: 0.92em;
+  box-sizing: border-box;
+  resize: vertical;
 }
+
+.gg-modal-content input::placeholder,
+.gg-modal-content textarea::placeholder { color: var(--gg-muted); }
+
+.gg-modal-content input:focus,
+.gg-modal-content textarea:focus { outline: none; border-color: var(--gg-neon); }
 
 .gg-modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 6px;
 }
 
 .gg-btn-cancelar {
   background: transparent;
   color: var(--gg-muted);
   border: 1px solid var(--gg-line);
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 11px 18px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9em;
 }
 
 .gg-btn-salvar {
-  background-color: var(--gg-green);
-  color: var(--gg-void);
+  background: var(--gg-green);
+  color: #0A0F0C;
   border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 0.9em;
   cursor: pointer;
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ---------- Telas maiores ---------- */
+@media (min-width: 640px) {
+  .gg-metas-container { padding: 48px 24px 100px; }
+  .gg-modal-overlay { align-items: center; }
+  .gg-modal-content { border-radius: 20px; border-bottom: 1px solid var(--gg-line); animation: gg-metas-fade 0.2s ease; }
 }
