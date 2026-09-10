@@ -1,4 +1,16 @@
 /* src/styles/MinhasMetas.css — reformulado: abas, FAB, mobile-first */
+/* COLE ISTO NA LINHA 1 DO SEU src/styles/MinhasMetas.css */
+:root {
+  --gg-void: #0a0f0c; /* Fundo super escuro (combina com seu app) */
+  --gg-text: #f8f9fa; /* Branco principal */
+  --gg-muted: #8b968a; /* Cinza esverdeado para textos secundários */
+  --gg-line: rgba(255, 255, 255, 0.12); /* Linhas divisórias sutis */
+  --gg-green: #74E85D; /* O seu Verde Neon (primaryGreen) */
+  --gg-danger: #ff5449; /* Vermelho para o botão de desistir */
+  --gg-neon: #74E85D; /* Verde para bordas em foco */
+  --gg-font-body: 'Arial', sans-serif;
+  --gg-font-display: 'Arial', sans-serif;
+}
 
 .gg-metas-container {
   min-height: calc(100vh - 60px);
