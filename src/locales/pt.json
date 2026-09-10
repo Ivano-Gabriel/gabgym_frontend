@@ -39,7 +39,11 @@
     "proteinas": "Proteínas",
     "carboidratos": "Carboidratos",
     "gorduras": "Gorduras",
-    "agua": "Água"
+    "agua": "Água",
+  "protein_explicacao": "Constrói e recupera músculos",
+  "carbs_explicacao": "Sua principal fonte de energia",
+  "fat_explicacao": "Essencial pros hormônios",
+  "agua_explicacao": "Hidratação, digestão e performance"
   },
   "profile_form": {
     "titulo": "Crie Seu Perfil",

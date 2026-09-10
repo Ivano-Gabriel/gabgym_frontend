@@ -39,7 +39,11 @@
     "proteinas": "Proteins",
     "carboidratos": "Carbohydrates",
     "gorduras": "Fats",
-    "agua": "Water"
+    "agua": "Water",
+  "protein_explicacao": "Builds and repairs muscle",
+  "carbs_explicacao": "Your main source of energy",
+  "fat_explicacao": "Essential for hormones",
+  "agua_explicacao": "Hydration, digestion and performance"
   },
   "profile_form": {
     "titulo": "Create Your Profile",

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getUser } from '../services/apiService';
+import './DietPage.css';
 // A gente não vai mais importar os cálculos daqui, eles estarão na própria página
 // import { calculateBMR, calculateTDEE, calculateMacros, calculateWaterIntake } from '../utils/MetabolismCalculator';
 
@@ -15,13 +16,6 @@ function DietPage() {
   const [maintenanceCalories, setMaintenanceCalories] = useState(0);
   const [userName, setUserName] = useState('');
   const [waterGoal, setWaterGoal] = useState(0);
-
-  const pageStyle = {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/dieta.jpg')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  };
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -109,71 +103,80 @@ if (!weightNum || !heightNum || !ageNum) {
 
   if (isLoading) {
     return (
-      <div className="content-page" style={pageStyle}>
-        <h2 className="workout-page-title">{t('metas.titulo')}</h2>
-        <p className="content-description">Carregando suas metas...</p>
+      <div className="gg-diet-container">
+        <p className="gg-diet-status">Carregando suas metas...</p>
       </div>
     );
   }
 
   if (!userGoals) {
     return (
-      <div className="content-page" style={pageStyle}>
-        <h2 className="workout-page-title">{t('metas.titulo')}</h2>
-        <p className="content-description">Por favor, preencha seu perfil para podermos calcular suas metas.</p>
-        <Link to="/profile-form" className="cta-button">Preencher Perfil</Link>
+      <div className="gg-diet-container">
+        <div className="gg-diet-empty">
+          <p>Preencha seu perfil pra calcularmos suas metas.</p>
+          <Link to="/profile-form" className="gg-diet-btn-primary">Preencher Perfil</Link>
+        </div>
       </div>
     );
   }
 
+  const ajusteMap = { 'gain-muscle': '+300', 'lose-fat': '-400', 'maintain-weight': '±0' };
+  const ajuste = ajusteMap[userGoals.objective] || '±0';
+
   return (
-    <div className="content-page" style={pageStyle}>
-      <h2 className="workout-page-title">{t('metas.titulo')}</h2>
-      
-      <p className="goals-intro" dangerouslySetInnerHTML={{ __html: t('metas.saudacao', { name: `<strong>${userName}</strong>`, objective: t(`metas.objetivos.${userGoals.objective}`) }) }} />
+    <div className="gg-diet-container">
+      <div className="gg-diet-card">
 
-      <div className="goals-container">
-        <div className="calorie-goals-grid">
-          <div className="macro-card calorie-maintenance">
-            <span className="macro-value">{maintenanceCalories}</span>
-            <span className="macro-label">{t('metas.manutencao_label')}</span>
-            <p className="macro-description">{t('metas.manutencao_desc')}</p>
+        <div className="gg-diet-top">
+          <h1 className="gg-diet-title">{t('metas.titulo')}</h1>
+          <p className="gg-diet-subtitle" dangerouslySetInnerHTML={{ __html: t('metas.saudacao', { name: `<strong>${userName}</strong>`, objective: t(`metas.objetivos.${userGoals.objective}`) }) }} />
+        </div>
+
+        <div className="gg-diet-hero">
+          <span className="gg-diet-hero-label">{t('metas.meta_diaria_label')}</span>
+          <strong className="gg-diet-hero-value">{userGoals.calories}<small>kcal/dia</small></strong>
+          <p className="gg-diet-hero-explain">
+            Sua manutenção é <strong>{maintenanceCalories} kcal</strong> — ajustamos <strong>{ajuste} kcal</strong> pra sua meta de {t(`metas.objetivos.${userGoals.objective}`).toLowerCase()}.
+          </p>
+        </div>
+
+        <div className="gg-diet-macros">
+          <div className="gg-diet-macro-card">
+            <div className="gg-diet-macro-top">
+              <span>{t('metas.proteinas')}</span>
+              <strong>{userGoals.protein}g</strong>
+            </div>
+            <p>{t('metas.protein_explicacao')} · {userGoals.protein * 4} kcal</p>
           </div>
-          <div className="macro-card calories-target">
-            <span className="macro-value">{userGoals.calories}</span>
-            <span className="macro-label">{t('metas.meta_diaria_label')}</span>
-            <p className="macro-description" dangerouslySetInnerHTML={{ __html: t('metas.meta_diaria_desc', { objective: `<strong>${t(`metas.objetivos.${userGoals.objective}`)}</strong>` }) }} />
+          <div className="gg-diet-macro-card">
+            <div className="gg-diet-macro-top">
+              <span>{t('metas.carboidratos')}</span>
+              <strong>{userGoals.carbs}g</strong>
+            </div>
+            <p>{t('metas.carbs_explicacao')} · {userGoals.carbs * 4} kcal</p>
+          </div>
+          <div className="gg-diet-macro-card">
+            <div className="gg-diet-macro-top">
+              <span>{t('metas.gorduras')}</span>
+              <strong>{userGoals.fat}g</strong>
+            </div>
+            <p>{t('metas.fat_explicacao')} · {userGoals.fat * 9} kcal</p>
+          </div>
+          <div className="gg-diet-macro-card water">
+            <div className="gg-diet-macro-top">
+              <span>{t('metas.agua')}</span>
+              <strong>{waterGoal}<small>ml</small></strong>
+            </div>
+            <p>{t('metas.agua_explicacao')}</p>
           </div>
         </div>
 
-        <div className="macros-grid">
-          <div className="macro-card">
-            <span className="macro-value">{userGoals.protein}g</span>
-            <span className="macro-label">{t('metas.proteinas')}</span>
-            <p className="macro-cals">({userGoals.protein * 4} kcal)</p>
-          </div>
-          <div className="macro-card">
-            <span className="macro-value">{userGoals.carbs}g</span>
-            <span className="macro-label">{t('metas.carboidratos')}</span>
-            <p className="macro-cals">({userGoals.carbs * 4} kcal)</p>
-          </div>
-          <div className="macro-card">
-            <span className="macro-value">{userGoals.fat}g</span>
-            <span className="macro-label">{t('metas.gorduras')}</span>
-            <p className="macro-cals">({userGoals.fat * 9} kcal)</p>
-          </div>
-          <div className="macro-card water">
-            <span className="macro-value">{waterGoal}<span style={{fontSize: '0.5em', marginLeft: '5px'}}>ml</span></span>
-            <span className="macro-label">{t('metas.agua')}</span>
-            <p className="macro-description">Sua meta de hidratação diária recomendada.</p>
-          </div>
+        <div className="gg-diet-actions">
+          <Link to="/historico" className="gg-diet-btn-secondary">{t('metas.botao_historico')}</Link>
+          <Link to="/diario-alimentar" className="gg-diet-btn-primary">{t('metas.botao_registrar')}</Link>
         </div>
 
-        <div className="diet-page-actions">
-        <Link to="/historico" className="secondary-button">{t('metas.botao_historico')}</Link> 
-    <Link to="/diario-alimentar" className="cta-button">{t('metas.botao_registrar')}</Link>
-        </div>
-        <Link to="/perfil" className="back-button-general" style={{ marginTop: '30px' }}>{t('metas.botao_voltar_hub')}</Link>
+        <Link to="/perfil" className="gg-diet-back-link">{t('metas.botao_voltar_hub')}</Link>
       </div>
     </div>
   );
