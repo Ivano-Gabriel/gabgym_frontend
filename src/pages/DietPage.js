@@ -120,9 +120,6 @@ if (!weightNum || !heightNum || !ageNum) {
     );
   }
 
-  const ajusteMap = { 'gain-muscle': '+300', 'lose-fat': '-400', 'maintain-weight': '±0' };
-  const ajuste = ajusteMap[userGoals.objective] || '±0';
-
   return (
     <div className="gg-diet-container">
       <div className="gg-diet-card">
@@ -132,51 +129,51 @@ if (!weightNum || !heightNum || !ageNum) {
           <p className="gg-diet-subtitle" dangerouslySetInnerHTML={{ __html: t('metas.saudacao', { name: `<strong>${userName}</strong>`, objective: t(`metas.objetivos.${userGoals.objective}`) }) }} />
         </div>
 
-        <div className="gg-diet-hero">
-          <span className="gg-diet-hero-label">{t('metas.meta_diaria_label')}</span>
-          <strong className="gg-diet-hero-value">{userGoals.calories}<small>kcal/dia</small></strong>
-          <p className="gg-diet-hero-explain">
-            Sua manutenção é <strong>{maintenanceCalories} kcal</strong> — ajustamos <strong>{ajuste} kcal</strong> pra sua meta de {t(`metas.objetivos.${userGoals.objective}`).toLowerCase()}.
-          </p>
+        <div className="gg-diet-grid">
+          <div className="gg-diet-stat-card neutral">
+            <span className="gg-diet-stat-label">Calorias de Manutenção</span>
+            <strong className="gg-diet-stat-value">{maintenanceCalories}<small>kcal</small></strong>
+            <p className="gg-diet-stat-explain">O que seu corpo já gasta só existindo.</p>
+          </div>
+
+          <div className="gg-diet-stat-card hero">
+            <span className="gg-diet-stat-label">Sua Meta Diária</span>
+            <strong className="gg-diet-stat-value">{userGoals.calories}<small>kcal</small></strong>
+            <p className="gg-diet-stat-explain">O que você precisa consumir pra atingir sua meta.</p>
+          </div>
+
+          <div className="gg-diet-stat-card protein">
+            <span className="gg-diet-stat-label">Proteína</span>
+            <strong className="gg-diet-stat-value">{userGoals.protein}<small>g</small></strong>
+            <p className="gg-diet-stat-explain">Essencial pra construção de músculos.</p>
+          </div>
+
+          <div className="gg-diet-stat-card carbs">
+            <span className="gg-diet-stat-label">Carboidratos</span>
+            <strong className="gg-diet-stat-value">{userGoals.carbs}<small>g</small></strong>
+            <p className="gg-diet-stat-explain">Combustível pro seu treino e cérebro.</p>
+          </div>
+
+          <div className="gg-diet-stat-card fat">
+            <span className="gg-diet-stat-label">Gordura</span>
+            <strong className="gg-diet-stat-value">{userGoals.fat}<small>g</small></strong>
+            <p className="gg-diet-stat-explain">Fundamental pra produção de hormônios.</p>
+          </div>
+
+          <div className="gg-diet-stat-card water">
+            <span className="gg-diet-stat-label">Água</span>
+            <strong className="gg-diet-stat-value">{waterGoal}<small>ml</small></strong>
+            <p className="gg-diet-stat-explain">Hidratação, digestão e performance.</p>
+          </div>
         </div>
 
-        <div className="gg-diet-macros">
-          <div className="gg-diet-macro-card">
-            <div className="gg-diet-macro-top">
-              <span>{t('metas.proteinas')}</span>
-              <strong>{userGoals.protein}g</strong>
-            </div>
-            <p>{t('metas.protein_explicacao')} · {userGoals.protein * 4} kcal</p>
-          </div>
-          <div className="gg-diet-macro-card">
-            <div className="gg-diet-macro-top">
-              <span>{t('metas.carboidratos')}</span>
-              <strong>{userGoals.carbs}g</strong>
-            </div>
-            <p>{t('metas.carbs_explicacao')} · {userGoals.carbs * 4} kcal</p>
-          </div>
-          <div className="gg-diet-macro-card">
-            <div className="gg-diet-macro-top">
-              <span>{t('metas.gorduras')}</span>
-              <strong>{userGoals.fat}g</strong>
-            </div>
-            <p>{t('metas.fat_explicacao')} · {userGoals.fat * 9} kcal</p>
-          </div>
-          <div className="gg-diet-macro-card water">
-            <div className="gg-diet-macro-top">
-              <span>{t('metas.agua')}</span>
-              <strong>{waterGoal}<small>ml</small></strong>
-            </div>
-            <p>{t('metas.agua_explicacao')}</p>
-          </div>
-        </div>
+        <Link to="/diario-alimentar" className="gg-diet-btn-hero">{t('metas.botao_registrar')}</Link>
 
-        <div className="gg-diet-actions">
+        <div className="gg-diet-actions-secondary">
           <Link to="/historico" className="gg-diet-btn-secondary">{t('metas.botao_historico')}</Link>
-          <Link to="/diario-alimentar" className="gg-diet-btn-primary">{t('metas.botao_registrar')}</Link>
+          <Link to="/perfil" className="gg-diet-btn-secondary">{t('metas.botao_voltar_hub')}</Link>
         </div>
 
-        <Link to="/perfil" className="gg-diet-back-link">{t('metas.botao_voltar_hub')}</Link>
       </div>
     </div>
   );

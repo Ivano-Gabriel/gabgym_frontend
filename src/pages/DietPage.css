@@ -1,9 +1,9 @@
-/* src/pages/DietPage.css — compacto, sem scroll, explicativo */
+/* src/pages/DietPage.css — cards grandes, coloridos, didáticos */
 
 .gg-diet-container {
   display: flex;
   justify-content: center;
-  padding: 20px 16px;
+  padding: 24px 16px 60px;
   min-height: calc(100vh - 70px);
   background:
     radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
@@ -24,147 +24,135 @@
 .gg-diet-empty p { margin-bottom: 16px; }
 
 /* ---------- Topo ---------- */
-.gg-diet-top { text-align: center; margin-bottom: 14px; }
+.gg-diet-top { text-align: center; margin-bottom: 20px; }
 
 .gg-diet-title {
   font-family: var(--gg-font-display);
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.7em;
   margin: 0;
 }
 
 .gg-diet-subtitle {
   color: var(--gg-muted);
-  font-size: 0.82em;
+  font-size: 0.85em;
   line-height: 1.4;
   margin: 6px 0 0;
 }
 .gg-diet-subtitle strong { color: var(--gg-text); }
 
-/* ---------- Hero: meta diária ---------- */
-.gg-diet-hero {
-  text-align: center;
-  padding: 18px;
-  border: 1px solid var(--gg-line);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  margin-bottom: 14px;
+/* ---------- Grid de cards, todos do mesmo tamanho ---------- */
+.gg-diet-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.gg-diet-hero-label {
+.gg-diet-stat-card {
+  padding: 22px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--card-color, var(--gg-line));
+  background: var(--card-bg, rgba(255,255,255,0.03));
+}
+
+.gg-diet-stat-label {
   display: block;
-  font-size: 0.72em;
-  font-weight: 700;
-  color: var(--gg-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
-}
-
-.gg-diet-hero-value {
   font-family: var(--gg-font-display);
   font-weight: 400;
-  font-size: 2.2em;
-  color: var(--gg-neon);
-  line-height: 1;
+  font-size: 1.15em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--card-color, var(--gg-text));
+  margin-bottom: 6px;
 }
 
-.gg-diet-hero-value small {
+.gg-diet-stat-value {
+  display: block;
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 2.4em;
+  line-height: 1;
+  color: var(--gg-text);
+}
+
+.gg-diet-stat-value small {
   font-family: var(--gg-font-body);
   font-size: 0.35em;
   color: var(--gg-muted);
   font-weight: 700;
   margin-left: 6px;
+  text-transform: uppercase;
 }
 
-.gg-diet-hero-explain {
-  font-size: 0.78em;
-  color: var(--gg-muted);
-  line-height: 1.5;
-  margin: 10px 0 0;
-}
-.gg-diet-hero-explain strong { color: var(--gg-text); }
-
-/* ---------- Macros ---------- */
-.gg-diet-macros {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 16px;
+.gg-diet-stat-explain {
+  margin: 8px 0 0;
+  font-size: 0.88em;
+  color: var(--gg-text);
+  opacity: 0.75;
+  line-height: 1.4;
 }
 
-.gg-diet-macro-card {
-  border: 1px solid var(--gg-line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.02);
-}
+/* Cores por card — tinta translúcida + borda na cor, o texto pontual segue colorido */
+.gg-diet-stat-card.neutral   { --card-color: #9CA8A0; --card-bg: rgba(156, 168, 160, 0.10); }
+.gg-diet-stat-card.hero      { --card-color: var(--gg-neon); --card-bg: rgba(182, 255, 110, 0.12); box-shadow: 0 0 24px rgba(116, 232, 93, 0.15); }
+.gg-diet-stat-card.protein   { --card-color: #FF7A7A; --card-bg: rgba(255, 122, 122, 0.10); }
+.gg-diet-stat-card.carbs     { --card-color: var(--gg-warning); --card-bg: rgba(255, 198, 92, 0.10); }
+.gg-diet-stat-card.fat       { --card-color: #C79BFF; --card-bg: rgba(199, 155, 255, 0.10); }
+.gg-diet-stat-card.water     { --card-color: var(--gg-water); --card-bg: rgba(92, 194, 255, 0.10); }
 
-.gg-diet-macro-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 3px;
-}
-
-.gg-diet-macro-top span { font-size: 0.75em; font-weight: 700; color: var(--gg-muted); }
-.gg-diet-macro-top strong { font-family: var(--gg-font-display); font-weight: 400; font-size: 1.2em; color: var(--gg-text); }
-
-.gg-diet-macro-card.water .gg-diet-macro-top strong { color: var(--gg-water); }
-.gg-diet-macro-card.water .gg-diet-macro-top strong small { font-family: var(--gg-font-body); font-size: 0.5em; color: var(--gg-muted); margin-left: 3px; }
-
-.gg-diet-macro-card p {
-  margin: 0;
-  font-size: 0.68em;
-  color: var(--gg-muted);
-  line-height: 1.35;
-}
-
-/* ---------- Ações ---------- */
-.gg-diet-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.gg-diet-btn-primary, .gg-diet-btn-secondary {
+/* ---------- Botão principal, grandão e chamativo ---------- */
+.gg-diet-btn-hero {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 13px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 0.85em;
-  text-decoration: none;
-  text-align: center;
-}
-
-.gg-diet-btn-primary {
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
   background: var(--gg-green);
   color: #0A0F0C;
-  box-shadow: 0 0 14px rgba(116, 232, 93, 0.25);
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.2em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 0 28px rgba(116, 232, 93, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-bottom: 12px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.gg-diet-btn-hero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(116, 232, 93, 0.55), 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.gg-diet-actions-secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .gg-diet-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-radius: 12px;
   background: transparent;
   color: var(--gg-text);
   border: 1px solid var(--gg-line);
-}
-
-.gg-diet-back-link {
-  display: block;
-  text-align: center;
-  color: var(--gg-muted);
+  font-weight: 700;
+  font-size: 0.88em;
   text-decoration: none;
-  font-size: 0.8em;
-  font-weight: 600;
+  text-align: center;
 }
 
-.gg-diet-back-link:hover { color: var(--gg-text); }
+.gg-diet-btn-secondary:hover { border-color: var(--gg-neon); color: var(--gg-neon); }
 
 /* ---------- Telas maiores ---------- */
 @media (min-width: 640px) {
-  .gg-diet-container { padding: 40px 24px; align-items: center; }
-  .gg-diet-macros { grid-template-columns: repeat(4, 1fr); }
+  .gg-diet-container { padding: 48px 24px 60px; }
+  .gg-diet-grid { grid-template-columns: 1fr 1fr; }
 }
