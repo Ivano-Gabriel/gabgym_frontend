@@ -10,7 +10,7 @@
   overflow: hidden;
   background-image:
     linear-gradient(to bottom, rgba(10, 15, 12, 0.2) 0%, rgba(10, 15, 12, 0.55) 60%, rgba(10, 15, 12, 0.93) 100%),
-    url('/images/gym1.jpg');
+    url('/public/images/gym1.jpg');
   background-size: cover;
   background-position: center 25%;
 }

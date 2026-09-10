@@ -1,7 +1,6 @@
 // src/pages/PortfolioPage.js
 import React from 'react';
 import Carousel from '../components/Carousel';
-import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
 const projectLinks = [
   { id: 'p1', title: 'GitHub', imageSrc: '/images/github-card.jpg', link: 'https://github.com/Ivano-Gabriel' },

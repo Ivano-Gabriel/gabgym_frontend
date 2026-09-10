@@ -135,10 +135,6 @@ function DiarioAlimentarPage() {
     }
   };
   
-  const handleAddFood = (food) => {
-    saveItemToDatabase({ ...food, type: 'food' }, `${food.name} adicionado ao seu diário!`);
-  };
-  
   const handleAddExercise = (exercise) => {
     saveItemToDatabase({ ...exercise, type: 'exercise' }, `${Math.abs(exercise.calories)} kcal gastas com ${exercise.name}!`);
   };

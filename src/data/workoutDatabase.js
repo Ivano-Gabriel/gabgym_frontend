@@ -248,14 +248,16 @@ function auditRoutines() {
   // Itera sobre cada rotina no banco de dados de rotinas
   for (const routineKey in ROUTINE_DATABASE) {
     const routine = ROUTINE_DATABASE[routineKey];
-    
-    // Itera sobre cada passo do plano da rotina
-    routine.plan.forEach((step, index) => {
+
+    // Itera sobre cada passo do plano da rotina (for comum, sem closure dentro do loop)
+    for (let index = 0; index < routine.plan.length; index++) {
+      const step = routine.plan[index];
+
       // Ignora os subheadings, pois eles não têm exerciseId
       if (step.type === 'subheading') {
-        return; 
+        continue;
       }
-      
+
       // Verifica se o exerciseId existe na nossa enciclopédia
       if (!EXERCISE_LIBRARY[step.exerciseId]) {
         console.error(
@@ -263,7 +265,7 @@ function auditRoutines() {
         );
         errorsFound++;
       }
-    });
+    }
   }
 
   if (errorsFound === 0) {
@@ -273,8 +275,10 @@ function auditRoutines() {
   }
 }
 
-// Chame a função aqui para rodar a auditoria sempre que o app carregar (durante o desenvolvimento)
-auditRoutines();
+// Chame a função aqui para rodar a auditoria sempre que o app carregar (só em desenvolvimento — usuário final não precisa ver isso no console)
+if (process.env.NODE_ENV !== 'production') {
+  auditRoutines();
+}
 
 // Adicione esta nova exportação no seu workoutDatabase.js
 

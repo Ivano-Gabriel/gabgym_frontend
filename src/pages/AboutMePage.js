@@ -1,7 +1,6 @@
 // src/pages/AboutMePage.js
 import React from 'react';
 import Carousel from '../components/Carousel';
-import { FaLinkedin, FaWhatsapp, FaInstagram, FaGithub } from 'react-icons/fa';
 
 const socialLinks = [
   { id: 's1', title: 'LinkedIn', imageSrc: '/images/linkedin-card.jpg', link:'https://www.linkedin.com/in/ivano-gabriel-silva-melo-silva-melo-b0b543371/' },

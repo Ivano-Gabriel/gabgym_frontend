@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 // 1. IMPORTANDO OS ÍCONES QUE VAMOS USAR
 import { BsBook, BsGear } from 'react-icons/bs'; 
 import './TrainingModels.css';
-import { useTranslation } from 'react-i18next';
 
 function TrainingModels() {
   const pageStyle = {
