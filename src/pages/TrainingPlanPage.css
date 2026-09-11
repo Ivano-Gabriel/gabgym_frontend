@@ -1,98 +1,140 @@
-/* src/pages/TrainingPlanPage.css (Versão Final com Alinhamento Perfeito) */
+/* src/pages/TrainingPlanPage.css */
 
-.weekly-plan-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Um pouco mais de espaço */
-  gap: 25px;
-  width: 95%;
-  max-width: 1400px;
-  margin: 0 auto;
+.gg-tp-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
 }
 
-.day-card {
-  background-color: rgba(44, 44, 44, 0.8);
-  border: 1px solid #444;
-  border-radius: 12px;
-  padding: 25px;
+.gg-tp-card { width: 100%; max-width: 640px; }
+
+.gg-tp-empty {
   text-align: center;
+  color: var(--gg-muted);
+  padding: 60px 20px;
+}
+.gg-tp-empty p { margin-bottom: 16px; }
+
+.gg-tp-back-btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 10px;
+  background: var(--gg-green);
+  color: #0A0F0C;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.gg-tp-top { text-align: center; margin-bottom: 20px; }
+
+.gg-tp-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.6em;
+  margin: 0;
+}
+
+.gg-tp-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.85em;
+  margin: 6px 0 0;
+}
+
+.gg-tp-days {
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(5px);
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
-.rest-day-card {
-  background-color: rgba(30, 30, 30, 0.7);
+.gg-tp-day-card {
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.gg-tp-day-card.rest {
+  background: rgba(255, 255, 255, 0.015);
   border-style: dashed;
-  justify-content: center;
-  min-height: 250px; /* Altura mínima para alinhar com os outros cards */
 }
 
-.rest-day-text {
-  color: #888;
-  font-style: italic;
-  font-size: 1.1em;
-  margin-top: 10px;
-}
-
-.day-name {
-  color: var(--primaryGreen);
-  font-weight: bold;
-  font-size: 0.9em;
+.gg-tp-day-name {
+  display: block;
+  font-size: 0.7em;
+  font-weight: 800;
+  color: var(--gg-neon);
   text-transform: uppercase;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
 }
 
-.day-workout-title {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.8em;
-  color: white;
-  margin: 0 0 20px 0;
+.gg-tp-day-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  font-size: 1.05em;
+  font-weight: 800;
 }
 
-/* ====================================================== */
-/* === AQUI ESTÁ A CORREÇÃO PARA O ALINHAMENTO === */
-/* ====================================================== */
-
-.daily-exercise-list {
-  list-style: none;
-  padding: 0;
+.gg-tp-rest-text {
   margin: 0;
-  text-align: left;
-  flex-grow: 1; 
+  color: var(--gg-muted);
+  font-size: 0.85em;
 }
 
-.daily-exercise-item {
-  display: flex; /* A MÁGICA ACONTECE AQUI! */
+.gg-tp-exercise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gg-tp-exercise-item {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 5px; /* Adicionei um padding lateral */
-  border-bottom: 1px solid #3a3a3a;
-  gap: 10px; /* Espaço entre os itens */
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gg-line);
 }
 
-.daily-exercise-item:last-child {
-  border-bottom: none;
-}
+.gg-tp-exercise-item:last-child { border-bottom: none; }
 
-.exercise-name-link {
-  color: #f0f0f0;
+.gg-tp-exercise-name {
+  color: var(--gg-text);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-  flex-grow: 1; /* Faz o nome do exercício ocupar o espaço que sobrar */
-  text-align: left;
-}
-
-.exercise-name-link:hover {
-  color: var(--primaryGreen);
-}
-
-.exercise-sets-reps {
-  color: #aaa;
   font-size: 0.9em;
-  font-style: italic;
-  white-space: nowrap; 
-  flex-shrink: 0; /* Impede que ele seja espremido e quebre linha */
-  text-align: right;
+  font-weight: 600;
 }
+
+.gg-tp-exercise-name:hover { color: var(--gg-neon); }
+
+.gg-tp-exercise-sets {
+  flex-shrink: 0;
+  font-size: 0.78em;
+  color: var(--gg-muted);
+  font-weight: 700;
+}
+
+.gg-tp-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--gg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.gg-tp-back:hover { color: var(--gg-text); }

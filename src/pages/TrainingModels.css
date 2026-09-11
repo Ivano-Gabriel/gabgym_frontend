@@ -1,68 +1,96 @@
 /* src/pages/TrainingModels.css */
 
-.training-hub-container {
+.gg-tm-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 70px);
+  padding: 24px 16px;
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
 }
 
-/* Container dos cards, agora em coluna e com largura máxima */
-.hub-portals-container {
-  display: flex;
-  flex-direction: column; /* Coloca um card abaixo do outro */
-  gap: 20px; /* Espaço entre os cards */
-  margin-top: 40px;
-  width: 90%;
-  max-width: 650px; /* Controla a largura máxima em telas grandes */
+.gg-tm-card { width: 100%; max-width: 560px; }
+
+.gg-tm-top { text-align: center; margin-bottom: 24px; }
+
+.gg-tm-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.7em;
+  margin: 0;
 }
 
-/* O novo card, agora retangular e com alinhamento horizontal */
-.portal-card {
-  background-color: rgba(30, 30, 30, 0.7);
-  border: 1px solid #444; /* Borda mais sutil */
-  border-radius: 10px;
-  padding: 20px 25px;
-  text-decoration: none;
-  color: white;
-  transition: all 0.2s ease-in-out;
-  backdrop-filter: blur(5px);
-  display: flex; /* <-- A MÁGICA PARA ALINHAR ÍCONE E TEXTO */
-  align-items: center; /* Alinha verticalmente no centro */
-  gap: 25px; /* Espaço entre o ícone e o texto */
+.gg-tm-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.88em;
+  margin: 8px 0 0;
 }
 
-.portal-card:hover {
-  transform: scale(1.02); /* Efeito de zoom sutil */
-  border-color: var(--primaryGreen);
-  background-color: rgba(40, 40, 40, 0.8);
-}
-
-/* Estilo do ícone */
-.portal-icon {
-  font-size: 2.5em; /* Tamanho do ícone */
-  color: var(--primaryGreen);
-}
-
-/* Container para o texto, para melhor organização */
-.portal-text-content {
+.gg-tm-portals {
   display: flex;
   flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
-/* Título com a fonte menos grossa */
-.portal-card h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 1.6em;
-  color: white; /* Deixei branco para mais contraste e minimalismo */
-  margin: 0 0 5px 0;
-  font-weight: 400; /* << Deixa a fonte 'normal', não bold */
+.gg-tm-portal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.02);
+  text-decoration: none;
+  color: var(--gg-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-/* Descrição com a fonte mais leve */
-.portal-card p {
-  color: #b0b0b0; /* Cor mais suave */
-  line-height: 1.5;
+.gg-tm-portal:hover {
+  border-color: var(--gg-neon);
+  box-shadow: 0 0 20px rgba(182, 255, 110, 0.15);
+  transform: translateY(-2px);
+}
+
+.gg-tm-portal-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(116, 232, 93, 0.1);
+  color: var(--gg-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4em;
+}
+
+.gg-tm-portal-text h3 {
+  margin: 0 0 4px;
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.gg-tm-portal-text p {
   margin: 0;
-  font-weight: 300; /* << Deixa a fonte bem leve */
+  font-size: 0.82em;
+  color: var(--gg-muted);
+  line-height: 1.4;
 }
+
+.gg-tm-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--gg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.gg-tm-back:hover { color: var(--gg-text); }

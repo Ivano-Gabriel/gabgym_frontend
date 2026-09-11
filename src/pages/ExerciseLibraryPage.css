@@ -1,44 +1,65 @@
 /* src/pages/ExerciseLibraryPage.css */
-/* O estilo dessa página pode reutilizar muito do que já temos.
-   Vamos usar as classes genéricas para manter a consistência. */
 
-
-   
-.tabs-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 30px 0;
-    flex-wrap: wrap;
+.gg-exlib-container {
+  padding: 24px 0 40px;
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
 }
 
-.tab-button {
-    padding: 10px 25px;
-    font-size: 1em;
-    font-weight: bold;
-    background-color: transparent;
-    color: #ccc;
-    border: 2px solid #555;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.gg-exlib-status { text-align: center; color: var(--gg-muted); margin-top: 60px; padding: 0 16px; }
+.gg-exlib-status.error { color: var(--gg-danger); }
+
+.gg-exlib-top { text-align: center; padding: 0 16px; margin-bottom: 18px; }
+
+.gg-exlib-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.6em;
+  margin: 0;
 }
 
-.tab-button:hover {
-    border-color: var(--primaryGreen);
-    color: var(--primaryGreen);
+.gg-exlib-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.85em;
+  margin: 6px 0 0;
 }
 
-.tab-button.active {
-    background-color: var(--primaryGreen);
-    border-color: var(--primaryGreen);
-    color: var(--darkText);
-    transform: scale(1.05);
+.gg-exlib-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 16px;
+  margin-bottom: 8px;
 }
 
-.carousels-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
+.gg-exlib-tab {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--gg-muted);
+  font-size: 0.82em;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
 }
+
+.gg-exlib-tab.active { background: var(--gg-green); color: #0A0F0C; border-color: var(--gg-green); }
+
+.gg-exlib-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--gg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.gg-exlib-back:hover { color: var(--gg-text); }

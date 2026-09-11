@@ -73,6 +73,10 @@ export const getExercises = () => {
   return apiClient.get('/workout/exercises');
 };
 
+export const getExerciseById = (id) => {
+  return apiClient.get(`/workout/exercises/${id}`);
+};
+
 export const getFoodCategories = () => {
   return apiClient.get('/diet/categories');
 };
