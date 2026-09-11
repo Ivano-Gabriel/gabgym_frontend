@@ -29,6 +29,8 @@ import ExerciseLibraryPage from './pages/ExerciseLibraryPage';
 import ExerciseDetailPage from './pages/ExerciseDetailPage';
 import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
+import ComingSoonPage from './pages/ComingSoonPage';
+import { FiUsers, FiCamera as FiCameraIcon } from 'react-icons/fi';
 import SignupPage from './pages/SignupPage';
 import MinhasMetasPage from './pages/MinhasMetasPage';
 
@@ -136,6 +138,8 @@ function AppContent() {
           <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
           <Route path="/historico" element={<HistoryPage />} />
+          <Route path="/meu-personal" element={<ComingSoonPage icon={FiUsers} title="Meu Personal" description="Em breve você vai poder ver tudo que seu personal trainer te mandou, acompanhar o plano dele e mandar sua evolução direto pra ele." />} />
+          <Route path="/registros" element={<ComingSoonPage icon={FiCameraIcon} title="Registros" description="Em breve: registre fotos do seu shape e suas medidas a cada 30 dias, e compare sua evolução lado a lado." />} />
           <Route path="/minhas-metas" element={<MinhasMetasPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />

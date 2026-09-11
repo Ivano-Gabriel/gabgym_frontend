@@ -1,0 +1,77 @@
+/* src/pages/ComingSoonPage.css */
+
+.gg-soon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 70px);
+  padding: 24px;
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
+}
+
+.gg-soon-card {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  padding: 40px 28px;
+  border: 1px solid var(--gg-line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.gg-soon-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: rgba(182, 255, 110, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  color: var(--gg-neon);
+}
+
+.gg-soon-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.5em;
+  margin: 0 0 10px;
+}
+
+.gg-soon-description {
+  color: var(--gg-muted);
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin: 0 0 18px;
+}
+
+.gg-soon-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(182, 255, 110, 0.1);
+  color: var(--gg-neon);
+  font-size: 0.72em;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.gg-soon-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--gg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.gg-soon-back:hover { color: var(--gg-text); }
