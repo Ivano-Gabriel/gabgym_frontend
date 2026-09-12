@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getMetas, createMeta, updateMetaStatus } from '../services/apiService';
+import { toast } from 'react-toastify';
 import { FiTarget, FiAward, FiXCircle, FiChevronDown, FiPlus, FiX } from 'react-icons/fi';
 import '../styles/MinhasMetas.css';
 
@@ -26,13 +27,17 @@ const MinhasMetasPage = () => {
       setMetas(response.data);
     } catch (error) {
       console.error("Erro ao buscar metas:", error);
+      toast.error('Não foi possível carregar suas metas.');
     }
   };
 
   const handleCriarMeta = async (e) => {
     e.preventDefault();
     const userId = localStorage.getItem('userId');
-    if (!userId) return;
+    if (!userId) {
+      toast.error('Você precisa estar logado pra criar uma meta.');
+      return;
+    }
     try {
       const novaMeta = {
         userId: parseInt(userId, 10),
@@ -41,21 +46,25 @@ const MinhasMetasPage = () => {
         status: 'ATIVA'
       };
       await createMeta(novaMeta);
+      toast.success('Meta criada com sucesso!');
       setNovaMetaTitulo('');
       setNovaMetaDescricao('');
       setIsModalOpen(false);
       carregarMetas();
     } catch (error) {
       console.error("Erro ao criar meta:", error);
+      toast.error('Não foi possível criar a meta. Tenta de novo.');
     }
   };
 
   const handleAtualizarStatus = async (id, novoStatus) => {
     try {
       await updateMetaStatus(id, { status: novoStatus });
+      toast.success(novoStatus === 'CONCLUIDA' ? 'Parabéns pela meta concluída! 🎉' : 'Meta movida pro histórico.');
       carregarMetas();
     } catch (error) {
       console.error(`Erro ao atualizar meta para ${novoStatus}:`, error);
+      toast.error('Não foi possível atualizar essa meta.');
     }
   };
 

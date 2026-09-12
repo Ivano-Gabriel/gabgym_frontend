@@ -165,7 +165,7 @@ function ProfilePage() {
               <div className="hub-grid">
                 <Link to="/training-models" className="hub-card"><FiActivity className="hub-icon" /><span>{t('hub.treinos')}</span></Link>
                 <Link to="/dietas" className="hub-card"><FiPieChart className="hub-icon" /><span>{t('hub.dietas')}</span></Link>
-                <Link to="/cardio" className="hub-card"><FiHeart className="hub-icon" /><span>{t('hub.cardio')}</span></Link>
+                <Link to="/cardio/select" className="hub-card"><FiHeart className="hub-icon" /><span>{t('hub.cardio')}</span></Link>
                 <Link to="/minhas-metas" className="hub-card"><FiBookOpen className="hub-icon" /><span>{t('hub.diario')}</span></Link>
                 <Link to="/curiosidades" className="hub-card"><FiZap className="hub-icon" /><span>{t('hub.curiosidades')}</span></Link>
                 <Link to="/me-ajude" className="hub-card"><FiHelpCircle className="hub-icon" /><span>{t('hub.me_ajude')}</span></Link>

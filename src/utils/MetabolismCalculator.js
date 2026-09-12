@@ -85,21 +85,10 @@ export const calculateSleepDuration = (sleepTime, wakeTime) => {
 };
 // Adicione esta nova função no final do seu arquivo MetabolismCalculator.js
 
-export const calculateCardioCalories = (activityType, timeInMinutes, weightKg) => {
-  // Tabela de MET (Equivalente Metabólico da Tarefa) para diferentes atividades
-  const metValues = {
-    caminhada: 3.5,
-    corrida: 9.8,
-    ciclismo: 7.5,
-    natacao: 7.0,
-    // Adicione outras atividades aqui no futuro
-  };
-
-  // Pega o valor MET para a atividade, ou usa o de caminhada como padrão
-  const met = metValues[activityType] || 3.5;
-
-  // Fórmula Padrão: (MET * 3.5 * Peso em KG) / 200 * Duração em Minutos
-  const caloriesBurned = (met * 3.5 * weightKg) / 200 * timeInMinutes;
-
+// Calorias por atividade de cardio, direto pelo MET (padrão científico: MET x peso(kg) x tempo(h))
+// metValue vem do CardioList.js, timeInSeconds é o tempo cronometrado
+export const calculateCardioCalories = (metValue, weightKg, timeInSeconds) => {
+  const timeInHours = timeInSeconds / 3600;
+  const caloriesBurned = metValue * weightKg * timeInHours;
   return Math.round(caloriesBurned);
 };

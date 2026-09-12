@@ -118,3 +118,24 @@
   width: 100%;
   height: 100%; /* Isso faz o mapa preencher o container */
 }
+/* Adições: link de voltar e nome da atividade escolhida */
+.gg-cardio-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gg-muted, #8CA091);
+  text-decoration: none;
+  font-size: 0.82em;
+  font-weight: 700;
+  margin: 12px 0 0 16px;
+}
+.gg-cardio-back:hover { color: var(--gg-neon, #B6FF6E); }
+
+.gg-cardio-activity-name {
+  text-align: center;
+  font-family: var(--gg-font-display, 'Anton', sans-serif);
+  font-weight: 400;
+  font-size: 1.3em;
+  margin: 8px 0;
+  color: var(--gg-text, #fff);
+}

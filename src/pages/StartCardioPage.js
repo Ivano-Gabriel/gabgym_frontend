@@ -1,92 +1,117 @@
-// src/pages/StartCardioPage.js
+// src/pages/StartCardioPage.js — cronômetro simples pra atividades sem GPS (natação, pular corda, etc)
+
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useStopwatch } from '../hooks/useStopwatch';
 import { calculateCardioCalories } from '../utils/MetabolismCalculator';
+import { getUser, addDiaryLog } from '../services/apiService';
+import { FiPlay, FiPause, FiCheck, FiArrowLeft } from 'react-icons/fi';
+import './StartCardioPage.css';
 
 function StartCardioPage() {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { activity } = location.state || {};
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { activity } = location.state || {};
 
-    // Agora estamos usando os nomes corretos retornados pelo hook
-    const { seconds, isRunning, start, pause, reset } = useStopwatch();
-    
-    const [userWeight, setUserWeight] = useState(0);
-    const [caloriesBurned, setCaloriesBurned] = useState(0);
+  const { seconds, isRunning, start, pause, reset } = useStopwatch();
 
-    useEffect(() => {
-        const storedUserDataString = localStorage.getItem('gabgymUserData');
-        if (storedUserDataString) {
-            const userData = JSON.parse(storedUserDataString);
-            setUserWeight(parseFloat(userData.weight) || 0);
-        }
-    }, []);
+  const [userWeight, setUserWeight] = useState(0);
+  const [caloriesBurned, setCaloriesBurned] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
 
-    useEffect(() => {
-        if (activity && userWeight > 0) {
-            const burned = calculateCardioCalories(activity.metValue, userWeight, seconds);
-            setCaloriesBurned(burned);
-        }
-    }, [seconds, activity, userWeight]);
+  // Busca o peso real do usuário no backend (antes lia um localStorage que não existe mais)
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+    getUser(userId)
+      .then(response => {
+        setUserWeight(parseFloat(response.data.weight) || 0);
+      })
+      .catch(err => console.error('Erro ao buscar peso do usuário:', err));
+  }, []);
 
-    if (!activity) {
-        return (
-            <div className="content-page">
-                <h2>Erro</h2>
-                <p>Nenhuma atividade selecionada. Por favor, volte e escolha uma atividade.</p>
-                <button onClick={() => navigate('/cardio/select')} className="back-button-general">Voltar</button>
-            </div>
-        );
+  // Recalcula caloria a cada segundo, com os argumentos certos dessa vez
+  useEffect(() => {
+    if (activity && userWeight > 0) {
+      const burned = calculateCardioCalories(activity.metValue, userWeight, seconds);
+      setCaloriesBurned(burned);
+    }
+  }, [seconds, activity, userWeight]);
+
+  if (!activity) {
+    return (
+      <div className="gg-startcardio-container">
+        <div className="gg-startcardio-empty">
+          <p>Nenhuma atividade selecionada.</p>
+          <button onClick={() => navigate('/cardio/select')} className="gg-startcardio-btn-primary">Escolher Atividade</button>
+        </div>
+      </div>
+    );
+  }
+
+  const formatTime = (totalSeconds) => new Date(totalSeconds * 1000).toISOString().slice(11, 19);
+
+  const handleFinish = async () => {
+    pause();
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      toast.error('Você precisa estar logado pra registrar essa atividade.');
+      return;
     }
 
-    const handleFinish = () => {
-        // AQUI ESTÁ A CORREÇÃO: chamando reset() em vez de handleReset()
-        reset(); 
+    setIsSaving(true);
+    try {
+      await addDiaryLog({
+        userId: parseInt(userId, 10),
+        type: 'cardio',
+        name: activity.name,
+        calories: caloriesBurned,
+        durationSeconds: seconds,
+        logDate: new Date().toLocaleDateString('en-CA'),
+        timestamp: Date.now(),
+      });
+      toast.success(`${activity.name} registrada! ${caloriesBurned} kcal queimadas.`);
+      reset();
+      navigate('/registros');
+    } catch (err) {
+      console.error('Erro ao salvar cardio:', err);
+      toast.error('Não foi possível salvar essa atividade. Tenta de novo.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-        const newExerciseLog = {
-            id: `cardio-${Date.now()}`,
-            name: `${activity.name} (${new Date(seconds * 1000).toISOString().slice(14, 19)})`,
-            calories: -caloriesBurned,
-            icon: activity.icon,
-            type: 'exercise',
-            timestamp: Date.now()
-        };
-        localStorage.setItem('gabgymNewlyCompletedExercise', JSON.stringify(newExerciseLog));
-        navigate('/diario');
-    };
+  return (
+    <div className="gg-startcardio-container">
+      <div className="gg-startcardio-card">
+        <Link to="/cardio/select" className="gg-startcardio-back"><FiArrowLeft /> Trocar Atividade</Link>
 
-    return (
-        <div className="content-page">
-            <div className="timer-view-container">
-                <span className="current-activity-icon">{activity.icon}</span>
-                <h2 className="current-activity-title">{activity.name}</h2>
-                
-                {!isRunning && seconds === 0 ? (
-                    <button onClick={start} className="start-cardio-button">INICIAR</button>
-                ) : (
-                    <>
-                        <div className="timer-display">
-                            {new Date(seconds * 1000).toISOString().slice(11, 19)}
-                        </div>
-                        
-                        <div className="calories-burned-display">
-                            🔥 {caloriesBurned} kcal gastas
-                        </div>
+        <h1 className="gg-startcardio-title">{activity.name}</h1>
 
-                        <div className="timer-controls">
-                            <button onClick={isRunning ? pause : start} className="pause-resume-button">
-                                {isRunning ? 'Pausar' : 'Retomar'}
-                            </button>
-                            <button onClick={handleFinish} className="finish-button">
-                                Finalizar
-                            </button>
-                        </div>
-                    </>
-                )}
-            </div>
+        <div className="gg-startcardio-timer">{formatTime(seconds)}</div>
+
+        <div className="gg-startcardio-calories">🔥 {caloriesBurned} kcal</div>
+
+        <div className="gg-startcardio-controls">
+          {!isRunning && seconds === 0 ? (
+            <button onClick={start} className="gg-startcardio-btn-primary full">
+              <FiPlay /> Iniciar
+            </button>
+          ) : (
+            <>
+              <button onClick={isRunning ? pause : start} className="gg-startcardio-btn-secondary">
+                {isRunning ? <><FiPause /> Pausar</> : <><FiPlay /> Retomar</>}
+              </button>
+              <button onClick={handleFinish} className="gg-startcardio-btn-primary" disabled={isSaving}>
+                <FiCheck /> {isSaving ? 'Salvando...' : 'Finalizar'}
+              </button>
+            </>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default StartCardioPage;

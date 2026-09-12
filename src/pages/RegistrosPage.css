@@ -1,0 +1,125 @@
+/* src/pages/RegistrosPage.css */
+
+.gg-registros-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    var(--gg-void);
+  font-family: var(--gg-font-body);
+  color: var(--gg-text);
+}
+
+.gg-registros-card { width: 100%; max-width: 560px; }
+
+.gg-registros-top { text-align: center; margin-bottom: 20px; }
+
+.gg-registros-title {
+  font-family: var(--gg-font-display);
+  font-weight: 400;
+  font-size: 1.6em;
+  margin: 0;
+}
+
+.gg-registros-subtitle {
+  color: var(--gg-muted);
+  font-size: 0.85em;
+  margin: 6px 0 0;
+}
+
+.gg-registros-status { text-align: center; color: var(--gg-muted); padding: 40px 0; }
+
+.gg-registros-empty {
+  text-align: center;
+  color: var(--gg-muted);
+  padding: 48px 20px;
+  border: 1px dashed var(--gg-line);
+  border-radius: 14px;
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.gg-registros-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.gg-registro-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--gg-line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.gg-registro-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--gg-muted);
+}
+
+.gg-registro-item.food .gg-registro-icon { background: rgba(116, 232, 93, 0.12); color: var(--gg-green); }
+.gg-registro-item.cardio .gg-registro-icon,
+.gg-registro-item.exercise .gg-registro-icon { background: rgba(255, 107, 92, 0.12); color: var(--gg-danger); }
+.gg-registro-item.water .gg-registro-icon { background: rgba(92, 194, 255, 0.12); color: var(--gg-water); }
+
+.gg-registro-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gg-registro-name {
+  font-weight: 700;
+  font-size: 0.92em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gg-registro-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75em;
+  color: var(--gg-muted);
+}
+
+.gg-registro-delete {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--gg-muted);
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 6px;
+}
+.gg-registro-delete:hover { color: var(--gg-danger); }
+
+.gg-registros-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--gg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.gg-registros-back:hover { color: var(--gg-text); }
