@@ -1,95 +1,70 @@
-// src/services/apiService.js - VERSÃO JAVA/JWT
 import axios from 'axios';
+import { clearAuthSession } from '../utils/auth';
+
+// Em produção, defina REACT_APP_API_URL no painel da Vercel.
+const baseURL = process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '/api');
 
 const apiClient = axios.create({
-  // O React vai procurar a variável de ambiente primeiro. Se não achar, usa o localhost.
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8081/api',
-  headers: {
-    'Content-Type': 'application/json',
-  }
+  baseURL,
+  headers: { 'Content-Type': 'application/json' },
+  timeout: 25000
 });
 
-// --- O INTERCEPTADOR QUE ANEXA O "CRACHÁ" ---
-apiClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('authToken');
+apiClient.interceptors.request.use(config => {
+  const token = sessionStorage.getItem('authToken');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
-    if (token) {
-      // JWT usa o formato "Bearer <token>", não mais "Token <token>"
-      config.headers.Authorization = `Bearer ${token}`;
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401 &&
+        !error.config?.url?.endsWith('/users/login')) {
+      clearAuthSession();
     }
-
-    return config;
-  },
-  (error) => {
     return Promise.reject(error);
   }
 );
-// ------------------------------------
 
-// Login: agora bate no Java, não mais no dj-rest-auth
-export const loginUser = (credentials) => {
-  // credentials precisa ser { username, password } — não mais { email, password }
-  return apiClient.post('/users/login', credentials).then((response) => {
-    // Salva o token e os dados do login assim que a resposta chega
-    const { token, userId, username } = response.data;
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('userId', userId);
-    localStorage.setItem('username', username);
-    return response;
-  });
+export const loginUser = async (credentials) => {
+  const response = await apiClient.post('/users/login', credentials);
+  const { token, userId, username, role } = response.data;
+  if (!token || !userId || !username || !role) throw new Error('Resposta de login inválida');
+  clearAuthSession();
+  sessionStorage.setItem('authToken', token);
+  sessionStorage.setItem('role', role);
+  // IDs no browser são apenas dicas de interface, nunca autorizam requisições.
+  localStorage.setItem('userId', String(userId));
+  localStorage.setItem('username', username);
+  return response;
 };
 
-// Registro
-export const registerUser = (userData) => {
-  return apiClient.post('/users/register', userData);
+export const logoutUser = async () => {
+  try {
+    if (sessionStorage.getItem('authToken')) await apiClient.post('/users/logout');
+  } finally {
+    clearAuthSession();
+  }
 };
 
-// Busca perfil do usuário logado
-export const getUser = (id) => {
-  return apiClient.get(`/users/${id}`);
-};
-
-// Atualiza o perfil do usuário logado
-export const updateUser = (id, userData) => {
-  return apiClient.put(`/users/${id}`, userData);
-};
-
-// Diário: agora fica dentro de /users/{id}/logs, não mais /dailylogs/
-export const getAtividades = (userId) => {
-  return apiClient.get(`/users/${userId}/logs`);
-};
-
-export const addAtividade = (userId, logData) => {
-  return apiClient.post(`/users/${userId}/logs`, logData);
-};
-
-// Bibliotecas (exercícios e alimentos) — endpoints novos do Java
-export const getMuscleGroups = () => {
-  return apiClient.get('/workout/groups');
-};
-
-export const getExercises = () => {
-  return apiClient.get('/workout/exercises');
-};
-
-export const getExerciseById = (id) => {
-  return apiClient.get(`/workout/exercises/${id}`);
-};
-
-export const getFoodCategories = () => {
-  return apiClient.get('/diet/categories');
-};
-
-export const getFoods = () => {
-  return apiClient.get('/diet/foods');
-};
-
-export const getDiaryLogs = (userId, date) => apiClient.get(`/logs/user/${userId}?date=${date}`);
-export const addDiaryLog = (logData) => apiClient.post('/logs', logData);
-export const deleteDiaryLog = (logId) => apiClient.delete(`/logs/${logId}`);
-
-// === ROTAS DA ABA: MINHAS METAS ===
-export const getMetas = (userId) => apiClient.get(`/metas/user/${userId}`);
-export const createMeta = (metaData) => apiClient.post('/metas', metaData);
-export const updateMetaStatus = (id, statusData) => apiClient.put(`/metas/${id}/status`, statusData);
+export const registerUser = userData => apiClient.post('/users/register', userData);
+export const getCurrentUser = () => apiClient.get('/users/me');
+export const getUser = id => apiClient.get(`/users/${id}`);
+export const updateUser = (id, data) => apiClient.put(`/users/${id}`, data);
+export const getAtividades = id => apiClient.get(`/users/${id}/logs`);
+export const addAtividade = (id, data) => apiClient.post(`/users/${id}/logs`, data);
+export const getMuscleGroups = () => apiClient.get('/workout/groups');
+export const getExercises = () => apiClient.get('/workout/exercises');
+export const getExerciseById = id => apiClient.get(`/workout/exercises/${id}`);
+export const getFoodCategories = () => apiClient.get('/diet/categories');
+export const getFoods = () => apiClient.get('/diet/foods');
+export const getDiaryLogs = (id, date) => apiClient.get(`/logs/user/${id}`, { params: { date } });
+export const addDiaryLog = data => apiClient.post('/logs', data);
+export const deleteDiaryLog = id => apiClient.delete(`/logs/${id}`);
+export const getMetas = id => apiClient.get(`/metas/user/${id}`);
+export const createMeta = data => apiClient.post('/metas', data);
+export const updateMetaStatus = (id, data) => apiClient.put(`/metas/${id}/status`, data);
+export const getStudents = () => apiClient.get('/admin/students');
+export const getStudent = id => apiClient.get(`/admin/students/${id}`);
