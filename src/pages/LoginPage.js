@@ -1,61 +1,72 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, getCurrentUser } from '../services/apiService';
-import './LoginPage.css';
+import AuthShell from './AuthShell';
 
-const LoginPage = () => {
+export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [codigoMfa, setCodigoMfa] = useState('');
+  const [mfaRequired, setMfaRequired] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setError(null);
+  const handleSubmit = async event => {
+    event.preventDefault();
+    if (isLoading) return;
+    setError('');
     setIsLoading(true);
     try {
-      const login = await loginUser({ username, password });
+      const login = await loginUser({ username: username.trim(), password, codigoMfa: mfaRequired ? codigoMfa : null });
       if (login.data.role === 'SUPER_ADMIN') {
         navigate('/admin', { replace: true });
-        return;
+      } else {
+        const user = (await getCurrentUser()).data;
+        navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
       }
-      const user = (await getCurrentUser()).data;
-      navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
     } catch (err) {
       const status = err.response?.status;
-      if (status === 429) setError('Muitas tentativas. Aguarde alguns minutos e tente novamente.');
-      else if (status === 401) setError('Usuário ou senha inválidos.');
-      else setError('Não foi possível entrar. Verifique a conexão com o servidor.');
+      if (status === 428) {
+        setMfaRequired(true);
+        setCodigoMfa('');
+        setError('');
+      } else if (status === 429) setError('Muitas tentativas. Aguarde alguns minutos.');
+      else if (status === 401) setError(mfaRequired ? 'Código de segurança ou credenciais inválidos.' : 'Usuário ou senha inválidos.');
+      else setError('Não foi possível acessar o servidor. Tente novamente.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  return (
-    <div className="login-page-container">
-      <div className="login-form-container">
-        <h2 className="login-title">ENTRAR NO GABGYM</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Usuário</label>
-            <input type="text" id="username" autoComplete="username"
-              value={username} onChange={e => setUsername(e.target.value)} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Senha</label>
-            <input type="password" id="password" autoComplete="current-password"
-              value={password} onChange={e => setPassword(e.target.value)} required />
-          </div>
-          {error && <p className="error-message" role="alert">{error}</p>}
-          <button type="submit" className="login-button" disabled={isLoading}>
-            {isLoading ? 'ENTRANDO...' : 'ENTRAR'}
+  return <AuthShell type="login" title={mfaRequired ? 'Confirme seu acesso.' : 'Bem-vindo de volta.'}
+    subtitle={mfaRequired ? 'Informe o código de seis dígitos do seu aplicativo autenticador.' : 'Entre na sua conta para continuar a evolução.'}
+    footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link></>}>
+    <form className="gg-auth-form" onSubmit={handleSubmit}>
+      <label className="gg-auth-field"><span>Usuário</span>
+        <input value={username} onChange={e => { setUsername(e.target.value); setMfaRequired(false); }}
+          autoComplete="username" placeholder="Seu nome de usuário" required maxLength={40} disabled={isLoading} />
+      </label>
+      <label className="gg-auth-field"><span>Senha</span>
+        <div className="gg-auth-input-wrap">
+          <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
+            autoComplete="current-password" placeholder="Sua senha" required disabled={isLoading}/>
+          <button className="gg-auth-show-password" type="button" onClick={() => setShowPassword(x => !x)}>
+            {showPassword ? 'Ocultar' : 'Mostrar'}
           </button>
-        </form>
-        <p className="signup-link">Não tem conta? <Link to="/signup">Criar conta</Link></p>
-      </div>
-    </div>
-  );
-};
-
-export default LoginPage;
+        </div>
+      </label>
+      {mfaRequired && <label className="gg-auth-field"><span>Código de segurança</span>
+        <input value={codigoMfa} onChange={e => setCodigoMfa(e.target.value.replace(/\D/g, '').slice(0,6))}
+          inputMode="numeric" pattern="[0-9]{6}" autoComplete="one-time-code" placeholder="000000" required
+          maxLength={6} disabled={isLoading} />
+      </label>}
+      {error && <p className="gg-auth-error" role="alert">{error}</p>}
+      <button className="gg-auth-submit" type="submit" disabled={isLoading}>
+        <span>{isLoading ? 'Verificando...' : mfaRequired ? 'Validar código' : 'Entrar na minha conta'}</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
+  </AuthShell>;
+}
