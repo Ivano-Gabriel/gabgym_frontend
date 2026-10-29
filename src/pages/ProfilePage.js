@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getUser } from '../services/apiService';
+import { getUser, logoutUser } from '../services/apiService';
 import {
   FiActivity, FiPieChart, FiHeart, FiBookOpen, FiZap, FiHelpCircle,
   FiEdit3, FiLogOut, FiGlobe, FiCamera, FiBarChart2, FiGrid, FiUsers, FiFolder
@@ -67,10 +67,9 @@ function ProfilePage() {
     setStreak(streakData.count);
   }, [navigate]);
   
-  const handleLogout = () => {
-    localStorage.clear(); 
-    navigate('/');
-    window.location.reload(); 
+  const handleLogout = async () => {
+    try { await logoutUser(); } catch { /* Sessão local já foi apagada. */ }
+    navigate('/login', { replace: true });
   };
   
   const toggleLanguage = () => {
