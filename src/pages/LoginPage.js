@@ -1,7 +1,6 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { loginUser, getUser } from '../services/apiService'; // Adicionado o getUser aqui
+import { loginUser, getCurrentUser } from '../services/apiService';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -11,38 +10,23 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-
     try {
-      // loginUser salva token, userId e username no localStorage
-      await loginUser({ username, password });
-      console.log('Login bem-sucedido! Token salvo.');
-
-      // Pega o ID que acabou de ser salvo para checar o status do perfil
-      const userId = localStorage.getItem('userId');
-      
-      try {
-        const userResponse = await getUser(userId);
-        const userData = userResponse.data;
-        
-        // Trava de UX: Se não tiver peso ou altura, é uma conta fantasma. Obriga a preencher!
-        if (!userData.weight || !userData.height) {
-          navigate('/profile-form');
-        } else {
-          navigate('/perfil');
-        }
-      } catch (profileErr) {
-        console.error('Erro ao verificar status do perfil:', profileErr);
-        // Por segurança, se a checagem falhar, manda pro formulário
-        navigate('/profile-form'); 
+      const login = await loginUser({ username, password });
+      if (login.data.role === 'SUPER_ADMIN') {
+        navigate('/admin', { replace: true });
+        return;
       }
-
+      const user = (await getCurrentUser()).data;
+      navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
     } catch (err) {
-      console.error('Falha no login:', err);
-      setError('Usuário ou senha inválidos. Tente novamente.');
+      const status = err.response?.status;
+      if (status === 429) setError('Muitas tentativas. Aguarde alguns minutos e tente novamente.');
+      else if (status === 401) setError('Usuário ou senha inválidos.');
+      else setError('Não foi possível entrar. Verifique a conexão com o servidor.');
     } finally {
       setIsLoading(false);
     }
@@ -55,32 +39,20 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Usuário</label>
-            <input 
-              type="text" 
-              id="username" 
-              value={username} 
-              onChange={(e) => setUsername(e.target.value)} 
-              required 
-            />
+            <input type="text" id="username" autoComplete="username"
+              value={username} onChange={e => setUsername(e.target.value)} required />
           </div>
           <div className="form-group">
             <label htmlFor="password">Senha</label>
-            <input 
-              type="password" 
-              id="password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-            />
+            <input type="password" id="password" autoComplete="current-password"
+              value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message" role="alert">{error}</p>}
           <button type="submit" className="login-button" disabled={isLoading}>
             {isLoading ? 'ENTRANDO...' : 'ENTRAR'}
           </button>
         </form>
-        <p className="signup-link">
-          Não tem uma conta? <Link to="/signup">Crie uma agora</Link>
-        </p>
+        <p className="signup-link">Não tem conta? <Link to="/signup">Criar conta</Link></p>
       </div>
     </div>
   );
