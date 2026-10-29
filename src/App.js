@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 
@@ -42,9 +42,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
 import { FiMenu, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
-import { isLoggedIn } from './utils/auth';
+import { isLoggedIn, isSuperAdmin } from './utils/auth';
+import AdminPage from './pages/AdminPage';
 import './components/Header.css';
 
+
+function RequireAuth({ children, admin = false }) {
+  if (!isLoggedIn()) return <Navigate to="/login" replace />;
+  if (admin && !isSuperAdmin()) return <Navigate to="/perfil" replace />;
+  return children;
+}
 
 function AppContent() {
   const { t } = useTranslation();
@@ -54,6 +61,7 @@ function AppContent() {
   const location = useLocation();
 
   const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
   const toggleLogoMenu = () => setIsLogoMenuOpen(prev => !prev);
@@ -77,7 +85,7 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header className="gg-header">
+      {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
             <img src="/images/gymlogo.png" alt="GabGym Logo" className="gg-logo-image" />
@@ -96,12 +104,12 @@ function AppContent() {
         <nav className="gg-nav-desktop">
           <ul className="gg-nav-list">
             <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li><Link to="/perfil" className="gg-nav-link" onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
+            <li><Link to={isSuperAdmin() ? '/admin' : '/perfil'} className="gg-nav-link" onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
           </ul>
         </nav>
         <div className="gg-header-right">
           <Link
-            to={isLoggedIn() ? '/perfil' : '/profile-form'}
+            to={isLoggedIn() ? (isSuperAdmin() ? '/admin' : '/perfil') : '/login'}
             className="gg-header-cta"
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
@@ -110,18 +118,18 @@ function AppContent() {
             <FiMenu />
           </button>
         </div>
-      </header>
+      </header>}
       
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="bottom-right" autoClose={3000} theme="dark" />
 
-      <main>
+      <main className={isAuthPage ? 'gg-auth-main' : undefined}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/perfil" element={<ProfilePage />} />
-          <Route path="/profile-form" element={<ProfileForm />} />
-          <Route path="/diario" element={<DiarioPage />} />
-          <Route path="/diario-alimentar" element={<DiarioAlimentarPage />} />
+          <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/profile-form" element={<RequireAuth><ProfileForm /></RequireAuth>} />
+          <Route path="/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
+          <Route path="/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
           <Route path="/biblioteca-alimentos" element={<FoodLibraryPage />} />
           <Route path="/training-models" element={<TrainingModels />} />
           <Route path="/dietas" element={<DietPage />} />
@@ -138,10 +146,11 @@ function AppContent() {
           <Route path="/routine-generator" element={<RoutineGeneratorPage />} />
           <Route path="/exercise-library" element={<ExerciseLibraryPage />} />
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
-          <Route path="/historico" element={<HistoryPage />} />
+          <Route path="/historico" element={<RequireAuth><HistoryPage /></RequireAuth>} />
           <Route path="/meu-personal" element={<ComingSoonPage icon={FiUsers} title="Meu Personal" description="Em breve você vai poder ver tudo que seu personal trainer te mandou, acompanhar o plano dele e mandar sua evolução direto pra ele." />} />
-          <Route path="/registros" element={<RegistrosPage />} />
-          <Route path="/minhas-metas" element={<MinhasMetasPage />} />
+          <Route path="/registros" element={<RequireAuth><RegistrosPage /></RequireAuth>} />
+          <Route path="/minhas-metas" element={<RequireAuth><MinhasMetasPage /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAuth admin><AdminPage /></RequireAuth>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
         </Routes>
