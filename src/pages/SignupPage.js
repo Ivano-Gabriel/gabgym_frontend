@@ -35,7 +35,7 @@ export default function SignupPage() {
       <label className="gg-auth-field"><span>Nome de usuário</span>
         <input value={username} onChange={e => setUsername(e.target.value)}
           autoComplete="username" placeholder="Como vamos chamar você?" required
-          pattern="[A-Za-z0-9_.-]{3,40}" maxLength={40} disabled={isLoading}/>
+          pattern="[A-Za-z0-9_.\-]{3,40}" maxLength={40} disabled={isLoading}/>
       </label>
       <label className="gg-auth-field"><span>Senha (10 a 72 caracteres)</span>
         <div className="gg-auth-input-wrap">
