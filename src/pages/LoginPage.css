@@ -1,66 +1,115 @@
-/* src/pages/LoginPage.css */
-.login-page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #121212;
-  color: white;
-}
-.login-form-container {
-  background-color: #1e1e1e;
-  padding: 40px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-.login-title {
-  margin-bottom: 30px;
-  font-family: 'Anton', sans-serif;
-}
-.form-group {
-  margin-bottom: 20px;
+/* GABGYM access — composição editorial do Nummo adaptada à identidade fitness.
+   Sem overlays, animação constante ou fontes concorrentes. */
+.gg-auth-screen {
+  --gg-auth-ink: #17231b;
+  --gg-auth-muted: #637168;
+  --gg-auth-accent: #8bde52;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(380px, .9fr);
+  min-height: 100dvh;
+  font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
   text-align: left;
 }
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
+.gg-auth-screen * { box-sizing: border-box; }
+.gg-auth-showcase {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding: clamp(30px, 3.6vw, 64px);
+  background: linear-gradient(145deg, #112c1e 0%, #183d2b 57%, #295234 100%);
+  color: #f5fcf1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  background-color: #2c2c2c;
-  border: 1px solid #444;
-  color: white;
-  border-radius: 6px;
+.gg-auth-logo {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; align-self: flex-start; gap: 10px;
+  font-size: 21px; font-weight: 800; letter-spacing: -.065em;
+  text-decoration: none; color: #fff;
 }
-.login-button {
-  width: 100%;
-  padding: 15px;
-  background-color: var(--primaryGreen);
-  border: none;
-  border-radius: 6px;
-  color: var(--darkText);
-  font-weight: bold;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.gg-auth-logo-icon {
+  display: grid; place-items: center; width: 37px; height: 37px;
+  border: 1px solid #c0f7a7; border-radius: 10px; color: #c6ff99;
+  font-size: 22px; font-weight: 800;
 }
-.login-button:disabled {
-  background-color: #555;
-  cursor: not-allowed;
+.gg-auth-logo-dot { color: #a7ea70; margin-left: -10px; }
+.gg-auth-showcase-copy { position: relative; z-index: 2; max-width: 660px; padding: 90px 0; }
+.gg-auth-kicker { font-size: 11px; font-weight: 700; letter-spacing: .18em; color: #b5ef8d; }
+.gg-auth-showcase h1 {
+  font-size: clamp(42px, 5.15vw, 82px); letter-spacing: -.075em;
+  line-height: 1.07; font-weight: 800; margin: 22px 0 20px;
 }
-.error-message {
-  color: #e74c3c;
-  margin-bottom: 15px;
+.gg-auth-showcase h1 em {
+  display: block; color: #bbf58b; font-family: Georgia, serif;
+  font-weight: 400; letter-spacing: -.065em;
 }
-.signup-link {
-  margin-top: 20px;
+.gg-auth-showcase-copy p { max-width: 400px; font-size: 15px; line-height: 1.7; color: #cbe6d0; }
+.gg-auth-showcase-footer { position: relative; z-index: 2; font-size: 10px; font-weight: 600; color: #bedaca; letter-spacing: .16em; }
+.gg-auth-visual { position: absolute; inset: 0; pointer-events: none; opacity: .44; }
+.gg-auth-visual-circle { position: absolute; display: block; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(182,244,146,.38); }
+.gg-auth-visual-circle--one { right: -370px; bottom: -240px; }
+.gg-auth-visual-circle--two { right: -260px; bottom: -360px; width: 780px; height: 780px; }
+.gg-auth-visual-circle--three { right: -150px; bottom: -480px; width: 960px; height: 960px; }
+.gg-auth-visual-bar { position: absolute; right: -180px; bottom: 0; width: 500px; height: 160px; transform: rotate(-27deg); border-radius: 90px; background: rgba(137,230,103,.10); }
+.gg-auth-access {
+  min-height: 100dvh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 42px clamp(22px, 5.2vw, 86px); background: #f7f9f5; color: var(--gg-auth-ink);
 }
-.signup-link a {
-  color: var(--primaryGreen);
-  text-decoration: none;
-  font-weight: bold;
+.gg-auth-mobile-brand { display: none; }
+.gg-auth-card { width: 100%; max-width: 425px; }
+.gg-auth-context { display: inline-block; margin-bottom: 15px; color: #487c4a; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.gg-auth-card h2 { margin: 0; font-size: clamp(27px, 2.5vw, 35px); font-weight: 750; letter-spacing: -.065em; line-height: 1.2; }
+.gg-auth-description { margin: 10px 0 31px; font-size: 14px; line-height: 1.65; color: var(--gg-auth-muted); }
+.gg-auth-form { display: grid; gap: 18px; }
+.gg-auth-field { display: grid; gap: 8px; }
+.gg-auth-field > span:first-child { font-size: 12px; font-weight: 650; }
+.gg-auth-input-wrap { position: relative; display: flex; align-items: center; }
+.gg-auth-field input {
+  display: block; width: 100%; min-height: 52px; padding: 13px 15px;
+  border: 1px solid #d8e1d7; border-radius: 10px;
+  background: #fff; color: #15221a;
+  font: inherit; font-size: 14px; transition: border-color .16s ease;
+}
+.gg-auth-field input::placeholder { color: #82918a; }
+.gg-auth-field input:focus { outline: 3px solid rgba(105, 180, 72, .22); border-color: #529b50; }
+.gg-auth-input-wrap input { padding-right: 89px; }
+.gg-auth-show-password { position: absolute; right: 9px; top: 7px; bottom: 7px; padding: 0 12px; border: 0; color: #477450; background: transparent; font-size: 12px; font-weight: 700; cursor: pointer; }
+.gg-auth-submit {
+  min-height: 53px; display: flex; align-items: center; justify-content: space-between;
+  width: 100%; border: 0; border-radius: 10px; padding: 0 19px;
+  background: #256b3c; color: #fff; font: inherit; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background .16s ease;
+}
+.gg-auth-submit:hover:not(:disabled) { background: #194e2d; }
+.gg-auth-submit:disabled { opacity: .55; cursor: progress; }
+.gg-auth-error { margin: 0; padding: 11px 14px; border: 1px solid #e2b4b4; border-radius: 8px; background: #fff6f6; color: #842b2b; font-size: 12px; line-height: 1.5; }
+.gg-auth-bottom { margin-top: 25px; color: var(--gg-auth-muted); font-size: 13px; }
+.gg-auth-bottom a { color: #256b3c; font-weight: 750; text-decoration: none; }
+.gg-auth-bottom a:hover { text-decoration: underline; }
+.gg-auth-trust { padding-top: 30px; margin-top: 28px; border-top: 1px solid #dfe6df; color: #65796b; font-size: 11px; display: flex; gap: 8px; align-items: center; }
+.gg-auth-screen :is(a,button):focus-visible { outline: 3px solid #77b65f; outline-offset: 3px; }
+@media (max-width: 880px) {
+  .gg-auth-screen { display: flex; flex-direction: column; }
+  .gg-auth-showcase { min-height: 225px; padding: 24px; }
+  .gg-auth-showcase-copy { padding: 24px 0 10px; }
+  .gg-auth-showcase h1 { font-size: clamp(31px, 7vw, 44px); margin: 12px 0 6px; }
+  .gg-auth-showcase-copy p { display: none; }
+  .gg-auth-showcase-footer { display: none; }
+  .gg-auth-access { min-height: 0; flex: 1; padding: 37px 22px 48px; }
+  .gg-auth-visual-circle--one { right: -450px; bottom: -470px; }
+}
+@media (max-width: 440px) {
+  .gg-auth-showcase { min-height: 212px; padding: 20px; }
+  .gg-auth-logo { font-size: 18px; }
+  .gg-auth-logo-icon { width: 32px; height: 32px; font-size: 19px; }
+  .gg-auth-showcase h1 { font-size: clamp(30px, 9vw, 39px); }
+  .gg-auth-showcase-copy { padding: 18px 0 0; }
+  .gg-auth-access { padding: 34px 22px 45px; }
+  .gg-auth-description { margin-bottom: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-auth-field input, .gg-auth-submit { transition: none; }
 }
