@@ -61,6 +61,7 @@ function AppContent() {
   const location = useLocation();
 
   const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
   const toggleLogoMenu = () => setIsLogoMenuOpen(prev => !prev);
@@ -84,7 +85,7 @@ function AppContent() {
 
   return (
     <div className="App">
-      <header className="gg-header">
+      {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
             <img src="/images/gymlogo.png" alt="GabGym Logo" className="gg-logo-image" />
@@ -117,12 +118,12 @@ function AppContent() {
             <FiMenu />
           </button>
         </div>
-      </header>
+      </header>}
       
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="bottom-right" autoClose={3000} theme="dark" />
 
-      <main>
+      <main className={isAuthPage ? 'gg-auth-main' : undefined}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
