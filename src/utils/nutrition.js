@@ -37,7 +37,7 @@ export function scaleFood(food, servings) {
 /** Referencia de massa confiavel do catalogo. Nunca adivinha massa da unidade. */
 export function parseReferenceGrams(food) {
   const parse = value => {
-    const match = /^\\s*(?:aprox\\.?\\s*)?(\\d+(?:[.,]\\d+)?)\\s*g(?:ramas)?\\s*$/i.exec(String(value || ''));
+    const match = /^\s*(?:aprox\.?\s*)?(\d+(?:[.,]\d+)?)\s*g(?:ramas)?\s*$/i.exec(String(value || ''));
     return match ? Number(match[1].replace(',', '.')) : null;
   };
   const amount = parse(food.unit) ?? parse(food.servingDesc);
