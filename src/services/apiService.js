@@ -5,6 +5,19 @@ import { clearAuthSession } from '../utils/auth';
 const baseURL = process.env.REACT_APP_API_URL ||
   (process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '/api');
 
+// Render Free pode demorar a iniciar apos inatividade. Dispara um GET publico
+// sem token, nao bloqueante; nao cria intervalo nem ciclo de requisicoes.
+export const warmUpApi = () => {
+  if (typeof window === 'undefined' || typeof window.fetch !== 'function') return;
+  try {
+    const url = new URL(baseURL, window.location.href);
+    if (!['http:', 'https:'].includes(url.protocol)) return;
+    return window.fetch(url.origin + '/ping', { credentials: 'omit', cache: 'no-store' }).catch(() => {});
+  } catch {
+    return;
+  }
+};
+
 const apiClient = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
@@ -29,7 +42,7 @@ apiClient.interceptors.response.use(
 );
 
 export const loginUser = async (credentials) => {
-  const response = await apiClient.post('/users/login', credentials);
+  const response = await apiClient.post('/users/login', credentials, { timeout: 90000 });
   const { token, userId, username, role } = response.data;
   if (!token || !userId || !username || !role) throw new Error('Resposta de login inválida');
   clearAuthSession();
@@ -49,7 +62,7 @@ export const logoutUser = async () => {
   }
 };
 
-export const registerUser = userData => apiClient.post('/users/register', userData);
+export const registerUser = userData => apiClient.post('/users/register', userData, { timeout: 90000 });
 export const getCurrentUser = () => apiClient.get('/users/me');
 export const getUser = id => apiClient.get(`/users/${id}`);
 export const updateUser = (id, data) => apiClient.put(`/users/${id}`, data);
