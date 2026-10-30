@@ -1,93 +1,49 @@
-/* src/pages/HomePage.css — tela única (sem scroll), imagem clara, CTA chamativo */
-
-.home-hero {
-  position: relative;
-  height: calc(100dvh - 70px);
-  min-height: calc(100vh - 70px);
-  display: flex;
-  align-items: flex-end; /* conteúdo colado embaixo — alcance fácil do polegar no celular */
-  justify-content: center;
-  overflow: hidden;
-  background-image:
-    linear-gradient(to bottom, rgba(10, 15, 12, 0.2) 0%, rgba(10, 15, 12, 0.55) 60%, rgba(10, 15, 12, 0.93) 100%),
-    url('/public/images/gym1.jpg');
-  background-size: cover;
-  background-position: center 25%;
+/* Home GABGYM 2.0 — rotina diaria, sem fotos ou estimativas falsas. */
+.gg-home { min-height: 100dvh; background: #0e1113; color: #f5f2ea; padding-bottom: calc(85px + env(safe-area-inset-bottom,0px)); font-family: var(--gg-font-body, 'Manrope', sans-serif); text-align: left; }
+.gg-home * { box-sizing: border-box; }
+.gg-home-hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(130deg, #14191b, #101416 72%); padding: 26px clamp(20px,5.2vw,92px) 24px; min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid #394247; }
+.gg-home-hero:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: #ff7847; z-index: -1; }
+.gg-home-topline,.gg-home-footnote { display: flex; gap: 8px 20px; align-items: center; justify-content: space-between; font-size: 10px; color: #bac4c5; font-weight: 900; letter-spacing: .15em; }
+.gg-home-live { background: #ff7847; height: 8px; width: 8px; transform: skew(-16deg); display: inline-block; margin-right: 6px; }
+.gg-home-topline { justify-content: flex-start; color: #ffa17e; }
+.gg-home-copy { max-width: 880px; margin: 60px 0 40px; z-index: 1; }
+.gg-home-edition { display: block; color: #ff9b79; font-size: 11px; letter-spacing: .15em; font-weight: 900; margin-bottom: 21px; }
+.gg-home h1 { margin: 0; font: 850 clamp(72px, 12.5vw, 174px)/.84 var(--gg-font-display, Impact, sans-serif); letter-spacing: -.008em; }
+.gg-home h1 em { color: #ff7847; font-style: normal; }
+.gg-home-copy p { max-width: 445px; margin: 29px 0 27px; color: #c6ced0; font: 500 clamp(13px, 1.3vw, 16px)/1.8 var(--gg-font-body, Arial, sans-serif); }
+.gg-home-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.gg-home-main-action,.gg-home-secondary-action { min-height: 56px; display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; text-decoration: none; padding: 0 22px; font-size: 12px; font-weight: 900; border-radius: 5px; letter-spacing: .035em; transition: transform .2s ease, background .2s ease; }
+.gg-home-main-action { background: #ff7847; color: #101315; min-width: 226px; }
+.gg-home-secondary-action { border: 1px solid #626d70; color: #f5f2ea; }
+.gg-home-main-action:hover,.gg-home-secondary-action:hover { transform: translateY(-2px); }
+.gg-home-main-action:hover { background: #ff9c79; }
+.gg-home-mark { position: absolute; right: -8%; bottom: -6%; z-index: 0; font: 900 clamp(220px,38vw,580px)/.7 var(--gg-font-display, Impact, sans-serif); font-style: italic; letter-spacing: -.17em; white-space: nowrap; opacity: .045; pointer-events: none; }
+.gg-home-footnote { border-top: 1px solid #41494c; padding-top: 17px; z-index: 1; }
+.gg-home-pillars { max-width: 1260px; margin: 0 auto; padding: 44px clamp(20px,5.2vw,64px) 60px; }
+.gg-home-pillar-title > span { color: #ff9b79; font-size: 10px; letter-spacing: .16em; font-weight: 900; }
+.gg-home-pillar-title h2 { font: 800 clamp(40px,5.5vw,62px)/.98 var(--gg-font-display, Impact, sans-serif); margin: 13px 0 28px; }
+.gg-home-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.gg-home-pillar { min-width: 0; padding: 24px; background: #1c2225; color: #f5f2ea; text-decoration: none; border: 1px solid #3e484c; border-radius: 7px; display: grid; gap: 19px; transition: border-color .17s ease, transform .17s ease; }
+.gg-home-pillar:hover { border-color: #ff7847; transform: translateY(-2px); }
+.gg-home-pillar-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #ff9b79; font: 850 10px var(--gg-font-body, Arial, sans-serif); letter-spacing: .13em; }
+.gg-home-pillar-top svg { font-size: 23px; }
+.gg-home-pillar strong { font: 800 clamp(29px,3.4vw,43px)/1 var(--gg-font-display, Impact, sans-serif); }
+.gg-home-pillar p { margin: 0; font-size: 12px; line-height: 1.6; color: #c5ced0; }
+.gg-home-pillar-arrow { justify-self: end; font-size: 19px; color: #ff9b79; }
+.gg-home-small-note { margin: 24px 0 0; font-size: 11px; line-height: 1.7; color: #aeb8bb; }
+.gg-home a:focus-visible { outline: 3px solid #ff9c79; outline-offset: 3px; }
+@media (max-width: 767px) {
+  .gg-home-hero { min-height: min(670px, 78dvh); padding: 27px 22px 20px; }
+  .gg-home-copy { margin: 60px 0 36px; }
+  .gg-home h1 { font-size: clamp(58px, 15.3vw, 106px); }
+  .gg-home-copy p { margin: 22px 0 26px; max-width: 350px; }
+  .gg-home-actions { flex-direction: column; }
+  .gg-home-main-action,.gg-home-secondary-action { width: 100%; }
+  .gg-home-footnote { align-items: start; flex-direction: column; font-size: 9px; gap: 5px; }
+  .gg-home-grid { grid-template-columns: 1fr; }
+  .gg-home-pillar { min-height: 145px; padding: 20px; }
+  .gg-home-mark { font-size: 250px; right: -30%; bottom: 1%; }
 }
-
-.home-hero-content {
-  width: 100%;
-  max-width: 460px;
-  padding: 0 24px calc(env(safe-area-inset-bottom, 0px) + 32px);
-  text-align: center;
-  color: var(--gg-text, #EDF3EE);
-  font-family: var(--gg-font-body, 'Sora', sans-serif);
-}
-
-.home-kicker {
-  display: block;
-  font-size: 0.78em;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gg-neon, #B6FF6E);
-  margin-bottom: 4px;
-}
-
-.home-logo {
-  font-family: var(--gg-font-display, 'Anton', sans-serif);
-  font-weight: 400;
-  font-size: 2.5em;
-  line-height: 1;
-  margin: 0 0 8px;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-}
-
-.home-title {
-  font-family: var(--gg-font-display, 'Anton', sans-serif);
-  font-weight: 400;
-  font-size: 1.2em;
-  line-height: 1.3;
-  margin: 0 0 8px;
-}
-
-.home-subtitle {
-  font-size: 0.88em;
-  color: var(--gg-muted, #b8c4ba);
-  line-height: 1.5;
-  margin: 0 0 20px;
-}
-
-.home-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 16px 24px;
-  border-radius: 999px;
-  background: var(--gg-green, #74E85D);
-  color: #0A0F0C;
-  font-weight: 800;
-  font-size: 1.02em;
-  text-decoration: none;
-  box-shadow: 0 0 24px rgba(116, 232, 93, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
-}
-
-.home-cta:hover, .home-cta:active {
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px rgba(116, 232, 93, 0.55), 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-@media (min-height: 720px) {
-  .home-hero { align-items: center; }
-}
-
-@media (min-width: 640px) {
-  .home-hero-content { max-width: 520px; }
-  .home-logo { font-size: 3.2em; }
-  .home-title { font-size: 1.5em; }
-  .home-cta { width: auto; padding: 16px 40px; }
+@media (prefers-reduced-motion: reduce) {
+  .gg-home * { transition: none !important; }
 }
