@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="gg-title">
+<title id="gg-title">GABGYM GG</title>
+<rect width="256" height="256" rx="48" fill="#111719"/>
+<path fill="none" stroke="#ff7847" stroke-linejoin="bevel" stroke-width="29"
+  d="M115 74H64L43 98v60l21 24h55v-58H83
+     M213 74h-51l-21 24v60l21 24h55v-58h-36"/>
+<path d="M42 207h174" stroke="#ff7847" stroke-width="8" stroke-linecap="square"/>
+</svg>
