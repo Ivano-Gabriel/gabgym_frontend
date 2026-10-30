@@ -94,7 +94,7 @@ test('salvar no banco e falhar a leitura posterior não sugere repetir a gravaç
 test('alimentos começam fechados e abrem apenas quando o usuário pedir', async () => {
   render(<NutritionTodayPage />);
   await screen.findByText(/ALIMENTAÇÃO/i, { selector: 'h1' });
-  const trigger = screen.getByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i });
+  const trigger = await screen.findByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i });
   expect(trigger).toHaveAttribute('aria-expanded', 'false');
   expect(screen.queryByRole('searchbox', { name: /Buscar alimento/i })).not.toBeInTheDocument();
   fireEvent.click(trigger);
