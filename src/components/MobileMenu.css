@@ -62,3 +62,11 @@
 .gg-mobile-menu-link svg { font-size: 1.15em; color: var(--gg-green, #74E85D); flex-shrink: 0; }
 
 .gg-mobile-menu-link:hover { background: rgba(255, 255, 255, 0.05); }
+/* Menu secundário GABGYM 2.3, desassociado do verde legado. */
+.gg-mobile-menu { background:#1c2326; border-left:1px solid #515b5f; color:#f5f2ea; z-index:1230; }
+.gg-mobile-menu-close { width:48px;height:48px;border-radius:11px;color:#ffae8e;border:1px solid #7b5e53; }
+.gg-mobile-menu-heading { font:850 31px var(--gg-font-display,Impact,sans-serif); margin:10px 6px 16px; color:#f5f2ea; }
+.gg-mobile-menu-link { min-height:58px;color:#e9ebea;background:#232b2f;border:1px solid #3e494d;font-weight:800;font-size:12px;border-radius:11px; }
+.gg-mobile-menu-link svg { color:#ff9b76; }
+.gg-mobile-menu-link:hover { background:#343033; }
+.gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #ffa083;outline-offset:3px; }
