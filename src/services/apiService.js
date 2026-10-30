@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { clearAuthSession } from '../utils/auth';
+import { chooseApiBaseUrl } from '../utils/apiRouting';
 
-// Em produção, defina REACT_APP_API_URL no painel da Vercel.
-const baseURL = process.env.REACT_APP_API_URL ||
-  (process.env.NODE_ENV === 'development' ? 'http://localhost:8080/api' : '/api');
+// Em deploys Vercel, requisicoes usam o mesmo dominio /api (vercel.json).
+// REACT_APP_API_URL continua disponivel apenas para desenvolvimento local.
+const baseURL = chooseApiBaseUrl(process.env.NODE_ENV, process.env.REACT_APP_API_URL);
 
 // Render Free pode demorar a iniciar apos inatividade. Dispara um GET publico
 // sem token, nao bloqueante; nao cria intervalo nem ciclo de requisicoes.
@@ -12,7 +13,7 @@ export const warmUpApi = () => {
   try {
     const url = new URL(baseURL, window.location.href);
     if (!['http:', 'https:'].includes(url.protocol)) return;
-    return window.fetch(url.origin + '/ping', { credentials: 'omit', cache: 'no-store' }).catch(() => {});
+    return window.fetch(url.origin + '/ping', { credentials: 'omit', cache: 'no-store', mode: 'no-cors' }).catch(() => {});
   } catch {
     return;
   }
