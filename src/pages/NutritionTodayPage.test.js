@@ -78,3 +78,11 @@ test('registro manual aceita nome, gramas e kcal sem inventar macros', async () 
     name: 'Caviar (150 g — manual)', calories: 400, protein: 0, carbs: 0, fat: 0,
   }));
 });
+
+test('salvar no banco e falhar a leitura posterior não sugere repetir a gravação', async () => {
+  getDiaryLogs.mockResolvedValueOnce({ data: [] }).mockRejectedValueOnce(new Error('falha temporária de leitura'));
+  render(<NutritionTodayPage />);
+  fireEvent.click(await screen.findByRole('button', { name: '+ 250 ML' }));
+  await waitFor(() => expect(addDiaryLog).toHaveBeenCalledTimes(1));
+  expect(await screen.findByText(/Registro salvo.*atualizar/i)).toBeInTheDocument();
+});
