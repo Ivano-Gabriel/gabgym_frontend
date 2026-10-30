@@ -1,4 +1,4 @@
-import { dayKey, summarizeDay, scaleFood, isValidServingCount } from './nutrition';
+import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from './nutrition';
 
 describe('diário nutricional: dados reais por dia', () => {
   it('usa data local e nao o dia UTC', () => {
@@ -25,4 +25,27 @@ describe('diário nutricional: dados reais por dia', () => {
     expect(isValidServingCount(101)).toBe(false);
     expect(isValidServingCount(1.5)).toBe(true);
   });
+});
+
+test('balança usa a referência do catálogo e calcula 180g de bife com base em 100g', () => {
+  const bife = { name: 'Bife grelhado', unit: '100g', servingDesc: '1 bife', calories: 250, protein: 26, carbs: 0, fat: 17 };
+  expect(parseReferenceGrams(bife)).toBe(100);
+  expect(scaleFoodGrams(bife, 180)).toEqual({ calories: 450, protein: 46.8, carbs: 0, fat: 30.6 });
+});
+test('balança não inventa equivalência para um ovo por unidade', () => {
+  const ovo = { unit: '1 unidade', servingDesc: '1 ovo grande', calories: 78 };
+  expect(parseReferenceGrams(ovo)).toBe(null);
+  expect(() => scaleFoodGrams(ovo, 180)).toThrow();
+});
+test('progresso separa zero, metade, proximidade e acima da meta', () => {
+  expect(calorieProgress(0, 2000).percent).toBe(0);
+  expect(calorieProgress(1000, 2000).percent).toBe(50);
+  expect(calorieProgress(1950, 2000).stage).toBe('near');
+  expect(calorieProgress(2100, 2000).stage).toBe('over');
+  expect(calorieProgress(2000, 0)).toBe(null);
+});
+test('energia de repouso não multiplica por atividade nem vira meta automática', () => {
+  expect(estimateRestingEnergy({ gender: 'male', weight: 80, height: 180, age: 30 })).toBeGreaterThan(1700);
+  expect(estimateRestingEnergy({ gender: 'male', weight: 80, height: 180, age: 30, activityLevel: 'very_active' }))
+    .toBe(estimateRestingEnergy({ gender: 'male', weight: 80, height: 180, age: 30, activityLevel: 'sedentary' }));
 });
