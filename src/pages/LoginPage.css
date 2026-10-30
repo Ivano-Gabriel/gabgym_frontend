@@ -2,6 +2,7 @@
    Design original de treino + nutricao. Sem fotos, ondas, circulos ou
    layout Nummo. Escopo isolado: .gg-auth-screen. */
 .gg-auth-screen {
+  color-scheme: dark;
   --auth-bg: var(--gg-void, #0e1113);
   --auth-panel: var(--gg-surface, #1c2225);
   --auth-ink: var(--gg-text, #f5f2ea);
