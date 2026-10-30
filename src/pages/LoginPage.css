@@ -275,3 +275,10 @@
     transition: none !important;
   }
 }
+
+/* Monograma GG: Gab + Gym, visivel em 32px. */
+.gg-auth-brand-symbol {
+  font-family: var(--gg-font-display, Impact, sans-serif);
+  font-weight: 900; font-style: italic; font-size: 22px;
+  letter-spacing: -.15em; padding-right: 5px;
+}

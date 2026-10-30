@@ -1,0 +1,25 @@
+/* Navegacao persistente da area logada. Nenhum gesto oculto. */
+.gg-daily-navigation { display: none; }
+@media (max-width: 767px) {
+  .gg-daily-navigation {
+    position: fixed; z-index: 190; bottom: 0; left: 0; right: 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    background: rgba(19,23,25,.97);
+    border-top: 1px solid #455054;
+    box-shadow: 0 -8px 28px rgba(0,0,0,.30);
+    backdrop-filter: blur(12px);
+  }
+  .gg-daily-navitem { display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center;
+    text-decoration: none; color: #c4cdd0; border-radius: 7px; min-height: 54px; font: 800 11px 'Manrope',Arial,sans-serif; }
+  .gg-daily-navitem svg { font-size: 21px; }
+  .gg-daily-navitem.active { background: #3b2b26; color: #ff9c78; }
+  .gg-daily-navitem:focus-visible { outline: 3px solid #ff9c78; outline-offset: -2px; }
+  .App:has(.gg-daily-navigation) .gg-header { padding: 10px 15px; min-height: 64px; }
+  .App:has(.gg-daily-navigation) .gg-header .gg-hamburger { min-width: 44px; min-height: 44px; }
+  .App:has(.gg-daily-navigation) .gg-header .gg-header-cta { display: none; }
+  .App:has(.gg-daily-navigation) .gg-header .gg-nav-desktop { display: none; }
+  .App:has(.gg-daily-navigation) .gg-header .gg-logo-dropdown-trigger { display: none; }
+  .App:has(.gg-daily-navigation) .gg-mobile-menu { z-index: 210; }
+}
+@media (prefers-reduced-motion: reduce) { .gg-daily-navigation { scroll-behavior: auto; } }

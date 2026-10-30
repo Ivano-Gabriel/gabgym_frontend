@@ -152,3 +152,22 @@
   .gg-nav-desktop { display: block; margin-left: 20px; margin-right: auto; }
   .gg-logo-text { font-size: 1.7em; }
 }
+/* GABGYM 2.0 / monograma GG e identidade consolidada.
+   Sobrescreve apenas cabecalho, mantendo rotas e botoes. */
+.gg-header { background: #14191b; border-bottom: 1px solid #384246; min-height: 72px; }
+.gg-logo-link { gap: 11px; }
+.gg-header-monogram {
+  display: inline-grid; place-items: center;
+  width: 39px; height: 39px; flex: 0 0 auto;
+  border: 2px solid #ff7847; border-radius: 4px;
+  transform: skew(-12deg); background: #2b201d;
+  color: #ff7847; font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-size: 20px; font-weight: 900; font-style: italic; letter-spacing: -.13em;
+  padding-right: 4px; line-height: 1;
+}
+.gg-logo-text { color: #f5f2ea; font-family: 'Barlow Condensed', Impact, sans-serif; font-size: 28px; font-weight: 850; letter-spacing: .02em; }
+.gg-header-cta { border-radius: 5px; background: #ff7847; color: #101315; box-shadow: none; min-height: 46px; }
+.gg-header-cta:hover { box-shadow: none; background: #ff9d7c; }
+.gg-nav-link:hover { color: #ff9d7c; }
+.gg-hamburger { color: #f5f2ea; border: 1px solid #566064; border-radius: 5px; min-width: 44px; min-height: 44px; }
+.gg-logo-link:focus-visible,.gg-hamburger:focus-visible,.gg-header-cta:focus-visible { outline: 3px solid #ff9d7c; outline-offset: 3px; }

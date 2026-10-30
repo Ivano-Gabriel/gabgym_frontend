@@ -180,7 +180,7 @@ function FoodLibraryPage() {
 
       </div>
 
-      <FloatingBackButton to="/diario-alimentar" />
+      <FloatingBackButton to="/alimentacao" />
     </div>
   );
 }

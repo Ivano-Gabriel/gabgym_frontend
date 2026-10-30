@@ -14,6 +14,8 @@ import TrainingModels from './pages/TrainingModels';
 import TrainingPlanPage from './pages/TrainingPlanPage';
 import MuscleGroupPage from './pages/MuscleGroupPage';
 import DietPage from './pages/DietPage';
+import NutritionTodayPage from './pages/NutritionTodayPage';
+import DailyNavigation from './components/DailyNavigation';
 import CardioPage from './pages/CardioPage';
 import CuriositiesPage from './pages/CuriositiesPage';
 import StartCardioPage from './pages/StartCardioPage';
@@ -44,6 +46,7 @@ import { FiMenu, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 import { isLoggedIn, isSuperAdmin } from './utils/auth';
 import AdminPage from './pages/AdminPage';
+import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
 import './components/Header.css';
 
 
@@ -88,8 +91,8 @@ function AppContent() {
       {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
-            <img src="/images/gymlogo.png" alt="GabGym Logo" className="gg-logo-image" />
-            <span className="gg-logo-text">gabgym</span>
+            <span className="gg-header-monogram" aria-hidden="true">GG</span>
+            <span className="gg-logo-text">GABGYM</span>
           </Link>
           <div className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
             <BsChevronDown />
@@ -128,11 +131,13 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
           <Route path="/profile-form" element={<RequireAuth><ProfileForm /></RequireAuth>} />
-          <Route path="/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
-          <Route path="/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
-          <Route path="/biblioteca-alimentos" element={<FoodLibraryPage />} />
+          <Route path="/legado/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
+          {nutritionLegacyAliases.map(path => <Route key={path} path={path} element={<Navigate to={nutritionHome} replace />} />)}
+          <Route path="/legado/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
+          <Route path="/legado/biblioteca-alimentos" element={<FoodLibraryPage />} />
           <Route path="/training-models" element={<TrainingModels />} />
-          <Route path="/dietas" element={<DietPage />} />
+          <Route path="/legado/dietas" element={<DietPage />} />
+          <Route path="/alimentacao" element={<RequireAuth><NutritionTodayPage /></RequireAuth>} />
           <Route path="/cardio" element={<CardioPage />} />
           <Route path="/curiosidades" element={<CuriositiesPage />} />
           <Route path="/biblioteca" element={<BibliotecaPage />} />
@@ -156,6 +161,7 @@ function AppContent() {
         </Routes>
       </main>
       
+      {!isAuthPage && isLoggedIn() && <DailyNavigation />}
       {isMobileMenuOpen && ( <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} /> )}
       {showTutorialModal && ( <TutorialModal onClose={toggleTutorialModal} /> )}
     </div>
