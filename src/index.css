@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Sora:wght@400;500;600;700;800&display=swap');
+/* Tipografia GABGYM 2.0 + fontes temporarias das telas legadas.
+   Durante a migracao, cada modulo usa os tokens de theme.css. */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Anton&family=Sora:wght@400;500;600;700;800&display=swap');
 @import './styles/theme.css';
+
+html { color-scheme: dark; }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--gg-font-body, 'Manrope', sans-serif);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+code { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; }
