@@ -30,6 +30,7 @@ beforeEach(() => {
 
 test('aluno autenticado pode registrar alimento no banco com 2 porções', async () => {
   render(<NutritionTodayPage />);
+  fireEvent.click(await screen.findByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i }));
   fireEvent.click(await screen.findByRole('button', { name: /Ovo cozido/i }));
   const amount = screen.getByRole('spinbutton', { name: /Quantidade de porções/i });
   fireEvent.change(amount, { target: { value: '2' } });
@@ -56,6 +57,7 @@ test('bife pesando 180g utiliza referencia de 100g e salva 450 kcal', async () =
     category: { name: 'Proteínas' },
   }] });
   render(<NutritionTodayPage />);
+  fireEvent.click(await screen.findByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i }));
   fireEvent.click(await screen.findByRole('button', { name: /Bife Grelhado/i }));
   expect(document.querySelector('img.gg-daily-food-photo')?.getAttribute('src')).toBe('/imagens_comidas/bife.jpg');
   fireEvent.click(screen.getByRole('button', { name: /BALANÇA \/ GRAMAS/i }));
@@ -68,7 +70,8 @@ test('bife pesando 180g utiliza referencia de 100g e salva 450 kcal', async () =
 });
 test('registro manual aceita nome, gramas e kcal sem inventar macros', async () => {
   render(<NutritionTodayPage />);
-  fireEvent.click(await screen.findByRole('button', { name: /REGISTRAR ALIMENTO MANUALMENTE/i }));
+  fireEvent.click(await screen.findByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i }));
+  fireEvent.click(screen.getByRole('button', { name: /REGISTRAR ALIMENTO MANUALMENTE/i }));
   fireEvent.change(screen.getByPlaceholderText('Ex.: caviar'), { target: { value: 'Caviar' } });
   fireEvent.change(screen.getByPlaceholderText('150'), { target: { value: '150' } });
   fireEvent.change(screen.getByPlaceholderText('400'), { target: { value: '400' } });
