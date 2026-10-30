@@ -1,0 +1,41 @@
+/* GABGYM / Treino + Cardio: um acesso, sem abas perdidas ou verde neon. */
+.gg-movement { background:#0e1113; color:#f5f2ea; min-height:100dvh; padding:28px 16px calc(110px + env(safe-area-inset-bottom,0px)); font-family:var(--gg-font-body,Manrope,sans-serif); text-align:left; }
+.gg-movement * { box-sizing:border-box; }
+.gg-movement-inner { max-width:980px; margin:0 auto; }
+.gg-movement-kicker { display:inline-flex; align-items:center; gap:8px; color:#ffa27d; font:900 10px var(--gg-font-body,Arial,sans-serif); letter-spacing:.13em; }
+.gg-movement-hero { padding:8px 0 26px; border-bottom:1px solid #424d51; }
+.gg-movement-hero h1 { font:900 clamp(57px,12vw,105px)/.9 var(--gg-font-display,Impact,sans-serif); margin:21px 0 13px; letter-spacing:-.012em; }
+.gg-movement-hero h1 em,.gg-movement-hero h1 span { color:#ff7847; font-style:normal; }
+.gg-movement-hero p { font-size:13px; line-height:1.55; color:#bbc6c8; margin:0; }
+.gg-movement-day { background:#1c2427; border:1px solid #475357; border-radius:14px; margin:24px 0 34px; padding:22px 18px; }
+.gg-movement-day-title { display:flex; justify-content:space-between; align-items:end; gap:15px; margin:0 0 20px; }
+.gg-movement-day-title span,.gg-movement-section-heading span { color:#ffa27d; letter-spacing:.12em; font-size:10px; font-weight:900; }
+.gg-movement-day-title h2,.gg-movement-section-heading h2 { margin:6px 0 0; font:850 clamp(30px,6vw,43px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-movement-day-title a { display:flex; align-items:center; gap:6px; min-height:44px; text-decoration:none; color:#ffc09e; font-size:10px; font-weight:900; white-space:nowrap; }
+.gg-movement-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+.gg-movement-stats > div { min-width:0; display:grid; gap:10px; padding:15px 12px; border-radius:11px; background:#12181a; border:1px solid #384348; }
+.gg-movement-stats svg { color:#ff986f; font-size:21px; }
+.gg-movement-stats span { color:#acb8ba; font-size:10px; font-weight:850; }
+.gg-movement-stats strong { font:900 clamp(24px,5vw,39px)/1 var(--gg-font-display,Impact,sans-serif); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.gg-movement-stats small { font:750 10px var(--gg-font-body,Arial,sans-serif); color:#c5d0d2; }
+.gg-movement-last { display:flex; gap:9px; align-items:center; color:#ffc0a1; font-size:12px; font-weight:750; margin-top:18px; }
+.gg-movement-empty { color:#d0d8d9; font-size:12px; margin:16px 0 0; }
+.gg-movement-note { border-top:1px solid #394449; padding-top:14px; margin:17px 0 0; color:#b9c3c5; font-size:11px; line-height:1.5; }
+.gg-movement-message { color:#dbe0e1; font-size:12px; }
+.gg-movement-error { color:#ffbdad; }
+.gg-movement-section-heading { margin-bottom:18px; }
+.gg-movement-actions { display:grid; gap:11px; }
+.gg-movement-primary,.gg-movement-secondary { display:flex; align-items:center; gap:13px; border-radius:12px; text-decoration:none; padding:15px; min-height:78px; transition:transform .15s ease,border-color .15s ease; }
+.gg-movement-primary { background:#ff7847; color:#111719; border:1px solid #ff7847; }
+.gg-movement-secondary { color:#f5f2ea; background:#20292c; border:1px solid #495458; }
+.gg-movement-primary:active,.gg-movement-secondary:active { transform:scale(.993); }
+.gg-movement-action-icon { display:grid; place-items:center; width:48px; height:48px; flex-shrink:0; background:#111719; color:#ff925f; border-radius:10px; }
+.gg-movement-secondary > svg:first-child { width:29px; height:29px; color:#ffa080; flex-shrink:0; }
+.gg-movement-primary > span:nth-child(2),.gg-movement-secondary > span { flex:1; min-width:0; display:grid; gap:5px; }
+.gg-movement-actions strong { font:850 clamp(22px,5vw,31px)/1 var(--gg-font-display,Impact,sans-serif); letter-spacing:.02em; }
+.gg-movement-actions small { font:650 11px/1.45 var(--gg-font-body,Arial,sans-serif); opacity:.83; }
+.gg-movement-primary > svg:last-child,.gg-movement-secondary > svg:last-child { width:21px; height:21px; flex-shrink:0; }
+.gg-movement-bottom { margin:27px 0 6px; display:flex; align-items:center; gap:10px; font-size:10px; letter-spacing:.13em; font-weight:850; color:#b9c5c7; }
+.gg-movement a:focus-visible { outline:3px solid #ffa384; outline-offset:3px; }
+@media(max-width:500px){ .gg-movement-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } .gg-movement-stats > div:first-child { grid-column:1/-1; } .gg-movement-stats > div:first-child strong { font-size:48px; } }
+@media(prefers-reduced-motion:reduce){ .gg-movement-primary,.gg-movement-secondary { transition:none; } }
