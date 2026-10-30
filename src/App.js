@@ -46,6 +46,7 @@ import { FiMenu, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 import { isLoggedIn, isSuperAdmin } from './utils/auth';
 import AdminPage from './pages/AdminPage';
+import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
 import './components/Header.css';
 
 
@@ -131,10 +132,11 @@ function AppContent() {
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
           <Route path="/profile-form" element={<RequireAuth><ProfileForm /></RequireAuth>} />
           <Route path="/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
-          <Route path="/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
-          <Route path="/biblioteca-alimentos" element={<FoodLibraryPage />} />
+          {nutritionLegacyAliases.map(path => <Route key={path} path={path} element={<Navigate to={nutritionHome} replace />} />)}
+          <Route path="/legado/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
+          <Route path="/legado/biblioteca-alimentos" element={<FoodLibraryPage />} />
           <Route path="/training-models" element={<TrainingModels />} />
-          <Route path="/dietas" element={<DietPage />} />
+          <Route path="/legado/dietas" element={<DietPage />} />
           <Route path="/alimentacao" element={<RequireAuth><NutritionTodayPage /></RequireAuth>} />
           <Route path="/cardio" element={<CardioPage />} />
           <Route path="/curiosidades" element={<CuriositiesPage />} />
