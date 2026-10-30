@@ -6,7 +6,7 @@
   padding: 24px 16px 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -138,3 +138,13 @@
 }
 
 .gg-tp-back:hover { color: var(--gg-text); }
+/* Revisão de cores GABGYM 2.4 */
+
+.gg-tp-container { background:#0e1113; padding-bottom:calc(103px + env(safe-area-inset-bottom,0px)); }
+.gg-tp-top { text-align:left; }
+.gg-tp-title { font:850 clamp(40px,8vw,59px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-tp-day-card { background:#1d2528; border-color:#414c50; border-radius:13px; }
+.gg-tp-day-name { color:#ff9f7b; }
+.gg-tp-exercise-name:hover { color:#ffad8e; }
+.gg-tp-back-btn { background:#ff7847; color:#111719; }
+.gg-tp-container a:focus-visible { outline:3px solid #ff9e7b; outline-offset:2px; }
