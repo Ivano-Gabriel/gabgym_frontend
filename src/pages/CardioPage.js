@@ -69,7 +69,7 @@ function CardioPage() {
   const [pace, setPace] = useState('00:00');
   const [position, setPosition] = useState([-9.5186, -36.0625]);
   const [path, setPath] = useState([]);
-  const [userWeight, setUserWeight] = useState(70); // fallback razoável até o peso real carregar
+  const [userWeight, setUserWeight] = useState(0); // Sem peso informado, não inventar gasto calórico
   const [isSaving, setIsSaving] = useState(false);
 
   const intervalRef = useRef(null);
@@ -108,6 +108,14 @@ function CardioPage() {
         (pos) => {
           // GPS parado oscila. Não somar pontos fora da precisão/velocidade plausível.
           const prev = lastGoodFixRef.current;
+          if (!prev) {
+            if (Number(pos.coords.accuracy) <= 35) {
+              lastGoodFixRef.current = pos;
+              setGpsStatus('GPS conectado. Aguardando deslocamento');
+              setPosition([pos.coords.latitude, pos.coords.longitude]);
+            } else setGpsStatus('GPS impreciso: buscando sinal melhor');
+            return;
+          }
           const segmentKm = filterGpsStep(prev, pos);
           if (segmentKm === null) {
             setGpsStatus(pos.coords.accuracy > 35 ? 'GPS impreciso: buscando sinal melhor' : 'Aguardando deslocamento real');
@@ -163,7 +171,12 @@ function CardioPage() {
     });
   };
 
-  const handlePauseResume = () => setIsPaused(!isPaused);
+  const handlePauseResume = () => {
+    // Nunca somar a distância percorrida durante a pausa.
+    lastGoodFixRef.current = null;
+    setGpsStatus(isPaused ? 'Reconectando GPS…' : 'GPS pausado');
+    setIsPaused(!isPaused);
+  };
   
   const handleFinish = async () => {
     setIsActive(false);
