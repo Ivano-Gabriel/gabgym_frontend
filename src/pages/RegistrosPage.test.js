@@ -28,7 +28,7 @@ test('exclusão não ocorre antes de confirmação',async()=>{
 test('filtros mostram tipo de registro sem apagar dados',async()=>{
  render(<RegistrosPage/>);
  await screen.findByText('Bife Grelhado');
- fireEvent.click(screen.getByRole('button',{name:/Água/i}));
+ fireEvent.click(screen.getByRole('button',{name:/^Água$/i}));
  expect(screen.queryByText('Bife Grelhado')).not.toBeInTheDocument();
  expect(screen.getByText('250 ml')).toBeInTheDocument();
  fireEvent.click(screen.getByRole('button',{name:/Todos/i}));
