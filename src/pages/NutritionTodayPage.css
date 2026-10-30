@@ -159,3 +159,132 @@
   .gg-daily-progress > div,.gg-daily-water-meter-track > div { transition: none !important; }
   .gg-daily .gg-daily-food:active,.gg-daily .gg-daily-manual-toggle:active,.gg-daily .gg-daily-cta:active { transform: none !important; }
 }
+
+
+/* GABGYM / 2.2 — painel de progresso real, substitui o bloco laranja da v2.1. */
+.gg-consumption {
+  background: #181e21;
+  border: 1px solid #40494d;
+  border-radius: 14px;
+  margin: 24px 0 32px;
+  padding: clamp(18px, 3vw, 28px);
+  overflow: hidden;
+}
+.gg-consumption-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px;
+}
+.gg-consumption-header span {
+  display: block; color: #ffa080; font-size: 10px; font-weight: 900;
+  letter-spacing: .14em; margin-bottom: 5px;
+}
+.gg-consumption-header h2 {
+  font: 800 clamp(25px, 5.2vw, 37px)/1 var(--gg-font-display,Impact,sans-serif);
+  color: #f5f2ea; margin: 0; letter-spacing: .035em;
+}
+.gg-consumption-config {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  flex: 0 0 auto; padding: 0 12px; min-height: 48px;
+  background: #322720; color: #ffba9b; border: 1px solid #995d43;
+  border-radius: 9px; font: 850 10px var(--gg-font-body,Arial,sans-serif); cursor: pointer;
+}
+.gg-consumption-total { display: flex; align-items: baseline; flex-wrap: wrap; gap: 9px 14px; margin: 19px 0 18px; }
+.gg-consumption-total > strong {
+  color: #f5f2ea; font: 850 clamp(58px, 12vw, 90px)/.95 var(--gg-font-display,Impact,sans-serif);
+  letter-spacing: .012em; font-variant-numeric: tabular-nums;
+}
+.gg-consumption-total > span { color: #ff9c7b; font-size: 10px; font-weight: 900; letter-spacing: .065em; }
+.gg-consumption-total > span b { display: block; color: #cad3d4; margin-top: 5px; font-size: 12px; }
+.gg-consumption-track {
+  position: relative; width: 100%; height: 21px; background: #394247;
+  border-radius: 30px; overflow: hidden; border: 1px solid #515c5f;
+}
+.gg-consumption-fill {
+  display: block; height: 100%; width: 0; border-radius: 30px;
+  background: linear-gradient(90deg, #d85431 0%, #ff7847 72%, #ffab7e 100%);
+  box-shadow: inset 0 -2px 0 rgba(10,10,10,.13);
+  transition: width .34s cubic-bezier(.2,.8,.2,1);
+}
+.gg-consumption-scale {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; margin-top: 10px; color: #c4cdd0; font-size: 10px;
+  font-weight: 900; letter-spacing: .04em; font-variant-numeric: tabular-nums;
+}
+.gg-consumption-scale > span:nth-child(2) { color: #ff9d7b; }
+.gg-consumption-scale > strong { color: #f5f2ea; font-weight: 900; }
+.gg-consumption-example {
+  margin: 18px 0 0; color: #ddd0c7; font-size: 11px;
+  border-left: 3px solid #ff7847; padding-left: 12px; line-height: 1.6;
+}
+.gg-consumption-feedback {
+  margin: 18px 0 0; font-size: 12px; font-weight: 700;
+  color: #ffd3bb; line-height: 1.55;
+}
+.gg-consumption-feedback.is-over { color: #ffb3a1; }
+.gg-consumption-divider { height: 1px; background: #41494c; margin: 22px 0 17px; }
+.gg-consumption-macros {
+  display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px;
+}
+.gg-consumption-macros > div { min-width: 0; display: grid; gap: 6px; }
+.gg-consumption-macros span { color: #b7c1c4; font-size: 10px; font-weight: 850; letter-spacing: .08em; }
+.gg-consumption-macros strong { color: #f6f2ea; font-size: clamp(17px,2.9vw,25px); font-weight: 900; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.gg-consumption-macros small { font-size: 11px; color: #ff9e79; }
+.gg-consumption-foot {
+  margin-top: 19px; padding-top: 13px; border-top: 1px solid #3e484b;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: 10px; color: #c3cdcf; font-weight: 700; line-height: 1.5;
+}
+/* Catálogo visível só depois do toque; nenhuma parede de alimentos ao entrar. */
+.gg-catalog-trigger {
+  display: flex; align-items: center; gap: 15px; width: 100%;
+  background: #ff7847; border: 2px solid #ff7847; border-radius: 13px;
+  padding: 12px 17px; min-height: 80px; cursor: pointer; color: #0d1214;
+  text-align: left; transition: background .16s ease, transform .16s ease;
+}
+.gg-catalog-trigger:hover { background: #ff9b78; }
+.gg-catalog-trigger:active { transform: scale(.995); }
+.gg-catalog-trigger-icon {
+  display: grid; place-items: center; border-radius: 10px;
+  width: 46px; height: 46px; flex: 0 0 46px; background: #111719; color: #ff956d;
+}
+.gg-catalog-trigger-icon svg { width: 25px; height: 25px; }
+.gg-catalog-trigger-text { display: grid; gap: 5px; flex: 1; min-width: 0; }
+.gg-catalog-trigger-text strong {
+  font: 800 clamp(24px, 4.8vw, 33px)/1 var(--gg-font-display,Impact,sans-serif);
+  letter-spacing: .01em;
+}
+.gg-catalog-trigger-text small { font-size: 11px; font-weight: 750; line-height: 1.4; }
+.gg-catalog-trigger > svg {
+  flex: 0 0 auto; width: 23px; height: 23px; transition: transform .18s ease;
+}
+.gg-catalog-trigger > svg.is-open { transform: rotate(180deg); }
+.gg-catalog-content {
+  background: #151b1e; border: 1px solid #404a4e; border-top: 0;
+  border-radius: 0 0 12px 12px; padding: 18px clamp(12px,2.5vw,24px) 22px;
+}
+.gg-catalog-content .gg-daily-food-list {
+  max-height: min(520px, 62dvh); overflow-y: auto; overscroll-behavior: contain;
+  padding-right: 3px; scrollbar-width: thin;
+}
+.gg-catalog-content .gg-daily-food { min-height: 76px; }
+.gg-daily-goal-settings { border-radius: 13px; }
+@media (max-width: 680px) {
+  .gg-consumption { margin: 21px 0 27px; padding: 19px 15px; }
+  .gg-consumption-macros { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 12px; }
+  .gg-consumption-scale { font-size: 9px; }
+  .gg-consumption-header h2 { font-size: 28px; }
+  .gg-consumption-total { gap: 8px 10px; }
+  .gg-consumption-total > strong { font-size: 70px; }
+}
+@media (max-width: 360px) {
+  .gg-consumption-header { align-items: flex-start; }
+  .gg-consumption-config { min-width: 82px; padding: 0 7px; }
+  .gg-consumption-total > strong { font-size: 58px; }
+  .gg-consumption-scale { font-size: 8px; }
+  .gg-catalog-trigger { padding: 10px; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-consumption-fill,.gg-catalog-trigger,.gg-catalog-trigger > svg {
+    transition: none !important;
+  }
+}
