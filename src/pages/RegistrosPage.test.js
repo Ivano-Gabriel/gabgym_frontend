@@ -23,7 +23,7 @@ test('exclusão não ocorre antes de confirmação',async()=>{
  fireEvent.click(screen.getByRole('button',{name:/remover bife grelhado/i}));
  fireEvent.click(screen.getByRole('button',{name:/confirmar exclusão/i}));
  await waitFor(()=>expect(deleteDiaryLog).toHaveBeenCalledWith(12));
- expect(screen.queryByText('Bife Grelhado')).not.toBeInTheDocument();
+ await waitFor(()=>expect(screen.queryByText('Bife Grelhado')).not.toBeInTheDocument());
 });
 test('filtros mostram tipo de registro sem apagar dados',async()=>{
  render(<RegistrosPage/>);
