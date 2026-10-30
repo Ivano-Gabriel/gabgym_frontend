@@ -36,8 +36,8 @@ export default function HomePage() {
       <section className="gg-home-pillars" aria-label="Os três pilares do GABGYM">
         <div className="gg-home-pillar-title"><span>FOCO / NO QUE IMPORTA</span><h2>MENOS ABAS.<br />MAIS AÇÃO.</h2></div>
         <div className="gg-home-grid">
-          {pillars.map(({ number, title, subtitle, path, Icon }) => (
-            <Link key={number} to={!loggedIn ? '/signup' : (admin && path === '/perfil' ? '/admin' : path)} className="gg-home-pillar">
+          {pillars.map(({ number, title, subtitle, Icon }) => (
+            <Link key={number} to="/signup" className="gg-home-pillar">
               <div className="gg-home-pillar-top"><span>{number} / TODO DIA</span><Icon aria-hidden="true" /></div>
               <strong>{title}</strong>
               <p>{subtitle}</p><FiArrowRight className="gg-home-pillar-arrow" aria-hidden="true" />
