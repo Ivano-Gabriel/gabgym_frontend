@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser, getCurrentUser } from '../services/apiService';
+import { loginUser, getCurrentUser, warmUpApi } from '../services/apiService';
 import AuthShell from './AuthShell';
 
 export default function LoginPage() {
+  useEffect(() => { warmUpApi(); }, []);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [codigoMfa, setCodigoMfa] = useState('');
