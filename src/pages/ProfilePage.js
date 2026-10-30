@@ -1,195 +1,84 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { getUser, logoutUser } from '../services/apiService';
-import {
-  FiActivity, FiPieChart, FiHeart, FiBookOpen, FiZap, FiHelpCircle,
-  FiEdit3, FiLogOut, FiGlobe, FiCamera, FiBarChart2, FiGrid, FiUsers, FiFolder
-} from 'react-icons/fi';
+import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, FiCamera } from 'react-icons/fi';
+import { getCurrentUser, logoutUser } from '../services/apiService';
+import { isSuperAdmin } from '../utils/auth';
 import './ProfilePage.css';
 
-function ProfilePage() {
-  const { t, i18n } = useTranslation();
+export default function ProfilePage() {
   const navigate = useNavigate();
-  
-  const [userData, setUserData] = useState(null);
-  const [imc, setImc] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState('/images/default-avatar.png');
-  const fileInputRef = useRef(null);
-  const [streak, setStreak] = useState(0);
-  
-  // Novo estado para controlar a aba ativa (estatísticas ou navegação)
-  const [activeTab, setActiveTab] = useState('stats'); 
-
-  useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      navigate('/login');
-      return;
-    }
-    getUser(userId)
-      .then(response => {
-        const user = response.data;
-        setUserData(user);
-        if (user.weight && user.height) {
-          const heightInMeters = parseFloat(user.height) / 100;
-          const bmi = (parseFloat(user.weight) / (heightInMeters * heightInMeters)).toFixed(2);
-          setImc(bmi);
-        }
-      })
-      .catch(err => {
-        console.error('Erro ao carregar perfil:', err);
-      });
-
-    const storedAvatar = localStorage.getItem('gabgymAvatar');
-    if (storedAvatar) {
-      setAvatarUrl(storedAvatar);
-    }
-    
-    const todayString = new Date().toLocaleDateString('en-CA');
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayString = yesterday.toLocaleDateString('en-CA');
-
-    const streakDataString = localStorage.getItem('gabgymStreakData');
-    let streakData = streakDataString ? JSON.parse(streakDataString) : { count: 0, lastVisit: null };
-
-    if (streakData.lastVisit !== todayString) {
-      if (streakData.lastVisit === yesterdayString) {
-        streakData.count++;
-      } else {
-        streakData.count = 1;
-      }
-      streakData.lastVisit = todayString;
-      localStorage.setItem('gabgymStreakData', JSON.stringify(streakData));
-    }
-    
-    setStreak(streakData.count);
-  }, [navigate]);
-  
-  const handleLogout = async () => {
-    try { await logoutUser(); } catch { /* Sessão local já foi apagada. */ }
-    navigate('/login', { replace: true });
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
+  const [avatar,setAvatar] = useState('');
+  const [extras,setExtras] = useState({});
+  const [busy,setBusy] = useState(false);
+  useEffect(()=>{
+    let alive=true;
+    getCurrentUser().then(({data})=>{
+      if(!alive)return;
+      setUser(data);
+      setAvatar(localStorage.getItem('gabgymAvatar') || '');
+      try{
+        const saved=JSON.parse(localStorage.getItem('gabgym:body-measures:'+data.id)||'{}');
+        setExtras(saved && typeof saved==='object'?saved:{});
+      }catch{setExtras({});}
+    }).catch(()=>{if(alive)setError('Não conseguimos carregar seu perfil.');});
+    return()=>{alive=false};
+  },[]);
+  const logout=async()=>{
+    if(busy)return;setBusy(true);
+    try{ await logoutUser(); }catch{ /* Serviço pode estar dormindo. */ }
+    navigate('/login',{replace:true});
   };
-  
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'pt' ? 'en' : 'pt';
-    i18n.changeLanguage(newLang);
-  };
-
-  const handleAvatarClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handlePhotoUpload = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const newAvatarUrl = URL.createObjectURL(file);
-      setAvatarUrl(newAvatarUrl);
-      
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        localStorage.setItem('gabgymAvatar', reader.result);
-      };
+  const imagePicked=event=>{
+    const file=event.target.files?.[0];
+    if(!file)return;
+    if(!file.type.startsWith('image/') || file.size>1_500_000){
+      setError('Selecione uma imagem de até 1,5 MB.');return;
     }
+    const reader=new FileReader();
+    reader.onload=()=>{if(typeof reader.result==='string'){setAvatar(reader.result);localStorage.setItem('gabgymAvatar',reader.result);}};
+    reader.readAsDataURL(file);
   };
-
+  const stats=[
+    ['PESO',user?.weight,'kg'],['ALTURA',user?.height,'cm'],
+    ['CINTURA',extras.waist,'cm'],['PEITORAL',extras.chest,'cm'],
+    ['COXA',extras.thigh,'cm'],['BÍCEPS',extras.biceps,'cm']
+  ];
+  const links=[
+    {to:'/profile-form',label:'EDITAR MEDIDAS',Icon:FiEdit3,description:'Peso, altura e acompanhamento'},
+    {to:'/minhas-metas',label:'MINHAS METAS',Icon:FiTarget,description:'Pequenas escolhas, todos os dias'},
+    {to:'/historico',label:'HISTÓRICO',Icon:FiClock,description:'Seus registros e sua evolução'},
+  ];
   return (
-    <div className="profile-page-container">
-      <div className="profile-card">
-
-        <div className="profile-header">
-          <div className="profile-avatar-container" onClick={handleAvatarClick} title={t('hub.mudar_foto')}>
-            <img src={avatarUrl} alt="Foto de Perfil" className="profile-avatar" />
-            <div className="change-photo-overlay"><FiCamera /></div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handlePhotoUpload}
-              style={{ display: 'none' }}
-              accept="image/*"
-            />
+    <main className="gg-profile">
+      <div className="gg-profile-wrap">
+        <div className="gg-profile-eyebrow">GABGYM / SUA JORNADA</div>
+        <section className="gg-profile-heading">
+          <div className="gg-profile-avatar">
+            {avatar?<img src={avatar} alt="Foto de perfil"/>:<FiUser aria-hidden="true"/>}
+            <label title="Alterar foto de perfil" aria-label="Alterar foto de perfil"><FiCamera aria-hidden="true"/>
+              <input type="file" accept="image/*" onChange={imagePicked} aria-label="Escolher foto de perfil"/>
+            </label>
           </div>
-          <div className="profile-info">
-            <h1 className="profile-name">{userData ? userData.name : 'Visitante'}</h1>
-            <p className="profile-email">{userData && userData.name ? `${userData.name.toLowerCase().replace(/\s/g, '.')}@gabgym.com` : 'email@exemplo.com'}</p>
+          <div><h1>MEU PERFIL<span>.</span></h1><p>{user?.name || user?.username || 'Sua evolução começa aqui.'}</p></div>
+        </section>
+        {error&&<p className="gg-profile-error" role="alert">{error}</p>}
+        {!user&&!error&&<p role="status">Carregando perfil…</p>}
+        {user&&<>
+          <div className="gg-profile-section-name"><span>01 / ACOMPANHAMENTO</span><h2>SUAS MEDIDAS.</h2></div>
+          <div className="gg-profile-stat-grid">
+            {stats.map(([name,value,unit])=><div key={name}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong></div>)}
           </div>
-          <div className="streak-ring" title={`${streak} ${t('hub.dias_foco')}`}>
-            <svg viewBox="0 0 100 100" className="streak-ring-svg">
-              <circle cx="50" cy="50" r="44" className="streak-ring-track" />
-              <circle
-                cx="50" cy="50" r="44"
-                className="streak-ring-progress"
-                style={{ strokeDasharray: 276.5, strokeDashoffset: 276.5 - (Math.min(streak, 7) / 7) * 276.5 }}
-              />
-            </svg>
-            <div className="streak-ring-content">
-              <span className="streak-flame">🔥</span>
-              <strong>{streak}</strong>
-              <span className="streak-label">{t('hub.dias_foco')}</span>
-            </div>
+          <Link className="gg-profile-data-link" to="/profile-form">ATUALIZAR MEU PERFIL <FiArrowRight aria-hidden="true"/></Link>
+          <div className="gg-profile-section-name"><span>02 / CONTINUAR</span><h2>SEUS PRÓXIMOS PASSOS.</h2></div>
+          <div className="gg-profile-links">
+            {links.map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
+            {isSuperAdmin()&&<Link to="/admin"><FiShield aria-hidden="true"/><span><strong>ADMINISTRAÇÃO</strong><small>Gerenciar alunos</small></span><FiArrowRight aria-hidden="true"/></Link>}
           </div>
-        </div>
-
-        {/* Sistema de Abas */}
-        <div className="tab-navigation">
-          <button 
-            className={`tab-btn ${activeTab === 'stats' ? 'active' : ''}`}
-            onClick={() => setActiveTab('stats')}
-          >
-            <FiBarChart2 className="tab-icon" /> Visão Geral
-          </button>
-          <button 
-            className={`tab-btn ${activeTab === 'nav' ? 'active' : ''}`}
-            onClick={() => setActiveTab('nav')}
-          >
-            <FiGrid className="tab-icon" /> Navegar
-          </button>
-        </div>
-
-        {/* Conteúdo Condicional */}
-        <div className="tab-content">
-          {activeTab === 'stats' ? (
-            <div className="profile-section fade-in">
-              <div className="stats-strip">
-                <div className="stat-item"><span>{t('hub.altura')}</span><strong>{userData ? userData.height : '-'}<small>cm</small></strong></div>
-                <div className="stat-item"><span>{t('hub.peso')}</span><strong>{userData ? userData.weight : '-'}<small>kg</small></strong></div>
-                <div className="stat-item"><span>{t('hub.idade')}</span><strong>{userData ? userData.age : '-'}<small>anos</small></strong></div>
-                <div className="stat-item"><span>{t('hub.imc')}</span><strong>{imc || '-'}</strong></div>
-              </div>
-            </div>
-          ) : (
-            <div className="profile-section fade-in">
-              <div className="hub-grid">
-                <Link to="/training-models" className="hub-card"><FiActivity className="hub-icon" /><span>{t('hub.treinos')}</span></Link>
-                <Link to="/alimentacao" className="hub-card"><FiPieChart className="hub-icon" /><span>{t('hub.dietas')}</span></Link>
-                <Link to="/cardio/select" className="hub-card"><FiHeart className="hub-icon" /><span>{t('hub.cardio')}</span></Link>
-                <Link to="/minhas-metas" className="hub-card"><FiBookOpen className="hub-icon" /><span>Metas pessoais</span></Link>
-                <Link to="/curiosidades" className="hub-card"><FiZap className="hub-icon" /><span>{t('hub.curiosidades')}</span></Link>
-                <Link to="/me-ajude" className="hub-card"><FiHelpCircle className="hub-icon" /><span>{t('hub.me_ajude')}</span></Link>
-                <Link to="/meu-personal" className="hub-card"><FiUsers className="hub-icon" /><span>{t('hub.meu_personal')}</span></Link>
-                <Link to="/registros" className="hub-card"><FiFolder className="hub-icon" /><span>{t('hub.registros')}</span></Link>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="profile-actions">
-          <Link to="/profile-form" className="action-button edit-profile">
-            <FiEdit3 /> {t('hub.editar_perfil')}
-          </Link>
-          <button onClick={toggleLanguage} className="action-button language-button">
-            <FiGlobe /> {i18n.language === 'pt' ? 'English' : 'Português'}
-          </button>
-          <button className="action-button logout" onClick={handleLogout}>
-            <FiLogOut /> {t('hub.sair')}
-          </button>
-        </div>
-
+          <button className="gg-profile-logout" onClick={logout} disabled={busy}><FiLogOut aria-hidden="true"/> SAIR DA CONTA</button>
+        </>}
       </div>
-    </div>
+    </main>
   );
 }
-
-export default ProfilePage;
