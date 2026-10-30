@@ -168,14 +168,14 @@ function BibliotecaPage() {
         ))}
       </div>
 
-      <Link to="/curiosidades" className="back-button-general">
-        {t('biblioteca.botao_voltar_curiosidades')}
+      <Link to="/" className="back-button-general">
+        Voltar ao Hoje
       </Link>
 
       <Link
-        to="/curiosidades"
+        to="/"
         className={`floating-back-button ${showFloatingButton ? 'visible' : ''}`}
-        title="Voltar para Curiosidades"
+        title="Voltar ao Hoje"
       >
         Voltar
       </Link>
