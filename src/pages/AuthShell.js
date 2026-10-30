@@ -13,7 +13,7 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
     <div className="gg-auth-screen">
       <header className="gg-auth-masthead">
         <Link to="/" className="gg-auth-brand" aria-label="GABGYM, ir para o início">
-          <span className="gg-auth-brand-symbol" aria-hidden="true">GG</span>
+          <img className="gg-auth-brand-symbol" src="/gg-mark.svg" alt="" aria-hidden="true"/>
           <strong>GAB<span>GYM</span></strong>
           <small>PERFORMANCE SYSTEM</small>
         </Link>

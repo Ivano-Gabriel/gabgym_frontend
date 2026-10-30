@@ -282,3 +282,6 @@
   font-weight: 900; font-style: italic; font-size: 22px;
   letter-spacing: -.15em; padding-right: 5px;
 }
+
+/* Símbolo centralizado e consistente com o PWA */
+.gg-auth-brand-symbol { display:block;width:35px;height:35px;padding:0;transform:none;border:0;object-fit:contain;background:transparent; }

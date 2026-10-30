@@ -91,7 +91,7 @@ function AppContent() {
       {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
-            <span className="gg-header-monogram" aria-hidden="true">GG</span>
+            <img className="gg-header-monogram" src="/gg-mark.svg" alt="" aria-hidden="true"/>
             <span className="gg-logo-text">GABGYM</span>
           </Link>
           <div className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>

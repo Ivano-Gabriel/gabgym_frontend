@@ -171,3 +171,6 @@
 .gg-nav-link:hover { color: #ff9d7c; }
 .gg-hamburger { color: #f5f2ea; border: 1px solid #566064; border-radius: 5px; min-width: 44px; min-height: 44px; }
 .gg-logo-link:focus-visible,.gg-hamburger:focus-visible,.gg-header-cta:focus-visible { outline: 3px solid #ff9d7c; outline-offset: 3px; }
+
+/* SVG angular GG único em todo o produto */
+.gg-header-monogram { width:39px;height:39px;padding:0;border:0;transform:none;background:transparent;border-radius:9px;object-fit:contain; }
