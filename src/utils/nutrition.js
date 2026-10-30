@@ -33,3 +33,42 @@ export function scaleFood(food, servings) {
   const scale = prop => Math.round((Number(food[prop]) || 0) * n * 10) / 10;
   return { calories: Math.round((Number(food.calories) || 0) * n), protein: scale('protein'), carbs: scale('carbs'), fat: scale('fat') };
 }
+
+/** Referencia de massa confiavel do catalogo. Nunca adivinha massa da unidade. */
+export function parseReferenceGrams(food) {
+  const parse = value => {
+    const match = /^\\s*(?:aprox\\.?\\s*)?(\\d+(?:[.,]\\d+)?)\\s*g(?:ramas)?\\s*$/i.exec(String(value || ''));
+    return match ? Number(match[1].replace(',', '.')) : null;
+  };
+  const amount = parse(food.unit) ?? parse(food.servingDesc);
+  return amount && amount > 0 ? amount : null;
+}
+export function scaleFoodGrams(food, grams) {
+  const ref = parseReferenceGrams(food);
+  const n = Number(grams);
+  if (!ref || !Number.isFinite(n) || n < 1 || n > 3000) throw new Error('Referência de gramas indisponível ou quantidade inválida.');
+  const multiplier = n / ref;
+  return {
+    calories: Math.round((Number(food.calories) || 0) * multiplier),
+    protein: Math.round((Number(food.protein) || 0) * multiplier * 10) / 10,
+    carbs: Math.round((Number(food.carbs) || 0) * multiplier * 10) / 10,
+    fat: Math.round((Number(food.fat) || 0) * multiplier * 10) / 10,
+  };
+}
+export function calorieProgress(consumed, goal) {
+  const c = Number(consumed), g = Number(goal);
+  if (!Number.isFinite(c) || !Number.isFinite(g) || g <= 0) return null;
+  const ratio = Math.max(0, c) / g;
+  return { percent: Math.min(100, Math.round(ratio * 100)),
+    remaining: Math.round(g - c),
+    stage: ratio > 1 ? 'over' : ratio >= 0.9 ? 'near' : ratio >= 0.5 ? 'half' : 'start' };
+}
+/** Estimativa de repouso (Harris-Benedict); NAO e meta de ingestao diaria. */
+export function estimateRestingEnergy(user) {
+  if (!user || !['male','female'].includes(user.gender)) return null;
+  const w = Number(user.weight), h = Number(user.height), a = Number(user.age);
+  if (!(w > 0 && h > 0 && a > 0) || ![w,h,a].every(Number.isFinite)) return null;
+  return Math.round(user.gender === 'male'
+    ? 88.362 + 13.397 * w + 4.799 * h - 5.677 * a
+    : 447.593 + 9.247 * w + 3.098 * h - 4.330 * a);
+}
