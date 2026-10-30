@@ -1,0 +1,27 @@
+/* FUZELAGEM GG — acabamento suave, zero flashes pesados. */
+:root{--gg-metal:#333d43;--gg-metal-edge:#6b7377;--gg-warm-glow:#ff98615a;}
+.gg-daily,.gg-history,.gg-records,.gg-help,.biblioteca-page,
+.gg-select-container,.gg-startcardio-container {
+  background:radial-gradient(ellipse at 14% 0%,#653e2a73,transparent 45%),#1a2024!important;
+}
+.gg-daily-food,.gg-records-row,.gg-history-day,.gg-help-faq details,.article-card,
+.gg-exlib-card,.gg-today-no-goal {
+  background:linear-gradient(155deg,#384147,#293237 72%)!important;
+  border-color:#6b6560!important;
+  box-shadow:inset 0 1px 1px #ffffff2a,0 7px 22px #00000028;
+}
+.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,
+.gg-startcardio-btn-primary,.gg-movement-primary {
+  background:linear-gradient(145deg,#ffd0af 0%,#ffa06e 32%,#ff7847 66%,#c54d30 100%)!important;
+  box-shadow:inset 0 2px 2px #ffffff91,0 10px 24px #ff784744!important;
+  color:#111719;
+  border-radius:11px;
+  transition:box-shadow .18s ease,filter .18s ease,transform .18s ease;
+}
+.gg-daily-cta:hover,.gg-catalog-trigger:hover,.gg-profile-editor-save:hover,
+.gg-movement-primary:hover {filter:brightness(1.05);box-shadow:inset 0 2px 2px #ffffffad,0 10px 30px #ff784760!important;}
+.gg-daily-cta:active,.gg-catalog-trigger:active,.gg-profile-editor-save:active,
+.gg-movement-primary:active {transform:translateY(1px);}
+@media(prefers-reduced-motion:reduce){
+ .gg-daily-cta,.gg-catalog-trigger,.gg-profile-editor-save,.gg-movement-primary {transition:none!important;transform:none!important;}
+}
