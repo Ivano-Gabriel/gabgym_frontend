@@ -3,7 +3,7 @@
 .gg-metas-container {
   min-height: calc(100vh - 60px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
     var(--gg-void);
   color: var(--gg-text);
   padding: 24px 16px 100px; /* espaço embaixo pro FAB não tampar o último card */
@@ -211,7 +211,7 @@
   font-weight: 700;
 }
 
-.gg-status-badge.concluida { background: rgba(116, 232, 93, 0.14); color: var(--gg-green); }
+.gg-status-badge.concluida { background: rgba(255, 120, 71, 0.14); color: var(--gg-green); }
 .gg-status-badge.desistida { background: rgba(255, 107, 92, 0.14); color: var(--gg-danger); }
 
 /* ---------- FAB — Nova Meta ---------- */
@@ -231,7 +231,7 @@
   font-weight: 800;
   font-size: 0.92em;
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(116, 232, 93, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 24px rgba(255, 120, 71, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
   z-index: 40;
   white-space: nowrap;
   transition: transform 0.15s ease;
@@ -352,3 +352,19 @@
   .gg-modal-overlay { align-items: center; }
   .gg-modal-content { border-radius: 20px; border-bottom: 1px solid var(--gg-line); animation: gg-metas-fade 0.2s ease; }
 }
+/* Revisão de cores GABGYM 2.4 */
+
+.gg-metas-container { background:#0e1113; padding-bottom:calc(113px + env(safe-area-inset-bottom,0px)); }
+.gg-metas-top { text-align:left; }
+.gg-metas-title { font:850 clamp(46px,9vw,67px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-metas-subtitle { font-size:12px; line-height:1.6; margin-top:11px; }
+.gg-metas-tabs { background:#1d2427; border-color:#465055; }
+.gg-metas-tab.active { background:#ff7847; color:#111719; }
+.gg-meta-card { background:#1e272a; border-color:#495255; border-radius:12px; }
+.gg-meta-icon,.gg-meta-icon.done { color:#ff996f; }
+.gg-btn-concluir,.gg-btn-salvar,.gg-fab-nova-meta { background:#ff7847; color:#101315; }
+.gg-meta-card.history-card.concluida { border-left-color:#ff7847; }
+.gg-status-badge.concluida { color:#ffc2a1; background:#3a2b26; }
+.gg-metas-container :is(button,a,input,textarea):focus-visible { outline:3px solid #ffa483; outline-offset:2px; }
+@media(max-width:767px){ .gg-fab-nova-meta { bottom:calc(81px + env(safe-area-inset-bottom,0px)); } }
+@media(prefers-reduced-motion:reduce){ .fade-in-metas { animation:none; } }
