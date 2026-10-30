@@ -131,7 +131,7 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
           <Route path="/profile-form" element={<RequireAuth><ProfileForm /></RequireAuth>} />
-          <Route path="/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
+          <Route path="/legado/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
           {nutritionLegacyAliases.map(path => <Route key={path} path={path} element={<Navigate to={nutritionHome} replace />} />)}
           <Route path="/legado/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
           <Route path="/legado/biblioteca-alimentos" element={<FoodLibraryPage />} />
