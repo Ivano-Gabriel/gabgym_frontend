@@ -64,8 +64,10 @@ export default function NutritionTodayPage() {
       const response = await getDiaryLogs(user.id, dayKey());
       setLogs(Array.isArray(response.data) ? response.data : []);
       setMessage(success);
+      return true;
     } catch {
       setError('Não conseguimos salvar essa alteração. Seus dados anteriores foram preservados.');
+      return false;
     } finally {
       setBusy(false);
     }
@@ -79,9 +81,8 @@ export default function NutritionTodayPage() {
       name: selectedFood.name + ' (' + quantity.toLocaleString('pt-BR') + ' ' + (quantity !== 1 ? 'porções' : 'porção') + ')',
       ...estimate, volume: 0, logDate: dayKey(), timestamp: Date.now(),
     };
-    await perform(() => addDiaryLog(item), 'Alimento registrado. Um dia de cada vez.');
-    setSelectedFood(null);
-    setServings('1');
+    const saved = await perform(() => addDiaryLog(item), 'Alimento registrado. Um dia de cada vez.');
+    if (saved) { setSelectedFood(null); setServings('1'); }
   };
   const addWater = milliliters => perform(
     () => addDiaryLog({ userId: user.id, type: 'water', name: 'Água', volume: milliliters,
