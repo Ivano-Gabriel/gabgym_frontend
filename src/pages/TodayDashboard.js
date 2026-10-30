@@ -60,6 +60,8 @@ export default function TodayDashboard() {
   const waterGoal = waterGoalRaw >= 250 && waterGoalRaw <= 10000 ? waterGoalRaw : null;
   const foodGoalRaw = user ? Number(localStorage.getItem('gabgym:daily-goal:' + user.id)) : 0;
   const foodGoal = foodGoalRaw >= 1200 && foodGoalRaw <= 7000 ? foodGoalRaw : null;
+  const rawWeightGoal=user?Number(localStorage.getItem('gabgym:weight-goal:'+user.id)):0;
+  const weightGoal=rawWeightGoal>=20&&rawWeightGoal<=600?rawWeightGoal:null;
   const waterProgress = waterGoal ? calorieProgress(totals.water, waterGoal) : null;
   const kcalProgress = foodGoal ? calorieProgress(totals.calories, foodGoal) : null;
   const extras = user ? (() => {
@@ -98,6 +100,10 @@ export default function TodayDashboard() {
             <Link to="/profile-form" className="gg-today-measures-edit" aria-label="Editar medidas"><FiEdit3 aria-hidden="true"/></Link>
           </section>
 
+          {weightGoal&&<Link className="gg-today-weightgoal" to="/profile-form" aria-label="Atualizar meta de peso">
+            <FiTarget aria-hidden="true"/><strong>SUA META DE PESO</strong>
+            <span>{n(weightGoal)} kg</span><FiArrowRight aria-hidden="true"/>
+          </Link>}
           <div className="gg-today-section-heading"><div><span>01 / HOJE</span><h2>SUA CONSTÂNCIA.</h2></div></div>
           <div className="gg-today-progress-grid">
             <Link to="/alimentacao" className="gg-today-progress-card">
