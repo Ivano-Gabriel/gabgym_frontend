@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import HomePage from './HomePage';
-import { getCurrentUser, getDiaryLogs, warmUpApi } from '../services/apiService';
+import { getCurrentUser, getDiaryLogs, getMetas, warmUpApi } from '../services/apiService';
 
 jest.mock('react-router-dom', () => ({
   Link: ({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
@@ -9,12 +9,13 @@ jest.mock('react-router-dom', () => ({
 }));
 jest.mock('../utils/auth', () => ({ isLoggedIn: () => true, isSuperAdmin: () => false }));
 jest.mock('../services/apiService', () => ({
-  getCurrentUser: jest.fn(), getDiaryLogs: jest.fn(), warmUpApi: jest.fn()
+  getCurrentUser: jest.fn(), getDiaryLogs: jest.fn(), getMetas: jest.fn(), warmUpApi: jest.fn()
 }));
 beforeEach(() => {
   jest.clearAllMocks();
   getCurrentUser.mockResolvedValue({data:{id:17, name:'Pessoa', weight:80, height:180}});
   getDiaryLogs.mockResolvedValue({data:[{id:1,type:'food',calories:540},{id:2,type:'water',volume:500}]});
+  getMetas.mockResolvedValue({data:[]});
 });
 test('Hoje é painel pessoal, não a landing antiga, e usa registros reais', async () => {
   render(<HomePage />);
