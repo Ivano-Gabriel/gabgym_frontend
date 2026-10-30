@@ -1,7 +1,7 @@
 // src/pages/MinhasMetasPage.js — abas Ativas/Histórico, FAB, ícones consistentes
 
 import React, { useState, useEffect } from 'react';
-import { getMetas, createMeta, updateMetaStatus } from '../services/apiService';
+import { getMetas, createMeta, updateMetaStatus, getCurrentUser } from '../services/apiService';
 import { toast } from 'react-toastify';
 import { FiTarget, FiAward, FiXCircle, FiChevronDown, FiPlus, FiX } from 'react-icons/fi';
 import '../styles/MinhasMetas.css';
@@ -11,12 +11,22 @@ const MinhasMetasPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
   const [activeTab, setActiveTab] = useState('ativas');
+  const [accountId,setAccountId] = useState(null);
+  const [weightGoal,setWeightGoal] = useState('');
+  const [weightNotice,setWeightNotice] = useState('');
 
   const [novaMetaTitulo, setNovaMetaTitulo] = useState('');
   const [novaMetaDescricao, setNovaMetaDescricao] = useState('');
 
   useEffect(() => {
     carregarMetas();
+    let alive=true;
+    getCurrentUser().then(({data})=>{
+      if(!alive || !data?.id)return;
+      setAccountId(data.id);
+      setWeightGoal(localStorage.getItem('gabgym:weight-goal:'+data.id)||'');
+    }).catch(()=>{if(alive)setWeightNotice('Conecte-se para configurar sua meta de peso.');});
+    return()=>{alive=false;};
   }, []);
 
   const carregarMetas = async () => {
@@ -68,6 +78,17 @@ const MinhasMetasPage = () => {
     }
   };
 
+  const saveWeightGoal = event => {
+    event.preventDefault();
+    if(!accountId)return;
+    const n=Number(weightGoal);
+    if(weightGoal!=='' && (!Number.isFinite(n)||n<20||n>600)){
+      setWeightNotice('Confira a meta: informe um valor válido em kg ou deixe em branco.');return;
+    }
+    if(weightGoal==='')localStorage.removeItem('gabgym:weight-goal:'+accountId);
+    else localStorage.setItem('gabgym:weight-goal:'+accountId,weightGoal);
+    setWeightNotice('Meta de peso salva neste navegador. Aparecerá no seu perfil e no Hoje.');
+  };
   const toggleExpandir = (id) => {
     setExpandedId(expandedId === id ? null : id);
   };
@@ -83,6 +104,17 @@ const MinhasMetasPage = () => {
         <p className="gg-metas-subtitle">Defina, acompanhe e destrua seus objetivos.</p>
       </div>
 
+      <form className="gg-goal-weight" onSubmit={saveWeightGoal}>
+        <div><span>SEU OBJETIVO / OPCIONAL</span><h2>META DE PESO.</h2>
+          <p>Escolha um objetivo possível e acompanhe a evolução por novas pesagens.</p></div>
+        <label>Meta de peso (kg)
+          <input type="number" min="20" max="600" step="0.1" inputMode="decimal" value={weightGoal}
+            placeholder="Ex.: 85" onChange={e=>setWeightGoal(e.target.value)}/>
+        </label>
+        <button type="submit" disabled={!accountId}>SALVAR META DE PESO</button>
+        {weightNotice&&<p role="status">{weightNotice}</p>}
+        <small>Salvo apenas neste navegador. Não estimamos prazo de perda ou ganho sem tendência de pesagens reais.</small>
+      </form>
       <div className="gg-metas-tabs">
         <button className={`gg-metas-tab ${activeTab === 'ativas' ? 'active' : ''}`} onClick={() => setActiveTab('ativas')}>
           Ativas {metasAtivas.length > 0 && <span className="gg-tab-count">{metasAtivas.length}</span>}
