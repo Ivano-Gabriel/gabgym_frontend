@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiScale, FiImage } from 'react-icons/fi';
+import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import './NutritionTodayPage.css';
@@ -277,7 +277,7 @@ export default function NutritionTodayPage() {
                 <div className="gg-daily-unit-modes" role="group" aria-label="Modo de quantidade">
                   <button type="button" className={quantityMode === 'servings' ? 'active' : ''} onClick={() => setQuantityMode('servings')}>PORÇÕES</button>
                   <button type="button" className={quantityMode === 'grams' ? 'active' : ''} disabled={!referenceGrams}
-                    onClick={() => setQuantityMode('grams')}><FiScale aria-hidden="true" /> BALANÇA / GRAMAS</button>
+                    onClick={() => setQuantityMode('grams')}><FiSliders aria-hidden="true" /> BALANÇA / GRAMAS</button>
                 </div>
                 {quantityMode === 'grams' && referenceGrams ? <div className="gg-daily-gram-input">
                   <label>QUANTIDADE EXATA NA BALANÇA (G)
