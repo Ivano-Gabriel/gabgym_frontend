@@ -22,7 +22,7 @@ test('central treino/cardio mostra movimento real separado de alimentacao',async
   render(<TrainingTodayPage/>);
   expect(await screen.findByRole('heading',{name:/TREINO \+ CARDIO/i})).toBeInTheDocument();
   expect(await screen.findByText(/390/)).toBeInTheDocument();
-  expect(screen.getByText(/2,5 km/)).toBeInTheDocument();
+  expect(screen.getByText((_,node)=>node?.tagName==='STRONG' && node.textContent?.includes('2,5 km'))).toBeInTheDocument();
   expect(screen.queryByText(/2\.000 kcal/)).not.toBeInTheDocument();
   expect(screen.getByRole('link',{name:/começar cardio/i})).toHaveAttribute('href','/cardio/select');
   expect(screen.getByRole('link',{name:/montar rotina/i})).toHaveAttribute('href','/routine-generator');
