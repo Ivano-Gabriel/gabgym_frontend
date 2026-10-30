@@ -25,8 +25,9 @@ export default function DailyNavigation() {
       }
     };
     document.addEventListener('keydown', onKey);
+    const trigger = triggerRef.current;
     closeRef.current?.focus();
-    return () => { document.removeEventListener('keydown', onKey); triggerRef.current?.focus(); };
+    return () => { document.removeEventListener('keydown', onKey); trigger?.focus(); };
   }, [open]);
   const primary = [
     { label: 'Hoje', to: '/', icon: FiHome },
