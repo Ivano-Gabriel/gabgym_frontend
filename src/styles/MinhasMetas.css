@@ -372,7 +372,7 @@
 
 /* MOBILE: FAB e modal sempre acima do dock de cinco itens, nunca escondidos. */
 @media(max-width:767px){
- .gg-fab-nova-meta { position:fixed; z-index:1350; bottom:calc(106px + env(safe-area-inset-bottom,0px)); left:50%; min-height:55px; padding:0 23px; }
+ .gg-fab-nova-meta { position:fixed; z-index:1100; bottom:calc(106px + env(safe-area-inset-bottom,0px)); left:50%; min-height:55px; padding:0 23px; }
  .gg-metas-container { padding-bottom:calc(195px + env(safe-area-inset-bottom,0px)); }
  .gg-modal-overlay { z-index:1550; }
  .gg-modal-content { padding-bottom:calc(32px + env(safe-area-inset-bottom,0px)); max-height:90dvh; }
