@@ -86,3 +86,48 @@ test('salvar no banco e falhar a leitura posterior não sugere repetir a gravaç
   await waitFor(() => expect(addDiaryLog).toHaveBeenCalledTimes(1));
   expect(await screen.findByText(/Registro salvo.*Atualize a página/i)).toBeInTheDocument();
 });
+
+
+test('alimentos começam fechados e abrem apenas quando o usuário pedir', async () => {
+  render(<NutritionTodayPage />);
+  await screen.findByText(/ALIMENTAÇÃO/i, { selector: 'h1' });
+  const trigger = screen.getByRole('button', { name: /ABRIR CATÁLOGO DE ALIMENTOS/i });
+  expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  expect(screen.queryByRole('searchbox', { name: /Buscar alimento/i })).not.toBeInTheDocument();
+  fireEvent.click(trigger);
+  expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  expect(screen.getByRole('searchbox', { name: /Buscar alimento/i })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Ovo cozido/i }));
+  expect(screen.getByRole('spinbutton', { name: /Quantidade de porções/i })).toBeInTheDocument();
+});
+
+test('barra calórica aparece sempre com meta ilustrativa e pode ser configurada', async () => {
+  getDiaryLogs.mockResolvedValue({ data: [
+    { id: 1, type: 'food', calories: 974, protein: 32, carbs: 140, fat: 22, name: 'Refeição' },
+  ] });
+  render(<NutritionTodayPage />);
+  const meter = await screen.findByRole('progressbar', { name: /Calorias consumidas/i });
+  expect(meter).toHaveAttribute('aria-valuenow', '974');
+  expect(meter).toHaveAttribute('aria-valuemax', '2300');
+  expect(screen.getByText(/REFERÊNCIA ILUSTRATIVA/i)).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /DEFINIR META CALÓRICA/i }));
+  fireEvent.change(screen.getByRole('spinbutton', { name: /REFERÊNCIA ALIMENTAR/i }), { target: { value: '2000' } });
+  fireEvent.click(screen.getByRole('button', { name: /SALVAR REFERÊNCIAS/i }));
+  expect(meter).toHaveAttribute('aria-valuemax', '2000');
+  expect(screen.queryByText(/REFERÊNCIA ILUSTRATIVA/i)).not.toBeInTheDocument();
+});
+
+test('atualização do consumo muda o preenchimento da barra sem contar exercício', async () => {
+  getDiaryLogs.mockResolvedValueOnce({ data: [
+    { id: 1, type: 'food', calories: 600 },
+    { id: 2, type: 'exercise', calories: -200 },
+  ] }).mockResolvedValueOnce({ data: [
+    { id: 1, type: 'food', calories: 600 },
+    { id: 3, type: 'food', calories: 250 },
+  ] });
+  render(<NutritionTodayPage />);
+  const meter = await screen.findByRole('progressbar', { name: /Calorias consumidas/i });
+  expect(meter).toHaveAttribute('aria-valuenow', '600');
+  fireEvent.click(screen.getByRole('button', { name: '+ 250 ML' }));
+  await waitFor(() => expect(meter).toHaveAttribute('aria-valuenow', '850'));
+});
