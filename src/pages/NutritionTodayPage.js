@@ -70,7 +70,7 @@ export default function NutritionTodayPage() {
       ? (Number(grams) >= 1 && Number(grams) <= 3000 ? scaleFoodGrams(selectedFood, grams) : null)
       : quantityMode === 'servings' && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null
     : null;
-  const target = Number(dailyGoal) >= 500 && Number(dailyGoal) <= 7000 ? Number(dailyGoal) : null;
+  const target = Number(dailyGoal) >= 1200 && Number(dailyGoal) <= 7000 ? Number(dailyGoal) : null;
   const progress = target ? calorieProgress(totals.calories, target) : null;
   const hydrationTarget = Number(waterGoal) >= 250 && Number(waterGoal) <= 10000 ? Number(waterGoal) : null;
   const hydrationProgress = hydrationTarget ? calorieProgress(totals.water, hydrationTarget) : null;
@@ -90,9 +90,9 @@ export default function NutritionTodayPage() {
   };
   const saveGoals = () => {
     if (!user) return;
-    const caloriesValid = dailyGoal === '' || (Number.isFinite(Number(dailyGoal)) && Number(dailyGoal) >= 500 && Number(dailyGoal) <= 7000);
+    const caloriesValid = dailyGoal === '' || (Number.isFinite(Number(dailyGoal)) && Number(dailyGoal) >= 1200 && Number(dailyGoal) <= 7000);
     const waterValid = waterGoal === '' || (Number.isFinite(Number(waterGoal)) && Number(waterGoal) >= 250 && Number(waterGoal) <= 10000);
-    if (!caloriesValid || !waterValid) { setError('Confira as referências diárias informadas.'); return; }
+    if (!caloriesValid || !waterValid) { setError('Confira as referências: consumo de 1.200 a 7.000 kcal e água de 250 a 10.000 ml. Não são recomendações individualizadas.'); return; }
     localStorage.setItem('gabgym:daily-goal:' + user.id, dailyGoal);
     localStorage.setItem('gabgym:water-goal:' + user.id, waterGoal);
     setEditGoals(false);
@@ -233,7 +233,7 @@ export default function NutritionTodayPage() {
               </div>
               {editGoals && <div className="gg-daily-goal-editor" id="gg-daily-goal-editor">
                 <label>REFERÊNCIA ALIMENTAR (KCAL/DIA)
-                  <input type="number" min="500" max="7000" inputMode="numeric" value={dailyGoal} placeholder="Opcional"
+                  <input type="number" min="1200" max="7000" inputMode="numeric" value={dailyGoal} placeholder="Opcional"
                     onChange={event => setDailyGoal(event.target.value)} />
                 </label>
                 <label>REFERÊNCIA DE ÁGUA (ML/DIA)
