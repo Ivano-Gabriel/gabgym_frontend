@@ -10,7 +10,7 @@ export default function MobileMenu({isOpen,onClose}){
     {label:'Me ajude',to:'/me-ajude',Icon:FiHelpCircle},
     {label:'Meu personal',to:'/meu-personal',Icon:FiUsers},
     {label:'Registros',to:'/registros',Icon:FiFolder},
-    {label:'Biblioteca',to:'/exercise-library',Icon:FiBookOpen},
+    {label:'Biblioteca de conteúdo',to:'/biblioteca',Icon:FiBookOpen},
     {label:'Sobre o GABGYM',to:'/portfolio',Icon:FiInfo}
   ];
   return <aside className={'gg-mobile-menu'+(isOpen?' open':'')} aria-hidden={!isOpen} aria-label="Menu secundário">
