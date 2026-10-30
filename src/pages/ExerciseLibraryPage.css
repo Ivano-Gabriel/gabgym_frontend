@@ -4,7 +4,7 @@
   padding: 24px 0 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -63,3 +63,13 @@
 }
 
 .gg-exlib-back:hover { color: var(--gg-text); }
+/* Revisão de cores GABGYM 2.4 */
+
+.gg-exlib-container { background:#0e1113; padding-bottom:calc(100px + env(safe-area-inset-bottom,0px)); }
+.gg-exlib-top { text-align:left; max-width:980px; margin:0 auto 18px; }
+.gg-exlib-title { font:850 clamp(41px,8vw,60px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-exlib-tabs { max-width:980px; margin-left:auto; margin-right:auto; }
+.gg-exlib-tab { min-height:47px; border-radius:10px; background:#242c30; border-color:#465155; }
+.gg-exlib-tab.active { background:#ff7847; border-color:#ff7847; color:#101315; }
+.gg-exlib-back { color:#ffb492; }
+.gg-exlib-container :is(button,a):focus-visible { outline:3px solid #ffa381; outline-offset:2px; }
