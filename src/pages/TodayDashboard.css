@@ -1,0 +1,53 @@
+/* Hoje / todo dia — mobile-first, dados reais e linguagem enxuta */
+.gg-today { min-height: 100dvh; background: #0e1113; color:#f5f2ea; text-align:left; font-family:var(--gg-font-body,'Manrope',sans-serif); padding: 25px 16px calc(110px + env(safe-area-inset-bottom,0px)); }
+.gg-today * { box-sizing:border-box; }
+.gg-today-inner { max-width:960px; margin:auto; }
+.gg-today-heading { border-bottom:1px solid #3b4549; padding-bottom:22px; margin-bottom:20px; }
+.gg-today-eyebrow { display:flex; align-items:center; gap:9px; color:#ffab88; font-size:11px; font-weight:850; text-transform:uppercase; }
+.gg-today-heading h1 { font: 900 clamp(57px,10vw,90px)/.9 var(--gg-font-display,Impact,sans-serif); margin:18px 0 9px; }
+.gg-today-heading h1 span { color:#ff7847; }
+.gg-today-heading p { margin:0; color:#c4cdd0; font-size:13px; }
+.gg-today-measures { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)) 42px; align-items:center; gap:8px; margin-bottom:32px; }
+.gg-today-measures > div { display:grid; gap:10px; background:#1b2225; border:1px solid #40494d; border-radius:12px; min-width:0; padding:16px 10px; }
+.gg-today-measures > div span { color:#aeb9bc; font-size:10px; font-weight:850; }
+.gg-today-measures strong { color:#f5f2ea; font-size:clamp(14px,3.5vw,22px); font-weight:850; white-space:nowrap; }
+.gg-today-measures-edit { min-height:50px; display:grid; place-items:center; color:#ffa480; border:1px solid #6c5248; border-radius:10px; }
+.gg-today-section-heading { display:flex; align-items:end; justify-content:space-between; gap:12px; margin:28px 0 17px; }
+.gg-today-section-heading span { color:#ffa480; font-size:10px; letter-spacing:.12em; font-weight:900; }
+.gg-today-section-heading h2 { margin:7px 0 0; font: 850 clamp(29px,6vw,43px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-today-section-heading > a { display:flex; align-items:center; gap:5px; color:#ffae90; text-decoration:none; min-height:44px; font-size:11px; font-weight:850; }
+.gg-today-progress-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+.gg-today-progress-card { display:flex; flex-direction:column; gap:15px; padding:20px 16px; background:#1c2427; border:1px solid #434d50; border-radius:14px; text-decoration:none; color:#f5f2ea; min-width:0; transition:transform .2s ease,border-color .2s ease; }
+.gg-today-progress-card:active { transform:scale(.99); }
+.gg-today-progress-card:hover { border-color:#ff7847; }
+.gg-today-card-top { display:flex; align-items:center; gap:9px; color:#ff9875; font-size:10px; font-weight:900; letter-spacing:.05em; }
+.gg-today-card-top > svg:last-child { margin-left:auto; }
+.gg-today-progress-card > strong { font:900 clamp(38px,7vw,57px)/1 var(--gg-font-display,Impact,sans-serif); font-variant-numeric:tabular-nums; }
+.gg-today-progress-card > strong small { font:800 12px var(--gg-font-body,Arial,sans-serif); color:#bfc9cb; }
+.gg-today-progress-card > small { color:#c2cdce; font-size:11px; line-height:1.5; }
+.gg-today-track { height:11px; background:#424a4e; border-radius:40px; overflow:hidden; }
+.gg-today-track span { display:block; height:100%; background:#ff7847; border-radius:40px; transition: width .3s ease; }
+.gg-today-no-goal { text-decoration:none; display:flex; align-items:center; gap:15px; background:#292622; border:1px solid #96644d; padding:19px 16px; border-radius:13px; color:#ff9875; min-height:80px; }
+.gg-today-no-goal > span { flex:1; display:grid; gap:7px; }
+.gg-today-no-goal strong { color:#f5f2ea; font-size:13px; }
+.gg-today-no-goal small { color:#bfcacc; font-size:11px; line-height:1.5; }
+.gg-today-goals { display:grid; gap:8px; }
+.gg-today-goal { display:flex; align-items:center; gap:13px; background:#222a2d; border:1px solid #455052; border-radius:12px; padding:14px; min-height:58px; color:#f5f2ea; text-decoration:none; font-size:13px; }
+.gg-today-goal svg { color:#ff9875; flex-shrink:0; }
+.gg-today-goal span { flex:1; }
+.gg-today-goals p { font-size:11px; color:#bec7c9; line-height:1.6; }
+.gg-today-shortcuts { display:grid; gap:11px; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:26px; }
+.gg-today-shortcuts a { color:#15191b; display:flex; justify-content:space-between; align-items:center; gap:9px; padding:15px 13px; min-height:58px; text-decoration:none; background:#ff7847; border-radius:11px; font-size:11px; font-weight:900; }
+.gg-today-shortcuts a:last-child { background:#2b3033; color:#ffd0bb; border:1px solid #9d654f; }
+.gg-today-state,.gg-today-error { font-size:13px; padding:16px; background:#252e31; border:1px solid #516064; border-radius:10px; color:#dee4e4; }
+.gg-today-error { border-color:#b47871; color:#ffcfca; }
+.gg-today a:focus-visible { outline:3px solid #ffa182; outline-offset:3px; }
+@media(max-width:540px) {
+  .gg-today-progress-grid,.gg-today-shortcuts { grid-template-columns:1fr; }
+  .gg-today-progress-card { padding:18px; }
+  .gg-today-measures { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .gg-today-measures-edit { grid-column:1/-1; min-height:44px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .gg-today-progress-card,.gg-today-track span { transition:none; }
+}
