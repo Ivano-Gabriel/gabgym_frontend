@@ -76,7 +76,7 @@ export default function NutritionTodayPage() {
   const hydrationProgress = hydrationTarget ? calorieProgress(totals.water, hydrationTarget) : null;
   const restingEnergy = estimateRestingEnergy(user);
   useEffect(() => {
-    if (!selectedFood || !portionPanelRef.current) return;
+    if (!selectedFood || !portionPanelRef.current || typeof portionPanelRef.current.scrollIntoView !== 'function') return;
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     portionPanelRef.current.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   }, [selectedFood]);
