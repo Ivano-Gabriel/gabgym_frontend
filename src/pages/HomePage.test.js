@@ -19,9 +19,9 @@ beforeEach(() => {
 test('Hoje é painel pessoal, não a landing antiga, e usa registros reais', async () => {
   render(<HomePage />);
   expect(await screen.findByRole('heading', {name:/seu dia/i})).toBeInTheDocument();
-  expect(screen.getByText(/540 kcal/)).toBeInTheDocument();
-  expect(screen.getByText(/500 ml/)).toBeInTheDocument();
-  expect(screen.getByText(/80 kg/)).toBeInTheDocument();
+  expect(await screen.findByText((_, node) => node?.tagName === 'STRONG' && node.textContent?.includes('540 kcal'))).toBeInTheDocument();
+  expect(screen.getByText((_, node) => node?.tagName === 'STRONG' && node.textContent?.includes('500 ml'))).toBeInTheDocument();
+  expect(screen.getByText((_, node) => node?.tagName === 'STRONG' && node.textContent?.includes('80 kg'))).toBeInTheDocument();
   expect(screen.queryByText(/O SEGREDO/)).not.toBeInTheDocument();
   expect(screen.getByRole('link', {name:/alimentação/i})).toHaveAttribute('href','/alimentacao');
 });
