@@ -28,8 +28,8 @@ export default function SignupPage() {
     }
   };
 
-  return <AuthShell type="signup" title="Comece sua evolução."
-    subtitle="Crie uma conta e organize sua rotina de treinos e hábitos."
+  return <AuthShell type="signup" title="COMECE FORTE."
+    subtitle="Treino, alimentação e evolução. Seu ponto de partida é aqui."
     footer={<>Já tem uma conta? <Link to="/login">Entrar</Link></>}>
     <form className="gg-auth-form" onSubmit={submit}>
       <label className="gg-auth-field"><span>Nome de usuário</span>
@@ -49,7 +49,7 @@ export default function SignupPage() {
       </label>
       {error && <p role="alert" className="gg-auth-error">{error}</p>}
       <button className="gg-auth-submit" type="submit" disabled={isLoading}>
-        <span>{isLoading ? 'Criando conta...' : 'Criar minha conta'}</span>
+        <span>{isLoading ? 'CRIANDO CONTA...' : 'CRIAR MINHA CONTA'}</span>
         <span aria-hidden="true">→</span>
       </button>
     </form>
