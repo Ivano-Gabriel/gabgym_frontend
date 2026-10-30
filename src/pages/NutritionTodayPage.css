@@ -97,3 +97,65 @@
 @media (prefers-reduced-motion: reduce) {
   .gg-daily * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Feedback V2: alvos mais suaves, identidade laranja e dados vivos. */
+.gg-daily-dashboard,.gg-daily-primary,.gg-daily-metrics,.gg-daily-portion,.gg-daily-water,.gg-daily-food,.gg-daily-food-photo,.gg-daily-search,.gg-daily-goal-settings {
+  border-radius: 12px;
+}
+.gg-daily-dashboard { border-radius: 14px; }
+.gg-daily-primary { border-radius: 0; }
+.gg-daily-metrics { border-radius: 0; }
+.gg-daily-food { border-radius: 11px; }
+.gg-daily-success {
+  background: #37281f; border-color: #cb7855; color: #ffdbc8;
+}
+.gg-daily-success::before { content: '✦'; margin-right: 8px; color: #ff9d79; }
+.gg-daily-progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 15px 0 9px; font-size: 10px; font-weight: 900; letter-spacing: .045em; }
+.gg-daily-progress { overflow: hidden; height: 12px; width: 100%; background: rgba(18, 21, 20, .27); border-radius: 50px; }
+.gg-daily-progress > div { height: 100%; background: #101315; border-radius: inherit; transition: width .32s ease; }
+.gg-daily-guidance { margin: 12px 0 18px !important; font-size: 12px !important; line-height: 1.6; font-weight: 700 !important; }
+.gg-daily-unset { margin-top: 16px !important; padding: 11px 0; border-top: 1px solid rgba(16,20,22,.25); }
+.gg-daily-goal-settings { padding: 18px; background: #1c2225; border: 1px solid #414d50; margin: -13px 0 30px; }
+.gg-daily-goal-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.gg-daily-goal-heading > div > span { color: #ff9d79; letter-spacing: .13em; font-size: 10px; font-weight: 900; }
+.gg-daily-goal-heading h2 { font: 800 29px/1.05 var(--gg-font-display, Impact, sans-serif); margin: 10px 0; }
+.gg-daily-goal-heading p { color: #d1d9da; font-size: 11px; line-height: 1.6; margin: 0; }
+.gg-daily-goal-heading button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid #a6664d; color: #ffd8c9; background: #302723; border-radius: 8px; min-width: 94px; min-height: 46px; font: 900 11px var(--gg-font-body,Arial,sans-serif); cursor: pointer; }
+.gg-daily-goal-editor { margin-top: 18px; border-top: 1px solid #404b4f; padding-top: 17px; display: grid; gap: 14px; }
+.gg-daily-goal-editor label,.gg-daily-manual label,.gg-daily-gram-input label { display: grid; gap: 8px; color: #eff1ec; font-size: 10px; letter-spacing: .05em; font-weight: 900; min-width: 0; }
+.gg-daily-goal-editor input,.gg-daily-manual input,.gg-daily-gram-input input {
+  display: block; width: 100%; min-width: 0; height: 54px; padding: 10px 13px;
+  color: #f5f2ea; background: #12191b; border: 1px solid #59676c; border-radius: 9px;
+  font: 750 15px var(--gg-font-body,Arial,sans-serif);
+}
+.gg-daily-goal-editor p,.gg-daily-manual p,.gg-daily-gram-input p { font-size: 11px; color: #bec8ca; line-height: 1.55; margin: 0; }
+.gg-daily-food-photo { display: block; width: 59px; height: 59px; object-fit: cover; flex: 0 0 59px; border: 1px solid #474b4c; }
+.gg-daily-food-icon { width: 59px; height: 59px; flex-basis: 59px; border-radius: 11px; }
+.gg-daily-food { min-height: 84px; }
+.gg-daily-unit-modes { display: grid; grid-template-columns: 1fr 1.15fr; gap: 8px; margin: 21px 0 15px; }
+.gg-daily-unit-modes button { display: flex; gap: 6px; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid #536165; color: #e5eaeb; background: #171f22; min-height: 51px; font: 850 11px var(--gg-font-body,Arial,sans-serif); cursor: pointer; }
+.gg-daily-unit-modes button.active { border-color: #ff7847; background: #ff7847; color: #111; }
+.gg-daily-unit-modes button:disabled { opacity: .48; cursor: not-allowed; }
+.gg-daily-gram-input { display: grid; gap: 9px; }
+.gg-daily-gram-hint { color: #dfc5ba; font-size: 11px; line-height: 1.55; }
+.gg-daily-prediction { font-size: 12px; line-height: 1.55; padding: 11px 14px; margin: 0 0 13px; border-left: 3px solid #ff7847; color: #ffddcc; background: #302722; }
+.gg-daily-manual-toggle { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; margin-top: 15px; min-height: 52px; color: #ffb99e; background: #272221; border: 1px solid #955e47; border-radius: 10px; font: 850 11px var(--gg-font-body,Arial,sans-serif); cursor: pointer; }
+.gg-daily-manual { padding: 18px; margin-top: 12px; border: 1px solid #7e604d; border-radius: 12px; background: #242728; display: grid; gap: 15px; }
+.gg-daily-manual h3 { margin: 0; font: 800 26px var(--gg-font-display, Impact, sans-serif); }
+.gg-daily-manual-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
+.gg-daily-three-cols { grid-template-columns: repeat(3,minmax(0,1fr)); margin-top: 12px; }
+.gg-daily-manual-macros summary { cursor: pointer; min-height: 42px; display: flex; align-items: center; color: #ffb99e; font-weight: 850; font-size: 11px; }
+.gg-daily-water-meter { grid-column: 1 / -1; min-width: 0; width: 100%; display: grid; gap: 7px; margin-top: 9px; }
+.gg-daily-water-meter-track { width: 100%; height: 10px; border-radius: 20px; background: #3c484f; overflow: hidden; }
+.gg-daily-water-meter-track > div { height: 100%; border-radius: inherit; background: #74c9e7; transition: width .32s ease; }
+.gg-daily-water-meter small { color: #c8d5da; font-size: 11px; }
+.gg-daily .gg-daily-food:active,.gg-daily .gg-daily-manual-toggle:active,.gg-daily .gg-daily-cta:active { transform: scale(.992); }
+@media(max-width:480px) {
+  .gg-daily-goal-heading { flex-wrap: wrap; }
+  .gg-daily-three-cols { grid-template-columns: 1fr; }
+  .gg-daily-food-photo,.gg-daily-food-icon { width: 54px; height: 54px; flex-basis: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-daily-progress > div,.gg-daily-water-meter-track > div { transition: none !important; }
+  .gg-daily .gg-daily-food:active,.gg-daily .gg-daily-manual-toggle:active,.gg-daily .gg-daily-cta:active { transform: none !important; }
+}
