@@ -114,12 +114,16 @@ export default function NutritionTodayPage() {
     setBusy(true);
     try {
       await action();
-      const response = await getDiaryLogs(user.id, dayKey());
-      setLogs(Array.isArray(response.data) ? response.data : []);
-      setMessage(success);
+      try {
+        const response = await getDiaryLogs(user.id, dayKey());
+        setLogs(Array.isArray(response.data) ? response.data : []);
+        setMessage(success);
+      } catch {
+        setMessage('Registro salvo no servidor. Atualize a página para conferir o total; não precisa registrar novamente.');
+      }
       return true;
     } catch {
-      setError('Não conseguimos salvar essa alteração. Seus dados anteriores foram preservados.');
+      setError('Não conseguimos salvar essa alteração. Confira sua conexão antes de tentar novamente.');
       return false;
     } finally {
       setBusy(false);
@@ -211,6 +215,9 @@ export default function NutritionTodayPage() {
                 <div><span>ÁGUA</span><strong>{totals.water.toLocaleString('pt-BR')} <small>ml</small></strong></div>
               </div>
             </section>
+            {logs.some(item => item.type === 'food' && item.name?.includes('manual') &&
+              Number(item.protein) === 0 && Number(item.carbs) === 0 && Number(item.fat) === 0) &&
+              <p className="gg-daily-disclaimer">Atenção: existem alimentos manuais sem macronutrientes informados. Os totais de proteínas, carboidratos e gorduras podem estar incompletos.</p>}
 
             <section className="gg-daily-goal-settings" aria-labelledby="gg-goals-title">
               <div className="gg-daily-goal-heading">
