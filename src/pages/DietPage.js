@@ -167,7 +167,7 @@ if (!weightNum || !heightNum || !ageNum) {
           </div>
         </div>
 
-        <Link to="/diario-alimentar" className="gg-diet-btn-hero">{t('metas.botao_registrar')}</Link>
+        <Link to="/alimentacao" className="gg-diet-btn-hero">{t('metas.botao_registrar')}</Link>
 
         <div className="gg-diet-actions-secondary">
           <Link to="/historico" className="gg-diet-btn-secondary">{t('metas.botao_historico')}</Link>
