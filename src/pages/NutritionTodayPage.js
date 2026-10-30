@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage } from 'react-icons/fi';
+import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage, FiChevronDown } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import './NutritionTodayPage.css';
@@ -17,6 +17,7 @@ export default function NutritionTodayPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [query, setQuery] = useState('');
+  const [catalogOpen, setCatalogOpen] = useState(false);
   const [category, setCategory] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [servings, setServings] = useState('1');
@@ -71,7 +72,9 @@ export default function NutritionTodayPage() {
       : quantityMode === 'servings' && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null
     : null;
   const target = Number(dailyGoal) >= 1200 && Number(dailyGoal) <= 7000 ? Number(dailyGoal) : null;
-  const progress = target ? calorieProgress(totals.calories, target) : null;
+  // 2.300 serve somente como escala visual de exemplo, sem recomendacao nutricional.
+  const displayTarget = target || 2300;
+  const displayProgress = calorieProgress(totals.calories, displayTarget);
   const hydrationTarget = Number(waterGoal) >= 250 && Number(waterGoal) <= 10000 ? Number(waterGoal) : null;
   const hydrationProgress = hydrationTarget ? calorieProgress(totals.water, hydrationTarget) : null;
   const restingEnergy = estimateRestingEnergy(user);
@@ -189,31 +192,48 @@ export default function NutritionTodayPage() {
 
         {!loading && user && (
           <>
-            <section className="gg-daily-dashboard" aria-label="Resumo do dia">
-              <div className="gg-daily-primary">
-                <span>CONSUMO DE HOJE</span>
-                <strong>{totals.calories.toLocaleString('pt-BR')} <small>KCAL</small></strong>
-                <p>Somente o que você comeu. Gasto no treino fica separado.</p>
-                {progress ? <>
-                  <div className="gg-daily-progress-head"><span>{progress.percent}% DA REFERÊNCIA</span><span>{totals.calories.toLocaleString('pt-BR')} / {target.toLocaleString('pt-BR')} kcal</span></div>
-                  <div className="gg-daily-progress" role="progressbar" aria-label="Consumo em relação à meta alimentar" aria-valuenow={Math.min(totals.calories, target)} aria-valuemin="0" aria-valuemax={target}>
-                    <div style={{ width: progress.percent + '%' }} />
-                  </div>
-                  <p className="gg-daily-guidance" aria-live="polite">
-                    {progress.stage === 'over' ? 'Você ultrapassou sua referência em ' + Math.abs(progress.remaining) + ' kcal. Continue registrando normalmente.'
-                      : progress.stage === 'near' ? 'Perto da sua referência diária: faltam ' + progress.remaining + ' kcal.'
-                      : progress.stage === 'half' ? 'Você chegou à metade da referência. Continue seu dia.'
-                      : 'Um registro de cada vez. Faltam ' + progress.remaining + ' kcal para sua referência.'}
-                  </p>
-                </> : <p className="gg-daily-unset">Defina sua referência alimentar para acompanhar a barra de progresso.</p>}
-                <div className="gg-daily-count">{totals.meals} alimento{totals.meals !== 1 ? 's' : ''} registrado{totals.meals !== 1 ? 's' : ''}</div>
+            <section className="gg-consumption" aria-label="Resumo do dia">
+              <header className="gg-consumption-header">
+                <div><span>SEU DIA / ALIMENTAÇÃO</span><h2>CALORIAS DE HOJE</h2></div>
+                <button type="button" className="gg-consumption-config"
+                  onClick={() => setEditGoals(true)} aria-label="DEFINIR META CALÓRICA">
+                  <FiEdit3 aria-hidden="true" /> {target ? 'AJUSTAR META' : 'DEFINIR META'}
+                </button>
+              </header>
+              <div className="gg-consumption-total">
+                <strong>{totals.calories.toLocaleString('pt-BR')}</strong>
+                <span>KCAL CONSUMIDAS <b>/ {displayTarget.toLocaleString('pt-BR')} KCAL</b></span>
               </div>
-              <div className="gg-daily-metrics">
+              <div className="gg-consumption-track" role="progressbar" aria-label="Calorias consumidas"
+                aria-valuenow={Math.min(totals.calories, displayTarget)} aria-valuemin="0" aria-valuemax={displayTarget}>
+                <span className="gg-consumption-fill" style={{ width: displayProgress.percent + '%' }} />
+              </div>
+              <div className="gg-consumption-scale">
+                <span>0 KCAL</span>
+                <span>{displayProgress.percent}% PREENCHIDO</span>
+                <strong>{displayTarget.toLocaleString('pt-BR')} KCAL</strong>
+              </div>
+              {!target && <p className="gg-consumption-example">REFERÊNCIA ILUSTRATIVA — 2.300 KCAL. Toque em “Definir meta” para usar uma referência escolhida por você.</p>}
+              {target && <p className={'gg-consumption-feedback ' + (displayProgress.stage === 'over' ? 'is-over' : '')} aria-live="polite">
+                {displayProgress.stage === 'over'
+                  ? 'Acima da sua referência em ' + Math.abs(displayProgress.remaining).toLocaleString('pt-BR') + ' kcal. Continue registrando normalmente.'
+                  : displayProgress.stage === 'near'
+                  ? 'Perto da referência: ' + displayProgress.remaining.toLocaleString('pt-BR') + ' kcal restantes.'
+                  : displayProgress.stage === 'half'
+                  ? 'Você já passou da metade da sua referência. Continue registrando.'
+                  : 'Um registro de cada vez. ' + displayProgress.remaining.toLocaleString('pt-BR') + ' kcal até sua referência.'}
+              </p>}
+              <div className="gg-consumption-divider" />
+              <div className="gg-consumption-macros" aria-label="Totais nutricionais de hoje">
                 <div><span>PROTEÍNAS</span><strong>{formatGram(totals.protein)} <small>g</small></strong></div>
                 <div><span>CARBOIDRATOS</span><strong>{formatGram(totals.carbs)} <small>g</small></strong></div>
                 <div><span>GORDURAS</span><strong>{formatGram(totals.fat)} <small>g</small></strong></div>
                 <div><span>ÁGUA</span><strong>{totals.water.toLocaleString('pt-BR')} <small>ml</small></strong></div>
               </div>
+              <footer className="gg-consumption-foot">
+                <span>{totals.meals} alimento{totals.meals !== 1 ? 's' : ''} registrado{totals.meals !== 1 ? 's' : ''} hoje</span>
+                <span>Treino e cardio separados do consumo</span>
+              </footer>
             </section>
             {logs.some(item => item.type === 'food' && item.name?.includes('manual') &&
               Number(item.protein) === 0 && Number(item.carbs) === 0 && Number(item.fat) === 0) &&
@@ -251,6 +271,18 @@ export default function NutritionTodayPage() {
                 <span className="gg-daily-hint">Sem culpa. Com consciência.</span>
               </div>
 
+              <button type="button" className="gg-catalog-trigger"
+                aria-controls="gg-catalog-content" aria-expanded={catalogOpen}
+                aria-label={catalogOpen ? 'FECHAR CATÁLOGO DE ALIMENTOS' : 'ABRIR CATÁLOGO DE ALIMENTOS'}
+                onClick={() => { setCatalogOpen(open => !open); setSelectedFood(null); }}>
+                <span className="gg-catalog-trigger-icon"><FiPlus aria-hidden="true" /></span>
+                <span className="gg-catalog-trigger-text">
+                  <strong>{catalogOpen ? 'FECHAR CATÁLOGO' : 'ADICIONAR ALIMENTO'}</strong>
+                  <small>{catalogOpen ? 'Toque para recolher a lista' : 'Toque para escolher um alimento ou registrar manualmente'}</small>
+                </span>
+                <FiChevronDown className={catalogOpen ? 'is-open' : ''} aria-hidden="true" />
+              </button>
+              {catalogOpen && <div id="gg-catalog-content" className="gg-catalog-content">
               <label className="gg-daily-search">
                 <FiSearch aria-hidden="true" />
                 <span className="sr-only">Buscar alimento</span>
@@ -341,6 +373,8 @@ export default function NutritionTodayPage() {
                 <button type="submit" className="gg-daily-cta" disabled={busy}>{busy ? 'SALVANDO…' : 'ADICIONAR AO DIÁRIO'} <FiPlus aria-hidden="true" /></button>
               </form>}
               <p className="gg-daily-disclaimer">Referências aproximadas do catálogo. Em modo balança, o cálculo só aparece quando existe equivalência em gramas. Registros manuais não recebem macros inventados.</p>
+              </div>}
+
             </section>
 
             <section className="gg-daily-section" aria-labelledby="gg-water-heading">
