@@ -4,7 +4,8 @@ import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, F
 import { getCurrentUser, logoutUser } from '../services/apiService';
 import { isSuperAdmin } from '../utils/auth';
 import './ProfilePage.css';
-import {loadWeightHistory,weightTrend,safeWeightProjection} from '../utils/weightProgress';
+import {loadWeightHistory,weightTrend,safeWeightProjection,weightGoalProgress} from '../utils/weightProgress';
+import {readProfileAvatar,saveProfileAvatar,isSupportedProfileImage} from '../utils/profileAvatar';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function ProfilePage() {
       const w=Number(localStorage.getItem('gabgym:weight-goal:'+data.id));
       setWeightGoal(w>=20&&w<=600?w:null);
       setWeightHistory(loadWeightHistory(data.id));
-      setAvatar(localStorage.getItem('gabgymAvatar') || '');
+      setAvatar(readProfileAvatar(data.id));
       try{
         const saved=JSON.parse(localStorage.getItem('gabgym:body-measures:'+data.id)||'{}');
         setExtras(saved && typeof saved==='object'?saved:{});
@@ -39,18 +40,25 @@ export default function ProfilePage() {
   const imagePicked=event=>{
     const file=event.target.files?.[0];
     if(!file)return;
-    if(!file.type.startsWith('image/') || file.size>1_500_000){
-      setError('Selecione uma imagem de até 1,5 MB.');return;
+    if(!user?.id)return;
+    if(!isSupportedProfileImage(file)){
+      setError('Use PNG, JPG ou WebP com até 1,5 MB.');return;
     }
     const reader=new FileReader();
-    reader.onload=()=>{if(typeof reader.result==='string'){setAvatar(reader.result);localStorage.setItem('gabgymAvatar',reader.result);}};
+    reader.onload=()=>{
+      if(typeof reader.result!=='string')return;
+      if(saveProfileAvatar(user.id,reader.result)){
+        setAvatar(reader.result);
+        setError('');
+      }else setError('O navegador não conseguiu salvar a foto. Libere espaço ou tente outra imagem.');
+    };
+    reader.onerror=()=>setError('Não foi possível ler a foto escolhida.');
     reader.readAsDataURL(file);
   };
   const trend=weightTrend(weightHistory);
   const currentWeight=Number(user?.weight)||trend?.latest||null;
   const baseline=trend?.starting;
-  const denominator=baseline&&weightGoal ? Math.abs(baseline-weightGoal):0;
-  const weightProgressPct=denominator && currentWeight ? Math.min(100,Math.max(0,Math.round(100*Math.abs(baseline-currentWeight)/denominator))) : 0;
+  const weightProgressPct=weightGoalProgress(baseline,currentWeight,weightGoal);
   const weightDelta=baseline && currentWeight ? Math.round((currentWeight-baseline)*10)/10 : null;
   const first=weightHistory[0],last=weightHistory[weightHistory.length-1];
   const daySpan=first&&last?(new Date(last.date+'T12:00:00')-new Date(first.date+'T12:00:00'))/86400000:0;
@@ -90,10 +98,12 @@ export default function ProfilePage() {
           <section className="gg-profile-weight-progress" aria-label="Evolução do peso">
             <header><span>META DE PESO</span><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'SEM META DEFINIDA'}</strong></header>
             {weightGoal&&currentWeight ? <>
-              <div className="gg-profile-weight-track" role="progressbar" aria-label="Progresso de peso da primeira pesagem à meta" aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">
-                <span style={{width:weightProgressPct+'%'}}/>
-              </div>
-              <p>{weightProgressPct}% da mudança em relação à primeira pesagem salva. {weightDelta!==null ? (weightDelta>0?'+':'')+weightDelta.toLocaleString('pt-BR')+' kg registrados desde então.' : ''}</p>
+              {weightProgressPct!==null ? <>
+                <div className="gg-profile-weight-track" role="progressbar" aria-label="Progresso real em direção à meta de peso" aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">
+                  <span style={{width:weightProgressPct+'%'}}/>
+                </div>
+                <p>{weightProgressPct}% do caminho até sua meta. {weightDelta!==null ? (weightDelta>0?'+':'')+weightDelta.toLocaleString('pt-BR')+' kg desde a primeira pesagem registrada.' : ''}</p>
+              </> : <p>Registre seu peso para começar a acompanhar o progresso em direção à meta.</p>}
               {projection?<p className="gg-profile-projection">Se a tendência observada entre pesagens continuar: cerca de {projection.weeks} semanas. É apenas um cenário, não uma previsão garantida.</p>:
                 <p>Registre novas pesagens ao longo das semanas para acompanhar a tendência, sem estimar prazos prematuramente.</p>}
             </> : <p>Sem meta definida. Você pode escolher uma meta opcional na edição do perfil.</p>}
