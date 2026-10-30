@@ -98,3 +98,10 @@
 .gg-select-card-item:focus-visible { outline:3px solid #ffa081; outline-offset:2px; }
 @media(max-width:375px) { .gg-select-grid { grid-template-columns:1fr; } }
 @media(prefers-reduced-motion:reduce){ .gg-select-card-item { transition:none; } }
+
+
+/* O seletor e todos os botões não podem ficar atrás do dock fixo. */
+.gg-select-container {min-height:100dvh; padding-bottom:calc(160px + env(safe-area-inset-bottom,0px));}
+.gg-select-card {padding-bottom:35px;}
+.gg-select-card-item {min-height:130px; background:linear-gradient(160deg,#374047,#232a2f 72%); box-shadow:inset 0 1px 1px #ffffff24,0 6px 19px #00000024;}
+.gg-select-back {display:inline-flex;min-height:52px;margin-top:12px;}

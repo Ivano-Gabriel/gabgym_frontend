@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import { getUser, addDiaryLog } from '../services/apiService';
 import { FiArrowLeft } from 'react-icons/fi';
 import './CardioPage.css';
+import { filterGpsStep } from '../utils/gpsTracking';
+import { dayKey } from '../utils/nutrition';
 
 // --- CORREÇÃO DO ÍCONE DO MARCADOR ---
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -45,17 +47,6 @@ const calculatePace = (timeInSeconds, distanceInKm) => {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
-  const R = 6371; // Raio da Terra em km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-          Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // Distância em km
-};
-
 // Fórmula de calorias baseada na distância (aproximação: 1 kcal por kg de peso por km percorrido)
 const calculateCalories = (distanceInKm, weightKg) => {
     return Math.round(distanceInKm * weightKg);
@@ -78,11 +69,13 @@ function CardioPage() {
   const [pace, setPace] = useState('00:00');
   const [position, setPosition] = useState([-9.5186, -36.0625]);
   const [path, setPath] = useState([]);
-  const [userWeight, setUserWeight] = useState(70); // fallback razoável até o peso real carregar
+  const [userWeight, setUserWeight] = useState(0); // Sem peso informado, não inventar gasto calórico
   const [isSaving, setIsSaving] = useState(false);
 
   const intervalRef = useRef(null);
   const mapRef = useRef(null);
+  const lastGoodFixRef = useRef(null);
+  const [gpsStatus, setGpsStatus] = useState('Aguardando início');
 
   // Busca o peso real do usuário (antes era sempre 75kg fixo pra todo mundo)
   useEffect(() => {
@@ -113,27 +106,30 @@ function CardioPage() {
     if (isActive && !isPaused) {
       const watchId = navigator.geolocation.watchPosition(
         (pos) => {
-          const { latitude, longitude } = pos.coords;
-          const newPosition = [latitude, longitude];
-          setPosition(newPosition);
-          
-          setPath((prevPath) => {
-            const newPath = [...prevPath, newPosition];
-            if (newPath.length > 1) {
-              const lastPoint = newPath[newPath.length - 2];
-              const newDistanceSegment = calculateDistance(lastPoint[0], lastPoint[1], newPosition[0], newPosition[1]);
-              
-              // Atualiza a distância total
-              setDistance(prevDistance => prevDistance + newDistanceSegment);
-            }
-            return newPath;
-          });
-
-          if (mapRef.current) {
-            mapRef.current.flyTo(newPosition, 16);
+          // GPS parado oscila. Não somar pontos fora da precisão/velocidade plausível.
+          const prev = lastGoodFixRef.current;
+          if (!prev) {
+            if (Number(pos.coords.accuracy) <= 35) {
+              lastGoodFixRef.current = pos;
+              setGpsStatus('GPS conectado. Aguardando deslocamento');
+              setPosition([pos.coords.latitude, pos.coords.longitude]);
+            } else setGpsStatus('GPS impreciso: buscando sinal melhor');
+            return;
           }
+          const segmentKm = filterGpsStep(prev, pos);
+          if (segmentKm === null) {
+            setGpsStatus(pos.coords.accuracy > 35 ? 'GPS impreciso: buscando sinal melhor' : 'Aguardando deslocamento real');
+            return;
+          }
+          const newPosition = [pos.coords.latitude, pos.coords.longitude];
+          lastGoodFixRef.current = pos;
+          setGpsStatus('Deslocamento confirmado');
+          setPosition(newPosition);
+          setPath(points => [...points,newPosition]);
+          setDistance(distanceKm => distanceKm + segmentKm);
+          if (mapRef.current) mapRef.current.flyTo(newPosition, 16);
         },
-        (error) => console.error("Erro ao obter GPS:", error),
+        (error) => { console.error('Erro ao obter GPS:', error); setGpsStatus('GPS indisponível: verifique as permissões'); },
         { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
       );
       return () => navigator.geolocation.clearWatch(watchId);
@@ -152,12 +148,17 @@ function CardioPage() {
     setCalories(0);
     setPace('00:00');
     setPath([]);
+    lastGoodFixRef.current = null;
+    setGpsStatus('Buscando GPS...');
+    if (!navigator.geolocation) {setGpsStatus('GPS indisponível neste dispositivo');return;}
 
     navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
         const startPosition = [latitude, longitude];
         setPosition(startPosition);
         setPath([startPosition]);
+        lastGoodFixRef.current = pos;
+        setGpsStatus('GPS conectado. Aguardando deslocamento');
         if (mapRef.current) {
             mapRef.current.flyTo(startPosition, 16);
         }
@@ -166,11 +167,16 @@ function CardioPage() {
     }, 
     (error) => {
         console.error("Não foi possível obter a localização inicial:", error);
-        alert("Por favor, habilite a permissão de localização no seu navegador para iniciar a atividade.");
+        setGpsStatus('Permita o acesso à localização para iniciar.');
     });
   };
 
-  const handlePauseResume = () => setIsPaused(!isPaused);
+  const handlePauseResume = () => {
+    // Nunca somar a distância percorrida durante a pausa.
+    lastGoodFixRef.current = null;
+    setGpsStatus(isPaused ? 'Reconectando GPS…' : 'GPS pausado');
+    setIsPaused(!isPaused);
+  };
   
   const handleFinish = async () => {
     setIsActive(false);
@@ -191,7 +197,7 @@ function CardioPage() {
         calories: calories,
         durationSeconds: time,
         distanceKm: parseFloat(distance.toFixed(3)),
-        logDate: new Date().toLocaleDateString('en-CA'),
+        logDate: dayKey(),
         timestamp: Date.now(),
       });
       toast.success(`${activity.name} registrada! ${calories} kcal queimadas.`);
@@ -201,11 +207,6 @@ function CardioPage() {
       toast.error('Não foi possível salvar essa atividade. Tenta de novo.');
     } finally {
       setIsSaving(false);
-      setTime(0);
-      setDistance(0);
-      setCalories(0);
-      setPace('00:00');
-      setPath([]);
     }
   };
 
@@ -213,6 +214,7 @@ function CardioPage() {
     <div className="cardio-page-container">
       <Link to="/cardio/select" className="gg-cardio-back"><FiArrowLeft /> Trocar Atividade</Link>
       <h2 className="gg-cardio-activity-name">{activity.name}</h2>
+      <p className="gg-cardio-gps-status" role="status">{gpsStatus}</p>
       <div className="metrics-panel">
         <div className="main-metric">
           <span id="duration">{formatTime(time)}</span>
@@ -234,7 +236,7 @@ function CardioPage() {
           <Marker position={position}>
             <Popup>Você está aqui!</Popup>
           </Marker>
-          <Polyline pathOptions={{ color: 'var(--primaryGreen)', weight: 6, opacity: 0.8 }} positions={path} />
+          <Polyline pathOptions={{ color: '#ff7847', weight: 5, opacity: 0.85 }} positions={path} />
         </MapContainer>
       </div>
 

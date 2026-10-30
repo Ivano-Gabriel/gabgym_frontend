@@ -30,3 +30,11 @@
 .biblioteca-page :is(a,button):focus-visible{outline:3px solid #ffa17d;outline-offset:3px}
 @media(max-width:760px){.article-nav-buttons{display:none}.biblioteca-page{padding-top:24px}.biblioteca-tabs{gap:6px}.article-card{padding:18px 14px}.biblioteca-main-title{font-size:53px}}
 @media(prefers-reduced-motion:reduce){.youtube-link-card,.biblioteca-tabs .tab-button{transition:none}}
+
+
+/* Setas visíveis no celular para artigo anterior / próximo. */
+@media(max-width:760px){
+ .biblioteca-page .article-nav-buttons{display:flex;position:fixed;top:auto;bottom:calc(103px + env(safe-area-inset-bottom,0px));right:13px;transform:none;flex-direction:row;z-index:800;gap:10px;}
+ .biblioteca-page .nav-arrow-button{width:51px;height:51px;background:linear-gradient(145deg,#ffbd99,#ff7847 75%,#b94a30);color:#111719;border:1px solid #ffd3b0;box-shadow:0 7px 18px #0008;}
+ .biblioteca-page{padding-bottom:calc(187px + env(safe-area-inset-bottom,0px));}
+}
