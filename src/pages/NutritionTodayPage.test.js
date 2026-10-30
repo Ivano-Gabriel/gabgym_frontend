@@ -84,5 +84,5 @@ test('salvar no banco e falhar a leitura posterior não sugere repetir a gravaç
   render(<NutritionTodayPage />);
   fireEvent.click(await screen.findByRole('button', { name: '+ 250 ML' }));
   await waitFor(() => expect(addDiaryLog).toHaveBeenCalledTimes(1));
-  expect(await screen.findByText(/Registro salvo.*atualizar/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Registro salvo.*Atualize a página/i)).toBeInTheDocument();
 });
