@@ -1,7 +1,7 @@
 name: GabGym frontend build and tests
 on:
   push:
-    branches: ['rescue/**']
+    branches: ['rescue/**', 'feature/**']
   pull_request:
     branches: [main]
 permissions:
