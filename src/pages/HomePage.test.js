@@ -1,9 +1,12 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import HomePage from './HomePage';
 import { getCurrentUser, getDiaryLogs, warmUpApi } from '../services/apiService';
 
+jest.mock('react-router-dom', () => ({
+  Link: ({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
+  useLocation:()=>({pathname:'/'})
+}));
 jest.mock('../utils/auth', () => ({ isLoggedIn: () => true, isSuperAdmin: () => false }));
 jest.mock('../services/apiService', () => ({
   getCurrentUser: jest.fn(), getDiaryLogs: jest.fn(), warmUpApi: jest.fn()
@@ -14,7 +17,7 @@ beforeEach(() => {
   getDiaryLogs.mockResolvedValue({data:[{id:1,type:'food',calories:540},{id:2,type:'water',volume:500}]});
 });
 test('Hoje é painel pessoal, não a landing antiga, e usa registros reais', async () => {
-  render(<MemoryRouter><HomePage /></MemoryRouter>);
+  render(<HomePage />);
   expect(await screen.findByRole('heading', {name:/seu dia/i})).toBeInTheDocument();
   expect(screen.getByText(/540 kcal/)).toBeInTheDocument();
   expect(screen.getByText(/500 ml/)).toBeInTheDocument();
