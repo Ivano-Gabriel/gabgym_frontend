@@ -51,3 +51,15 @@
 @media(prefers-reduced-motion: reduce) {
   .gg-today-progress-card,.gg-today-track span { transition:none; }
 }
+
+
+/* Luz e energia, sem perder o grafite */
+.gg-today{background:radial-gradient(ellipse at 12% 1%,#61402d82,transparent 43%),#191f23;}
+.gg-today-fire{display:flex;align-items:center;gap:14px;margin:0 0 22px;padding:17px 16px;border:1px solid #b87d55;border-radius:14px;background:linear-gradient(140deg,#4c342b,#2c2d2b 68%,#30343a);box-shadow:inset 0 1px 1px #ffe1bd48,0 8px 25px #00000035;}
+.gg-today-fire>svg{color:#ff9553;font-size:37px;filter:drop-shadow(0 0 8px #ff814862);flex-shrink:0}
+.gg-today-fire>div{flex:1;min-width:0;display:grid;gap:7px;}
+.gg-today-fire strong{font:850 clamp(19px,4.8vw,27px)/1 var(--gg-font-display,Impact,sans-serif);color:#ffe2c8;}
+.gg-today-fire small{font-size:11px;line-height:1.6;color:#dfc9bb;}
+.gg-today-fire>span{font-size:22px;color:#ffbe84;}
+.gg-today-progress-card{background:linear-gradient(140deg,#364147,#263137 70%);border-color:#7a6a5c;box-shadow:inset 0 1px 2px #ffffff35,0 9px 22px #0000003b;}
+.gg-today-shortcuts a{background:linear-gradient(150deg,#ffcaa9,#ff8a58 70%,#d65a36);box-shadow:inset 0 1px 2px #fff7,0 6px 20px #ff784745;}
