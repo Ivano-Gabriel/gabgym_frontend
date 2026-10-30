@@ -37,7 +37,7 @@ function SelectActivityPage() {
           ))}
         </div>
 
-        <Link to="/perfil" className="gg-select-back"><FiArrowLeft /> Voltar pro Perfil</Link>
+        <Link to="/treino" className="gg-select-back"><FiArrowLeft /> Voltar para Treino + Cardio</Link>
       </div>
     </div>
   );
