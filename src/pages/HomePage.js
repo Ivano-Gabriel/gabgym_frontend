@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiActivity, FiCoffee, FiTrendingUp } from 'react-icons/fi';
 import { isLoggedIn, isSuperAdmin } from '../utils/auth';
+import { warmUpApi } from '../services/apiService';
 import './HomePage.css';
 
 const pillars = [
@@ -11,6 +12,7 @@ const pillars = [
 ];
 
 export default function HomePage() {
+  useEffect(() => { warmUpApi(); }, []);
   const loggedIn = isLoggedIn();
   const admin = isSuperAdmin();
   const start = !loggedIn ? '/signup' : admin ? '/admin' : '/alimentacao';
