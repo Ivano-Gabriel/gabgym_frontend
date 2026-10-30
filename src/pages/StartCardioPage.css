@@ -7,7 +7,7 @@
   min-height: calc(100vh - 70px);
   padding: 24px 16px;
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -83,7 +83,7 @@
 .gg-startcardio-btn-primary {
   background: var(--gg-green);
   color: #0A0F0C;
-  box-shadow: 0 0 18px rgba(116, 232, 93, 0.3);
+  box-shadow: 0 0 18px rgba(255, 120, 71, 0.3);
 }
 
 .gg-startcardio-btn-primary.full { width: 100%; }
@@ -94,3 +94,14 @@
   color: var(--gg-text);
   border: 1px solid var(--gg-line);
 }
+/* Revisão de cores GABGYM 2.4 */
+
+.gg-startcardio-container { background:#0e1113; padding:25px 16px calc(100px + env(safe-area-inset-bottom,0px)); }
+.gg-startcardio-card { background:#1c2326; border-color:#465054; border-radius:15px; padding:26px 18px; }
+.gg-startcardio-title { font:850 clamp(40px,9vw,61px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-startcardio-timer { font:900 clamp(49px,12vw,78px)/1 var(--gg-font-display,Impact,sans-serif); color:#ff986e; font-variant-numeric:tabular-nums; }
+.gg-startcardio-btn-primary { background:#ff7847; color:#111719; box-shadow:0 6px 20px rgba(255,120,71,.16); }
+.gg-startcardio-btn-secondary { background:#252d30; color:#f5f2ea; border-color:#5e696d; }
+.gg-startcardio-back { color:#ffb593; }
+.gg-startcardio-btn-primary,.gg-startcardio-btn-secondary { min-height:56px; }
+.gg-startcardio-container button:focus-visible { outline:3px solid #ffb18c; outline-offset:2px; }
