@@ -292,7 +292,7 @@ export default function NutritionTodayPage() {
                     inputMode="decimal" value={servings} onChange={event => setServings(event.target.value)} /></label>
                   <button type="button" aria-label="Aumentar porções" disabled={Number(servings) >= 20}
                     onClick={() => setServings(String(Math.min(20, (Number(servings) || 0) + 0.25)))}><FiPlus /></button>
-                </div>
+                </div>}
                 {!referenceGrams && <p className="gg-daily-gram-hint">Este alimento não possui referência em gramas confiável no catálogo. Use porções ou registre manualmente.</p>}
                 <p className="gg-daily-portion-estimate">{estimate ? estimate.calories + ' kcal · ' + formatGram(estimate.protein) + ' g de proteína' : 'Insira entre 0,25 e 20 porções.'}</p>
                 {estimate && target && <p className="gg-daily-prediction">
