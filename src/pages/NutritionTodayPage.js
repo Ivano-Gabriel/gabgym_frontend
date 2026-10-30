@@ -76,7 +76,7 @@ export default function NutritionTodayPage() {
     const quantity = Number(servings);
     const item = {
       type: 'food', userId: user.id,
-      name: selectedFood.name + ' (' + quantity.toLocaleString('pt-BR') + ' porção' + (quantity !== 1 ? 'ões' : '') + ')',
+      name: selectedFood.name + ' (' + quantity.toLocaleString('pt-BR') + ' ' + (quantity !== 1 ? 'porções' : 'porção') + ')',
       ...estimate, volume: 0, logDate: dayKey(), timestamp: Date.now(),
     };
     await perform(() => addDiaryLog(item), 'Alimento registrado. Um dia de cada vez.');
