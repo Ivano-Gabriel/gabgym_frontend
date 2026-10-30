@@ -11,6 +11,7 @@ import MobileMenu from './components/MobileMenu';
 import TutorialModal from './components/TutorialModal';
 import MeAjudePage from './pages/MeAjudePage';
 import TrainingModels from './pages/TrainingModels';
+import TrainingTodayPage from './pages/TrainingTodayPage';
 import TrainingPlanPage from './pages/TrainingPlanPage';
 import MuscleGroupPage from './pages/MuscleGroupPage';
 import DietPage from './pages/DietPage';
@@ -135,7 +136,9 @@ function AppContent() {
           {nutritionLegacyAliases.map(path => <Route key={path} path={path} element={<Navigate to={nutritionHome} replace />} />)}
           <Route path="/legado/diario-alimentar" element={<RequireAuth><DiarioAlimentarPage /></RequireAuth>} />
           <Route path="/legado/biblioteca-alimentos" element={<FoodLibraryPage />} />
-          <Route path="/training-models" element={<TrainingModels />} />
+          <Route path="/training-models" element={<Navigate to="/treino" replace />} />
+          <Route path="/treino" element={<RequireAuth><TrainingTodayPage /></RequireAuth>} />
+          <Route path="/legado/training-models" element={<TrainingModels />} />
           <Route path="/legado/dietas" element={<DietPage />} />
           <Route path="/alimentacao" element={<RequireAuth><NutritionTodayPage /></RequireAuth>} />
           <Route path="/cardio" element={<CardioPage />} />

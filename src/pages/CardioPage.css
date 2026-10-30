@@ -129,7 +129,7 @@
   font-weight: 700;
   margin: 12px 0 0 16px;
 }
-.gg-cardio-back:hover { color: var(--gg-neon, #B6FF6E); }
+.gg-cardio-back:hover { color: var(--gg-neon, #FF7847); }
 
 .gg-cardio-activity-name {
   text-align: center;
@@ -139,3 +139,9 @@
   margin: 8px 0;
   color: var(--gg-text, #fff);
 }
+/* Revisão de cores GABGYM 2.4 */
+
+/* Rota de GPS continua com os componentes e cálculos originais. */
+.gg-cardio-container { background:#0e1113; }
+.gg-cardio-back { color:#ffad89; }
+.gg-cardio-container :is(button,a):focus-visible { outline:3px solid #ffae88; outline-offset:2px; }

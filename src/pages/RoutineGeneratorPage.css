@@ -6,7 +6,7 @@
   padding: 24px 16px 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -126,3 +126,14 @@
 @media (min-width: 640px) {
   .gg-rg-grid { grid-template-columns: 1fr 1fr; }
 }
+/* Revisão de cores GABGYM 2.4 */
+
+.gg-rg-container { background:#0e1113; padding-bottom:calc(105px + env(safe-area-inset-bottom,0px)); }
+.gg-rg-top { text-align:left; }
+.gg-rg-title { font:850 clamp(42px,8vw,64px)/1 var(--gg-font-display,Impact,sans-serif); }
+.gg-rg-subtitle { line-height:1.6; font-size:12px; }
+.gg-rg-plan-card { border-radius:13px; }
+.gg-rg-plan-overlay { background:linear-gradient(to top,rgba(14,17,19,.97),rgba(14,17,19,.40) 61%,transparent); }
+.gg-rg-gender-toggle { background:#20272a; border-color:#495256; }
+.gg-rg-gender-btn.active { background:#ff7847; color:#111719; }
+.gg-rg-container :is(a,button):focus-visible { outline:3px solid #ff9d7b; outline-offset:3px; }

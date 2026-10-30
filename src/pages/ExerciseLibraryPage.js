@@ -89,7 +89,7 @@ function ExerciseLibraryPage() {
         ))}
       </div>
 
-      <Link to="/training-models" className="gg-exlib-back"><FiArrowLeft /> Voltar</Link>
+      <Link to="/treino" className="gg-exlib-back"><FiArrowLeft /> Voltar</Link>
     </div>
   );
 }

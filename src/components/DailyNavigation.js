@@ -32,12 +32,12 @@ export default function DailyNavigation() {
   const primary = [
     { label: 'Hoje', to: '/', icon: FiHome },
     { label: 'Comer', to: '/alimentacao', icon: FiCoffee },
-    { label: 'Treino', to: '/training-models', icon: FiActivity },
+    { label: 'Treino', to: '/treino', icon: FiActivity },
     { label: admin ? 'Admin' : 'Perfil', to: admin ? '/admin' : '/perfil', icon: admin ? FiShield : FiUser },
   ];
   const menu = [
     { label: 'Alimentação', to: '/alimentacao', icon: FiCoffee, summary: 'Registre suas refeições' },
-    { label: 'Treinos', to: '/training-models', icon: FiActivity, summary: 'Continue seu treino' },
+    { label: 'Treinos', to: '/treino', icon: FiActivity, summary: 'Continue seu treino' },
     { label: 'Cardio', to: '/cardio/select', icon: FiHeart, summary: 'Escolha sua atividade' },
     { label: 'Metas', to: '/minhas-metas', icon: FiTarget, summary: 'Defina o próximo passo' },
     { label: 'Progresso', to: '/perfil', icon: FiBarChart2, summary: 'Veja sua evolução' },
