@@ -1,70 +1,46 @@
-// src/pages/MeAjudePage.js
-import React, { useState } from 'react';
+import React from 'react';
+import {FiChevronDown,FiHelpCircle,FiArrowUpRight,FiMessageCircle,FiMail} from 'react-icons/fi';
+import {FaWhatsapp,FaInstagram} from 'react-icons/fa';
 import './MeAjudePage.css';
-import { FaWhatsapp, FaInstagram, FaEnvelope } from 'react-icons/fa';
 
-// Mini-componente para o item do FAQ (Acordeão)
-const FaqItem = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="faq-item">
-      <div className="faq-question" onClick={() => setIsOpen(!isOpen)}>
-        <span>{question}</span>
-        <span className={`faq-arrow ${isOpen ? 'open' : ''}`}>›</span>
-      </div>
-      {isOpen && <div className="faq-answer">{answer}</div>}
-    </div>
-  );
-};
-
-function MeAjudePage() {
-  const faqs = [
-    { q: "Como o GabGym cria meus treinos?", a: "Nossos treinos são baseados em metodologias consagradas de musculação, adaptados para a frequência que você escolher. Eles são um excelente ponto de partida para iniciantes e intermediários." },
-    { q: "Os dados que eu registro no Diário de Bordo são privados?", a: "Sim! 100% privados. Todos os seus dados de metas, fotos, cardio e dieta são salvos de forma segura e só você tem acesso a eles." },
-    { q: "Posso usar o GabGym de graça?", a: "Sim! O GabGym é um projeto de portfólio e uma ferramenta para a comunidade. Todas as funcionalidades atuais são e sempre serão gratuitas." },
-  ];
-
-  return (
-    <div className="me-ajude-container">
-      <div className="me-ajude-content">
-        <h1 className="me-ajude-title">Central de Ajuda & Contato</h1>
-        <p className="me-ajude-text">
-          Tem alguma dúvida, sugestão ou encontrou algum problema? Estamos aqui para ajudar.
-        </p>
-
-        <div className="ajuda-section">
-          <h2 className="ajuda-section-title">Perguntas Frequentes (FAQ)</h2>
-          <div className="faq-list">
-            {faqs.map((faq, index) => (
-              <FaqItem key={index} question={faq.q} answer={faq.a} />
-            ))}
-          </div>
+const questions=[
+  {question:'Onde ficam meus registros?',answer:'Alimentos, água, treinos e atividades registrados no diário ficam associados à sua conta no servidor. Referências pessoais de calorias e água, medidas extras e foto de perfil ainda ficam somente neste navegador durante o piloto.'},
+  {question:'Por que o login demora às vezes?',answer:'O servidor do piloto pode entrar em repouso quando fica sem acessos. Quando isso acontece, a primeira tentativa pode demorar mais para carregar.'},
+  {question:'Como acompanhar minha evolução?',answer:'Abra Hoje para o resumo diário, Histórico para os últimos sete dias e Registros para conferir e corrigir lançamentos do dia.'},
+  {question:'Posso usar o GABGYM gratuitamente?',answer:'O GABGYM está em fase piloto. As funcionalidades disponíveis atualmente podem ser testadas sem cobrança.'},
+];
+const contacts=[
+  {label:'WhatsApp',href:'https://wa.me/5582996230505',Icon:FaWhatsapp},
+  {label:'Instagram',href:'https://instagram.com/i.gabriel13_',Icon:FaInstagram},
+  {label:'E-mail',href:'mailto:gabrimelo90@gmail.com',Icon:FiMail}
+];
+export default function MeAjudePage(){
+  return <main className="gg-help">
+    <div className="gg-help-inner">
+      <header className="gg-help-header">
+        <span><FiHelpCircle aria-hidden="true"/> SUPORTE / GABGYM</span>
+        <h1>PRECISA DE AJUDA<span>.</span></h1>
+        <p>Dúvidas rápidas e contato direto, sem complicação.</p>
+      </header>
+      <section aria-labelledby="gg-help-faq">
+        <div className="gg-help-title"><span>01 / RESPOSTAS</span><h2 id="gg-help-faq">DÚVIDAS FREQUENTES.</h2></div>
+        <div className="gg-help-faq">
+          {questions.map(({question,answer})=><details key={question}>
+            <summary>{question}<FiChevronDown aria-hidden="true"/></summary>
+            <p>{answer}</p>
+          </details>)}
         </div>
-
-        <div className="ajuda-section">
-          <h2 className="ajuda-section-title">Fale Comigo</h2>
-          <div className="contact-list">
-            <a href="https://wa.me/5582996230505" target="_blank" rel="noopener noreferrer" className="contact-item">
-              <FaWhatsapp className="contact-icon whatsapp" />
-              <span>WhatsApp</span>
-            </a>
-            <a href="https://instagram.com/i.gabriel13_" target="_blank" rel="noopener noreferrer" className="contact-item">
-              <FaInstagram className="contact-icon instagram" />
-              <span>Instagram</span>
-            </a>
-            <a href="mailto:gabrimelo90@gmail.com" className="contact-item">
-              <FaEnvelope className="contact-icon email" />
-              <span>E-mail</span>
-            </a>
-
-            
-          </div>
+      </section>
+      <section aria-labelledby="gg-help-contact">
+        <div className="gg-help-title"><span>02 / CONTATO</span><h2 id="gg-help-contact">FALE COMIGO.</h2></div>
+        <div className="gg-help-contacts">
+          {contacts.map(({label,href,Icon})=><a href={href} target={href.startsWith('http')?'_blank':undefined}
+            rel={href.startsWith('http')?'noopener noreferrer':undefined} key={label}>
+            <Icon aria-hidden="true"/><strong>{label}</strong><FiArrowUpRight aria-hidden="true"/>
+          </a>)}
         </div>
-        
-      </div>
+      </section>
+      <p className="gg-help-footer"><FiMessageCircle aria-hidden="true"/> A GENTE MELHORA UM DIA DE CADA VEZ.</p>
     </div>
-  );
+  </main>;
 }
-
-export default MeAjudePage;
