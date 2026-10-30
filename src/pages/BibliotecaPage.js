@@ -1,5 +1,5 @@
 // src/pages/BibliotecaPage.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { articles } from '../data/articles';
@@ -48,7 +48,7 @@ function BibliotecaPage() {
   const [currentArticleIndex, setCurrentArticleIndex] = useState(-1);
   
   const articleRefs = useRef([]);
-  const filteredArticles = articles.filter(article => article.category === activeTab);
+  const filteredArticles = useMemo(() => articles.filter(article => article.category === activeTab), [activeTab]);
 
   // Efeito para o deep-linking (âncora) - SEM MUDANÇAS
   useEffect(() => {
@@ -80,6 +80,8 @@ function BibliotecaPage() {
   useEffect(() => {
     articleRefs.current = articleRefs.current.slice(0, filteredArticles.length);
 
+    // Ainda permite leitura e abas em navegadores sem IntersectionObserver.
+    if (typeof IntersectionObserver !== 'function') return undefined;
     const observer = new IntersectionObserver(
       (entries) => {
         const intersectingEntry = entries.find(entry => entry.isIntersecting);
@@ -131,20 +133,20 @@ function BibliotecaPage() {
 
   return (
     <div className="content-page biblioteca-page">
-      <h2 className="biblioteca-main-title">{t('biblioteca.titulo')}</h2>
+      <h1 className="biblioteca-main-title">{t('biblioteca.titulo')}</h1>
       <p className="curiosities-main-subtitle">{t('biblioteca.subtitulo')}</p>
       
-      <div className="biblioteca-tabs">
-        <button className={`tab-button ${activeTab === 'suplementacao' ? 'active' : ''}`} onClick={() => setActiveTab('suplementacao')}>
+      <nav className="biblioteca-tabs" aria-label="Categorias da biblioteca">
+        <button type="button" aria-pressed={activeTab === 'suplementacao'} className={`tab-button ${activeTab === 'suplementacao' ? 'active' : ''}`} onClick={() => { setActiveTab('suplementacao'); setCurrentArticleIndex(-1); }}>
           {t('biblioteca.aba_suplementacao')}
         </button>
-        <button className={`tab-button ${activeTab === 'treinamento' ? 'active' : ''}`} onClick={() => setActiveTab('treinamento')}>
+        <button type="button" aria-pressed={activeTab === 'treinamento'} className={`tab-button ${activeTab === 'treinamento' ? 'active' : ''}`} onClick={() => { setActiveTab('treinamento'); setCurrentArticleIndex(-1); }}>
           {t('biblioteca.aba_treinamento')}
         </button>
-        <button className={`tab-button ${activeTab === 'alimentacao' ? 'active' : ''}`} onClick={() => setActiveTab('alimentacao')}>
+        <button type="button" aria-pressed={activeTab === 'alimentacao'} className={`tab-button ${activeTab === 'alimentacao' ? 'active' : ''}`} onClick={() => { setActiveTab('alimentacao'); setCurrentArticleIndex(-1); }}>
           {t('biblioteca.aba_alimentacao')}
         </button>
-      </div>
+      </nav>
 
       <div className="biblioteca-content">
         {filteredArticles.map((article, index) => (
@@ -181,6 +183,8 @@ function BibliotecaPage() {
       <div className="article-nav-buttons">
         <button 
             className="nav-arrow-button" 
+            aria-label="Artigo anterior"
+            type="button"
             onClick={handlePreviousArticle}
             disabled={currentArticleIndex <= 0}
             title="Artigo Anterior"
@@ -189,6 +193,8 @@ function BibliotecaPage() {
         </button>
         <button 
             className="nav-arrow-button" 
+            aria-label="Próximo artigo"
+            type="button"
             onClick={handleNextArticle}
             disabled={currentArticleIndex >= filteredArticles.length - 1}
             title="Próximo Artigo"
