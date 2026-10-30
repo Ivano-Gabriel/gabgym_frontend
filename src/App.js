@@ -49,6 +49,7 @@ import { isLoggedIn, isSuperAdmin } from './utils/auth';
 import AdminPage from './pages/AdminPage';
 import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
 import './components/Header.css';
+import './styles/metalFinish.css';
 
 
 function RequireAuth({ children, admin = false }) {
