@@ -1,12 +1,16 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import DailyNavigation from './DailyNavigation';
 
+jest.mock('react-router-dom', () => ({
+  Link: ({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
+  NavLink: ({to,children,className,...props})=>require('react').createElement('a',{href:to,className:typeof className==='function'?className({isActive:to==='/'}):className,...props},children),
+  useLocation:()=>({pathname:'/'})
+}));
 jest.mock('../utils/auth', () => ({ isSuperAdmin: () => false }));
 
 test('menu mobile tem acesso direto a hoje, comer, hub, treino e perfil', () => {
-  render(<MemoryRouter><DailyNavigation /></MemoryRouter>);
+  render(<DailyNavigation />);
   expect(screen.getByRole('link', { name: /hoje/i })).toHaveAttribute('href', '/');
   expect(screen.getByRole('link', { name: /comer/i })).toHaveAttribute('href', '/alimentacao');
   expect(screen.getByRole('link', { name: /treino/i })).toHaveAttribute('href', '/training-models');
