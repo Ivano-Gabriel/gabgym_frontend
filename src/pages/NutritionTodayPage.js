@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2 } from 'react-icons/fi';
+import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiScale, FiImage } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
-import { dayKey, summarizeDay, scaleFood, isValidServingCount } from '../utils/nutrition';
+import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import './NutritionTodayPage.css';
 
 const todayLabel = () => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
@@ -20,6 +20,16 @@ export default function NutritionTodayPage() {
   const [category, setCategory] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [servings, setServings] = useState('1');
+  const [quantityMode, setQuantityMode] = useState('servings');
+  const [grams, setGrams] = useState('100');
+  const [showCustom, setShowCustom] = useState(false);
+  const [custom, setCustom] = useState({ name: '', grams: '', calories: '', protein: '', carbs: '', fat: '' });
+  const [dailyGoal, setDailyGoal] = useState('');
+  const [waterGoal, setWaterGoal] = useState('');
+  const [editGoals, setEditGoals] = useState(false);
+  const portionPanelRef = useRef(null);
+  const foodSectionRef = useRef(null);
+  const [brokenImages, setBrokenImages] = useState({});
 
   useEffect(() => {
     let mounted = true;
@@ -32,6 +42,10 @@ export default function NutritionTodayPage() {
         const records = await getDiaryLogs(person.id, dayKey());
         if (!mounted) return;
         setUser(person);
+        // Preferencias locais temporarias do piloto (por conta, neste dispositivo).
+        // Nao se confunde com uma meta clinica nem com metabolismo basal.
+        setDailyGoal(localStorage.getItem('gabgym:daily-goal:' + person.id) || '');
+        setWaterGoal(localStorage.getItem('gabgym:water-goal:' + person.id) || '');
         setFoods(Array.isArray(catalog.data) ? catalog.data : []);
         setLogs(Array.isArray(records.data) ? records.data : []);
       } catch {
@@ -50,7 +64,46 @@ export default function NutritionTodayPage() {
     const matchesName = food.name?.toLocaleLowerCase('pt-BR').includes(query.trim().toLocaleLowerCase('pt-BR'));
     return matchesName && (!category || food.category?.name === category);
   }).slice(0, 18), [foods, category, query]);
-  const estimate = selectedFood && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null;
+  const referenceGrams = selectedFood ? parseReferenceGrams(selectedFood) : null;
+  const estimate = selectedFood
+    ? quantityMode === 'grams' && referenceGrams
+      ? (Number(grams) >= 1 && Number(grams) <= 3000 ? scaleFoodGrams(selectedFood, grams) : null)
+      : quantityMode === 'servings' && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null
+    : null;
+  const target = Number(dailyGoal) >= 500 && Number(dailyGoal) <= 7000 ? Number(dailyGoal) : null;
+  const progress = target ? calorieProgress(totals.calories, target) : null;
+  const hydrationTarget = Number(waterGoal) >= 250 && Number(waterGoal) <= 10000 ? Number(waterGoal) : null;
+  const hydrationProgress = hydrationTarget ? calorieProgress(totals.water, hydrationTarget) : null;
+  const restingEnergy = estimateRestingEnergy(user);
+  useEffect(() => {
+    if (!selectedFood || !portionPanelRef.current) return;
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    portionPanelRef.current.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+  }, [selectedFood]);
+
+  const chooseFood = food => {
+    setSelectedFood(food);
+    setQuantityMode('servings');
+    setServings('1');
+    setGrams(String(parseReferenceGrams(food) || 100));
+    setMessage('');
+  };
+  const saveGoals = () => {
+    if (!user) return;
+    const caloriesValid = dailyGoal === '' || (Number.isFinite(Number(dailyGoal)) && Number(dailyGoal) >= 500 && Number(dailyGoal) <= 7000);
+    const waterValid = waterGoal === '' || (Number.isFinite(Number(waterGoal)) && Number(waterGoal) >= 250 && Number(waterGoal) <= 10000);
+    if (!caloriesValid || !waterValid) { setError('Confira as referências diárias informadas.'); return; }
+    localStorage.setItem('gabgym:daily-goal:' + user.id, dailyGoal);
+    localStorage.setItem('gabgym:water-goal:' + user.id, waterGoal);
+    setEditGoals(false);
+    setError('');
+    setMessage('Referências salvas neste dispositivo. Você pode ajustá-las quando quiser.');
+  };
+  const foodImage = food => {
+    const path = food?.imagePath;
+    return typeof path === 'string' && /^\/imagens_comidas\/[A-Za-z0-9_.-]+\.(?:png|jpe?g|webp)$/i.test(path)
+      ? path : null;
+  };
   const water = logs.filter(item => item.type === 'water');
   const foodLogs = logs.filter(item => item.type === 'food');
 
@@ -75,14 +128,40 @@ export default function NutritionTodayPage() {
 
   const addFood = async () => {
     if (!selectedFood || !estimate || busy) return;
-    const quantity = Number(servings);
+    const quantity = quantityMode === 'grams' ? Number(grams) : Number(servings);
     const item = {
       type: 'food', userId: user.id,
-      name: selectedFood.name + ' (' + quantity.toLocaleString('pt-BR') + ' ' + (quantity !== 1 ? 'porções' : 'porção') + ')',
+      name: selectedFood.name + ' (' + quantity.toLocaleString('pt-BR') + ' ' + (
+        quantityMode === 'grams' ? 'g' : quantity !== 1 ? 'porções' : 'porção') + ')',
       ...estimate, volume: 0, logDate: dayKey(), timestamp: Date.now(),
     };
     const saved = await perform(() => addDiaryLog(item), 'Alimento registrado. Um dia de cada vez.');
-    if (saved) { setSelectedFood(null); setServings('1'); }
+    if (saved) { setSelectedFood(null); setServings('1'); setQuantityMode('servings'); }
+  };
+  const addCustom = async event => {
+    event.preventDefault();
+    const calories = Number(custom.calories);
+    const name = custom.name.trim();
+    const mass = custom.grams === '' ? null : Number(custom.grams);
+    if (name.length < 2 || name.length > 65 || !Number.isInteger(calories) || calories < 0 || calories > 5000 ||
+      (mass !== null && (!Number.isFinite(mass) || mass <= 0 || mass > 3000))) {
+      setError('Informe um nome, calorias entre 0 e 5.000 e, se desejar, até 3.000 g.');
+      return;
+    }
+    const macros = {};
+    for (const key of ['protein', 'carbs', 'fat']) {
+      const value = custom[key] === '' ? 0 : Number(custom[key]);
+      if (!Number.isFinite(value) || value < 0 || value > 1000) {
+        setError('Confira os macronutrientes informados.');
+        return;
+      }
+      macros[key] = value;
+    }
+    const entry = { type: 'food', userId: user.id,
+      name: name + (mass ? ' (' + mass.toLocaleString('pt-BR') + ' g — manual)' : ' (manual)'),
+      calories, ...macros, volume: 0, logDate: dayKey(), timestamp: Date.now() };
+    const saved = await perform(() => addDiaryLog(entry), 'Seu alimento foi registrado.');
+    if (saved) { setCustom({ name: '', grams: '', calories: '', protein: '', carbs: '', fat: '' }); setShowCustom(false); }
   };
   const addWater = milliliters => perform(
     () => addDiaryLog({ userId: user.id, type: 'water', name: 'Água', volume: milliliters,
