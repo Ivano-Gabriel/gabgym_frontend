@@ -103,7 +103,7 @@ export default function TodayDashboard() {
           </div> :
             <Link className="gg-today-no-goal" to="/minhas-metas"><FiTarget aria-hidden="true"/><span><strong>SEM METAS? DEFINA A PRIMEIRA.</strong><small>Corrida, hidratação ou hábitos. Escolha algo possível para hoje.</small></span><FiArrowRight aria-hidden="true"/></Link>}
           <div className="gg-today-shortcuts">
-            <Link to="/training-models"><FiActivity aria-hidden="true"/> INICIAR TREINO <FiArrowRight aria-hidden="true"/></Link>
+            <Link to="/treino"><FiActivity aria-hidden="true"/> INICIAR TREINO <FiArrowRight aria-hidden="true"/></Link>
             <Link to="/alimentacao"><FiCoffee aria-hidden="true"/> REGISTRAR REFEIÇÃO <FiArrowRight aria-hidden="true"/></Link>
           </div>
         </>}
