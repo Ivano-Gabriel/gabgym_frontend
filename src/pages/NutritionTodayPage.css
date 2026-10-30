@@ -1,0 +1,99 @@
+/* GABGYM / Alimentacao diaria - mobile-first, sem fotos, sem efeitos pesados. */
+.gg-daily {
+  min-height: 100dvh;
+  padding: 24px 16px calc(108px + env(safe-area-inset-bottom, 0px));
+  background: #0e1113; color: #f5f2ea; text-align: left;
+  font-family: var(--gg-font-body, 'Manrope', sans-serif);
+}
+.gg-daily * { box-sizing: border-box; }
+.gg-daily-wrap { width: 100%; max-width: 1060px; margin: 0 auto; }
+.gg-daily .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.gg-daily-eyebrow { display: flex; align-items: center; gap: 10px; color: #ff956f; letter-spacing: .14em; font-size: 10px; font-weight: 850; }
+.gg-daily-dot { width: 8px; height: 8px; background: #ff7847; display: inline-block; transform: skew(-15deg); }
+.gg-daily-title { padding: 18px 0 23px; display: flex; align-items: end; justify-content: space-between; gap: 12px; border-bottom: 1px solid #394043; }
+.gg-daily-title h1 { margin: 0 0 9px; font-family: var(--gg-font-display, Impact, sans-serif); font-size: clamp(49px, 9vw, 86px); letter-spacing: .012em; line-height: .9; }
+.gg-daily-title h1 span { color: #ff7847; }
+.gg-daily-title p { font-size: 12px; margin: 0; line-height: 1.65; color: #bac2c4; max-width: 450px; }
+.gg-daily-date { flex: 0 0 auto; color: #aeb9bb; font-size: 10px; font-weight: 750; text-transform: uppercase; text-align: right; max-width: 105px; line-height: 1.5; }
+.gg-daily-dashboard { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); margin: 22px 0 42px; border: 1px solid #40474a; border-radius: 9px; overflow: hidden; }
+.gg-daily-primary { min-width: 0; background: #ff7847; color: #101315; padding: clamp(20px, 3vw, 35px); }
+.gg-daily-primary > span { display: block; font-size: 11px; font-weight: 900; letter-spacing: .14em; }
+.gg-daily-primary strong { font: 800 clamp(58px, 9vw, 96px)/.98 var(--gg-font-display, Impact, sans-serif); display: block; margin: 14px 0 10px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.gg-daily-primary strong small { font: 800 14px var(--gg-font-body, Arial, sans-serif); letter-spacing: .09em; }
+.gg-daily-primary p { max-width: 330px; font-size: 11px; font-weight: 650; line-height: 1.6; margin: 0 0 18px; }
+.gg-daily-count { display: inline-flex; border-top: 1px solid rgba(14,17,19,.34); padding-top: 10px; font-size: 11px; font-weight: 800; }
+.gg-daily-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gg-daily-metrics > div { min-width: 0; padding: clamp(16px, 2.6vw, 26px); display: flex; flex-direction: column; justify-content: space-between; gap: 15px; border-bottom: 1px solid #3a4245; border-right: 1px solid #3a4245; background: #1b2225; }
+.gg-daily-metrics > div:nth-child(even) { border-right: 0; }
+.gg-daily-metrics > div:nth-child(n+3) { border-bottom: 0; }
+.gg-daily-metrics span { font-size: 9px; letter-spacing: .13em; font-weight: 900; color: #b7bfc2; }
+.gg-daily-metrics strong { font-size: clamp(19px, 4.5vw, 32px); font-weight: 850; font-variant-numeric: tabular-nums; line-height: 1.1; overflow-wrap: anywhere; }
+.gg-daily-metrics small { font-size: 11px; color: #ff9674; }
+.gg-daily-section { margin-top: 32px; }
+.gg-daily-heading { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 18px; }
+.gg-daily-heading span { font-size: 10px; letter-spacing: .14em; font-weight: 900; color: #ff956f; }
+.gg-daily-heading h2 { font: 800 clamp(29px, 5.5vw, 47px)/1 var(--gg-font-display, Impact, sans-serif); margin: 9px 0 0; }
+.gg-daily-hint { text-align: right; color: #b7bec0 !important; font-size: 11px !important; letter-spacing: 0 !important; font-weight: 500 !important; }
+.gg-daily-search { width: 100%; min-height: 56px; border: 1px solid #566064; border-radius: 6px; background: #20272a; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+.gg-daily-search svg { flex: 0 0 auto; color: #ffa181; }
+.gg-daily-search input { height: 54px; border: none; outline: none; width: 100%; min-width: 0; background: transparent; color: #f5f2ea; font: 650 15px var(--gg-font-body, Arial, sans-serif); }
+.gg-daily-search input::placeholder { color: #b6bec0; }
+.gg-daily-search:focus-within { outline: 2px solid #ff7847; outline-offset: 2px; }
+.gg-daily-categories { display: flex; gap: 9px; overflow-x: auto; overscroll-behavior-inline: contain; padding: 15px 0 17px; scrollbar-width: thin; }
+.gg-daily-categories button { flex: 0 0 auto; min-height: 43px; padding: 0 15px; background: #242b2e; color: #d4dcdd; border: 1px solid #455054; border-radius: 5px; font: 800 10px var(--gg-font-body, Arial, sans-serif); letter-spacing: .045em; cursor: pointer; }
+.gg-daily-categories button.active { background: #ff7847; color: #111; border-color: #ff7847; }
+.gg-daily-food-list { display: grid; gap: 8px; }
+.gg-daily-food { display: flex; gap: 12px; align-items: center; width: 100%; min-height: 75px; padding: 12px 15px; border: 1px solid #394245; border-radius: 7px; text-align: left; color: #f5f2ea; background: #1c2225; cursor: pointer; }
+.gg-daily-food:hover,.gg-daily-food.selected { border-color: #ff7847; background: #262a2b; }
+.gg-daily-food > svg { margin-left: auto; flex: 0 0 auto; color: #ff9b77; }
+.gg-daily-food-icon { width: 33px; height: 33px; border: 1px solid #7e4b39; display: grid; place-items: center; color: #ff956f; font-size: 20px; border-radius: 4px; flex: 0 0 auto; }
+.gg-daily-food-name { display: grid; gap: 5px; min-width: 0; }
+.gg-daily-food-name strong { font-size: 13px; font-weight: 850; overflow-wrap: anywhere; }
+.gg-daily-food-name small { font-size: 11px; color: #b8c0c2; }
+.gg-daily-portion { margin-top: 17px; border: 1px solid #ff7847; border-radius: 9px; padding: 19px; background: #25272a; }
+.gg-daily-portion-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.gg-daily-portion-top span { color: #ffae91; font-size: 10px; font-weight: 900; letter-spacing: .12em; }
+.gg-daily-portion-top h3 { margin: 8px 0; font-size: 17px; }
+.gg-daily-portion-top p { margin: 0; color: #d5dbdc; font-size: 12px; }
+.gg-daily-close { border: 0; background: transparent; color: #f5f2ea; font-size: 26px; min-height: 44px; min-width: 44px; cursor: pointer; }
+.gg-daily-portion-actions { display: flex; gap: 9px; align-items: end; margin-top: 17px; }
+.gg-daily-portion-actions > button { width: 54px; height: 56px; flex: 0 0 54px; background: #1a2023; border: 1px solid #586468; color: #f5f2ea; border-radius: 5px; font-size: 18px; cursor: pointer; display: grid; place-items: center; }
+.gg-daily-portion-actions label { flex: 1; color: #e1e4e4; font-size: 10px; font-weight: 900; letter-spacing: .07em; }
+.gg-daily-portion-actions input { margin-top: 6px; display: block; background: #111719; color: white; border: 1px solid #566267; border-radius: 5px; height: 56px; width: 100%; padding: 10px; text-align: center; font: 850 18px var(--gg-font-body, Arial, sans-serif); }
+.gg-daily-portion-estimate { font-size: 13px; color: #d9e0e0; margin: 17px 0; }
+.gg-daily-cta { display: flex; width: 100%; align-items: center; justify-content: space-between; min-height: 56px; border: none; background: #ff7847; color: #101315; border-radius: 5px; padding: 0 18px; cursor: pointer; font: 900 12px var(--gg-font-body, Arial, sans-serif); letter-spacing: .04em; }
+.gg-daily-cta:disabled { opacity: .60; cursor: not-allowed; }
+.gg-daily-disclaimer { font-size: 11px; line-height: 1.6; color: #bfc8ca; margin-top: 15px; }
+.gg-daily-water { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 22px; border: 1px solid #394245; border-radius: 9px; background: #1c2225; }
+.gg-daily-water > div:first-child { display: grid; grid-template-columns: auto auto; gap: 4px 10px; align-items: center; }
+.gg-daily-water svg { color: #74c9e7; font-size: 23px; }
+.gg-daily-water strong { font-size: 25px; }
+.gg-daily-water span { grid-column: 2; color: #bec7c9; font-size: 11px; }
+.gg-daily-water-actions { display: flex; gap: 8px; }
+.gg-daily-water-actions button { min-height: 52px; border: 1px solid #74c9e7; color: #c9f0ff; background: #20343d; border-radius: 5px; padding: 0 15px; font: 850 11px var(--gg-font-body, Arial, sans-serif); cursor: pointer; }
+.gg-daily-water-actions button:disabled { opacity: .6; }
+.gg-daily-history { padding-bottom: 30px; }
+.gg-daily-history-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 13px 0; border-bottom: 1px solid #363e42; }
+.gg-daily-history-item > span { display: grid; gap: 5px; min-width: 0; }
+.gg-daily-history-item strong { font-size: 13px; overflow-wrap: anywhere; }
+.gg-daily-history-item small { font-size: 11px; color: #c0c8c9; }
+.gg-daily-history-item button { min-width: 48px; min-height: 48px; border: 1px solid #525c60; color: #ffb1a6; background: transparent; border-radius: 5px; display: grid; place-items: center; cursor: pointer; flex: 0 0 auto; }
+.gg-daily-next { display: flex; gap: 10px; margin-top: 20px; }
+.gg-daily-next a { display: inline-flex; align-items: center; gap: 8px; justify-content: center; flex: 1; min-height: 50px; border: 1px solid #5b666b; border-radius: 5px; color: #f5f2ea; text-decoration: none; font-size: 11px; font-weight: 800; }
+.gg-daily-state,.gg-daily-empty,.gg-daily-error,.gg-daily-success { padding: 19px; border-radius: 6px; color: #dae1e2; font-size: 13px; line-height: 1.6; }
+.gg-daily-state,.gg-daily-empty { background: #1b2225; border: 1px solid #444d50; }
+.gg-daily-error { background: #3b2426; color: #ffd8d3; border: 1px solid #ba6d6a; margin: 16px 0; }
+.gg-daily-success { background: #1b3731; color: #c5f5e5; border: 1px solid #74bca2; margin: 16px 0; }
+.gg-daily :is(a,button,input):focus-visible { outline: 3px solid #ff9b77; outline-offset: 3px; }
+.gg-daily :is(button,input) { touch-action: manipulation; }
+@media (max-width: 630px) {
+  .gg-daily-title { align-items: start; }
+  .gg-daily-dashboard { display: flex; flex-direction: column; }
+  .gg-daily-metrics > div { min-height: 92px; }
+  .gg-daily-water { align-items: stretch; flex-direction: column; }
+  .gg-daily-water-actions button { flex: 1; }
+  .gg-daily-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gg-daily * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
