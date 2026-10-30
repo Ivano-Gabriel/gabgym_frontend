@@ -189,7 +189,19 @@ export default function NutritionTodayPage() {
               <div className="gg-daily-primary">
                 <span>CONSUMO DE HOJE</span>
                 <strong>{totals.calories.toLocaleString('pt-BR')} <small>KCAL</small></strong>
-                <p>Registro real do que você consumiu. Sem compensar refeições com exercícios.</p>
+                <p>Somente o que você comeu. Gasto no treino fica separado.</p>
+                {progress ? <>
+                  <div className="gg-daily-progress-head"><span>{progress.percent}% DA REFERÊNCIA</span><span>{totals.calories.toLocaleString('pt-BR')} / {target.toLocaleString('pt-BR')} kcal</span></div>
+                  <div className="gg-daily-progress" role="progressbar" aria-label="Consumo em relação à meta alimentar" aria-valuenow={Math.min(totals.calories, target)} aria-valuemin="0" aria-valuemax={target}>
+                    <div style={{ width: progress.percent + '%' }} />
+                  </div>
+                  <p className="gg-daily-guidance" aria-live="polite">
+                    {progress.stage === 'over' ? 'Você ultrapassou sua referência em ' + Math.abs(progress.remaining) + ' kcal. Continue registrando normalmente.'
+                      : progress.stage === 'near' ? 'Perto da sua referência diária: faltam ' + progress.remaining + ' kcal.'
+                      : progress.stage === 'half' ? 'Você chegou à metade da referência. Continue seu dia.'
+                      : 'Um registro de cada vez. Faltam ' + progress.remaining + ' kcal para sua referência.'}
+                  </p>
+                </> : <p className="gg-daily-unset">Defina sua referência alimentar para acompanhar a barra de progresso.</p>}
                 <div className="gg-daily-count">{totals.meals} alimento{totals.meals !== 1 ? 's' : ''} registrado{totals.meals !== 1 ? 's' : ''}</div>
               </div>
               <div className="gg-daily-metrics">
@@ -200,7 +212,33 @@ export default function NutritionTodayPage() {
               </div>
             </section>
 
-            <section className="gg-daily-section" aria-labelledby="gg-foods-heading">
+            <section className="gg-daily-goal-settings" aria-labelledby="gg-goals-title">
+              <div className="gg-daily-goal-heading">
+                <div>
+                  <span>REFERÊNCIAS DO DIA</span>
+                  <h2 id="gg-goals-title">SEU RITMO, SUA META.</h2>
+                  <p>Seu basal estimado: <strong>{restingEnergy ? restingEnergy.toLocaleString('pt-BR') + ' kcal/dia' : 'preencha seu perfil'}</strong>.
+                    Basal é gasto em repouso, <strong>não é uma meta alimentar</strong>.</p>
+                </div>
+                <button type="button" onClick={() => setEditGoals(!editGoals)} aria-expanded={editGoals} aria-controls="gg-daily-goal-editor">
+                  <FiEdit3 aria-hidden="true" /> AJUSTAR
+                </button>
+              </div>
+              {editGoals && <div className="gg-daily-goal-editor" id="gg-daily-goal-editor">
+                <label>REFERÊNCIA ALIMENTAR (KCAL/DIA)
+                  <input type="number" min="500" max="7000" inputMode="numeric" value={dailyGoal} placeholder="Opcional"
+                    onChange={event => setDailyGoal(event.target.value)} />
+                </label>
+                <label>REFERÊNCIA DE ÁGUA (ML/DIA)
+                  <input type="number" min="250" max="10000" step="50" inputMode="numeric" value={waterGoal} placeholder="Opcional"
+                    onChange={event => setWaterGoal(event.target.value)} />
+                </label>
+                <p>Informe metas adequadas às suas necessidades, preferencialmente orientadas por profissional. Salvas apenas neste dispositivo durante o piloto.</p>
+                <button className="gg-daily-cta" type="button" onClick={saveGoals}>SALVAR REFERÊNCIAS <FiArrowRight aria-hidden="true" /></button>
+              </div>}
+            </section>
+
+            <section className="gg-daily-section" ref={foodSectionRef} aria-labelledby="gg-foods-heading">
               <div className="gg-daily-heading">
                 <div><span>01 / DIÁRIO ALIMENTAR</span><h2 id="gg-foods-heading">REGISTRE O QUE COMEU.</h2></div>
                 <span className="gg-daily-hint">Sem culpa. Com consciência.</span>
@@ -220,8 +258,10 @@ export default function NutritionTodayPage() {
               <div className="gg-daily-food-list">
                 {results.map(food => (
                   <button key={food.id} type="button" className={'gg-daily-food' + (selectedFood?.id === food.id ? ' selected' : '')}
-                    onClick={() => { setSelectedFood(food); setServings('1'); }} aria-pressed={selectedFood?.id === food.id}>
-                    <span className="gg-daily-food-icon" aria-hidden="true">+</span>
+                    onClick={() => chooseFood(food)} aria-pressed={selectedFood?.id === food.id}>
+                    {foodImage(food) && !brokenImages[food.id]
+                      ? <img className="gg-daily-food-photo" src={foodImage(food)} alt="" loading="lazy" onError={() => setBrokenImages(prev => ({ ...prev, [food.id]: true }))} />
+                      : <span className="gg-daily-food-icon" aria-hidden="true"><FiImage /></span>}
                     <span className="gg-daily-food-name"><strong>{food.name}</strong><small>{food.servingDesc || food.unit || 'Porção do catálogo'} · {Math.round(food.calories)} kcal</small></span>
                     <FiArrowRight aria-hidden="true" />
                   </button>
@@ -229,12 +269,23 @@ export default function NutritionTodayPage() {
                 {results.length === 0 && <p className="gg-daily-empty">Nenhum alimento encontrado. Tente outra busca.</p>}
               </div>
 
-              {selectedFood && <div className="gg-daily-portion" aria-live="polite">
+              {selectedFood && <div className="gg-daily-portion" ref={portionPanelRef} aria-live="polite">
                 <div className="gg-daily-portion-top">
                   <div><span>PORÇÃO SELECIONADA</span><h3>{selectedFood.name}</h3><p>Referência: {selectedFood.servingDesc || selectedFood.unit || '1 porção do catálogo'}</p></div>
                   <button className="gg-daily-close" type="button" aria-label="Fechar seleção de alimento" onClick={() => setSelectedFood(null)}>×</button>
                 </div>
-                <div className="gg-daily-portion-actions">
+                <div className="gg-daily-unit-modes" role="group" aria-label="Modo de quantidade">
+                  <button type="button" className={quantityMode === 'servings' ? 'active' : ''} onClick={() => setQuantityMode('servings')}>PORÇÕES</button>
+                  <button type="button" className={quantityMode === 'grams' ? 'active' : ''} disabled={!referenceGrams}
+                    onClick={() => setQuantityMode('grams')}><FiScale aria-hidden="true" /> BALANÇA / GRAMAS</button>
+                </div>
+                {quantityMode === 'grams' && referenceGrams ? <div className="gg-daily-gram-input">
+                  <label>QUANTIDADE EXATA NA BALANÇA (G)
+                    <input type="number" inputMode="numeric" min="1" max="3000" step="1" value={grams}
+                      aria-label="Peso em gramas" onChange={event => setGrams(event.target.value)} />
+                  </label>
+                  <p>Base do catálogo: {referenceGrams} g. Calorias aproximadas ajustadas proporcionalmente.</p>
+                </div> : <div className="gg-daily-portion-actions">
                   <button type="button" aria-label="Diminuir porções" disabled={Number(servings) <= 0.25}
                     onClick={() => setServings(String(Math.max(0.25, (Number(servings) || 1) - 0.25)))}><FiMinus /></button>
                   <label>PORÇÕES<input aria-label="Quantidade de porções" type="number" min="0.25" max="20" step="0.25"
@@ -242,12 +293,47 @@ export default function NutritionTodayPage() {
                   <button type="button" aria-label="Aumentar porções" disabled={Number(servings) >= 20}
                     onClick={() => setServings(String(Math.min(20, (Number(servings) || 0) + 0.25)))}><FiPlus /></button>
                 </div>
+                {!referenceGrams && <p className="gg-daily-gram-hint">Este alimento não possui referência em gramas confiável no catálogo. Use porções ou registre manualmente.</p>}
                 <p className="gg-daily-portion-estimate">{estimate ? estimate.calories + ' kcal · ' + formatGram(estimate.protein) + ' g de proteína' : 'Insira entre 0,25 e 20 porções.'}</p>
+                {estimate && target && <p className="gg-daily-prediction">
+                  {totals.calories + estimate.calories > target
+                    ? 'Com este registro, o consumo ficará ' + (totals.calories + estimate.calories - target) + ' kcal acima da referência diária.'
+                    : 'Após registrar, faltarão aproximadamente ' + (target - totals.calories - estimate.calories) + ' kcal para sua referência.'}
+                </p>}
                 <button type="button" className="gg-daily-cta" onClick={addFood} disabled={!estimate || busy}>
                   {busy ? 'SALVANDO…' : 'REGISTRAR NO DIÁRIO'} <FiPlus />
                 </button>
               </div>}
-              <p className="gg-daily-disclaimer">Valores aproximados do catálogo, por porção indicada. A quantidade selecionada multiplica essa referência; não é automaticamente uma quantidade em gramas.</p>
+              <button type="button" className="gg-daily-manual-toggle" aria-expanded={showCustom} onClick={() => { setShowCustom(!showCustom); setError(''); }}>
+                <FiPlus aria-hidden="true" /> NÃO ACHOU? REGISTRAR ALIMENTO MANUALMENTE
+              </button>
+              {showCustom && <form className="gg-daily-manual" onSubmit={addCustom}>
+                <h3>ADICIONAR SEU ALIMENTO</h3>
+                <p>Nome e calorias são informados por você; não inventamos a informação nutricional.</p>
+                <label>NOME DO ALIMENTO
+                  <input required maxLength="65" value={custom.name} onChange={event => setCustom(prev => ({...prev, name: event.target.value}))} placeholder="Ex.: caviar" />
+                </label>
+                <div className="gg-daily-manual-fields">
+                  <label>QUANTIDADE (G, OPCIONAL)
+                    <input type="number" min="1" max="3000" inputMode="numeric" value={custom.grams} onChange={event => setCustom(prev => ({...prev, grams: event.target.value}))} placeholder="150" />
+                  </label>
+                  <label>CALORIAS (KCAL)
+                    <input type="number" required min="0" max="5000" inputMode="numeric" value={custom.calories} onChange={event => setCustom(prev => ({...prev, calories: event.target.value}))} placeholder="400" />
+                  </label>
+                </div>
+                <details className="gg-daily-manual-macros">
+                  <summary>MACROS (SE SOUBER)</summary>
+                  <div className="gg-daily-manual-fields gg-daily-three-cols">
+                    {[['protein','PROTEÍNA (G)'],['carbs','CARBOIDRATOS (G)'],['fat','GORDURA (G)']].map(([key,label]) =>
+                      <label key={key}>{label}
+                        <input type="number" min="0" max="1000" step="0.1" inputMode="decimal" value={custom[key]} onChange={event => setCustom(prev => ({...prev, [key]: event.target.value}))} placeholder="Não informado" />
+                      </label>
+                    )}
+                  </div>
+                </details>
+                <button type="submit" className="gg-daily-cta" disabled={busy}>{busy ? 'SALVANDO…' : 'ADICIONAR AO DIÁRIO'} <FiPlus aria-hidden="true" /></button>
+              </form>}
+              <p className="gg-daily-disclaimer">Referências aproximadas do catálogo. Em modo balança, o cálculo só aparece quando existe equivalência em gramas. Registros manuais não recebem macros inventados.</p>
             </section>
 
             <section className="gg-daily-section" aria-labelledby="gg-water-heading">
@@ -255,7 +341,14 @@ export default function NutritionTodayPage() {
                 <div><span>02 / HIDRATAÇÃO</span><h2 id="gg-water-heading">ÁGUA, TODO DIA.</h2></div>
               </div>
               <div className="gg-daily-water">
-                <div><FiDroplet /><strong>{totals.water.toLocaleString('pt-BR')} ml</strong><span>registrados hoje</span></div>
+                <div><FiDroplet /><strong>{totals.water.toLocaleString('pt-BR')} ml</strong><span>registrados hoje</span>
+                  {hydrationProgress && <div className="gg-daily-water-meter">
+                    <div className="gg-daily-water-meter-track" role="progressbar" aria-label="Água em relação à referência" aria-valuenow={Math.min(totals.water, hydrationTarget)} aria-valuemin="0" aria-valuemax={hydrationTarget}>
+                      <div style={{width: hydrationProgress.percent + '%'}} />
+                    </div>
+                    <small>{totals.water.toLocaleString('pt-BR')} / {hydrationTarget.toLocaleString('pt-BR')} ml · {hydrationProgress.percent}%</small>
+                  </div>}
+                </div>
                 <div className="gg-daily-water-actions">
                   <button type="button" disabled={busy} onClick={() => addWater(250)}>+ 250 ML</button>
                   <button type="button" disabled={busy} onClick={() => addWater(500)}>+ 500 ML</button>
