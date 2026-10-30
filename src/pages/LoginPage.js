@@ -40,8 +40,8 @@ export default function LoginPage() {
     }
   };
 
-  return <AuthShell type="login" title={mfaRequired ? 'Confirme seu acesso.' : 'Bem-vindo de volta.'}
-    subtitle={mfaRequired ? 'Informe o código de seis dígitos do seu aplicativo autenticador.' : 'Entre na sua conta para continuar a evolução.'}
+  return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'VOLTE MAIS FORTE.'}
+    subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Seu treino, sua alimentação e sua evolução continuam aqui.'}
     footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link></>}>
     <form className="gg-auth-form" onSubmit={handleSubmit}>
       <label className="gg-auth-field"><span>Usuário</span>
@@ -64,7 +64,7 @@ export default function LoginPage() {
       </label>}
       {error && <p className="gg-auth-error" role="alert">{error}</p>}
       <button className="gg-auth-submit" type="submit" disabled={isLoading}>
-        <span>{isLoading ? 'Verificando...' : mfaRequired ? 'Validar código' : 'Entrar na minha conta'}</span>
+        <span>{isLoading ? 'VERIFICANDO...' : mfaRequired ? 'VALIDAR CÓDIGO' : 'ENTRAR NO GABGYM'}</span>
         <span aria-hidden="true">→</span>
       </button>
     </form>
