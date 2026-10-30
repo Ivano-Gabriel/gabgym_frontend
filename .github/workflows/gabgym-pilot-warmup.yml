@@ -1,0 +1,41 @@
+# GABGYM PILOTO — disponibilidade de teste em horarios de uso.
+# UTC-3 (America/Maceio): 07:07 ate 23:55, a cada 12 min.
+# GitHub schedule e best-effort; atrasos podem deixar o Render dormir.
+# Render Free: hiberna apos 15 min idle; 750 horas/mes por workspace.
+# A API antiga da main do backend nao e modificada nem reiniciada.
+name: GABGYM — piloto acordado de dia
+
+on:
+  schedule:
+    # 07:07–20:55 (UTC-3) => 10:07–23:55 UTC
+    - cron: '7-55/12 10-23 * * *'
+    # 21:07–23:55 (UTC-3) => 00:07–02:55 UTC
+    - cron: '7-55/12 0-2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gabgym-pilot-warmup
+  cancel-in-progress: false
+
+jobs:
+  keep-warm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Wake pilot API without credentials
+        shell: bash
+        run: |
+          local_hour=$(TZ=America/Maceio date +%H)
+          if [ "$local_hour" -lt 7 ] || [ "$local_hour" -gt 23 ]; then
+            echo "Outside GABGYM test hours: no ping."
+            exit 0
+          fi
+          curl --fail --silent --show-error \
+            --connect-timeout 20 \
+            --max-time 115 \
+            --retry 1 \
+            --retry-delay 3 \
+            https://gabgym-api-piloto-us.onrender.com/ping
