@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiHome, FiActivity, FiCoffee, FiUser, FiCalendar, FiShield, FiX } from 'react-icons/fi';
+import { FiHome, FiActivity, FiCoffee, FiUser, FiShield, FiX } from 'react-icons/fi';
 import { isLoggedIn, isSuperAdmin } from '../utils/auth';
 import './MobileMenu.css';
 
@@ -11,7 +11,6 @@ export default function MobileMenu({ isOpen, onClose }) {
     { label: 'Hoje', to: '/', Icon: FiHome },
     { label: 'Alimentação diária', to: authenticated ? '/alimentacao' : '/signup', Icon: FiCoffee },
     { label: 'Treino e cardio', to: '/training-models', Icon: FiActivity },
-    { label: 'Diário completo', to: authenticated ? '/diario-alimentar' : '/login', Icon: FiCalendar },
     { label: admin ? 'Painel administrativo' : 'Meu perfil', to: admin ? '/admin' : authenticated ? '/perfil' : '/login', Icon: admin ? FiShield : FiUser },
   ];
   return (
