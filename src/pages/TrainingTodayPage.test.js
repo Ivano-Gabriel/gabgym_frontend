@@ -21,7 +21,7 @@ beforeEach(()=>{
 test('central treino/cardio mostra movimento real separado de alimentacao',async()=>{
   render(<TrainingTodayPage/>);
   expect(await screen.findByRole('heading',{name:/TREINO \+ CARDIO/i})).toBeInTheDocument();
-  expect(screen.getByText(/390/)).toBeInTheDocument();
+  expect(await screen.findByText(/390/)).toBeInTheDocument();
   expect(screen.getByText(/2,5 km/)).toBeInTheDocument();
   expect(screen.queryByText(/2\.000 kcal/)).not.toBeInTheDocument();
   expect(screen.getByRole('link',{name:/começar cardio/i})).toHaveAttribute('href','/cardio/select');
