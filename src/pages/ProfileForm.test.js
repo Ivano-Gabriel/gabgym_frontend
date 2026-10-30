@@ -1,9 +1,12 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import ProfileForm from './ProfileForm';
 import { getCurrentUser, updateUser } from '../services/apiService';
 
+jest.mock('react-router-dom', () => ({
+  Link: ({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
+  useNavigate:()=>()=>{}
+}));
 jest.mock('../services/apiService', () => ({getCurrentUser:jest.fn(),updateUser:jest.fn()}));
 jest.mock('react-toastify', () => ({toast:{success:jest.fn(),error:jest.fn()}}));
 beforeEach(()=>{
@@ -13,7 +16,7 @@ beforeEach(()=>{
   localStorage.removeItem('gabgym:body-measures:17');
 });
 test('salva peso/altura no servidor, com medidas avançadas opcionais', async()=>{
-  render(<MemoryRouter><ProfileForm/></MemoryRouter>);
+  render(<ProfileForm/>);
   expect(await screen.findByLabelText(/peso.*kg/i)).toHaveValue(80);
   expect(screen.getByLabelText(/cintura/i)).toHaveValue(null);
   fireEvent.change(screen.getByLabelText(/cintura/i),{target:{value:'98'}});
