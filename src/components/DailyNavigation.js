@@ -49,7 +49,7 @@ export default function DailyNavigation() {
             <Icon aria-hidden="true" /><span>{label}</span>
           </NavLink>)}
         <button ref={triggerRef} type="button" className={'gg-hub-trigger' + (open ? ' active' : '')}
-          aria-label={open ? 'Fechar hub' : 'Abrir hub'} aria-expanded={open} aria-controls="gg-hub-sheet"
+          aria-label={open ? 'Recolher hub' : 'Abrir hub'} aria-expanded={open} aria-controls="gg-hub-sheet"
           onClick={() => setOpen(value => !value)}>
           <span className="gg-hub-glyph" aria-hidden="true">GG</span><span>Hub</span>
         </button>
@@ -59,7 +59,7 @@ export default function DailyNavigation() {
           </NavLink>)}
       </nav>
       {open && <>
-        <button type="button" className="gg-hub-overlay" aria-label="Fechar hub" onClick={() => setOpen(false)} />
+        <button type="button" className="gg-hub-overlay" aria-label="Fechar painel" onClick={() => setOpen(false)} />
         <section className="gg-hub-sheet" id="gg-hub-sheet" role="dialog" aria-modal="true" aria-label="Hub GABGYM">
           <div className="gg-hub-handle" aria-hidden="true" />
           <div className="gg-hub-sheet-head">
