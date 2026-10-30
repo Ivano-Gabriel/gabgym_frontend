@@ -21,7 +21,8 @@ test('identidade GABGYM exibe treino e nutricao sem fotos nem grafismos legados'
   expect(screen.getByText('ALIMENTAR')).toBeInTheDocument();
   expect(screen.getByText('EVOLUIR')).toBeInTheDocument();
   expect(screen.getByRole('link', { name: /criar conta/i })).toHaveAttribute('href', '/signup');
-  expect(container.querySelector('img')).toBeNull();
+  expect(container.querySelectorAll('img')).toHaveLength(1);
+  expect(container.querySelector('img')).toHaveAttribute('src', '/gg-mark.svg');
   expect(container.querySelector('.gg-auth-visual-circle')).toBeNull();
 });
 
