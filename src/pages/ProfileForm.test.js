@@ -17,7 +17,7 @@ beforeEach(()=>{
 });
 test('salva peso/altura no servidor, com medidas avançadas opcionais', async()=>{
   render(<ProfileForm/>);
-  expect(await screen.findByLabelText(/peso.*kg/i)).toHaveValue(80);
+  expect(await screen.findByLabelText(/^PESO \(KG\)$/i)).toHaveValue(80);
   expect(screen.getByLabelText(/cintura/i)).toHaveValue(null);
   fireEvent.change(screen.getByLabelText(/cintura/i),{target:{value:'98'}});
   fireEvent.click(screen.getByRole('button',{name:/salvar perfil/i}));
