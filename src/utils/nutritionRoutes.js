@@ -6,5 +6,6 @@ export const nutritionLegacyAliases = [
   '/dietas',
   '/biblioteca-alimentos',
   '/diario-alimentar',
+  '/diario',
 ];
 export const nutritionHome = '/alimentacao';
