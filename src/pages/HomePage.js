@@ -4,6 +4,7 @@ import { FiArrowRight, FiActivity, FiCoffee, FiTrendingUp } from 'react-icons/fi
 import { isLoggedIn, isSuperAdmin } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
 import './HomePage.css';
+import TodayDashboard from './TodayDashboard';
 
 const pillars = [
   { number: '01', title: 'ALIMENTAÇÃO', subtitle: 'Registrar hoje. Continuar amanhã.', path: '/alimentacao', Icon: FiCoffee },
@@ -14,8 +15,8 @@ const pillars = [
 export default function HomePage() {
   useEffect(() => { warmUpApi(); }, []);
   const loggedIn = isLoggedIn();
-  const admin = isSuperAdmin();
-  const start = !loggedIn ? '/signup' : admin ? '/admin' : '/alimentacao';
+  const start = '/signup';
+  if (loggedIn) return <TodayDashboard />;
   return (
     <div className="gg-home">
       <section className="gg-home-hero" aria-labelledby="gg-home-title">
