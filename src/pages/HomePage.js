@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiActivity, FiCoffee, FiTrendingUp } from 'react-icons/fi';
-import { isLoggedIn, isSuperAdmin } from '../utils/auth';
+import { isLoggedIn } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
 import './HomePage.css';
 import TodayDashboard from './TodayDashboard';
