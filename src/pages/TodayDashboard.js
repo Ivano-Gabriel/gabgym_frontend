@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { FiArrowRight, FiCoffee, FiDroplet, FiActivity, FiTarget, FiEdit3, FiPlus, FiCalendar } from 'react-icons/fi';
 import { getCurrentUser, getDiaryLogs, getMetas } from '../services/apiService';
 import { dayKey, summarizeDay, calorieProgress } from '../utils/nutrition';
+import {activeDay,computeStreak} from '../utils/streak';
+import {FaFire} from 'react-icons/fa';
 import './TodayDashboard.css';
 
 const n = value => Number(value).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
@@ -13,6 +15,7 @@ export default function TodayDashboard() {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [streak,setStreak] = useState(null);
   const { pathname } = useLocation();
   useEffect(() => {
     let alive = true;
@@ -38,11 +41,27 @@ export default function TodayDashboard() {
     return () => { alive = false; };
   }, [pathname]);
 
+  useEffect(()=>{
+    if(!user?.id || error)return undefined;
+    let alive=true;
+    // O endpoint atual retorna um dia por vez. Limite honesto aos últimos 7 dias.
+    const now=new Date();
+    const dates=Array.from({length:7},(_,i)=>dayKey(new Date(now.getFullYear(),now.getMonth(),now.getDate()-i,12)));
+    Promise.allSettled(dates.map((date,i)=>i===0?Promise.resolve({data:logs}):getDiaryLogs(user.id,date)))
+      .then(results=>{
+        if(!alive)return;
+        if(results.some(x=>x.status!=='fulfilled')){setStreak(null);return;}
+        setStreak(computeStreak(results.map(x=>activeDay(x.value.data))));
+      });
+    return()=>{alive=false;};
+  },[user?.id,logs,error]);
   const totals = useMemo(() => summarizeDay(logs), [logs]);
   const waterGoalRaw = user ? Number(localStorage.getItem('gabgym:water-goal:' + user.id)) : 0;
   const waterGoal = waterGoalRaw >= 250 && waterGoalRaw <= 10000 ? waterGoalRaw : null;
   const foodGoalRaw = user ? Number(localStorage.getItem('gabgym:daily-goal:' + user.id)) : 0;
   const foodGoal = foodGoalRaw >= 1200 && foodGoalRaw <= 7000 ? foodGoalRaw : null;
+  const rawWeightGoal=user?Number(localStorage.getItem('gabgym:weight-goal:'+user.id)):0;
+  const weightGoal=rawWeightGoal>=20&&rawWeightGoal<=600?rawWeightGoal:null;
   const waterProgress = waterGoal ? calorieProgress(totals.water, waterGoal) : null;
   const kcalProgress = foodGoal ? calorieProgress(totals.calories, foodGoal) : null;
   const extras = user ? (() => {
@@ -65,6 +84,15 @@ export default function TodayDashboard() {
         {loading && <div className="gg-today-state" role="status">Sincronizando seus registros…</div>}
         {error && <div className="gg-today-error" role="alert">{error}</div>}
         {!loading && user && <>
+          <section className="gg-today-fire" aria-label="Foguinho de constância">
+            <FaFire aria-hidden="true"/>
+            <div><strong>{streak===null?'SEQUÊNCIA INDISPONÍVEL':streak.days+(streak.capped?'+':'')+' DIA'+(streak.days!==1?'S':'')+' DE CONSTÂNCIA'}</strong>
+              <small>{streak===null?'Verificando últimos sete dias…':
+               streak.atRisk?'Registre algo hoje para manter seu foguinho.':
+               streak.days?'Seu foguinho reflete ações reais registradas.':'Um dia sem registro encerra a sequência. Recomece hoje.'}</small>
+            </div>
+            <span>{streak?.days ? '🔥' : '○'}</span>
+          </section>
           <section className="gg-today-measures" aria-label="Suas medidas">
             <div><span>PESO</span><strong>{user.weight ? n(user.weight) + ' kg' : '—'}</strong></div>
             <div><span>ALTURA</span><strong>{user.height ? n(user.height) + ' cm' : '—'}</strong></div>
@@ -72,6 +100,10 @@ export default function TodayDashboard() {
             <Link to="/profile-form" className="gg-today-measures-edit" aria-label="Editar medidas"><FiEdit3 aria-hidden="true"/></Link>
           </section>
 
+          {weightGoal&&<Link className="gg-today-weightgoal" to="/profile-form" aria-label="Atualizar meta de peso">
+            <FiTarget aria-hidden="true"/><strong>SUA META DE PESO</strong>
+            <span>{n(weightGoal)} kg</span><FiArrowRight aria-hidden="true"/>
+          </Link>}
           <div className="gg-today-section-heading"><div><span>01 / HOJE</span><h2>SUA CONSTÂNCIA.</h2></div></div>
           <div className="gg-today-progress-grid">
             <Link to="/alimentacao" className="gg-today-progress-card">

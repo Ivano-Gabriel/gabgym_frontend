@@ -26,3 +26,8 @@
 @media(max-width:500px) { .gg-profile-editor-section {padding:18px 15px;} .gg-profile-editor-grid {grid-template-columns:1fr 1fr;gap:12px;} }
 @media(max-width:360px) { .gg-profile-editor-grid {grid-template-columns:1fr;} }
 @media(prefers-reduced-motion:reduce){ .gg-profile-editor * {scroll-behavior:auto!important;transition:none!important;} }
+
+
+.gg-profile-editor{background:radial-gradient(ellipse at 16% 0%,#61402a69,transparent 40%),#192024;}
+.gg-profile-editor-section{background:linear-gradient(145deg,#364148,#262f34 78%);border-color:#75685e;box-shadow:inset 0 1px 1px #ffffff24,0 7px 23px #00000023;}
+.gg-profile-editor-save{background:linear-gradient(155deg,#ffc2a0,#ff8c5a 60%,#d65334);box-shadow:inset 0 2px 1px #ffffff66,0 9px 23px #ff78473b;}

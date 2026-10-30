@@ -4,6 +4,8 @@ import { FiArrowLeft, FiArrowRight, FiEdit3 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { getCurrentUser, updateUser } from '../services/apiService';
 import './ProfileForm.css';
+import {dayKey} from '../utils/nutrition';
+import {persistWeightMeasurement} from '../utils/weightProgress';
 
 const initial = { name:'', age:'', weight:'', height:'', gender:'', objective:'maintain-weight', activityLevel:'light' };
 const extrasInitial = { waist:'', chest:'', thigh:'', biceps:'' };
@@ -22,11 +24,13 @@ export default function ProfileForm(){
   const [loading,setLoading] = useState(true);
   const [saving,setSaving] = useState(false);
   const [error,setError] = useState('');
+  const [weightTarget,setWeightTarget] = useState('');
   useEffect(()=>{
     let active=true;
     getCurrentUser().then(({data})=>{
       if(!active)return;
       setUser(data);
+      setWeightTarget(localStorage.getItem('gabgym:weight-goal:'+data.id)||'');
       setForm({
         name:data.name || '', age:data.age ?? '', weight:data.weight ?? '',
         height:data.height ?? '', gender:data.gender || '', objective:data.objective || 'maintain-weight',
@@ -48,7 +52,7 @@ export default function ProfileForm(){
     const name=form.name.trim();
     if(name.length<2 || name.length>80 || !validNum(form.age,13,120) ||
       !validNum(form.weight,20,600) || !validNum(form.height,100,250) ||
-      !Object.values(extras).every(x=>validNum(x,10,300))){
+      !Object.values(extras).every(x=>validNum(x,10,300)) || !validNum(weightTarget,20,600)){ 
       setError('Confira nome e medidas. Campos de medidas podem ficar vazios.');return;
     }
     setSaving(true);setError('');
@@ -62,6 +66,9 @@ export default function ProfileForm(){
         .filter(([,value])=>value!=='')
         .map(([key,value])=>[key,Number(value)]));
       localStorage.setItem('gabgym:body-measures:'+user.id,JSON.stringify(converted));
+      if(form.weight!==''&&Number(form.weight)>0) persistWeightMeasurement(user.id,Number(form.weight),dayKey());
+      if(weightTarget!=='') localStorage.setItem('gabgym:weight-goal:'+user.id,weightTarget);
+      else localStorage.removeItem('gabgym:weight-goal:'+user.id);
       toast.success('Perfil atualizado.');
       navigate('/',{replace:true});
     }catch{setError('Não foi possível salvar no servidor. Seus dados ainda não foram alterados.');}
@@ -118,6 +125,10 @@ export default function ProfileForm(){
           <section className="gg-profile-editor-section gg-profile-editor-goals">
             <div><span>03 / CONSTÂNCIA</span><h2>ESCOLHA SUAS METAS.</h2></div>
             <p>Água, alimentação, cardio e hábitos. Configure suas referências no seu ritmo.</p>
+            <label className="gg-profile-editor-field">META DE PESO (KG, OPCIONAL)
+              <input type="number" min="20" max="600" step=".1" inputMode="decimal" value={weightTarget} onChange={e=>setWeightTarget(e.target.value)} placeholder="Ex.: 90"/>
+            </label>
+            <p>A meta de peso e o histórico de pesagens ficam neste navegador durante o piloto. A evolução depende de novas pesagens; não é promessa de prazo ou resultado.</p>
             <Link to="/minhas-metas">IR PARA METAS <FiArrowRight aria-hidden="true"/></Link>
           </section>
           <button className="gg-profile-editor-save" type="submit" disabled={saving}>{saving?'SALVANDO…':'SALVAR PERFIL'} <FiArrowRight/></button>

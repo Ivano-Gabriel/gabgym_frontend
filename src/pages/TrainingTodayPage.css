@@ -39,3 +39,26 @@
 .gg-movement a:focus-visible { outline:3px solid #ffa384; outline-offset:3px; }
 @media(max-width:500px){ .gg-movement-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } .gg-movement-stats > div:first-child { grid-column:1/-1; } .gg-movement-stats > div:first-child strong { font-size:48px; } }
 @media(prefers-reduced-motion:reduce){ .gg-movement-primary,.gg-movement-secondary { transition:none; } }
+
+
+/* Progresso e registro manual de força */
+.gg-movement-meters{margin-top:20px;display:grid;gap:19px;padding:19px 15px;background:#30393e;border-radius:12px;border:1px solid #6e6761;}
+.gg-movement-meter-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:9px;font-size:11px;}
+.gg-movement-meter-head span{color:#ffb693;font-weight:850;}
+.gg-movement-meter{width:100%;height:15px;background:#515c61;border-radius:99px;overflow:hidden;}
+.gg-movement-meter>span{display:block;height:100%;background:linear-gradient(90deg,#e9683c,#ff995d,#ffd29e);border-radius:inherit;transition:width .3s ease;}
+.gg-movement-goal-label{display:grid;gap:7px;color:#dce4e4;font-weight:750;font-size:10px;margin-top:13px;letter-spacing:.04em;}
+.gg-movement-goal-label input{height:47px;min-width:0;width:100%;padding:0 12px;border:1px solid #727b7f;border-radius:10px;background:#182124;color:#f5f2ea;font-weight:750;font-size:14px;}
+.gg-movement-workout-toggle{width:100%;font-family:inherit;text-align:left;cursor:pointer;}
+.gg-movement-workout-form{display:grid;grid-template-columns:1fr 1fr;gap:15px 12px;padding:19px 16px;border-radius:12px;border:1px solid #9d704e;background:#302d2a;}
+.gg-movement-workout-form label{display:grid;gap:9px;color:#ffccae;font-size:12px;font-weight:850;}
+.gg-movement-workout-form label:first-child{grid-column:1/-1;}
+.gg-movement-workout-form input,.gg-movement-workout-form select{height:54px;width:100%;min-width:0;padding:0 12px;border:1px solid #858a88;border-radius:10px;background:#1a2226;color:#f5f2ea;font-size:14px;}
+.gg-movement-workout-form p{grid-column:1/-1;margin:0;font-size:11px;color:#e4cbc0;line-height:1.65;}
+.gg-movement-save-workout{grid-column:1/-1;min-height:55px;border:0;border-radius:10px;background:linear-gradient(145deg,#ffc2a0,#ff8655 70%,#d65332);color:#111719;font-weight:950;box-shadow:inset 0 1px 2px #ffffff72,0 9px 25px #ff784748;cursor:pointer;}
+.gg-movement{background:radial-gradient(ellipse at 15% 0%,#4c302787,transparent 44%),#181e22;}
+.gg-movement-day{background:linear-gradient(145deg,#313940,#242c31 60%,#262b2e);border-color:#665750;box-shadow:inset 0 1px 1px #ffffff23,0 10px 27px #00000035;}
+.gg-movement-primary{background:linear-gradient(140deg,#ffc6a2 0%,#ff8958 54%,#dd5a38 100%);box-shadow:inset 0 2px 2px #ffffff70,0 7px 23px #ff78473e;}
+.gg-movement-secondary{background:linear-gradient(145deg,#364147,#273035);box-shadow:inset 0 1px 2px #ffffff1b;}
+@media(max-width:430px){.gg-movement-workout-form{grid-template-columns:1fr}.gg-movement-workout-form label:first-child,.gg-movement-workout-form p,.gg-movement-save-workout{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){.gg-movement-meter>span{transition:none}}

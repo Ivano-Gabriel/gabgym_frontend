@@ -4,6 +4,7 @@ import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, F
 import { getCurrentUser, logoutUser } from '../services/apiService';
 import { isSuperAdmin } from '../utils/auth';
 import './ProfilePage.css';
+import {loadWeightHistory,weightTrend,safeWeightProjection} from '../utils/weightProgress';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -12,11 +13,16 @@ export default function ProfilePage() {
   const [avatar,setAvatar] = useState('');
   const [extras,setExtras] = useState({});
   const [busy,setBusy] = useState(false);
+  const [weightGoal,setWeightGoal] = useState(null);
+  const [weightHistory,setWeightHistory] = useState([]);
   useEffect(()=>{
     let alive=true;
     getCurrentUser().then(({data})=>{
       if(!alive)return;
       setUser(data);
+      const w=Number(localStorage.getItem('gabgym:weight-goal:'+data.id));
+      setWeightGoal(w>=20&&w<=600?w:null);
+      setWeightHistory(loadWeightHistory(data.id));
       setAvatar(localStorage.getItem('gabgymAvatar') || '');
       try{
         const saved=JSON.parse(localStorage.getItem('gabgym:body-measures:'+data.id)||'{}');
@@ -40,6 +46,16 @@ export default function ProfilePage() {
     reader.onload=()=>{if(typeof reader.result==='string'){setAvatar(reader.result);localStorage.setItem('gabgymAvatar',reader.result);}};
     reader.readAsDataURL(file);
   };
+  const trend=weightTrend(weightHistory);
+  const currentWeight=Number(user?.weight)||trend?.latest||null;
+  const baseline=trend?.starting;
+  const denominator=baseline&&weightGoal ? Math.abs(baseline-weightGoal):0;
+  const weightProgressPct=denominator && currentWeight ? Math.min(100,Math.max(0,Math.round(100*Math.abs(baseline-currentWeight)/denominator))) : 0;
+  const weightDelta=baseline && currentWeight ? Math.round((currentWeight-baseline)*10)/10 : null;
+  const first=weightHistory[0],last=weightHistory[weightHistory.length-1];
+  const daySpan=first&&last?(new Date(last.date+'T12:00:00')-new Date(first.date+'T12:00:00'))/86400000:0;
+  const observedWeeklyRate=daySpan>=14 ? (last.weight-first.weight)/(daySpan/7) : 0;
+  const projection=weightGoal&&currentWeight ? safeWeightProjection(currentWeight,weightGoal,observedWeeklyRate):null;
   const stats=[
     ['PESO',user?.weight,'kg'],['ALTURA',user?.height,'cm'],
     ['CINTURA',extras.waist,'cm'],['PEITORAL',extras.chest,'cm'],
@@ -70,7 +86,19 @@ export default function ProfilePage() {
           <div className="gg-profile-stat-grid">
             {stats.map(([name,value,unit])=><div key={name}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong></div>)}
           </div>
-          <Link className="gg-profile-data-link" to="/profile-form">ATUALIZAR MEU PERFIL <FiArrowRight aria-hidden="true"/></Link>
+          <Link className="gg-profile-data-link" to="/profile-form">REGISTRAR NOVO PESO E MEDIDAS <FiArrowRight aria-hidden="true"/></Link>
+          <section className="gg-profile-weight-progress" aria-label="Evolução do peso">
+            <header><span>META DE PESO</span><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'SEM META DEFINIDA'}</strong></header>
+            {weightGoal&&currentWeight ? <>
+              <div className="gg-profile-weight-track" role="progressbar" aria-label="Progresso de peso da primeira pesagem à meta" aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">
+                <span style={{width:weightProgressPct+'%'}}/>
+              </div>
+              <p>{weightProgressPct}% da mudança em relação à primeira pesagem salva. {weightDelta!==null ? (weightDelta>0?'+':'')+weightDelta.toLocaleString('pt-BR')+' kg registrados desde então.' : ''}</p>
+              {projection?<p className="gg-profile-projection">Se a tendência observada entre pesagens continuar: cerca de {projection.weeks} semanas. É apenas um cenário, não uma previsão garantida.</p>:
+                <p>Registre novas pesagens ao longo das semanas para acompanhar a tendência, sem estimar prazos prematuramente.</p>}
+            </> : <p>Sem meta definida. Você pode escolher uma meta opcional na edição do perfil.</p>}
+            <small>Meta e histórico de peso ficam apenas neste navegador. Não são sincronizados entre dispositivos.</small>
+          </section>
           <div className="gg-profile-section-name"><span>02 / CONTINUAR</span><h2>SEUS PRÓXIMOS PASSOS.</h2></div>
           <div className="gg-profile-links">
             {links.map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
