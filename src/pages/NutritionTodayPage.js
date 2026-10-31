@@ -74,13 +74,13 @@ export default function NutritionTodayPage() {
       ? (Number(grams) >= 1 && Number(grams) <= 3000 ? scaleFoodGrams(selectedFood, grams) : null)
       : quantityMode === 'servings' && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null
     : null;
-  const estimate=suggestDailyGoals(user);
-  const target=goalOrEstimate(dailyGoal,estimate?.calories,1200,7000);
+  const profileEstimate=suggestDailyGoals(user);
+  const target=goalOrEstimate(dailyGoal,profileEstimate?.calories,1200,7000);
   const displayTarget=target;
   const displayProgress=target?calorieProgress(totals.calories,target):null;
-  const hydrationTarget=goalOrEstimate(waterGoal,estimate?.water,250,10000);
+  const hydrationTarget=goalOrEstimate(waterGoal,profileEstimate?.water,250,10000);
   const hydrationProgress=hydrationTarget?calorieProgress(totals.water,hydrationTarget):null;
-  const macroTargets=Object.fromEntries(['protein','carbs','fat'].map(k=>[k,goalOrEstimate(macroGoals[k],estimate?.[k],1,1000)]));
+  const macroTargets=Object.fromEntries(['protein','carbs','fat'].map(k=>[k,goalOrEstimate(macroGoals[k],profileEstimate?.[k],1,1000)]));
   const restingEnergy = estimateRestingEnergy(user);
   useEffect(() => {
     if (!selectedFood || !portionPanelRef.current || typeof portionPanelRef.current.scrollIntoView !== 'function') return;
@@ -215,7 +215,7 @@ export default function NutritionTodayPage() {
                   <span className="gg-consumption-fill" style={{width:displayProgress.percent+'%'}}/>
                 </div><div className="gg-consumption-scale"><span>0 KCAL</span><span>{displayProgress.percent}% PREENCHIDO</span><strong>{displayTarget.toLocaleString('pt-BR')} KCAL</strong></div></>:
                 <p className="gg-consumption-example">Configure seu perfil ou defina sua meta. Nada de 2.300 kcal iguais para todos.</p>}
-              {estimate&&!dailyGoal&&<p className="gg-consumption-example">ESTIMATIVA PELO PERFIL · AJUSTÁVEL, NÃO É PRESCRIÇÃO NUTRICIONAL.</p>}
+              {profileEstimate&&!dailyGoal&&<p className="gg-consumption-example">ESTIMATIVA PELO PERFIL · AJUSTÁVEL, NÃO É PRESCRIÇÃO NUTRICIONAL.</p>}
               {target && <p className={'gg-consumption-feedback ' + (displayProgress.stage === 'over' ? 'is-over' : '')} aria-live="polite">
                 {displayProgress.stage === 'over'
                   ? 'Acima da sua referência em ' + Math.abs(displayProgress.remaining).toLocaleString('pt-BR') + ' kcal. Continue registrando normalmente.'
@@ -270,7 +270,7 @@ export default function NutritionTodayPage() {
                     onChange={event => setWaterGoal(event.target.value)} />
                 </label>
                 {[['protein','PROTEÍNA'],['carbs','CARBOIDRATO'],['fat','GORDURA']].map(([key,label])=><label key={key}>META DE {label} (G/DIA)
-                  <input type="number" min="1" max="1000" value={macroGoals[key]} placeholder={estimate?String(estimate[key]):'Opcional'} onChange={e=>setMacroGoals(v=>({...v,[key]:e.target.value}))}/>
+                  <input type="number" min="1" max="1000" value={macroGoals[key]} placeholder={profileEstimate?String(profileEstimate[key]):'Opcional'} onChange={e=>setMacroGoals(v=>({...v,[key]:e.target.value}))}/>
                 </label>)}
                 <p>Estimativas pelo perfil ou referências manuais. Valores não substituem orientação individualizada. Salvas neste dispositivo.</p>
                 <button className="gg-daily-cta" type="button" onClick={saveGoals}>SALVAR REFERÊNCIAS <FiArrowRight aria-hidden="true" /></button>

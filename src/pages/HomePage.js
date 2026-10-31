@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiActivity, FiCoffee, FiTrendingUp } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 import { isLoggedIn } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
 import './HomePage.css';
 import TodayDashboard from './TodayDashboard';
-
-const pillars = [
-  { number: '01', title: 'ALIMENTAÇÃO', subtitle: 'Registrar hoje. Continuar amanhã.', path: '/alimentacao', Icon: FiCoffee },
-  { number: '02', title: 'TREINO + CARDIO', subtitle: 'Apareça. Faça seu treino. Evolua.', path: '/training-models', Icon: FiActivity },
-  { number: '03', title: 'EVOLUÇÃO', subtitle: 'Acompanhe suas escolhas ao longo dos dias.', path: '/perfil', Icon: FiTrendingUp },
-];
 
 export default function HomePage() {
   useEffect(() => { warmUpApi(); }, []);
