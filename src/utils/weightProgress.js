@@ -6,6 +6,13 @@ export function weightTrend(entries) {
   const starting=Number(values[0].weight),latest=Number(values[values.length-1].weight);
   return {starting,latest,change:Math.round((latest-starting)*10)/10};
 }
+/** 0–100% apenas para deslocamento em direção à meta; não premiar regresso. */
+export function weightGoalProgress(starting,current,goal) {
+  const s=Number(starting),c=Number(current),g=Number(goal);
+  if (![s,c,g].every(n=>Number.isFinite(n) && n>0)) return null;
+  if (s===g) return c===g ? 100 : 0;
+  return Math.max(0, Math.min(100, Math.round(100*(c-s)/(g-s))));
+}
 /** Apenas cenário matemático a partir de tendência observada; não é promessa clínica. */
 export function safeWeightProjection(current,target,weeklyTrend) {
   const c=Number(current),t=Number(target),w=Number(weeklyTrend);
