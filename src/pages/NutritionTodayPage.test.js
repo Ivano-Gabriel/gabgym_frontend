@@ -18,7 +18,8 @@ beforeEach(() => {
   jest.clearAllMocks();
   localStorage.removeItem('gabgym:daily-goal:17');
   localStorage.removeItem('gabgym:water-goal:17');
-  getCurrentUser.mockResolvedValue({ data: { id: 17, username: 'aluno-teste' } });
+  getCurrentUser.mockResolvedValue({ data: { id: 17, username: 'aluno-teste',age:22,height:180,weight:80,gender:'male',activityLevel:'light',objective:'lose-fat' } });
+  ['protein','carbs','fat'].forEach(k=>localStorage.removeItem('gabgym:macro-goal:17:'+k));
   getFoods.mockResolvedValue({ data: [{
     id: 1, name: 'Ovo cozido', calories: 78, protein: 6, carbs: 1, fat: 5,
     servingDesc: '1 unidade', category: { name: 'Proteínas' },
@@ -111,13 +112,13 @@ test('barra calórica aparece sempre com meta ilustrativa e pode ser configurada
   render(<NutritionTodayPage />);
   const meter = await screen.findByRole('progressbar', { name: /Calorias consumidas/i });
   expect(meter).toHaveAttribute('aria-valuenow', '974');
-  expect(meter).toHaveAttribute('aria-valuemax', '2300');
-  expect(screen.getByText(/REFERÊNCIA ILUSTRATIVA/i)).toBeInTheDocument();
+  expect(meter).toHaveAttribute('aria-valuemax', '2153');
+  expect(screen.getByText(/ESTIMATIVA PELO PERFIL/i)).toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: /DEFINIR META CALÓRICA/i }));
   fireEvent.change(screen.getByRole('spinbutton', { name: /REFERÊNCIA ALIMENTAR/i }), { target: { value: '2000' } });
   fireEvent.click(screen.getByRole('button', { name: /SALVAR REFERÊNCIAS/i }));
   expect(meter).toHaveAttribute('aria-valuemax', '2000');
-  expect(screen.queryByText(/REFERÊNCIA ILUSTRATIVA/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/ESTIMATIVA PELO PERFIL/i)).not.toBeInTheDocument();
 });
 
 test('atualização do consumo muda o preenchimento da barra sem contar exercício', async () => {
@@ -134,3 +135,5 @@ test('atualização do consumo muda o preenchimento da barra sem contar exercíc
   fireEvent.click(screen.getByRole('button', { name: '+ 250 ML' }));
   await waitFor(() => expect(meter).toHaveAttribute('aria-valuenow', '850'));
 });
+
+test('sem dados do perfil, não inventa 2300 kcal',async()=>{getCurrentUser.mockResolvedValueOnce({data:{id:17,name:'Teste'}});render(<NutritionTodayPage/>);expect(await screen.findByText(/Nada de 2.300 kcal/i)).toBeInTheDocument();expect(screen.queryByRole('progressbar',{name:'Calorias consumidas'})).not.toBeInTheDocument();});

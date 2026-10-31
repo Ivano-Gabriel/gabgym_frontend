@@ -288,3 +288,9 @@
     transition: none !important;
   }
 }
+
+/* GABGYM 2.7: macros compactos, acessíveis e responsivos. */
+.gg27-macros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;border:1px solid #b58255;border-radius:20px;background:linear-gradient(150deg,#462e23,#272323);padding:15px;margin:15px 0}
+.gg27-macro{min-width:0;display:grid;gap:9px}.gg27-macro>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:5px;flex-wrap:wrap}
+.gg27-macro strong{font-size:11px;color:#fff0d9}.gg27-macro small{font-size:10px;color:#ffc18c}
+.gg27-macro-track{height:10px;border-radius:99px;background:#64493a;overflow:hidden}.gg27-macro-track span{display:block;height:100%;background:linear-gradient(90deg,#fb7006,#ffbc3d);border-radius:99px}

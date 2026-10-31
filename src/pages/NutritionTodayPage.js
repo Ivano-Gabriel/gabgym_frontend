@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage, FiChevronDown } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
+import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
 import './NutritionTodayPage.css';
 
 const todayLabel = () => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
@@ -27,6 +28,7 @@ export default function NutritionTodayPage() {
   const [custom, setCustom] = useState({ name: '', grams: '', calories: '', protein: '', carbs: '', fat: '' });
   const [dailyGoal, setDailyGoal] = useState('');
   const [waterGoal, setWaterGoal] = useState('');
+  const [macroGoals,setMacroGoals]=useState({protein:'',carbs:'',fat:''});
   const [editGoals, setEditGoals] = useState(false);
   const portionPanelRef = useRef(null);
   const foodSectionRef = useRef(null);
@@ -47,6 +49,7 @@ export default function NutritionTodayPage() {
         // Nao se confunde com uma meta clinica nem com metabolismo basal.
         setDailyGoal(localStorage.getItem('gabgym:daily-goal:' + person.id) || '');
         setWaterGoal(localStorage.getItem('gabgym:water-goal:' + person.id) || '');
+        setMacroGoals(Object.fromEntries(['protein','carbs','fat'].map(k=>[k,localStorage.getItem('gabgym:macro-goal:'+person.id+':'+k)||''])));
         setFoods(Array.isArray(catalog.data) ? catalog.data : []);
         setLogs(Array.isArray(records.data) ? records.data : []);
       } catch {
@@ -71,12 +74,13 @@ export default function NutritionTodayPage() {
       ? (Number(grams) >= 1 && Number(grams) <= 3000 ? scaleFoodGrams(selectedFood, grams) : null)
       : quantityMode === 'servings' && isValidServingCount(servings) ? scaleFood(selectedFood, servings) : null
     : null;
-  const target = Number(dailyGoal) >= 1200 && Number(dailyGoal) <= 7000 ? Number(dailyGoal) : null;
-  // 2.300 serve somente como escala visual de exemplo, sem recomendacao nutricional.
-  const displayTarget = target || 2300;
-  const displayProgress = calorieProgress(totals.calories, displayTarget);
-  const hydrationTarget = Number(waterGoal) >= 250 && Number(waterGoal) <= 10000 ? Number(waterGoal) : null;
-  const hydrationProgress = hydrationTarget ? calorieProgress(totals.water, hydrationTarget) : null;
+  const profileEstimate=suggestDailyGoals(user);
+  const target=goalOrEstimate(dailyGoal,profileEstimate?.calories,1200,7000);
+  const displayTarget=target;
+  const displayProgress=target?calorieProgress(totals.calories,target):null;
+  const hydrationTarget=goalOrEstimate(waterGoal,profileEstimate?.water,250,10000);
+  const hydrationProgress=hydrationTarget?calorieProgress(totals.water,hydrationTarget):null;
+  const macroTargets=Object.fromEntries(['protein','carbs','fat'].map(k=>[k,goalOrEstimate(macroGoals[k],profileEstimate?.[k],1,1000)]));
   const restingEnergy = estimateRestingEnergy(user);
   useEffect(() => {
     if (!selectedFood || !portionPanelRef.current || typeof portionPanelRef.current.scrollIntoView !== 'function') return;
@@ -95,9 +99,11 @@ export default function NutritionTodayPage() {
     if (!user) return;
     const caloriesValid = dailyGoal === '' || (Number.isFinite(Number(dailyGoal)) && Number(dailyGoal) >= 1200 && Number(dailyGoal) <= 7000);
     const waterValid = waterGoal === '' || (Number.isFinite(Number(waterGoal)) && Number(waterGoal) >= 250 && Number(waterGoal) <= 10000);
-    if (!caloriesValid || !waterValid) { setError('Confira as referências: consumo de 1.200 a 7.000 kcal e água de 250 a 10.000 ml. Não são recomendações individualizadas.'); return; }
+    const macrosValid=Object.values(macroGoals).every(v=>v===''||(Number.isFinite(Number(v))&&Number(v)>=1&&Number(v)<=1000));
+    if (!caloriesValid || !waterValid || !macrosValid) { setError('Confira as referências: consumo de 1.200 a 7.000 kcal e água de 250 a 10.000 ml. Não são recomendações individualizadas.'); return; }
     localStorage.setItem('gabgym:daily-goal:' + user.id, dailyGoal);
     localStorage.setItem('gabgym:water-goal:' + user.id, waterGoal);
+    for(const k of ['protein','carbs','fat'])localStorage.setItem('gabgym:macro-goal:'+user.id+':'+k,macroGoals[k]);
     setEditGoals(false);
     setError('');
     setMessage('Referências salvas neste dispositivo. Você pode ajustá-las quando quiser.');
@@ -202,18 +208,14 @@ export default function NutritionTodayPage() {
               </header>
               <div className="gg-consumption-total">
                 <strong>{totals.calories.toLocaleString('pt-BR')}</strong>
-                <span>KCAL CONSUMIDAS <b>/ {displayTarget.toLocaleString('pt-BR')} KCAL</b></span>
+                <span>KCAL CONSUMIDAS <b>/ {displayTarget?displayTarget.toLocaleString('pt-BR'):'—'} KCAL</b></span>
               </div>
-              <div className="gg-consumption-track" role="progressbar" aria-label="Calorias consumidas"
-                aria-valuenow={Math.min(totals.calories, displayTarget)} aria-valuemin="0" aria-valuemax={displayTarget}>
-                <span className="gg-consumption-fill" style={{ width: displayProgress.percent + '%' }} />
-              </div>
-              <div className="gg-consumption-scale">
-                <span>0 KCAL</span>
-                <span>{displayProgress.percent}% PREENCHIDO</span>
-                <strong>{displayTarget.toLocaleString('pt-BR')} KCAL</strong>
-              </div>
-              {!target && <p className="gg-consumption-example">REFERÊNCIA ILUSTRATIVA — 2.300 KCAL. Toque em “Definir meta” para usar uma referência escolhida por você.</p>}
+              {displayProgress?<><div className="gg-consumption-track" role="progressbar" aria-label="Calorias consumidas"
+                  aria-valuenow={Math.min(totals.calories,displayTarget)} aria-valuemin="0" aria-valuemax={displayTarget}>
+                  <span className="gg-consumption-fill" style={{width:displayProgress.percent+'%'}}/>
+                </div><div className="gg-consumption-scale"><span>0 KCAL</span><span>{displayProgress.percent}% PREENCHIDO</span><strong>{displayTarget.toLocaleString('pt-BR')} KCAL</strong></div></>:
+                <p className="gg-consumption-example">Configure seu perfil ou defina sua meta. Nada de 2.300 kcal iguais para todos.</p>}
+              {profileEstimate&&!dailyGoal&&<p className="gg-consumption-example">ESTIMATIVA PELO PERFIL · AJUSTÁVEL, NÃO É PRESCRIÇÃO NUTRICIONAL.</p>}
               {target && <p className={'gg-consumption-feedback ' + (displayProgress.stage === 'over' ? 'is-over' : '')} aria-live="polite">
                 {displayProgress.stage === 'over'
                   ? 'Acima da sua referência em ' + Math.abs(displayProgress.remaining).toLocaleString('pt-BR') + ' kcal. Continue registrando normalmente.'
@@ -229,6 +231,13 @@ export default function NutritionTodayPage() {
                 <div><span>CARBOIDRATOS</span><strong>{formatGram(totals.carbs)} <small>g</small></strong></div>
                 <div><span>GORDURAS</span><strong>{formatGram(totals.fat)} <small>g</small></strong></div>
                 <div><span>ÁGUA</span><strong>{totals.water.toLocaleString('pt-BR')} <small>ml</small></strong></div>
+              </div>
+              <div className="gg27-macros" aria-label="Barras nutricionais">
+                {[[ 'protein','Proteína','g'],['carbs','Carboidratos','g'],['fat','Gorduras','g']].map(([key,label,unit])=><div className="gg27-macro" key={key}>
+                  <div><strong>{label}</strong><small>{formatGram(totals[key])} / {macroTargets[key]?formatGram(macroTargets[key]):'—'} {unit}</small></div>
+                  {macroTargets[key]&&<div className="gg27-macro-track" role="progressbar" aria-label={label} aria-valuenow={Math.min(totals[key],macroTargets[key])} aria-valuemin={0} aria-valuemax={macroTargets[key]}><span style={{width:Math.min(100,100*totals[key]/macroTargets[key])+'%'}}/></div>}
+                </div>)}
+                <div className="gg27-macro"><div><strong>Água</strong><small>{totals.water} / {hydrationTarget||'—'} ml</small></div>{hydrationProgress&&<div className="gg27-macro-track" role="progressbar" aria-label="Água diária" aria-valuenow={Math.min(totals.water,hydrationTarget)} aria-valuemin={0} aria-valuemax={hydrationTarget}><span style={{width:hydrationProgress.percent+'%'}}/></div>}</div>
               </div>
               <footer className="gg-consumption-foot">
                 <span>{totals.meals} alimento{totals.meals !== 1 ? 's' : ''} registrado{totals.meals !== 1 ? 's' : ''} hoje</span>
@@ -260,7 +269,10 @@ export default function NutritionTodayPage() {
                   <input type="number" min="250" max="10000" step="50" inputMode="numeric" value={waterGoal} placeholder="Opcional"
                     onChange={event => setWaterGoal(event.target.value)} />
                 </label>
-                <p>Informe metas adequadas às suas necessidades, preferencialmente orientadas por profissional. Salvas apenas neste dispositivo durante o piloto.</p>
+                {[['protein','PROTEÍNA'],['carbs','CARBOIDRATO'],['fat','GORDURA']].map(([key,label])=><label key={key}>META DE {label} (G/DIA)
+                  <input type="number" min="1" max="1000" value={macroGoals[key]} placeholder={profileEstimate?String(profileEstimate[key]):'Opcional'} onChange={e=>setMacroGoals(v=>({...v,[key]:e.target.value}))}/>
+                </label>)}
+                <p>Estimativas pelo perfil ou referências manuais. Valores não substituem orientação individualizada. Salvas neste dispositivo.</p>
                 <button className="gg-daily-cta" type="button" onClick={saveGoals}>SALVAR REFERÊNCIAS <FiArrowRight aria-hidden="true" /></button>
               </div>}
             </section>
