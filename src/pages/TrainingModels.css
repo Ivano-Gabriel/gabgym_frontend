@@ -7,7 +7,7 @@
   min-height: calc(100vh - 70px);
   padding: 24px 16px;
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(143,169,147,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -52,7 +52,7 @@
 
 .gg-tm-portal:hover {
   border-color: var(--gg-neon);
-  box-shadow: 0 0 20px rgba(182, 255, 110, 0.15);
+  box-shadow: 0 0 20px rgba(179,201,172,0.15);
   transform: translateY(-2px);
 }
 
@@ -61,7 +61,7 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: rgba(116, 232, 93, 0.1);
+  background: rgba(143,169,147,0.1);
   color: var(--gg-green);
   display: flex;
   align-items: center;
