@@ -41,8 +41,8 @@ export default function LoginPage() {
     }
   };
 
-  return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'VOLTE MAIS FORTE.'}
-    subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Seu treino, sua alimentação e sua evolução continuam aqui.'}
+  return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'BEM-VINDO DE VOLTA.'}
+    subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Acesse seu progresso.'}
     footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link></>}>
     <form className="gg-auth-form" onSubmit={handleSubmit}>
       <label className="gg-auth-field"><span>Usuário</span>

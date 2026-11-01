@@ -45,3 +45,18 @@
 .gg-records-bottom a:last-child{background:#ff7847;color:#111719;border-color:#ff7847}
 .gg-records :is(a,button):focus-visible{outline:3px solid #ff9f7d;outline-offset:3px}
 @media(max-width:500px){.gg-records-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.gg-records-summary>div:first-child{grid-column:1/-1}.gg-records-bottom{grid-template-columns:1fr}}
+
+/* 2.7.2 — registros acessíveis e tom âmbar moderado */
+.gg-records{background:radial-gradient(ellipse at 20% 0%,#50362675,transparent 42%),#1d1c1d}
+.gg-records-heading{border-color:#82634c;padding-bottom:16px}
+.gg-records-heading h1{font-size:clamp(48px,9vw,79px);margin:15px 0 9px}
+.gg-records-summary>div{border-radius:19px;background:#3a302c;border-color:#8b6a53}
+.gg-records-filters button{border-radius:17px;background:#352c29;color:#eed2b9;border-color:#82614b}
+.gg-records-filters button[aria-pressed=true]{background:#e2a269;color:#261a12;border-color:#e2a269}
+.gg-records-row{border-radius:18px;background:#312b2b;border-color:#795d4c}
+.gg-records-icon{border-radius:15px;background:#4c362b;color:#e8b17d}
+.gg-records-delete{border-radius:15px;background:#3f322e;color:#f1c4a0;border-color:#85644f}
+.gg-records-empty{border-radius:20px;background:#332b29;border-color:#8a6852}
+.gg-records-empty a{background:#e4a56c;color:#261a12;border-radius:16px}
+.gg-records-bottom a{border-radius:17px;background:#3d302a}
+.gg-records-bottom a:last-child{background:#e4a56c;color:#241a12;border-color:#e4a56c}

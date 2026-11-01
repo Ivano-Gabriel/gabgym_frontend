@@ -53,3 +53,19 @@
 .gg-home h1 em{color:#ff9316;text-shadow:0 0 28px #f7820680}.gg-home-copy p{color:#ffe0bd;font-size:17px;font-weight:750;line-height:1.5}
 .gg-home-main-action{min-height:76px;border-radius:22px;padding:0 25px;font-size:15px;background:linear-gradient(145deg,#ffe19b,#ff9f20 40%,#f77405);box-shadow:inset 0 2px 3px #fff8,0 12px 31px #f3740680}
 .gg-home-secondary-action{border-radius:19px;background:#4b2c1d5b}.gg-home-mark{opacity:.1}
+
+/* 2.7.2 — intensidade controlada, um CTA claro e sem neon */
+.gg-home{background:#1d1a19}
+.gg-home-hero{background:radial-gradient(ellipse at 80% 35%,rgba(140,77,40,.22),transparent 57%),linear-gradient(135deg,#322720,#1c1b1c 68%);border-bottom:1px solid #6f5140;box-shadow:none}
+.gg-home-hero:before{width:3px;background:#c88957}
+.gg-home h1 em{color:#e5a36d;text-shadow:none}
+.gg-home-mark{opacity:.045}
+.gg-home-live{background:#dfa569}
+.gg-home-edition,.gg-home-topline{color:#e7b187}
+.gg-home-copy p{color:#d9c3b4;font-size:clamp(14px,1.6vw,17px);font-weight:650}
+.gg-home-main-action{color:#2b1b12;background:linear-gradient(138deg,#efd2a4,#e4a165 72%,#d8894f);border:1px solid #e4b07e;box-shadow:inset 0 1px rgba(255,255,255,.55),0 6px 20px rgba(183,101,48,.23);border-radius:21px}
+.gg-home-main-action:hover{background:linear-gradient(138deg,#f1d7b2,#e8ab79)}
+.gg-home-secondary-action{background:#332824;border:1px solid #7a5944;color:#f2dfca;border-radius:19px}
+.gg-home-footnote{border-top-color:#695044;color:#c9a88e}
+@media(max-width:767px){.gg-home{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}.gg-home-hero{min-height:calc(100svh - 80px)}.gg-home-copy{margin:35px 0}.gg-home-main-action{min-height:70px}.gg-home-footnote{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.gg-home-main-action{transition:none}}

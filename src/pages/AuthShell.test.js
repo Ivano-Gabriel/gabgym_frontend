@@ -15,15 +15,15 @@ test('identidade GABGYM exibe treino e nutricao sem fotos nem grafismos legados'
     </AuthShell>
   );
 
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/mais quetreino\.progresso\./i);
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/seu ritmo\.sua evolução\./i);
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('VOLTE MAIS FORTE.');
-  expect(screen.getByText('TREINAR')).toBeInTheDocument();
-  expect(screen.getByText('ALIMENTAR')).toBeInTheDocument();
-  expect(screen.getByText('EVOLUIR')).toBeInTheDocument();
+  expect(screen.getByText('O PROGRESSO É SEU.')).toBeInTheDocument();
+  expect(screen.queryByText(/Planeje seus treinos/i)).not.toBeInTheDocument();
   expect(screen.getByRole('link', { name: /criar conta/i })).toHaveAttribute('href', '/signup');
   expect(container.querySelectorAll('img')).toHaveLength(1);
   expect(container.querySelector('img')).toHaveAttribute('src', '/gg-mark.svg');
   expect(container.querySelector('.gg-auth-visual-circle')).toBeNull();
+  expect(screen.getByRole('link',{name:/gabgym, ir para o início/i})).toHaveAttribute('href','/');
 });
 
 test('cadastro mostra contexto e link de login sem mudar fluxo de autenticacao', () => {

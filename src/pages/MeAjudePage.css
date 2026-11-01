@@ -27,3 +27,13 @@
 .gg-help :is(a,summary):focus-visible{outline:3px solid #ffa47f;outline-offset:3px}
 @media(max-width:550px){.gg-help-contacts{grid-template-columns:1fr}.gg-help-contacts a{min-height:60px}}
 @media(prefers-reduced-motion:reduce){.gg-help-faq summary svg{transition:none}}
+
+/* 2.7.2 — suporte com cards e contraste quente, sem neon */
+.gg-help{background:radial-gradient(ellipse at 15% 0%,#51362775,transparent 45%),#1e1c1d}
+.gg-help-header{padding-bottom:17px;border-color:#81614d}
+.gg-help-header h1{font-size:clamp(45px,8vw,73px);margin:15px 0 11px}
+.gg-help-faq details{border:1px solid #85634e;border-radius:19px;background:linear-gradient(145deg,#403229,#2e2b2c)}
+.gg-help-faq summary{min-height:62px}
+.gg-help-faq details[open] summary{color:#f1bb8f;border-color:#775943}
+.gg-help-contacts a{border-radius:18px;background:#39302c;border-color:#876650;min-height:67px}
+.gg-help-footer{color:#c7aa95}

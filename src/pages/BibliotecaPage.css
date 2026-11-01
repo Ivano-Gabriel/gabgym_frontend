@@ -38,3 +38,16 @@
  .biblioteca-page .nav-arrow-button{width:51px;height:51px;background:linear-gradient(145deg,#ffbd99,#ff7847 75%,#b94a30);color:#111719;border:1px solid #ffd3b0;box-shadow:0 7px 18px #0008;}
  .biblioteca-page{padding-bottom:calc(187px + env(safe-area-inset-bottom,0px));}
 }
+
+/* 2.7.2 — leitura confortável, destaque sem agressividade */
+.biblioteca-page{background:radial-gradient(ellipse at 30% 0%,#52342470,transparent 40%),#1d1c1d!important}
+.biblioteca-main-title{font-size:clamp(46px,9vw,70px)}
+.biblioteca-tabs{border-color:#80614c;gap:9px;padding-bottom:16px}
+.biblioteca-tabs .tab-button{border-radius:17px;background:#382e29;border-color:#85654d;min-height:47px;color:#f1d8c0}
+.biblioteca-tabs .tab-button.active{background:#e2a36c;color:#281b14;border-color:#e4ac7b}
+.article-card{border-radius:22px;background:linear-gradient(145deg,#392e29,#292a2c);border:1px solid #785e4c;border-left:3px solid #cb8958;box-shadow:0 7px 22px #0003}
+.article-title{font-size:clamp(27px,5.5vw,39px)}
+.article-body h2{color:#e9b88b}
+.youtube-link-card{border-radius:18px;border-color:#83654d;background:#292526}
+.nav-arrow-button{border-radius:16px;background:#413128;color:#f3bf91;border-color:#a17a5b}
+@media(max-width:760px){.biblioteca-page .nav-arrow-button{border-radius:17px;background:linear-gradient(135deg,#edd0a1,#d79a60);color:#261910;border-color:#dda973;box-shadow:0 4px 15px #0006}.article-card{padding:19px 16px}}
