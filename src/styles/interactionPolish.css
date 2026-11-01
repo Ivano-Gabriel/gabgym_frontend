@@ -1,0 +1,31 @@
+/* Camada final: depois de metalFinish, corrige CTAs globais !important */
+.gg-today .gg-today-shortcuts a,.gg-today .gg-today-shortcuts a:last-child{
+ background:linear-gradient(145deg,#f2d4ac,#e7b580 70%,#db9e6e)!important;
+ border:1px solid #dbad81!important;
+ color:#231810!important;
+ text-shadow:none!important;
+ border-radius:19px!important;
+ box-shadow:inset 0 1px #fff9,0 5px 13px #8e593028!important;
+ min-height:63px;
+ font-weight:950;
+ letter-spacing:.006em;
+ transition:background .18s ease,box-shadow .18s ease,transform .18s ease!important;
+}
+.gg-today .gg-today-shortcuts a:last-child{background:linear-gradient(145deg,#eec79a,#dfad78 72%,#d29e70)!important}
+.gg-today .gg-today-shortcuts a :is(svg,span,strong,small),.gg-today .gg-today-shortcuts a:last-child :is(svg,span,strong,small){color:#231810!important;stroke:#231810}
+.gg-today .gg-today-shortcuts a:hover,.gg-today .gg-today-shortcuts a:focus-visible{background:linear-gradient(145deg,#f6dfbf,#e9ba8b)!important;box-shadow:inset 0 1px #fffa,0 7px 16px #94603934!important}
+.gg-today .gg-today-shortcuts a:active{transform:scale(.97)!important;box-shadow:inset 0 2px 4px #6d472a30!important}
+.gg-today .gg-today-shortcuts a{touch-action:manipulation}
+.gg-today .gg-today-shortcuts a:focus-visible{outline:3px solid #eebc8c;outline-offset:3px}
+@media(max-width:440px){.gg-today .gg-today-shortcuts a{padding:12px 10px;min-height:65px;font-size:clamp(10px,2.8vw,12px);line-height:1.3}.gg-today .gg-today-shortcuts a svg{flex:none}}
+/* Marca visual de notificações: compactas, tipografia clara, sem neon. */
+.Toastify__toast-container.gg-toast-container{width:min(360px,calc(100vw - 30px));z-index:1400}
+.gg-toast-container .Toastify__toast.gg-toast{background:linear-gradient(135deg,#433026,#2b292b);color:#f9ece0;border:1px solid #ae8465;border-radius:19px;box-shadow:0 14px 33px #0008,inset 0 1px #ffffff16;padding:14px;min-height:74px;font-family:var(--gg-font-body,Manrope,Arial,sans-serif)}
+.gg-toast-container .gg-toast .Toastify__toast-icon{width:27px;margin-inline-end:12px;flex:none;color:#eac08f}
+.gg-toast-container .gg-toast .Toastify__toast-icon svg{width:25px;height:25px}
+.gg-toast-container .gg-toast .Toastify__close-button{color:#f0cead;opacity:.85;align-self:start}
+.gg-toast-container .gg-toast .Toastify__progress-bar{height:3px;background:linear-gradient(90deg,#d18f5f,#f0c18e)}
+.gg-toast-container .gg-toast.gg-toast-error{background:linear-gradient(140deg,#50302b,#2e2929);border-color:#c48776}
+.gg-toast-copy{display:grid;gap:5px}.gg-toast-copy strong{font-size:11px;letter-spacing:.085em;font-weight:950;color:#f4d5b7}.gg-toast-copy span{font-size:12px;line-height:1.45;color:#f3e5d5;font-weight:650}
+@media(max-width:767px){.Toastify__toast-container.gg-toast-container.Toastify__toast-container--top-right{top:calc(75px + env(safe-area-inset-top,0px));left:15px;right:15px;width:calc(100vw - 30px);max-width:390px;margin-inline:auto;transform:none;padding:0}.gg-toast-container .Toastify__toast.gg-toast{margin-bottom:9px}}
+@media(prefers-reduced-motion:reduce){.gg-today .gg-today-shortcuts a{transition:none!important;transform:none!important}.Toastify__toast{animation:none!important}}

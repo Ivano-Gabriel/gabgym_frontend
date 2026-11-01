@@ -174,3 +174,28 @@
 
 /* SVG angular GG único em todo o produto */
 .gg-header-monogram { width:39px;height:39px;padding:0;border:0;transform:none;background:transparent;border-radius:9px;object-fit:contain; }
+
+/* 2.7: header âmbar minimalista, sem verde nem luz intensa */
+.gg-header{min-height:68px;background:rgba(35,29,27,.96);border-bottom:1px solid #82624d;box-shadow:0 5px 16px #0003;padding:10px clamp(16px,3vw,36px)}
+.gg-header-monogram{width:42px;height:42px;border-radius:13px;filter:drop-shadow(0 3px 7px #a5724533)}
+.gg-logo-text{color:#f6e6d6;font-size:28px}
+.gg-header-route{margin-left:5px;color:#efc29c;background:#46342b;border:1px solid #8d6b51;border-radius:50px;padding:8px 11px;font-size:10px;font-weight:900;white-space:nowrap}
+.gg-header-right{gap:10px}
+.gg-header-cta{background:linear-gradient(140deg,#efd1a6,#dea06a);color:#241a12;border-radius:15px;border:1px solid #e7b585;box-shadow:none;min-height:44px}
+.gg-header-cta:hover{background:#f0cda2;box-shadow:none}
+.gg-nav-link{color:#e7c9ae;border-radius:12px}
+.gg-nav-link:hover{background:#574032;color:#f9e4cc}
+.gg-hamburger{min-width:46px;min-height:46px;width:46px;height:46px;border-radius:15px;border-color:#a37b5d;background:#45342c;color:#f5d4b4;transition:background .2s ease,transform .2s ease}
+.gg-hamburger:hover,.gg-hamburger.is-open{background:#5b4334;border-color:#d4a177;color:#fff0db}
+.gg-hamburger:active{transform:scale(.96)}
+.gg-logo-dropdown{background:#322823;border-color:#947154;border-radius:18px}
+.gg-logo-dropdown-link{color:#f1d5ba;border-radius:13px}
+@media(max-width:767px){.gg-header{min-height:65px;padding:9px 15px}.gg-header-route{font-size:10px;padding:7px 9px}.gg-logo-text{font-size:26px}.gg-header-monogram{width:39px;height:39px}}
+@media(max-width:360px){.gg-header-route{display:none}}
+@media(prefers-reduced-motion:reduce){.gg-hamburger{transition:none}}
+
+/* Hamburger com ícone que aparece suavemente ao alternar */
+.gg-hamburger .gg-menu-symbol{animation:gg-menu-symbol-in .18s cubic-bezier(.2,.8,.2,1)}
+.gg-hamburger.is-open{background:#624735;border-color:#d5a27b}
+@keyframes gg-menu-symbol-in{from{opacity:.4;transform:scale(.72) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
+@media(prefers-reduced-motion:reduce){.gg-hamburger .gg-menu-symbol{animation:none!important}}

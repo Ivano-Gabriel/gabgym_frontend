@@ -22,3 +22,17 @@ test('menu mobile tem acesso direto a hoje, comer, hub, treino e perfil', () => 
   fireEvent.click(screen.getByRole('button', { name: /fechar hub/i }));
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 });
+
+
+test('hub permanece montado e alterna visibilidade para animar o fechamento',()=>{
+ const {container}=render(<DailyNavigation/>);
+ const sheet=container.querySelector('#gg-hub-sheet');
+ expect(sheet).toHaveAttribute('aria-hidden','true');
+ expect(sheet).not.toHaveClass('is-visible');
+ fireEvent.click(screen.getByRole('button',{name:/abrir hub/i}));
+ expect(sheet).toHaveAttribute('aria-hidden','false');
+ expect(sheet).toHaveClass('is-visible');
+ fireEvent.click(screen.getByRole('button',{name:/fechar hub/i}));
+ expect(sheet).toHaveAttribute('aria-hidden','true');
+ expect(sheet).not.toHaveClass('is-visible');
+});

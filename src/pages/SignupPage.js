@@ -28,8 +28,8 @@ export default function SignupPage() {
     }
   };
 
-  return <AuthShell type="signup" title="COMECE FORTE."
-    subtitle="Treino, alimentação e evolução. Seu ponto de partida é aqui."
+  return <AuthShell type="signup" title="SEU COMEÇO."
+    subtitle="Crie sua conta e comece."
     footer={<>Já tem uma conta? <Link to="/login">Entrar</Link></>}>
     <form className="gg-auth-form" onSubmit={submit}>
       <label className="gg-auth-field"><span>Nome de usuário</span>
