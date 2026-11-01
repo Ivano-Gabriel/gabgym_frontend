@@ -70,3 +70,12 @@
 .gg-mobile-menu-link svg { color:#ff9b76; }
 .gg-mobile-menu-link:hover { background:#343033; }
 .gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #ffa083;outline-offset:3px; }
+
+/* 2.7: menu arredondado com transição de entrada e saída */
+.gg-mobile-menu{width:min(340px,88vw);height:100dvh;max-width:88vw;background:linear-gradient(155deg,#443126,#28282a 75%);border-left:1px solid #a37a59;border-radius:25px 0 0 25px;visibility:hidden;pointer-events:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility .25s}
+.gg-mobile-menu.open{visibility:visible;pointer-events:auto}
+.gg-mobile-menu-close{background:#4a382e;border-radius:16px;border-color:#a37a5b;color:#f4c9a2}
+.gg-mobile-menu-link{border-radius:18px;min-height:62px;background:linear-gradient(135deg,#48362b,#2d2b2c);border-color:#80604b;color:#f4e3d0;transition:background .18s ease,transform .18s ease}
+.gg-mobile-menu-link:hover{background:#614638;transform:translateX(-3px)}
+.gg-mobile-menu-link svg{color:#e4ab79}
+@media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link{transition:none!important}}

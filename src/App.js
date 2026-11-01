@@ -1,6 +1,6 @@
 // src/App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 
@@ -48,6 +48,7 @@ import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 import { isLoggedIn, isSuperAdmin } from './utils/auth';
 import AdminPage from './pages/AdminPage';
 import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
+import { getSwipeDestination, shouldIgnoreSwipeOrigin } from './utils/swipeNavigation';
 import './components/Header.css';
 import './styles/metalFinish.css';
 
@@ -64,6 +65,8 @@ function AppContent() {
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const swipeStart = useRef(null);
 
   const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
@@ -88,6 +91,23 @@ function AppContent() {
     closeAllMenus();
   };
 
+  const onTabTouchStart = event => {
+    swipeStart.current=null;
+    if(!isLoggedIn()||isOverlayActive||window.innerWidth>767)return;
+    if(event.touches.length!==1||shouldIgnoreSwipeOrigin(event.target,event.currentTarget))return;
+    const touch=event.touches[0];
+    if(touch.clientX<28||touch.clientX>window.innerWidth-28)return;
+    swipeStart.current={x:touch.clientX,y:touch.clientY,id:touch.identifier,at:Date.now()};
+  };
+  const onTabTouchEnd = event => {
+    const start=swipeStart.current;swipeStart.current=null;
+    if(!start||isOverlayActive||event.changedTouches.length!==1)return;
+    const touch=event.changedTouches[0];if(touch.identifier!==start.id)return;
+    const next=getSwipeDestination(location.pathname,touch.clientX-start.x,touch.clientY-start.y,Date.now()-start.at);
+    if(next){event.preventDefault();navigate(next);}
+  };
+  const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil'})[location.pathname];
+
   return (
     <div className="App">
       {!isAuthPage && <header className="gg-header">
@@ -101,10 +121,11 @@ function AppContent() {
           </div>
           {isLogoMenuOpen && (
             <div className="gg-logo-dropdown">
-              <Link to="/portfolio" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('header.sobre_projeto')}</Link>
-              <Link to="/about-me" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('header.sobre_programador')}</Link>
+              <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Biblioteca</Link>
+              <Link to="/meu-personal" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Meu Personal</Link>
             </div>
           )}
+          <span className="gg-header-route" aria-live="polite">{headerLabel||'SEU PROGRESSO'}</span>
         </div>
         <nav className="gg-nav-desktop">
           <ul className="gg-nav-list">
@@ -119,7 +140,7 @@ function AppContent() {
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
-          <button className="gg-hamburger" onClick={toggleMobileMenu} aria-label="Menu">
+          <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
             <FiMenu />
           </button>
         </div>
@@ -128,7 +149,7 @@ function AppContent() {
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="bottom-right" autoClose={3000} theme="dark" />
 
-      <main className={isAuthPage ? 'gg-auth-main' : undefined}>
+      <main className={isAuthPage ? 'gg-auth-main' : undefined} onTouchStart={onTabTouchStart} onTouchEnd={onTabTouchEnd} onTouchCancel={()=>{swipeStart.current=null;}}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
@@ -166,7 +187,7 @@ function AppContent() {
       </main>
       
       {!isAuthPage && isLoggedIn() && <DailyNavigation />}
-      {isMobileMenuOpen && ( <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} /> )}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} />
       {showTutorialModal && ( <TutorialModal onClose={toggleTutorialModal} /> )}
     </div>
   );

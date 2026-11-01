@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { FiHome, FiActivity, FiCoffee, FiUser, FiShield, FiX, FiTarget, FiHeart, FiBarChart2, FiChevronRight, FiBookOpen } from 'react-icons/fi';
+import { FiHome, FiActivity, FiCoffee, FiUser, FiShield, FiX, FiTarget, FiHeart, FiBarChart2, FiChevronRight, FiBookOpen, FiUsers } from 'react-icons/fi';
 import { isSuperAdmin } from '../utils/auth';
 import './DailyNavigation.css';
 
@@ -42,6 +42,7 @@ export default function DailyNavigation() {
     { label: 'Metas', to: '/minhas-metas', icon: FiTarget, summary: 'Defina o próximo passo' },
     { label: 'Progresso', to: '/perfil', icon: FiBarChart2, summary: 'Sua evolução' },
     { label: 'Biblioteca', to: '/biblioteca', icon: FiBookOpen, summary: 'Aprenda e pratique' },
+    { label: 'Meu Personal', to: '/meu-personal', icon: FiUsers, summary: 'Seu foco, seus treinos' },
   ];
   return (
     <>
@@ -69,8 +70,8 @@ export default function DailyNavigation() {
             <button ref={closeRef} type="button" aria-label="Fechar hub" onClick={() => setOpen(false)}><FiX/></button>
           </div>
           <div className="gg-hub-links">
-            {menu.map(({label,to,summary,icon:Icon}) =>
-              <Link key={to} to={to} onClick={() => setOpen(false)} className="gg-hub-link">
+            {menu.map(({label,to,summary,icon:Icon},index) =>
+              <Link key={to} to={to} onClick={() => setOpen(false)} style={{"--gg-card-index":index}} className="gg-hub-link">
                 <Icon aria-hidden="true" /><span><strong>{label}</strong><small>{summary}</small></span><FiChevronRight aria-hidden="true"/>
               </Link>)}
           </div>
