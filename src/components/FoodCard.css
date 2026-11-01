@@ -17,7 +17,7 @@
 
 .food-item-card:hover {
   border-color: var(--gg-neon);
-  box-shadow: 0 0 14px rgba(182, 255, 110, 0.12);
+  box-shadow: 0 0 14px rgba(179,201,172,0.12);
   transform: translateY(-2px);
 }
 
@@ -81,7 +81,7 @@
 
 .add-food-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(116, 232, 93, 0.5);
+  box-shadow: 0 0 10px rgba(143,169,147,0.36);
 }
 
 .add-food-button:active {

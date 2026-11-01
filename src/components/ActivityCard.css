@@ -29,8 +29,8 @@
 }
 
 /* Cores específicas por tipo de atividade */
-.activity-card:has(.cardio-icon) { border-color: #3498db; } /* Azul */
-.activity-card:has(.dieta-icon) { border-color: #f1c40f; } /* Amarelo */
+.activity-card:has(.cardio-icon) { border-color: #87A8B7; } /* Azul */
+.activity-card:has(.dieta-icon) { border-color: #C3A06F; } /* Amarelo */
 .activity-card:has(.foto-icon) { border-color: #9b59b6; } /* Roxo */
 
 .activity-details {
