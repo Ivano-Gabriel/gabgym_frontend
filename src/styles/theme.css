@@ -1,34 +1,29 @@
-/* GABGYM / Performance Design System 2.0
- * Base permanente para migrar as demais telas sem copiar o Nummo.
- * Nao substitui as folhas legadas neste PR; migracao sera por modulo.
- */
+/* GABGYM 2.8 | paleta sólida sem neon — fonte única de cores. */
 :root {
-  --gg-void: #0e1113;
-  --gg-surface: #1c2225;
-  --gg-surface-raised: #242b2f;
-  --gg-ink: #101315;
-  --gg-line: rgba(245, 242, 234, .16);
-  --gg-line-strong: rgba(245, 242, 234, .30);
-  --gg-text: #f5f2ea;
-  --gg-muted: #b8bec0;
-  --gg-subtle: #858d90;
-  --gg-accent: #ff7847;
-  --gg-accent-hover: #ff996f;
-  --gg-cream: #f5f2ea;
-  --gg-warning: #ffcf72;
-  --gg-danger: #ff857d;
-  --gg-water: #74c9e7;
-  --gg-success: #93d1b0;
-  --gg-font-display: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
-  --gg-font-body: 'Manrope', Arial, sans-serif;
-  --gg-radius-control: 5px;
-  --gg-radius-panel: 9px;
-  --gg-spacing-unit: 8px;
-  --gg-content-width: 1380px;
-
-  /* Compatibilidade temporaria dos componentes legados.
-     As telas antigas serao migradas gradualmente para --gg-accent. */
-  --gg-green: var(--gg-accent);
-  --gg-neon: var(--gg-accent);
-  --primaryGreen: var(--gg-accent);
+  --gg-void:#201f1e;
+  --gg-surface:#2b2927;
+  --gg-surface-raised:#34302d;
+  --gg-ink:#211913;
+  --gg-line:rgba(220,200,180,.19);
+  --gg-line-strong:rgba(220,200,180,.32);
+  --gg-text:#e9dfd4;
+  --gg-muted:#c6b7a8;
+  --gg-subtle:#a99b90;
+  --gg-accent:#c18b60;
+  --gg-accent-hover:#cfa276;
+  --gg-cream:#ede0d2;
+  --gg-warning:#c3a06f;
+  --gg-danger:#c78b80;
+  --gg-water:#92aebc;
+  --gg-success:#93ad98;
+  --gg-font-display:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;
+  --gg-font-body:'Manrope',Arial,sans-serif;
+  --gg-radius-control:13px;
+  --gg-radius-panel:19px;
+  --gg-spacing-unit:8px;
+  --gg-content-width:1380px;
+  /* Aliases legados: nome conservado por compatibilidade, brilho removido. */
+  --gg-green:var(--gg-accent);
+  --gg-neon:var(--gg-accent);
+  --primaryGreen:var(--gg-accent);
 }
