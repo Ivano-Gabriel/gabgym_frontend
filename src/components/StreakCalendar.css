@@ -1,23 +1,23 @@
 .gg27-streak{margin:0 0 16px;border:1px solid #987053;border-radius:22px;background:linear-gradient(140deg,#503426,#302a29 70%);box-shadow:inset 0 1px #fff2,0 8px 20px #0003;overflow:hidden}
-.gg27-streak-button{width:100%;display:flex;align-items:center;gap:13px;min-height:83px;padding:13px 15px;background:none;border:0;color:#fff0df;text-align:left;cursor:pointer}
-.gg27-flame{width:55px;height:55px;flex:0 0 55px;border-radius:18px;display:grid;place-items:center;color:#fff1d0;background:radial-gradient(circle at 50% 80%,#f4d9a2,#dc8b47 50%,#984e29);box-shadow:inset 0 2px #fff5,0 6px 16px #cc71263d}
-.gg27-flame svg{font-size:38px;filter:drop-shadow(0 2px 2px #a94b1b)}
+.gg27-streak-button{width:100%;display:flex;align-items:center;gap:13px;min-height:83px;padding:13px 15px;background:none;border:0;color:#E6CEB6;text-align:left;cursor:pointer}
+.gg27-flame{width:55px;height:55px;flex:0 0 55px;border-radius:18px;display:grid;place-items:center;color:#E6CEB6;background:radial-gradient(circle at 50% 80%,#D9B18A,#C18B60 50%,#95694E);box-shadow:0 5px 15px rgba(0,0,0,.19)}
+.gg27-flame svg{font-size:38px;filter:drop-shadow(0 2px 2px #95694E)}
 .gg27-streak-copy{flex:1;min-width:0;display:grid;gap:5px}
 .gg27-streak-copy strong{font:850 clamp(22px,5vw,30px)/1 var(--gg-font-display,Impact,sans-serif)}
-.gg27-streak-copy small{font-size:12px;color:#e5bea1}
+.gg27-streak-copy small{font-size:12px;color:#D9B18A}
 .gg27-streak-button>svg:last-child{font-size:20px;transition:transform .2s}.gg27-streak-button>svg.opened{transform:rotate(180deg)}
 .gg27-calendar{padding:15px;border-top:1px solid #865e46;background:#302824}
-.gg27-calendar>strong{font-size:11px;color:#f1c18f;letter-spacing:.08em}
+.gg27-calendar>strong{font-size:11px;color:#D9B18A;letter-spacing:.08em}
 .gg27-calendar-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:13px 0}
 .gg27-calendar-day{min-width:0;display:grid;justify-items:center;gap:8px;padding:9px 1px;border:1px solid #775745;border-radius:12px;background:#46382f}
-.gg27-calendar-day small{text-transform:uppercase;font-size:10px;color:#e0c2ab}
-.gg27-calendar-day b{display:grid;place-items:center;border-radius:50%;height:28px;width:28px;font-size:13px;color:#eee0d1}
-.gg27-calendar-day.marked b{background:linear-gradient(145deg,#edbb7c,#d67f38);color:#291b13}
+.gg27-calendar-day small{text-transform:uppercase;font-size:10px;color:#D9B18A}
+.gg27-calendar-day b{display:grid;place-items:center;border-radius:50%;height:28px;width:28px;font-size:13px;color:#E6CEB6}
+.gg27-calendar-day.marked b{background:#C18B60;color:#291b13}
 .gg27-calendar-day.unmarked{opacity:.6}.gg27-calendar-day.unknown{border-style:dashed}
-.gg27-calendar p{margin:0;color:#d9b9a2;font-size:11px;line-height:1.6}
+.gg27-calendar p{margin:0;color:#D9B18A;font-size:11px;line-height:1.6}
 .gg27-streak.compact .gg27-streak-button{min-height:64px;padding:10px 13px}
 .gg27-streak.compact .gg27-flame{width:42px;height:42px;flex-basis:42px;border-radius:14px}
 .gg27-streak.compact .gg27-flame svg{font-size:29px}
 .gg27-streak.compact .gg27-streak-copy strong{font-size:21px}
-.gg27-streak-button:focus-visible{outline:3px solid #e5ad75;outline-offset:-4px}
+.gg27-streak-button:focus-visible{outline:3px solid #D9B18A;outline-offset:-4px}
 @media(prefers-reduced-motion:reduce){.gg27-streak-button>svg:last-child{transition:none}}

@@ -99,7 +99,7 @@
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid rgba(255, 107, 92, 0.35);
+  border: 1px solid rgba(217,177,138,0.25);
   background: transparent;
   color: var(--gg-danger);
   font-weight: 700;
@@ -112,5 +112,5 @@
 }
 
 .clear-log-button:not(:disabled):hover {
-  background: rgba(255, 107, 92, 0.1);
+  background: rgba(217,177,138,0.1);
 }

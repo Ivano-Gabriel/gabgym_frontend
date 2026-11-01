@@ -1,24 +1,24 @@
-.gg-personal{min-height:100dvh;padding:20px 16px calc(115px + env(safe-area-inset-bottom,0px));background:radial-gradient(ellipse at 20% 0%,#63402b80,transparent 44%),#1d1c1e;color:#f6ecdf;font-family:var(--gg-font-body,Manrope,Arial,sans-serif);text-align:left}
+.gg-personal{min-height:100dvh;padding:20px 16px calc(115px + env(safe-area-inset-bottom,0px));background:radial-gradient(ellipse at 20% 0%,#63402b80,transparent 44%),#1d1c1e;color:#E6CEB6;font-family:var(--gg-font-body,Manrope,Arial,sans-serif);text-align:left}
 .gg-personal *{box-sizing:border-box}.gg-personal-inner{max-width:840px;margin:0 auto}
-.gg-personal-back{display:inline-flex;gap:9px;align-items:center;min-height:44px;color:#edbc90;text-decoration:none;font-size:11px;font-weight:900}
-.gg-personal-kicker{display:flex;gap:8px;align-items:center;font-size:11px;color:#e3b388;font-weight:900;letter-spacing:.1em}
+.gg-personal-back{display:inline-flex;gap:9px;align-items:center;min-height:44px;color:#D9B18A;text-decoration:none;font-size:11px;font-weight:900}
+.gg-personal-kicker{display:flex;gap:8px;align-items:center;font-size:11px;color:#D9B18A;font-weight:900;letter-spacing:.1em}
 .gg-personal-intro h1{font:900 clamp(48px,10vw,80px)/.93 var(--gg-font-display,Impact,sans-serif);margin:15px 0 9px}
-.gg-personal-intro h1 span{color:#dfa36d}.gg-personal-intro p{font-size:13px;line-height:1.6;color:#e2c6ac;margin:0 0 22px}
+.gg-personal-intro h1 span{color:#C18B60}.gg-personal-intro p{font-size:13px;line-height:1.6;color:#D9B18A;margin:0 0 22px}
 .gg-personal-card{background:linear-gradient(145deg,#423027,#2b2b2d);border:1px solid #9b7557;border-radius:23px;padding:clamp(16px,4vw,26px);box-shadow:inset 0 1px #fff2,0 8px 22px #0003}
 .gg-personal-card-head{display:flex;gap:12px;align-items:start;margin-bottom:22px}
-.gg-personal-card-head>svg{color:#edb581;font-size:22px;flex:none}
+.gg-personal-card-head>svg{color:#D9B18A;font-size:22px;flex:none}
 .gg-personal-card-head h2{font:900 29px/.95 var(--gg-font-display,Impact,sans-serif);margin:0 0 7px}
-.gg-personal-card-head span{font-size:12px;color:#d9bca4}
+.gg-personal-card-head span{font-size:12px;color:#D9B18A}
 .gg-personal-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.gg-personal-form label{display:grid;gap:8px;font-size:11px;color:#edd0b4;font-weight:900}
+.gg-personal-form label{display:grid;gap:8px;font-size:11px;color:#E6CEB6;font-weight:900}
 .gg-personal-form label:nth-child(4){grid-column:1/-1}
-.gg-personal-form select,.gg-personal-form textarea{background:#252224;color:#f6e8db;border:1px solid #927054;border-radius:15px;width:100%;min-height:50px;padding:12px;font-size:14px;font-family:inherit}
+.gg-personal-form select,.gg-personal-form textarea{background:#252224;color:#E6CEB6;border:1px solid #927054;border-radius:15px;width:100%;min-height:50px;padding:12px;font-size:14px;font-family:inherit}
 .gg-personal-form textarea{resize:vertical}
-.gg-personal-save{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;min-height:55px;padding:0 16px;background:linear-gradient(145deg,#f0d1a6,#e1a46c);border:1px solid #eac097;border-radius:17px;color:#271910;font-size:12px;font-weight:900;cursor:pointer}
+.gg-personal-save{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;min-height:55px;padding:0 16px;background:#C18B60;border:1px solid #D9B18A;border-radius:17px;color:#684B3B;font-size:12px;font-weight:900;cursor:pointer}
 .gg-personal-ok,.gg-personal-error{grid-column:1/-1;font-size:12px;margin:0}
-.gg-personal-ok{color:#e6d0ad;display:flex;gap:8px;align-items:center}.gg-personal-error{color:#ffb8a6}
+.gg-personal-ok{color:#D9B18A;display:flex;gap:8px;align-items:center}.gg-personal-error{color:#E6CEB6}
 .gg-personal-future{display:flex;gap:14px;background:#332b28;border:1px solid #775943;border-radius:19px;padding:18px;margin-top:17px}
-.gg-personal-future>svg{flex:none;color:#e8b17e;font-size:22px}
-.gg-personal-future strong{font-size:12px;color:#f2d3b1}.gg-personal-future p{font-size:12px;color:#d1b49e;line-height:1.6;margin:7px 0 0}
-.gg-personal :is(a,button,input,textarea,select):focus-visible{outline:3px solid #e6ac7c;outline-offset:3px}
+.gg-personal-future>svg{flex:none;color:#D9B18A;font-size:22px}
+.gg-personal-future strong{font-size:12px;color:#E6CEB6}.gg-personal-future p{font-size:12px;color:#d1b49e;line-height:1.6;margin:7px 0 0}
+.gg-personal :is(a,button,input,textarea,select):focus-visible{outline:3px solid #D9B18A;outline-offset:3px}
 @media(max-width:560px){.gg-personal-form{grid-template-columns:1fr}.gg-personal-form label:nth-child(4),.gg-personal-save,.gg-personal-ok,.gg-personal-error{grid-column:auto}}
