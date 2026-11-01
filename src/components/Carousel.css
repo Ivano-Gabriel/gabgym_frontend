@@ -60,7 +60,7 @@
   font-size: 1.5em;
   font-weight: bold;
   color: var(--whiteText);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* Sombra para legibilidade */
+  text-shadow:none; /* Sombra para legibilidade */
 }
 
 @media (min-width: 768px) {

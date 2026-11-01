@@ -3,7 +3,7 @@
 .diario-page-container { text-align: center; color: white; }
 .diario-title {
   color: #fff;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  text-shadow:none;
   font-family: 'Anton', sans-serif;
   font-size: 2.8em;
   text-transform: uppercase;
@@ -41,7 +41,7 @@
 
 .upload-foto-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3);
+  box-shadow: 0 4px 15px rgba(143,169,147,0.22);
 }
 
 .fotos-grid {
@@ -137,7 +137,7 @@
 
 .add-cardio-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3);
+  box-shadow: 0 4px 15px rgba(143,169,147,0.22);
 }
 
 .cardio-history {
@@ -228,7 +228,7 @@
 
 .add-refeicao-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3);
+  box-shadow: 0 4px 15px rgba(143,169,147,0.22);
 }
 
 .refeicao-history {
@@ -246,13 +246,13 @@
 }
 
 .refeicao-item {
-  border-left: 5px solid #3498db; /* Azul para refeições */
+  border-left: 5px solid #87A8B7; /* Azul para refeições */
 }
 
 .history-calories {
   font-weight: bold;
   font-size: 1.1em;
-  color: #3498db;
+  color: #87A8B7;
   margin-left: 20px;
 }
 /* --- Estilos para a Aba de Dieta (Check-in) --- */
@@ -294,16 +294,16 @@
 }
 .checkin-button.seguida:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3);
+  box-shadow: 0 4px 15px rgba(143,169,147,0.22);
 }
 
 .checkin-button.nao-seguida {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
 }
 .checkin-button.nao-seguida:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+  box-shadow: 0 4px 15px rgba(193,139,96,0.22);
 }
 
 .checkin-message {
@@ -341,19 +341,19 @@
 }
 
 .status-seguida {
-  background-color: rgba(116, 232, 93, 0.2);
+  background-color: rgba(143,169,147,0.2);
   color: var(--primaryGreen);
 }
 
 .status-nao_seguida {
-  background-color: rgba(231, 76, 60, 0.2);
-  color: #e74c3c;
+  background-color: rgba(193,139,96,0.2);
+  color: #C18B60;
 }
 
 /* src/pages/DiarioPage.css */
 
 .diario-page-container { text-align: center; color: white; }
-.diario-title { color: #fff; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); font-family: 'Anton', sans-serif; font-size: 2.8em; text-transform: uppercase; margin-bottom: 10px; }
+.diario-title { color: #fff; text-shadow:none; font-family: 'Anton', sans-serif; font-size: 2.8em; text-transform: uppercase; margin-bottom: 10px; }
 .diario-subtitle { color: #ccc; margin-top: 0; margin-bottom: 40px; font-size: 1.1em; }
 .diario-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; border-bottom: 1px solid #444; padding-bottom: 15px; }
 .diario-tab-button { padding: 10px 20px; cursor: pointer; background-color: transparent; border: none; border-bottom: 3px solid transparent; color: #aaa; font-weight: bold; font-size: 1.1em; transition: all 0.2s ease-in-out; }
@@ -387,7 +387,7 @@
 /* --- Estilos para a Aba de Fotos --- */
 .upload-container { margin-bottom: 40px; }
 .upload-foto-button { display: inline-block; background-color: var(--primaryGreen); color: var(--darkText); padding: 12px 25px; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: all 0.2s ease; }
-.upload-foto-button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3); }
+.upload-foto-button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(143,169,147,0.22); }
 .fotos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
 .foto-card { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5); aspect-ratio: 3 / 4; }
 .foto-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -400,7 +400,7 @@
 .form-group label { font-weight: bold; margin-bottom: 8px; font-size: 0.9em; color: #ccc; }
 .form-group input, .form-group select { width: 100%; padding: 12px; background-color: #222; border: 1px solid #555; color: white; border-radius: 6px; font-size: 1em; }
 .add-cardio-button { display: inline-block; background-color: var(--primaryGreen); color: var(--darkText); padding: 12px 30px; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; border: none; transition: all 0.2s ease; }
-.add-cardio-button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(116, 232, 93, 0.3); }
+.add-cardio-button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(143,169,147,0.22); }
 .cardio-history { max-width: 800px; margin: 0 auto; }
 .history-title { color: #fff; text-align: left; padding-bottom: 10px; border-bottom: 2px solid #555; margin-bottom: 20px; }
 .history-item { display: flex; align-items: center; background-color: rgba(44, 44, 44, 0.8); padding: 15px 20px; border-radius: 8px; margin-bottom: 10px; }
@@ -419,7 +419,7 @@
 .add-refeicao-button { display: inline-block; background-color: var(--primaryGreen); color: var(--darkText); padding: 12px 30px; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; border: none; transition: all 0.2s ease; margin-top: 20px; }
 .add-refeicao-button:hover { transform: scale(1.05); }
 .extrato-history { max-width: 800px; margin: 40px auto; }
-.extrato-item { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "data macros obs"; gap: 10px 20px; align-items: center; text-align: left; padding: 15px 20px; background-color: rgba(44, 44, 44, 0.6); border-radius: 8px; margin-bottom: 10px; border-left: 5px solid #8e44ad; }
+.extrato-item { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "data macros obs"; gap: 10px 20px; align-items: center; text-align: left; padding: 15px 20px; background-color: rgba(44, 44, 44, 0.6); border-radius: 8px; margin-bottom: 10px; border-left: 5px solid #AE8B9C; }
 .extrato-data { grid-area: data; font-weight: bold; font-size: 1.1em; }
 .extrato-macros { grid-area: macros; display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: flex-start; }
 .extrato-macros div { background-color: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 5px; font-size: 0.9em; }
@@ -522,6 +522,6 @@
 }
 
 .status-message.error {
-  color: #e74c3c; /* Vermelho para erros */
+  color: #C18B60; /* Vermelho para erros */
   font-weight: bold;
 }

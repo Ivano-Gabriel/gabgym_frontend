@@ -4,7 +4,7 @@
   padding: 24px 0 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(193,139,96,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -70,15 +70,15 @@
 .gg-exlib-title { font:850 clamp(41px,8vw,60px)/1 var(--gg-font-display,Impact,sans-serif); }
 .gg-exlib-tabs { max-width:980px; margin-left:auto; margin-right:auto; }
 .gg-exlib-tab { min-height:47px; border-radius:10px; background:#242c30; border-color:#465155; }
-.gg-exlib-tab.active { background:#ff7847; border-color:#ff7847; color:#101315; }
-.gg-exlib-back { color:#ffb492; }
-.gg-exlib-container :is(button,a):focus-visible { outline:3px solid #ffa381; outline-offset:2px; }
+.gg-exlib-tab.active { background:#C18B60; border-color:#C18B60; color:#101315; }
+.gg-exlib-back { color:#D9B18A; }
+.gg-exlib-container :is(button,a):focus-visible { outline:3px solid #D9B18A; outline-offset:2px; }
 
 /* 2.7.2: remover resquício verde e alinhar com as bibliotecas */
 .gg-exlib-container{background:radial-gradient(ellipse at 40% 0%,#5337276e,transparent 44%),#1e1c1d;padding-bottom:calc(105px + env(safe-area-inset-bottom,0px))}
 .gg-exlib-top{padding:9px 18px 4px}.gg-exlib-title{font-size:clamp(43px,8vw,65px)}
 .gg-exlib-subtitle{font-size:13px;line-height:1.5;color:#d5bdaa}
 .gg-exlib-tabs{justify-content:flex-start;gap:10px;margin-bottom:16px;overflow-x:auto;scrollbar-width:thin}
-.gg-exlib-tab{border-radius:17px;background:#3b302a;color:#eed1b6;border:1px solid #89684f;min-height:50px;font-size:13px}
-.gg-exlib-tab.active{background:#e4a66d;color:#241911;border-color:#edbd8e}
-.gg-exlib-back{color:#f0b881;min-height:45px}
+.gg-exlib-tab{border-radius:17px;background:#3b302a;color:#E6CEB6;border:1px solid #89684f;min-height:50px;font-size:13px}
+.gg-exlib-tab.active{background:#C18B60;color:#241911;border-color:#D9B18A}
+.gg-exlib-back{color:#D9B18A;min-height:45px}

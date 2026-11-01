@@ -20,7 +20,7 @@ html, body, #root {
 /* --- VARIÁVEIS DE CORES (para fácil manutenção) --- */
 /* Mantive aqui porque App.js também usa cores. É uma boa centralizar */
 :root {
-  --primaryGreen: #74E85D;
+  --primaryGreen: #8FA993;
   --darkGreen: #21331D;
   --mediumDarkGray: #303E2E;
   --lightGray: #60695E;
@@ -46,7 +46,7 @@ html, body, #root {
 }
 
 .App-link {
-  color: #61dafb;
+  color: #AFC4CE;
 }
 
 @keyframes App-logo-spin {
@@ -100,7 +100,7 @@ html, body, #root {
 }
 
 .header-enroll-button:hover {
-  background-color: #5bbd40; /* Um tom um pouco mais escuro do seu primaryGreen */
+  background-color: #8FA993; /* Um tom um pouco mais escuro do seu primaryGreen */
 }
 
 /* Hover para o hambúrguer */
@@ -138,7 +138,7 @@ html, body, #root {
 
 /* Efeito de "acender" no hover/clique */
 .logo-dropdown a:hover {
-  background-color: #5bbd40; /* Um tom um pouco mais escuro do verde primário */
+  background-color: #8FA993; /* Um tom um pouco mais escuro do verde primário */
   color: white; /* Texto branco no hover */
   transform: scale(1.02); /* Pequeno zoom no hover */
   box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra sutil ao acender */
@@ -514,7 +514,7 @@ html, body, #root {
 }
 
 .profile-form-button:hover {
-  background-color: #5bbd40; /* Tom mais escuro do primaryGreen no hover */
+  background-color: #8FA993; /* Tom mais escuro do primaryGreen no hover */
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -609,7 +609,7 @@ html, body, #root {
 /* --- VARIÁVEIS DE CORES (para fácil manutenção) --- */
 /* Mantive aqui porque App.js também usa cores. É uma boa centralizar */
 :root {
-  --primaryGreen: #74E85D;
+  --primaryGreen: #8FA993;
   --darkGreen: #21331D;
   --mediumDarkGray: #303E2E;
   --lightGray: #60695E;
@@ -635,7 +635,7 @@ html, body, #root {
 }
 
 .App-link {
-  color: #61dafb;
+  color: #AFC4CE;
 }
 
 @keyframes App-logo-spin {
@@ -689,7 +689,7 @@ html, body, #root {
 }
 
 .header-enroll-button:hover {
-  background-color: #5bbd40; /* Um tom um pouco mais escuro do seu primaryGreen */
+  background-color: #8FA993; /* Um tom um pouco mais escuro do seu primaryGreen */
 }
 
 /* Hover para o hambúrguer */
@@ -727,7 +727,7 @@ html, body, #root {
 
 /* Efeito de "acender" no hover/clique */
 .logo-dropdown a:hover {
-  background-color: #5bbd40; /* Um tom um pouco mais escuro do verde primário */
+  background-color: #8FA993; /* Um tom um pouco mais escuro do verde primário */
   color: white; /* Texto branco no hover */
   transform: scale(1.02); /* Pequeno zoom no hover */
   box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra sutil ao acender */
@@ -1103,7 +1103,7 @@ html, body, #root {
 }
 
 .profile-form-button:hover {
-  background-color: #5bbd40; /* Tom mais escuro do primaryGreen no hover */
+  background-color: #8FA993; /* Tom mais escuro do primaryGreen no hover */
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -1378,7 +1378,7 @@ html, body, #root {
 
 .view-workout-button:hover {
   transform: scale(1.05);
-  background-color: #5bbd40;
+  background-color: #8FA993;
 }
 /* Em App.css */
 
@@ -1500,13 +1500,13 @@ html, body, #root {
 
 .cta-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.4); /* Uma sombra verde no hover */
+  box-shadow: 0 4px 15px rgba(143,169,147,0.29); /* Uma sombra verde no hover */
 }
 /* Adicione no final do App.css */
 
 /* Estilo para o card de Água */
 .macro-card.water {
-  background-color: #3498db; /* Um azul para lembrar água */
+  background-color: #87A8B7; /* Um azul para lembrar água */
   border-bottom-color: var(--whiteText);
 }
 .macro-card.water .macro-value,
@@ -1519,16 +1519,16 @@ html, body, #root {
   font-weight: bold;
 }
 .imc-status.thin {
-  color: #3498db; /* Azul */
+  color: #87A8B7; /* Azul */
 }
 .imc-status.normal {
   color: var(--primaryGreen); /* Verde */
 }
 .imc-status.overweight {
-  color: #f1c40f; /* Amarelo */
+  color: #C3A06F; /* Amarelo */
 }
 .imc-status.obese {
-  color: #e74c3c; /* Vermelho */
+  color: #C18B60; /* Vermelho */
 }
 /* Estilo para a descrição dentro dos cards de macro */
 .macro-description {
@@ -1707,26 +1707,26 @@ html, body, #root {
   border-radius: 5px;
   transition: all 0.5s ease;
   .progress-bar.status-mid-yellow {
-    background-color: #f1c40f; /* Amarelo */
+    background-color: #C3A06F; /* Amarelo */
   }
   
   .progress-bar.status-good-blue {
-    background-color: #3498db; /* Azul */
+    background-color: #87A8B7; /* Azul */
   }
   
   .progress-bar.status-mid-orange {
-    background-color: #e67e22; /* Laranja */
+    background-color: #C18B60; /* Laranja */
   }
 }
 
 /* Regras de status com maior especificidade para garantir que funcionem */
 .summary-item .progress-bar.status-empty,
 .general-progress-container .progress-bar.status-empty {
-  background-color: #e74c3c; /* Vermelho */
+  background-color: #C18B60; /* Vermelho */
 }
 .summary-item .progress-bar.status-mid,
 .general-progress-container .progress-bar.status-mid {
-  background-color: #f1c40f; /* Amarelo */
+  background-color: #C3A06F; /* Amarelo */
 }
 .summary-item .progress-bar.status-good,
 .general-progress-container .progress-bar.status-good {
@@ -1734,10 +1734,10 @@ html, body, #root {
 }
 .summary-item .progress-bar.status-over,
 .general-progress-container .progress-bar.status-over {
-  background-color: #e67e22; /* Laranja */
+  background-color: #C18B60; /* Laranja */
 }
 .remove-food-button {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
   border: none;
   width: 25px;
@@ -1901,7 +1901,7 @@ html, body, #root {
 .clear-log-button {
   width: 100%;
   padding: 15px;
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
   border: none;
   border-radius: 5px;
@@ -2114,7 +2114,7 @@ activity-icon {
 }
 
 .finish-button {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
 }
 /* Em App.css */
@@ -2250,7 +2250,7 @@ activity-icon {
 }
 
 .modal-button.confirm {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
 }
 /* =============================================== */
@@ -2447,7 +2447,7 @@ activity-icon {
   gap: 10px;
 }
 .water-option-button {
-  background-color: #3498db;
+  background-color: #87A8B7;
   color: white;
   border: none;
   border-radius: 8px;
@@ -2461,7 +2461,7 @@ activity-icon {
 }
 .water-option-button:hover {
   transform: scale(1.05);
-  background-color: #2980b9;
+  background-color: #87A8B7;
 }
 .water-icon { font-size: 1.5em; }
 .water-name { font-weight: bold; margin-top: 5px; }
@@ -2473,7 +2473,7 @@ activity-icon {
   gap: 10px;
 }
 .exercise-option-button {
-  background-color: #c0392b; /* Um vermelho mais escuro */
+  background-color: #C18B60; /* Um vermelho mais escuro */
   color: white;
   border: none;
   border-radius: 8px;
@@ -2489,7 +2489,7 @@ activity-icon {
 }
 .exercise-option-button:hover {
   transform: scale(1.05);
-  background-color: #e74c3c;
+  background-color: #C18B60;
 }
 .exercise-icon { font-size: 1.5em; }
 .exercise-name { font-weight: bold; margin-top: 5px; font-size: 0.9em; }
@@ -2531,7 +2531,7 @@ activity-icon {
   transition: background-color 0.2s;
 }
 .log-sleep-button:hover {
-  background-color: #5bbd40;
+  background-color: #8FA993;
 }
 .sleep-duration-display {
   font-size: 1.5em;
@@ -2540,9 +2540,9 @@ activity-icon {
   padding: 10px;
   border-radius: 5px;
 }
-.sleep-duration-display.bad { color: #e74c3c; }
-.sleep-duration-display.good { color: #3498db; }
-.sleep-duration-display.too-much { color: #f39c12; }
+.sleep-duration-display.bad { color: #C18B60; }
+.sleep-duration-display.good { color: #87A8B7; }
+.sleep-duration-display.too-much { color: #C18B60; }
 
 /* Estilos para o Gasto Calórico Manual */
 .manual-calorie-form {
@@ -2562,7 +2562,7 @@ activity-icon {
   text-align: center;
 }
 .manual-calorie-button {
-  background-color: #c0392b;
+  background-color: #C18B60;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -2600,7 +2600,7 @@ activity-icon {
 }
 
 .logout-button {
-  background-color: #c0392b;
+  background-color: #C18B60;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -2612,7 +2612,7 @@ activity-icon {
 }
 
 .logout-button:hover {
-  background-color: #e74c3c;
+  background-color: #C18B60;
 }
 /* Bloco de código para adicionar no final do App.css */
 
@@ -2876,7 +2876,7 @@ activity-icon {
 
 .view-workout-button:hover {
   transform: scale(1.05);
-  background-color: #5bbd40;
+  background-color: #8FA993;
 }
 /* Em App.css */
 
@@ -2998,13 +2998,13 @@ activity-icon {
 
 .cta-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(116, 232, 93, 0.4); /* Uma sombra verde no hover */
+  box-shadow: 0 4px 15px rgba(143,169,147,0.29); /* Uma sombra verde no hover */
 }
 /* Adicione no final do App.css */
 
 /* Estilo para o card de Água */
 .macro-card.water {
-  background-color: #3498db; /* Um azul para lembrar água */
+  background-color: #87A8B7; /* Um azul para lembrar água */
   border-bottom-color: var(--whiteText);
 }
 .macro-card.water .macro-value,
@@ -3017,16 +3017,16 @@ activity-icon {
   font-weight: bold;
 }
 .imc-status.thin {
-  color: #3498db; /* Azul */
+  color: #87A8B7; /* Azul */
 }
 .imc-status.normal {
   color: var(--primaryGreen); /* Verde */
 }
 .imc-status.overweight {
-  color: #f1c40f; /* Amarelo */
+  color: #C3A06F; /* Amarelo */
 }
 .imc-status.obese {
-  color: #e74c3c; /* Vermelho */
+  color: #C18B60; /* Vermelho */
 }
 /* Estilo para a descrição dentro dos cards de macro */
 .macro-description {
@@ -3205,26 +3205,26 @@ activity-icon {
   border-radius: 5px;
   transition: all 0.5s ease;
   .progress-bar.status-mid-yellow {
-    background-color: #f1c40f; /* Amarelo */
+    background-color: #C3A06F; /* Amarelo */
   }
   
   .progress-bar.status-good-blue {
-    background-color: #3498db; /* Azul */
+    background-color: #87A8B7; /* Azul */
   }
   
   .progress-bar.status-mid-orange {
-    background-color: #e67e22; /* Laranja */
+    background-color: #C18B60; /* Laranja */
   }
 }
 
 /* Regras de status com maior especificidade para garantir que funcionem */
 .summary-item .progress-bar.status-empty,
 .general-progress-container .progress-bar.status-empty {
-  background-color: #e74c3c; /* Vermelho */
+  background-color: #C18B60; /* Vermelho */
 }
 .summary-item .progress-bar.status-mid,
 .general-progress-container .progress-bar.status-mid {
-  background-color: #f1c40f; /* Amarelo */
+  background-color: #C3A06F; /* Amarelo */
 }
 .summary-item .progress-bar.status-good,
 .general-progress-container .progress-bar.status-good {
@@ -3232,10 +3232,10 @@ activity-icon {
 }
 .summary-item .progress-bar.status-over,
 .general-progress-container .progress-bar.status-over {
-  background-color: #e67e22; /* Laranja */
+  background-color: #C18B60; /* Laranja */
 }
 .remove-food-button {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
   border: none;
   width: 25px;
@@ -3399,7 +3399,7 @@ activity-icon {
 .clear-log-button {
   width: 100%;
   padding: 15px;
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
   border: none;
   border-radius: 5px;
@@ -3612,7 +3612,7 @@ activity-icon {
 }
 
 .finish-button {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
 }
 /* Em App.css */
@@ -3748,7 +3748,7 @@ activity-icon {
 }
 
 .modal-button.confirm {
-  background-color: #e74c3c;
+  background-color: #C18B60;
   color: white;
 }
 /* =============================================== */
@@ -3945,7 +3945,7 @@ activity-icon {
   gap: 10px;
 }
 .water-option-button {
-  background-color: #3498db;
+  background-color: #87A8B7;
   color: white;
   border: none;
   border-radius: 8px;
@@ -3959,7 +3959,7 @@ activity-icon {
 }
 .water-option-button:hover {
   transform: scale(1.05);
-  background-color: #2980b9;
+  background-color: #87A8B7;
 }
 .water-icon { font-size: 1.5em; }
 .water-name { font-weight: bold; margin-top: 5px; }
@@ -3971,7 +3971,7 @@ activity-icon {
   gap: 10px;
 }
 .exercise-option-button {
-  background-color: #c0392b; /* Um vermelho mais escuro */
+  background-color: #C18B60; /* Um vermelho mais escuro */
   color: white;
   border: none;
   border-radius: 8px;
@@ -3987,7 +3987,7 @@ activity-icon {
 }
 .exercise-option-button:hover {
   transform: scale(1.05);
-  background-color: #e74c3c;
+  background-color: #C18B60;
 }
 .exercise-icon { font-size: 1.5em; }
 .exercise-name { font-weight: bold; margin-top: 5px; font-size: 0.9em; }
@@ -4029,7 +4029,7 @@ activity-icon {
   transition: background-color 0.2s;
 }
 .log-sleep-button:hover {
-  background-color: #5bbd40;
+  background-color: #8FA993;
 }
 .sleep-duration-display {
   font-size: 1.5em;
@@ -4038,9 +4038,9 @@ activity-icon {
   padding: 10px;
   border-radius: 5px;
 }
-.sleep-duration-display.bad { color: #e74c3c; }
-.sleep-duration-display.good { color: #3498db; }
-.sleep-duration-display.too-much { color: #f39c12; }
+.sleep-duration-display.bad { color: #C18B60; }
+.sleep-duration-display.good { color: #87A8B7; }
+.sleep-duration-display.too-much { color: #C18B60; }
 
 .manual-calorie-form {
   display: flex;
@@ -4059,7 +4059,7 @@ activity-icon {
   text-align: center;
 }
 .manual-calorie-button {
-  background-color: #c0392b;
+  background-color: #C18B60;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -4097,7 +4097,7 @@ activity-icon {
 }
 
 .logout-button {
-  background-color: #c0392b;
+  background-color: #C18B60;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -4109,7 +4109,7 @@ activity-icon {
 }
 
 .logout-button:hover {
-  background-color: #e74c3c;
+  background-color: #C18B60;
 }
 /* Bloco de código para adicionar no final do App.css */
 
@@ -4209,8 +4209,8 @@ activity-icon {
 /* Estilo para o nosso novo botão secundário */
 .secondary-button {
   background-color: transparent;
-  color: #FFC107; /* Cor do texto (amarelo) */
-  border: 1px solid #FFC107; /* Borda amarela */
+  color: #C18B60; /* Cor do texto (amarelo) */
+  border: 1px solid #C18B60; /* Borda amarela */
   padding: 12px 25px;
   border-radius: 8px;
   text-decoration: none;
@@ -4221,7 +4221,7 @@ activity-icon {
 }
 
 .secondary-button:hover {
-  background-color: #FFC107;
+  background-color: #C18B60;
   color: #121212; /* Cor do texto ao passar o mouse (preto) */
   transform: translateY(-2px);
 }

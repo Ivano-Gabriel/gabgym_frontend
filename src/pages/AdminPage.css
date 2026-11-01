@@ -12,5 +12,5 @@
 .gabgym-admin-details dl { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
 .gabgym-admin-details dt { color: #66776e; }
 .gabgym-admin-details dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
-.gabgym-admin-error { color: #a22124; }
+.gabgym-admin-error { color: #95694E; }
 @media (max-width: 720px) { .gabgym-admin-layout { grid-template-columns: 1fr; } .gabgym-admin-heading { align-items: flex-start; flex-direction: column; } }

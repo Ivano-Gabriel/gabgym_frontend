@@ -6,7 +6,7 @@
   padding: 24px 16px 60px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(143,169,147,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -95,11 +95,11 @@
 
 /* Cores por card — tinta translúcida + borda na cor, o texto pontual segue colorido */
 .gg-diet-stat-card.neutral   { --card-color: #9CA8A0; --card-bg: rgba(156, 168, 160, 0.10); }
-.gg-diet-stat-card.hero      { --card-color: var(--gg-neon); --card-bg: rgba(182, 255, 110, 0.12); box-shadow: 0 0 24px rgba(116, 232, 93, 0.15); }
-.gg-diet-stat-card.protein   { --card-color: #FF7A7A; --card-bg: rgba(255, 122, 122, 0.10); }
-.gg-diet-stat-card.carbs     { --card-color: var(--gg-warning); --card-bg: rgba(255, 198, 92, 0.10); }
-.gg-diet-stat-card.fat       { --card-color: #C79BFF; --card-bg: rgba(199, 155, 255, 0.10); }
-.gg-diet-stat-card.water     { --card-color: var(--gg-water); --card-bg: rgba(92, 194, 255, 0.10); }
+.gg-diet-stat-card.hero      { --card-color: var(--gg-neon); --card-bg: rgba(179,201,172,0.12); box-shadow: 0 0 24px rgba(143,169,147,0.15); }
+.gg-diet-stat-card.protein   { --card-color: #D9B18A; --card-bg: rgba(217,177,138,0.1); }
+.gg-diet-stat-card.carbs     { --card-color: var(--gg-warning); --card-bg: rgba(217,177,138,0.1); }
+.gg-diet-stat-card.fat       { --card-color: #C7B2C0; --card-bg: rgba(199,178,192,0.1); }
+.gg-diet-stat-card.water     { --card-color: var(--gg-water); --card-bg: rgba(175,196,206,0.1); }
 
 /* ---------- Botão principal, grandão e chamativo ---------- */
 .gg-diet-btn-hero {
@@ -118,14 +118,14 @@
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 0 28px rgba(116, 232, 93, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 28px rgba(143,169,147,0.29), 0 8px 24px rgba(0, 0, 0, 0.3);
   margin-bottom: 12px;
   transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .gg-diet-btn-hero:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 36px rgba(116, 232, 93, 0.55), 0 10px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 36px rgba(143,169,147,0.4), 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
 .gg-diet-actions-secondary {

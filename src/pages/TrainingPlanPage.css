@@ -6,7 +6,7 @@
   padding: 24px 16px 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(193,139,96,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -144,7 +144,7 @@
 .gg-tp-top { text-align:left; }
 .gg-tp-title { font:850 clamp(40px,8vw,59px)/1 var(--gg-font-display,Impact,sans-serif); }
 .gg-tp-day-card { background:#1d2528; border-color:#414c50; border-radius:13px; }
-.gg-tp-day-name { color:#ff9f7b; }
-.gg-tp-exercise-name:hover { color:#ffad8e; }
-.gg-tp-back-btn { background:#ff7847; color:#111719; }
-.gg-tp-container a:focus-visible { outline:3px solid #ff9e7b; outline-offset:2px; }
+.gg-tp-day-name { color:#D9B18A; }
+.gg-tp-exercise-name:hover { color:#D9B18A; }
+.gg-tp-back-btn { background:#C18B60; color:#111719; }
+.gg-tp-container a:focus-visible { outline:3px solid #D9B18A; outline-offset:2px; }

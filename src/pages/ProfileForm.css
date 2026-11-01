@@ -2,27 +2,27 @@
 .gg-profile-editor { min-height:100dvh; padding:22px 16px calc(105px + env(safe-area-inset-bottom,0px)); color:#f5f2ea; background:#0e1113; font-family:var(--gg-font-body,'Manrope',sans-serif); text-align:left; }
 .gg-profile-editor * { box-sizing:border-box; }
 .gg-profile-editor-wrap { max-width:800px; margin:0 auto; }
-.gg-profile-editor-back { display:inline-flex; gap:9px; align-items:center; min-height:46px; color:#ffab85; font-size:11px; font-weight:850; text-decoration:none; }
+.gg-profile-editor-back { display:inline-flex; gap:9px; align-items:center; min-height:46px; color:#D9B18A; font-size:11px; font-weight:850; text-decoration:none; }
 .gg-profile-editor-header { padding:16px 0 26px; }
-.gg-profile-editor-kicker { display:flex; align-items:center; gap:9px; color:#ffa282; font-size:10px; font-weight:850; letter-spacing:.13em; }
+.gg-profile-editor-kicker { display:flex; align-items:center; gap:9px; color:#D9B18A; font-size:10px; font-weight:850; letter-spacing:.13em; }
 .gg-profile-editor-header h1 { font:850 clamp(55px,10vw,88px)/.9 var(--gg-font-display,Impact,sans-serif); margin:19px 0 14px; }
-.gg-profile-editor-header h1 span { color:#ff7847; }
+.gg-profile-editor-header h1 span { color:#C18B60; }
 .gg-profile-editor-header p,.gg-profile-editor-section p { color:#c8d0d2; font-size:12px; line-height:1.7; margin:10px 0 16px; }
 .gg-profile-editor-form { display:grid; gap:15px; }
 .gg-profile-editor-section { background:#1a2225; border:1px solid #414c50; border-radius:15px; padding:22px 19px; display:grid; gap:15px; }
-.gg-profile-editor-section > div:first-child > span { color:#ff9e7b; font-size:10px; letter-spacing:.12em; font-weight:850; }
+.gg-profile-editor-section > div:first-child > span { color:#D9B18A; font-size:10px; letter-spacing:.12em; font-weight:850; }
 .gg-profile-editor-section h2 { font:850 clamp(27px,5.5vw,39px)/1 var(--gg-font-display,Impact,sans-serif); margin:9px 0 0; }
 .gg-profile-editor-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px 13px; }
 .gg-profile-editor-field { display:grid; gap:9px; min-width:0; color:#dce1e1; font-size:11px; font-weight:850; letter-spacing:.04em; }
 .gg-profile-editor-field input,.gg-profile-editor-field select { min-height:56px; width:100%; min-width:0; border:1px solid #5b6568; background:#101619; border-radius:9px; color:#f5f2ea; padding:12px 13px; font:700 15px var(--gg-font-body,Arial,sans-serif); }
 .gg-profile-editor-field input::placeholder { color:#a7b1b3; }
-.gg-profile-editor-field :is(input,select):focus-visible { outline:3px solid #ff956f; outline-offset:2px; }
-.gg-profile-editor-local { padding:12px 15px; border-left:3px solid #ff7847; background:#302822; border-radius:3px 8px 8px 3px; }
-.gg-profile-editor-goals a { display:flex; justify-content:space-between; align-items:center; min-height:53px; border-radius:10px; color:#ffb292; border:1px solid #99664c; text-decoration:none; padding:0 16px; font-size:12px; font-weight:900; }
-.gg-profile-editor-save { display:flex; align-items:center; justify-content:space-between; min-height:59px; width:100%; background:#ff7847; color:#15191b; border:0; border-radius:11px; padding:0 20px; font:900 13px var(--gg-font-body,Arial,sans-serif); cursor:pointer; }
+.gg-profile-editor-field :is(input,select):focus-visible { outline:3px solid #D9B18A; outline-offset:2px; }
+.gg-profile-editor-local { padding:12px 15px; border-left:3px solid #C18B60; background:#302822; border-radius:3px 8px 8px 3px; }
+.gg-profile-editor-goals a { display:flex; justify-content:space-between; align-items:center; min-height:53px; border-radius:10px; color:#D9B18A; border:1px solid #99664c; text-decoration:none; padding:0 16px; font-size:12px; font-weight:900; }
+.gg-profile-editor-save { display:flex; align-items:center; justify-content:space-between; min-height:59px; width:100%; background:#C18B60; color:#15191b; border:0; border-radius:11px; padding:0 20px; font:900 13px var(--gg-font-body,Arial,sans-serif); cursor:pointer; }
 .gg-profile-editor-save:disabled { opacity:.7; cursor:wait; }
-.gg-profile-editor-error { padding:15px; border:1px solid #bf6865; color:#ffe0dc; background:#442724; border-radius:10px; font-size:12px; }
-.gg-profile-editor :is(button,a):focus-visible { outline:3px solid #ff9e7b; outline-offset:3px; }
+.gg-profile-editor-error { padding:15px; border:1px solid #C18B60; color:#E6CEB6; background:#442724; border-radius:10px; font-size:12px; }
+.gg-profile-editor :is(button,a):focus-visible { outline:3px solid #D9B18A; outline-offset:3px; }
 @media(max-width:500px) { .gg-profile-editor-section {padding:18px 15px;} .gg-profile-editor-grid {grid-template-columns:1fr 1fr;gap:12px;} }
 @media(max-width:360px) { .gg-profile-editor-grid {grid-template-columns:1fr;} }
 @media(prefers-reduced-motion:reduce){ .gg-profile-editor * {scroll-behavior:auto!important;transition:none!important;} }
@@ -30,4 +30,4 @@
 
 .gg-profile-editor{background:radial-gradient(ellipse at 16% 0%,#61402a69,transparent 40%),#192024;}
 .gg-profile-editor-section{background:linear-gradient(145deg,#364148,#262f34 78%);border-color:#75685e;box-shadow:inset 0 1px 1px #ffffff24,0 7px 23px #00000023;}
-.gg-profile-editor-save{background:linear-gradient(155deg,#ffc2a0,#ff8c5a 60%,#d65334);box-shadow:inset 0 2px 1px #ffffff66,0 9px 23px #ff78473b;}
+.gg-profile-editor-save{background:#C18B60;box-shadow:0 5px 15px rgba(0,0,0,.19);}

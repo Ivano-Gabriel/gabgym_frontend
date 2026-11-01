@@ -1,10 +1,10 @@
 /* GABGYM — recurso futuro; identidade de produção consistente */
 .gg-soon-container{display:flex;align-items:flex-start;justify-content:center;min-height:100dvh;padding:55px 16px calc(112px + env(safe-area-inset-bottom,0px));color:#f5f2ea;background:#0e1113;font-family:var(--gg-font-body,Manrope,Arial,sans-serif)}
 .gg-soon-card{max-width:570px;width:100%;padding:30px 23px;text-align:left;background:#1c2528;border:1px solid #495357;border-radius:14px}
-.gg-soon-icon{display:grid;place-items:center;width:69px;height:69px;background:#352920;color:#ff9a75;border:1px solid #a4694e;border-radius:14px;font-size:28px;margin:0 0 22px}
+.gg-soon-icon{display:grid;place-items:center;width:69px;height:69px;background:#352920;color:#D9B18A;border:1px solid #a4694e;border-radius:14px;font-size:28px;margin:0 0 22px}
 .gg-soon-title{font:900 clamp(42px,8vw,68px)/1 var(--gg-font-display,Impact,sans-serif);color:#f5f2ea;margin:0 0 14px}
 .gg-soon-description{color:#c8d0d2;line-height:1.7;margin:0 0 18px;font-size:12px}
-.gg-soon-badge{display:inline-flex;align-items:center;min-height:35px;padding:0 13px;color:#ffc19e;border:1px solid #99674c;border-radius:7px;background:#332821;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:19px}
-.gg-soon-back{display:flex;align-items:center;gap:10px;min-height:51px;color:#111719;background:#ff7847;border-radius:10px;text-decoration:none;padding:0 14px;font-size:12px;font-weight:900}
-.gg-soon-back:hover{background:#ff9971;color:#111719}
-.gg-soon-back:focus-visible{outline:3px solid #ffc1a0;outline-offset:3px}
+.gg-soon-badge{display:inline-flex;align-items:center;min-height:35px;padding:0 13px;color:#D9B18A;border:1px solid #99674c;border-radius:7px;background:#332821;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:19px}
+.gg-soon-back{display:flex;align-items:center;gap:10px;min-height:51px;color:#111719;background:#C18B60;border-radius:10px;text-decoration:none;padding:0 14px;font-size:12px;font-weight:900}
+.gg-soon-back:hover{background:#D9B18A;color:#111719}
+.gg-soon-back:focus-visible{outline:3px solid #E6CEB6;outline-offset:3px}

@@ -3,45 +3,45 @@
 .gg-today * { box-sizing:border-box; }
 .gg-today-inner { max-width:960px; margin:auto; }
 .gg-today-heading { border-bottom:1px solid #3b4549; padding-bottom:22px; margin-bottom:20px; }
-.gg-today-eyebrow { display:flex; align-items:center; gap:9px; color:#ffab88; font-size:11px; font-weight:850; text-transform:uppercase; }
+.gg-today-eyebrow { display:flex; align-items:center; gap:9px; color:#D9B18A; font-size:11px; font-weight:850; text-transform:uppercase; }
 .gg-today-heading h1 { font: 900 clamp(57px,10vw,90px)/.9 var(--gg-font-display,Impact,sans-serif); margin:18px 0 9px; }
-.gg-today-heading h1 span { color:#ff7847; }
+.gg-today-heading h1 span { color:#C18B60; }
 .gg-today-heading p { margin:0; color:#c4cdd0; font-size:13px; }
 .gg-today-measures { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)) 42px; align-items:center; gap:8px; margin-bottom:32px; }
 .gg-today-measures > div { display:grid; gap:10px; background:#1b2225; border:1px solid #40494d; border-radius:12px; min-width:0; padding:16px 10px; }
 .gg-today-measures > div span { color:#aeb9bc; font-size:10px; font-weight:850; }
 .gg-today-measures strong { color:#f5f2ea; font-size:clamp(14px,3.5vw,22px); font-weight:850; white-space:nowrap; }
-.gg-today-measures-edit { min-height:50px; display:grid; place-items:center; color:#ffa480; border:1px solid #6c5248; border-radius:10px; }
+.gg-today-measures-edit { min-height:50px; display:grid; place-items:center; color:#D9B18A; border:1px solid #6c5248; border-radius:10px; }
 .gg-today-section-heading { display:flex; align-items:end; justify-content:space-between; gap:12px; margin:28px 0 17px; }
-.gg-today-section-heading span { color:#ffa480; font-size:10px; letter-spacing:.12em; font-weight:900; }
+.gg-today-section-heading span { color:#D9B18A; font-size:10px; letter-spacing:.12em; font-weight:900; }
 .gg-today-section-heading h2 { margin:7px 0 0; font: 850 clamp(29px,6vw,43px)/1 var(--gg-font-display,Impact,sans-serif); }
-.gg-today-section-heading > a { display:flex; align-items:center; gap:5px; color:#ffae90; text-decoration:none; min-height:44px; font-size:11px; font-weight:850; }
+.gg-today-section-heading > a { display:flex; align-items:center; gap:5px; color:#D9B18A; text-decoration:none; min-height:44px; font-size:11px; font-weight:850; }
 .gg-today-progress-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
 .gg-today-progress-card { display:flex; flex-direction:column; gap:15px; padding:20px 16px; background:#1c2427; border:1px solid #434d50; border-radius:14px; text-decoration:none; color:#f5f2ea; min-width:0; transition:transform .2s ease,border-color .2s ease; }
 .gg-today-progress-card:active { transform:scale(.99); }
-.gg-today-progress-card:hover { border-color:#ff7847; }
-.gg-today-card-top { display:flex; align-items:center; gap:9px; color:#ff9875; font-size:10px; font-weight:900; letter-spacing:.05em; }
+.gg-today-progress-card:hover { border-color:#C18B60; }
+.gg-today-card-top { display:flex; align-items:center; gap:9px; color:#D9B18A; font-size:10px; font-weight:900; letter-spacing:.05em; }
 .gg-today-card-top > svg:last-child { margin-left:auto; }
 .gg-today-progress-card > strong { font:900 clamp(38px,7vw,57px)/1 var(--gg-font-display,Impact,sans-serif); font-variant-numeric:tabular-nums; }
 .gg-today-progress-card > strong small { font:800 12px var(--gg-font-body,Arial,sans-serif); color:#bfc9cb; }
 .gg-today-progress-card > small { color:#c2cdce; font-size:11px; line-height:1.5; }
 .gg-today-track { height:11px; background:#424a4e; border-radius:40px; overflow:hidden; }
-.gg-today-track span { display:block; height:100%; background:#ff7847; border-radius:40px; transition: width .3s ease; }
-.gg-today-no-goal { text-decoration:none; display:flex; align-items:center; gap:15px; background:#292622; border:1px solid #96644d; padding:19px 16px; border-radius:13px; color:#ff9875; min-height:80px; }
+.gg-today-track span { display:block; height:100%; background:#C18B60; border-radius:40px; transition: width .3s ease; }
+.gg-today-no-goal { text-decoration:none; display:flex; align-items:center; gap:15px; background:#292622; border:1px solid #96644d; padding:19px 16px; border-radius:13px; color:#D9B18A; min-height:80px; }
 .gg-today-no-goal > span { flex:1; display:grid; gap:7px; }
 .gg-today-no-goal strong { color:#f5f2ea; font-size:13px; }
 .gg-today-no-goal small { color:#bfcacc; font-size:11px; line-height:1.5; }
 .gg-today-goals { display:grid; gap:8px; }
 .gg-today-goal { display:flex; align-items:center; gap:13px; background:#222a2d; border:1px solid #455052; border-radius:12px; padding:14px; min-height:58px; color:#f5f2ea; text-decoration:none; font-size:13px; }
-.gg-today-goal svg { color:#ff9875; flex-shrink:0; }
+.gg-today-goal svg { color:#D9B18A; flex-shrink:0; }
 .gg-today-goal span { flex:1; }
 .gg-today-goals p { font-size:11px; color:#bec7c9; line-height:1.6; }
 .gg-today-shortcuts { display:grid; gap:11px; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:26px; }
-.gg-today-shortcuts a { color:#15191b; display:flex; justify-content:space-between; align-items:center; gap:9px; padding:15px 13px; min-height:58px; text-decoration:none; background:#ff7847; border-radius:11px; font-size:11px; font-weight:900; }
-.gg-today-shortcuts a:last-child { background:#2b3033; color:#ffd0bb; border:1px solid #9d654f; }
+.gg-today-shortcuts a { color:#15191b; display:flex; justify-content:space-between; align-items:center; gap:9px; padding:15px 13px; min-height:58px; text-decoration:none; background:#C18B60; border-radius:11px; font-size:11px; font-weight:900; }
+.gg-today-shortcuts a:last-child { background:#2b3033; color:#E6CEB6; border:1px solid #9d654f; }
 .gg-today-state,.gg-today-error { font-size:13px; padding:16px; background:#252e31; border:1px solid #516064; border-radius:10px; color:#dee4e4; }
-.gg-today-error { border-color:#b47871; color:#ffcfca; }
-.gg-today a:focus-visible { outline:3px solid #ffa182; outline-offset:3px; }
+.gg-today-error { border-color:#b47871; color:#E6CEB6; }
+.gg-today a:focus-visible { outline:3px solid #D9B18A; outline-offset:3px; }
 @media(max-width:540px) {
   .gg-today-progress-grid,.gg-today-shortcuts { grid-template-columns:1fr; }
   .gg-today-progress-card { padding:18px; }
@@ -55,32 +55,32 @@
 
 /* Luz e energia, sem perder o grafite */
 .gg-today{background:radial-gradient(ellipse at 12% 1%,#61402d82,transparent 43%),#191f23;}
-.gg-today-fire{display:flex;align-items:center;gap:14px;margin:0 0 22px;padding:17px 16px;border:1px solid #b87d55;border-radius:14px;background:linear-gradient(140deg,#4c342b,#2c2d2b 68%,#30343a);box-shadow:inset 0 1px 1px #ffe1bd48,0 8px 25px #00000035;}
-.gg-today-fire>svg{color:#ff9553;font-size:37px;filter:drop-shadow(0 0 8px #ff814862);flex-shrink:0}
+.gg-today-fire{display:flex;align-items:center;gap:14px;margin:0 0 22px;padding:17px 16px;border:1px solid #C18B60;border-radius:14px;background:linear-gradient(140deg,#4c342b,#2c2d2b 68%,#30343a);box-shadow:0 5px 15px rgba(0,0,0,.19);}
+.gg-today-fire>svg{color:#C18B60;font-size:37px;filter:drop-shadow(0 0 8px #C18B6062);flex-shrink:0}
 .gg-today-fire>div{flex:1;min-width:0;display:grid;gap:7px;}
-.gg-today-fire strong{font:850 clamp(19px,4.8vw,27px)/1 var(--gg-font-display,Impact,sans-serif);color:#ffe2c8;}
+.gg-today-fire strong{font:850 clamp(19px,4.8vw,27px)/1 var(--gg-font-display,Impact,sans-serif);color:#E6CEB6;}
 .gg-today-fire small{font-size:11px;line-height:1.6;color:#dfc9bb;}
-.gg-today-fire>span{font-size:22px;color:#ffbe84;}
+.gg-today-fire>span{font-size:22px;color:#D9B18A;}
 .gg-today-progress-card{background:linear-gradient(140deg,#364147,#263137 70%);border-color:#7a6a5c;box-shadow:inset 0 1px 2px #ffffff35,0 9px 22px #0000003b;}
-.gg-today-shortcuts a{background:linear-gradient(150deg,#ffcaa9,#ff8a58 70%,#d65a36);box-shadow:inset 0 1px 2px #fff7,0 6px 20px #ff784745;}
+.gg-today-shortcuts a{background:#C18B60;box-shadow:0 5px 15px rgba(0,0,0,.19);}
 
 
-.gg-today-weightgoal{display:flex;align-items:center;gap:10px;margin:0 0 24px;min-height:58px;padding:12px 15px;border-radius:12px;background:linear-gradient(120deg,#4a352a,#353c3e);color:#ffdcc7;border:1px solid #9d7a5b;text-decoration:none;box-shadow:inset 0 1px 1px #ffffff2f;}
-.gg-today-weightgoal>svg{color:#ffaa78;font-size:20px;}
+.gg-today-weightgoal{display:flex;align-items:center;gap:10px;margin:0 0 24px;min-height:58px;padding:12px 15px;border-radius:12px;background:linear-gradient(120deg,#4a352a,#353c3e);color:#E6CEB6;border:1px solid #9d7a5b;text-decoration:none;box-shadow:inset 0 1px 1px #ffffff2f;}
+.gg-today-weightgoal>svg{color:#D9B18A;font-size:20px;}
 .gg-today-weightgoal strong{flex:1;font-size:11px;letter-spacing:.05em;}
 .gg-today-weightgoal>span{color:#fff;font-size:16px;font-weight:950;}
 
 /* 2.7: baixo ruído, maior contraste e ritmo compacto */
-.gg-today{background:radial-gradient(ellipse at 14% 0%,#5f38287a,transparent 48%),#1e1c1d;padding-top:16px}
+.gg-today{background:radial-gradient(ellipse at 14% 0%,#684B3B7a,transparent 48%),#1e1c1d;padding-top:16px}
 .gg-today-heading{padding-bottom:13px;margin-bottom:15px}.gg-today-heading h1{font-size:clamp(53px,10vw,70px);margin:9px 0 6px}
 .gg-today-section-heading{margin:20px 0 11px}.gg-today-section-heading h2{font-size:clamp(27px,5vw,39px)}
 .gg-today-progress-card{border-radius:20px;background:linear-gradient(145deg,#443329,#2c2b2d);border-color:#987056;box-shadow:inset 0 1px #fff2,0 7px 19px #0003;gap:11px;min-height:147px;padding:15px 12px}
 .gg-today-progress-card>strong{font-size:clamp(26px,6vw,45px)}
-.gg-today-track{height:10px;background:#58493f}.gg-today-track span{background:linear-gradient(90deg,#cc753c,#efb574)}
+.gg-today-track{height:10px;background:#58493f}.gg-today-track span{background:linear-gradient(90deg,#C18B60,#D9B18A)}
 .gg-today-shortcuts{margin-top:12px;gap:9px}
-.gg-today-shortcuts a{min-height:56px;border-radius:17px;background:linear-gradient(145deg,#f1c28d,#de8c55);box-shadow:inset 0 1px #fff7,0 7px 18px #b96c3740}
-.gg-today-shortcuts a:last-child{background:#3b312e;color:#f2caaa;border-color:#936d53;box-shadow:none}
+.gg-today-shortcuts a{min-height:56px;border-radius:17px;background:#C18B60;box-shadow:inset 0 1px #fff7,0 7px 18px #C18B6040}
+.gg-today-shortcuts a:last-child{background:#3b312e;color:#D9B18A;border-color:#936d53;box-shadow:none}
 .gg-today-goal,.gg-today-no-goal{border-radius:17px;border-color:#83624f;background:#332c29}
-.gg27-biblioteca{margin:16px 0 0;min-height:49px;display:flex;align-items:center;gap:10px;color:#f1c6a4;padding:12px 15px;text-decoration:none;font-size:12px;font-weight:900;background:#39302b;border:1px solid #926b4f;border-radius:16px}
+.gg27-biblioteca{margin:16px 0 0;min-height:49px;display:flex;align-items:center;gap:10px;color:#D9B18A;padding:12px 15px;text-decoration:none;font-size:12px;font-weight:900;background:#39302b;border:1px solid #926b4f;border-radius:16px}
 .gg27-biblioteca svg:last-child{margin-left:auto}
 @media(max-width:540px){.gg-today-progress-grid,.gg-today-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.gg-today-progress-card{min-width:0;padding:13px 10px}.gg-today-progress-card>strong{font-size:clamp(23px,5.5vw,34px)}.gg-today-card-top{font-size:9px;gap:5px}.gg-today-shortcuts a{padding:10px;font-size:10px}}
