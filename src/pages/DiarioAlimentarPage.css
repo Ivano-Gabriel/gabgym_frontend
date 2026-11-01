@@ -6,7 +6,7 @@
   padding: 24px 16px 100px; /* espaço extra embaixo pro botão flutuante não tampar conteúdo */
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(143,169,147,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -51,13 +51,13 @@
   stroke: var(--gg-neon);
   stroke-width: 10;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 8px rgba(182, 255, 110, 0.6));
+  filter: drop-shadow(0 0 8px rgba(179,201,172,0.43));
   transition: stroke-dashoffset 0.6s ease, stroke 0.3s ease;
 }
 
 .calorie-ring-progress.over {
   stroke: var(--gg-warning);
-  filter: drop-shadow(0 0 8px rgba(255, 198, 92, 0.6));
+  filter: drop-shadow(0 0 8px rgba(217,177,138,0.43));
 }
 
 .calorie-hero-content {
@@ -109,8 +109,8 @@
 
 .stat-bar-fill.status-empty { background: var(--gg-line); }
 .stat-bar-fill.status-mid { background: var(--gg-water); }
-.stat-bar-fill.status-good { background: var(--gg-green); box-shadow: 0 0 8px rgba(116, 232, 93, 0.5); }
-.stat-bar-fill.status-over { background: var(--gg-warning); box-shadow: 0 0 8px rgba(255, 198, 92, 0.5); }
+.stat-bar-fill.status-good { background: var(--gg-green); box-shadow: 0 0 8px rgba(143,169,147,0.36); }
+.stat-bar-fill.status-over { background: var(--gg-warning); box-shadow:0 5px 15px rgba(0,0,0,.19); }
 
 /* ---------- Seletor de seção (substitui os acordeões empilhados) ---------- */
 .add-section-tabs {
@@ -201,12 +201,12 @@
 
 .chip-button:hover, .chip-button:active {
   border-color: var(--gg-neon);
-  box-shadow: 0 0 12px rgba(182, 255, 110, 0.15);
+  box-shadow: 0 0 12px rgba(179,201,172,0.15);
 }
 
 .chip-button.water:hover, .chip-button.water:active {
   border-color: var(--gg-water);
-  box-shadow: 0 0 12px rgba(92, 194, 255, 0.2);
+  box-shadow: 0 0 12px rgba(175,196,206,0.2);
 }
 
 .chip-name { font-size: 0.85em; font-weight: 600; }
@@ -259,9 +259,9 @@
   font-weight: 700;
   font-size: 0.88em;
 }
-.sleep-result.good { background: rgba(116, 232, 93, 0.12); color: var(--gg-green); }
-.sleep-result.bad { background: rgba(255, 107, 92, 0.12); color: var(--gg-danger); }
-.sleep-result.too-much { background: rgba(255, 198, 92, 0.12); color: var(--gg-warning); }
+.sleep-result.good { background: rgba(143,169,147,0.12); color: var(--gg-green); }
+.sleep-result.bad { background: rgba(217,177,138,0.12); color: var(--gg-danger); }
+.sleep-result.too-much { background: rgba(217,177,138,0.12); color: var(--gg-warning); }
 
 /* ---------- Botão flutuante de resumo ---------- */
 .log-fab {

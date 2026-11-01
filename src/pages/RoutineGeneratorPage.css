@@ -6,7 +6,7 @@
   padding: 24px 16px 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(255, 120, 71, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(193,139,96,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
@@ -135,5 +135,5 @@
 .gg-rg-plan-card { border-radius:13px; }
 .gg-rg-plan-overlay { background:linear-gradient(to top,rgba(14,17,19,.97),rgba(14,17,19,.40) 61%,transparent); }
 .gg-rg-gender-toggle { background:#20272a; border-color:#495256; }
-.gg-rg-gender-btn.active { background:#ff7847; color:#111719; }
-.gg-rg-container :is(a,button):focus-visible { outline:3px solid #ff9d7b; outline-offset:3px; }
+.gg-rg-gender-btn.active { background:#C18B60; color:#111719; }
+.gg-rg-container :is(a,button):focus-visible { outline:3px solid #D9B18A; outline-offset:3px; }

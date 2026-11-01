@@ -6,7 +6,7 @@
   padding: 24px 16px 90px; /* espaço pro FloatingBackButton não tampar o fim da lista */
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(116, 232, 93, 0.10), transparent),
+    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(143,169,147,0.1), transparent),
     var(--gg-void);
   font-family: var(--gg-font-body);
   color: var(--gg-text);
