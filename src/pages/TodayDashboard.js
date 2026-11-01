@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiArrowRight, FiCoffee, FiDroplet, FiActivity, FiPlus, FiCalendar, FiBookOpen } from 'react-icons/fi';
+import { FiArrowRight, FiCoffee, FiDroplet, FiActivity, FiTarget, FiPlus, FiCalendar, FiBookOpen } from 'react-icons/fi';
 import { getCurrentUser, getDiaryLogs, getMetas } from '../services/apiService';
 import { dayKey, summarizeDay, calorieProgress } from '../utils/nutrition';
 import StreakCalendar from '../components/StreakCalendar';
