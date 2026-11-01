@@ -50,6 +50,7 @@ import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
 import { getSwipeDestination, shouldIgnoreSwipeOrigin } from './utils/swipeNavigation';
 import './components/Header.css';
 import './styles/metalFinish.css';
+import './styles/interactionPolish.css';
 
 
 function RequireAuth({ children, admin = false }) {
@@ -146,7 +147,7 @@ function AppContent() {
       </header>}
       
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
-      <ToastContainer position="bottom-right" autoClose={3000} theme="dark" />
+      <ToastContainer position="top-right" className="gg-toast-container" newestOnTop limit={3} autoClose={3200} hideProgressBar={false} theme="dark" closeOnClick={false} draggable={false}/>
 
       <main className={isAuthPage ? 'gg-auth-main' : undefined} onTouchStart={onTabTouchStart} onTouchEnd={onTabTouchEnd} onTouchCancel={()=>{swipeStart.current=null;}}>
         <Routes>

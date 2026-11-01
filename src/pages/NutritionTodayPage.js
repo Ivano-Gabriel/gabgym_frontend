@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {toast} from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage, FiChevronDown } from 'react-icons/fi';
+import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage, FiChevronDown, FiCheckCircle } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
@@ -116,7 +117,7 @@ export default function NutritionTodayPage() {
   const water = logs.filter(item => item.type === 'water');
   const foodLogs = logs.filter(item => item.type === 'food');
 
-  const perform = async (action, success) => {
+  const perform = async (action, success, kind='record') => {
     if (!user || busy) return;
     setError('');
     setMessage('');
@@ -126,13 +127,15 @@ export default function NutritionTodayPage() {
       try {
         const response = await getDiaryLogs(user.id, dayKey());
         setLogs(Array.isArray(response.data) ? response.data : []);
-        setMessage(success);
+        const title=kind==='food'?'REFEIÇÃO REGISTRADA':kind==='water'?'HIDRATAÇÃO FEITA':'DIÁRIO ATUALIZADO';
+        toast.success(<div className="gg-toast-copy"><strong>{title}</strong><span>{success}</span></div>,{className:'gg-toast gg-toast-success',icon:<FiCheckCircle aria-hidden="true"/>,autoClose:2800});
       } catch {
         setMessage('Registro salvo no servidor. Atualize a página para conferir o total; não precisa registrar novamente.');
       }
       return true;
     } catch {
       setError('Não conseguimos salvar essa alteração. Confira sua conexão antes de tentar novamente.');
+      toast.error('Não foi possível salvar. Confira sua conexão.',{className:'gg-toast gg-toast-error',autoClose:4200});
       return false;
     } finally {
       setBusy(false);
@@ -148,7 +151,7 @@ export default function NutritionTodayPage() {
         quantityMode === 'grams' ? 'g' : quantity !== 1 ? 'porções' : 'porção') + ')',
       ...estimate, volume: 0, logDate: dayKey(), timestamp: Date.now(),
     };
-    const saved = await perform(() => addDiaryLog(item), 'Alimento registrado. Um dia de cada vez.');
+    const saved = await perform(() => addDiaryLog(item), 'Um passo a mais no seu dia.', 'food');
     if (saved) { setSelectedFood(null); setServings('1'); setQuantityMode('servings'); }
   };
   const addCustom = async event => {
@@ -173,13 +176,13 @@ export default function NutritionTodayPage() {
     const entry = { type: 'food', userId: user.id,
       name: name + (mass ? ' (' + mass.toLocaleString('pt-BR') + ' g — manual)' : ' (manual)'),
       calories, ...macros, volume: 0, logDate: dayKey(), timestamp: Date.now() };
-    const saved = await perform(() => addDiaryLog(entry), 'Seu alimento foi registrado.');
+    const saved = await perform(() => addDiaryLog(entry), 'Seu alimento entrou no diário.', 'food');
     if (saved) { setCustom({ name: '', grams: '', calories: '', protein: '', carbs: '', fat: '' }); setShowCustom(false); }
   };
   const addWater = milliliters => perform(
     () => addDiaryLog({ userId: user.id, type: 'water', name: 'Água', volume: milliliters,
       calories: 0, protein: 0, carbs: 0, fat: 0, logDate: dayKey(), timestamp: Date.now() }),
-    '+' + milliliters + ' ml registrados. Continue se hidratando.'
+    '+' + milliliters + ' ml registrados. Continue se hidratando.', 'water'
   );
   const removeLog = id => perform(() => deleteDiaryLog(id), 'Registro excluído do diário.');
 

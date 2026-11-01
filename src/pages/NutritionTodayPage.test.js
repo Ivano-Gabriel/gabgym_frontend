@@ -1,11 +1,13 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import NutritionTodayPage from './NutritionTodayPage';
+import {toast} from 'react-toastify';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 
 jest.mock('react-router-dom', () => ({
   Link: ({ to, children, ...props }) => require('react').createElement('a', { href: to, ...props }, children),
 }));
+jest.mock('react-toastify',()=>({toast:{success:jest.fn(),error:jest.fn()}}));
 jest.mock('../services/apiService', () => ({
   getCurrentUser: jest.fn(),
   getFoods: jest.fn(),
@@ -37,6 +39,8 @@ test('aluno autenticado pode registrar alimento no banco com 2 porções', async
   fireEvent.change(amount, { target: { value: '2' } });
   fireEvent.click(screen.getByRole('button', { name: /REGISTRAR NO DIÁRIO/i }));
   await waitFor(() => expect(addDiaryLog).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(toast.success).toHaveBeenCalledTimes(1));
+  expect(toast.success.mock.calls[0][1].className).toBe('gg-toast gg-toast-success');
   expect(addDiaryLog.mock.calls[0][0]).toEqual(expect.objectContaining({
     userId: 17, type: 'food', calories: 156, protein: 12, carbs: 2, fat: 10,
   }));
@@ -89,6 +93,7 @@ test('salvar no banco e falhar a leitura posterior não sugere repetir a gravaç
   fireEvent.click(await screen.findByRole('button', { name: '+ 250 ML' }));
   await waitFor(() => expect(addDiaryLog).toHaveBeenCalledTimes(1));
   expect(await screen.findByText(/Registro salvo.*Atualize a página/i)).toBeInTheDocument();
+  expect(toast.success).not.toHaveBeenCalled();
 });
 
 
@@ -137,3 +142,5 @@ test('atualização do consumo muda o preenchimento da barra sem contar exercíc
 });
 
 test('sem dados do perfil, não inventa 2300 kcal',async()=>{getCurrentUser.mockResolvedValueOnce({data:{id:17,name:'Teste'}});render(<NutritionTodayPage/>);expect(await screen.findByText(/Nada de 2.300 kcal/i)).toBeInTheDocument();expect(screen.queryByRole('progressbar',{name:'Calorias consumidas'})).not.toBeInTheDocument();});
+
+test('falha ao salvar nao mostra falsa confirmacao de sucesso',async()=>{addDiaryLog.mockRejectedValueOnce(new Error('offline'));render(<NutritionTodayPage/>);fireEvent.click(await screen.findByRole('button',{name:'+ 250 ML'}));expect(await screen.findByRole('alert')).toHaveTextContent(/não conseguimos salvar/i);expect(toast.success).not.toHaveBeenCalled();expect(toast.error).toHaveBeenCalledTimes(1);});
