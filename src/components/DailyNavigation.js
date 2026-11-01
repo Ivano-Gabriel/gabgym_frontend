@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { FiHome, FiActivity, FiCoffee, FiUser, FiShield, FiX, FiTarget, FiHeart, FiBarChart2, FiChevronRight } from 'react-icons/fi';
+import { FiHome, FiActivity, FiCoffee, FiUser, FiShield, FiX, FiTarget, FiHeart, FiBarChart2, FiChevronRight, FiBookOpen } from 'react-icons/fi';
 import { isSuperAdmin } from '../utils/auth';
 import './DailyNavigation.css';
 
@@ -40,7 +40,8 @@ export default function DailyNavigation() {
     { label: 'Treinos', to: '/treino', icon: FiActivity, summary: 'Continue seu treino' },
     { label: 'Cardio', to: '/cardio/select', icon: FiHeart, summary: 'Escolha sua atividade' },
     { label: 'Metas', to: '/minhas-metas', icon: FiTarget, summary: 'Defina o próximo passo' },
-    { label: 'Progresso', to: '/perfil', icon: FiBarChart2, summary: 'Veja sua evolução' },
+    { label: 'Progresso', to: '/perfil', icon: FiBarChart2, summary: 'Sua evolução' },
+    { label: 'Biblioteca', to: '/biblioteca', icon: FiBookOpen, summary: 'Aprenda e pratique' },
   ];
   return (
     <>

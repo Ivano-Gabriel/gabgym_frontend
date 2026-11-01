@@ -23,10 +23,11 @@ export default function TrainingTodayPage(){
   const [logs,setLogs]=useState([]);
   const [user,setUser]=useState(null);
   const [showWorkout,setShowWorkout]=useState(false);
-  const [workout,setWorkout]=useState({name:'Costas e bíceps',minutes:'45',calories:''});
+  const [workout,setWorkout]=useState({name:'Costas e bíceps',exercise:'',sets:'',reps:'',minutes:'45',calories:''});
   const [busy,setBusy]=useState(false);
   const [message,setMessage]=useState('');
   const [burnGoal,setBurnGoal]=useState('');
+  const [sessionGoal,setSessionGoal]=useState('');
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState('');
   useEffect(()=>{
@@ -38,6 +39,7 @@ export default function TrainingTodayPage(){
         if(alive) {
           setUser(user);
           setBurnGoal(localStorage.getItem('gabgym:burn-goal:'+user.id)||'');
+          setSessionGoal(localStorage.getItem('gabgym:session-goal:'+user.id)||'');
         }
         const response=await getDiaryLogs(user.id,dayKey());
         if(alive)setLogs(Array.isArray(response.data)?response.data:[]);
@@ -50,8 +52,14 @@ export default function TrainingTodayPage(){
   },[]);
   const today=useMemo(()=>summarizeMovement(logs),[logs]);
   const workoutsDone=today.entries.filter(item=>item.type==='exercise').length;
+  const sessionTarget=Number(sessionGoal)>=1&&Number(sessionGoal)<=20?Number(sessionGoal):1;
+  const sessionProgress=calorieProgress(workoutsDone,sessionTarget);
   const validBurnGoal=Number(burnGoal)>=30 && Number(burnGoal)<=3000 ? Number(burnGoal):null;
   const burnProgress=validBurnGoal?calorieProgress(today.calories,validBurnGoal):null;
+  const saveSessionGoal=value=>{
+    setSessionGoal(value);
+    if(user?.id&&(value===''||(Number(value)>=1&&Number(value)<=20)))localStorage.setItem('gabgym:session-goal:'+user.id,value);
+  };
   const saveGoal=value=>{
     setBurnGoal(value);
     if(user?.id && (value==='' || (Number(value)>=30 && Number(value)<=3000)))
@@ -63,15 +71,19 @@ export default function TrainingTodayPage(){
     const minutes=Number(workout.minutes);
     const kcal=workout.calories===''?0:Number(workout.calories);
     const name=workout.name.trim();
+    const exercise=workout.exercise.trim();
+    const sets=workout.sets===''?null:Number(workout.sets),reps=workout.reps===''?null:Number(workout.reps);
     if(name.length<3||name.length>60||!Number.isFinite(minutes)||minutes<1||minutes>600||
-      !Number.isFinite(kcal)||kcal<0||kcal>3000){
+      !Number.isFinite(kcal)||kcal<0||kcal>3000||exercise.length>60||
+      (sets!==null&&(!Number.isInteger(sets)||sets<1||sets>30))||
+      (reps!==null&&(!Number.isInteger(reps)||reps<1||reps>100))){
       setMessage('Confira treino, duração e a estimativa opcional de calorias.');
       return;
     }
     setBusy(true);setMessage('');
     try{
       await addDiaryLog({
-        userId:user.id,type:'exercise',name:name+' ('+minutes+' min)',
+        userId:user.id,type:'exercise',name:name+(exercise?' · '+exercise:'')+(sets&&reps?' · '+sets+'x'+reps:'')+' ('+minutes+' min)',
         calories:Math.round(kcal),logDate:dayKey(),timestamp:Date.now()
       });
       setShowWorkout(false);
@@ -96,7 +108,7 @@ export default function TrainingTodayPage(){
         <section className="gg-movement-day" aria-labelledby="gg-movement-today">
           <div className="gg-movement-day-title">
             <div><span>SEU PROGRESSO</span><h2 id="gg-movement-today">HOJE.</h2></div>
-            <Link to="/registros">VER REGISTROS <FiArrowRight aria-hidden="true"/></Link>
+            <Link to="/historico">VER HISTÓRICO <FiArrowRight aria-hidden="true"/></Link>
           </div>
           {loading?<p className="gg-movement-message" role="status">Carregando atividades…</p>:error?
             <p className="gg-movement-message gg-movement-error" role="alert">{error}</p>:
@@ -115,9 +127,9 @@ export default function TrainingTodayPage(){
             </>
           }
           <div className="gg-movement-meters">
-            <div><div className="gg-movement-meter-head"><strong>TREINO DO DIA</strong><span>{workoutsDone?'FEITO · '+workoutsDone:'AINDA NÃO'}</span></div>
-              <div className="gg-movement-meter" role="progressbar" aria-label="Treino realizado hoje" aria-valuenow={workoutsDone?1:0} aria-valuemin="0" aria-valuemax="1">
-                <span style={{width:workoutsDone?'100%':'0%'}} /></div></div>
+            <div><div className="gg-movement-meter-head"><strong>TREINO DO DIA</strong><span>{workoutsDone+' / '+sessionTarget+' REGISTROS'}</span></div>
+              <div className="gg-movement-meter" role="progressbar" aria-label="Treino realizado hoje" aria-valuenow={Math.min(workoutsDone,sessionTarget)} aria-valuemin="0" aria-valuemax={sessionTarget}>
+                <span style={{width:sessionProgress.percent+'%'}} /></div><label className="gg-movement-goal-label">META DE REGISTROS DE TREINO (1–20)<input type="number" min="1" max="20" placeholder="1" value={sessionGoal} inputMode="numeric" onChange={e=>saveSessionGoal(e.target.value)}/></label></div>
             <div><div className="gg-movement-meter-head"><strong>GASTO ESTIMADO</strong><span>{validBurnGoal?format(today.calories)+' / '+format(validBurnGoal)+' kcal':'SEM REFERÊNCIA'}</span></div>
               {burnProgress&&<div className="gg-movement-meter" role="progressbar" aria-label="Gasto calórico em relação à referência" aria-valuenow={Math.min(today.calories,validBurnGoal)} aria-valuemin="0" aria-valuemax={validBurnGoal}>
                 <span style={{width:burnProgress.percent+'%'}}/></div>}
@@ -142,13 +154,16 @@ export default function TrainingTodayPage(){
                 {['Costas e bíceps','Peito e tríceps','Pernas','Ombros','Superior','Inferior','Corpo inteiro'].map(name=><option key={name}>{name}</option>)}
               </select>
             </label>
-            <label>Minutos de treino
+            <label>Exercício (opcional)<input type="text" maxLength="60" value={workout.exercise} placeholder="Ex.: Supino unilateral" onChange={e=>setWorkout({...workout,exercise:e.target.value})}/></label>
+             <label>Séries (opcional)<input type="number" min="1" max="30" value={workout.sets} onChange={e=>setWorkout({...workout,sets:e.target.value})}/></label>
+             <label>Repetições (opcional)<input type="number" min="1" max="100" value={workout.reps} onChange={e=>setWorkout({...workout,reps:e.target.value})}/></label>
+             <label>Minutos de treino
               <input type="number" min="1" max="600" value={workout.minutes} onChange={e=>setWorkout({...workout,minutes:e.target.value})} inputMode="numeric"/>
             </label>
             <label>Gasto estimado em kcal (opcional)
               <input type="number" min="0" max="3000" value={workout.calories} onChange={e=>setWorkout({...workout,calories:e.target.value})} placeholder="Se souber; não calculamos automaticamente" inputMode="numeric"/>
             </label>
-            <p>Treino e duração ficam registrados no nome. As calorias só entram no total se você informar sua própria estimativa.</p>
+            <p>Exercício, séries e repetições ficam no registro. O gasto estimado é opcional e nunca aumenta a meta alimentar.</p>
             <button type="submit" disabled={busy} className="gg-movement-save-workout">{busy?'SALVANDO…':'SALVAR TREINO'}</button>
           </form>}
           {message&&<p className="gg-movement-message" role="status">{message}</p>}

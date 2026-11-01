@@ -6,6 +6,7 @@ import { isSuperAdmin } from '../utils/auth';
 import './ProfilePage.css';
 import {loadWeightHistory,weightTrend,safeWeightProjection,weightGoalProgress} from '../utils/weightProgress';
 import {readProfileAvatar,saveProfileAvatar,isSupportedProfileImage} from '../utils/profileAvatar';
+import StreakCalendar from '../components/StreakCalendar';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -85,18 +86,20 @@ export default function ProfilePage() {
               <input type="file" accept="image/*" onChange={imagePicked} aria-label="Escolher foto de perfil"/>
             </label>
           </div>
-          <div><h1>MEU PERFIL<span>.</span></h1><p>{user?.name || user?.username || 'Sua evolução começa aqui.'}</p></div>
+          <div><span className="gg27-profile-kicker">SUA EVOLUÇÃO</span><h1>{user?.name || user?.username || 'MEU PERFIL'}<span>.</span></h1><p>Seu progresso, seu ritmo.</p></div>
         </section>
         {error&&<p className="gg-profile-error" role="alert">{error}</p>}
         {!user&&!error&&<p role="status">Carregando perfil…</p>}
         {user&&<>
+          <StreakCalendar compact userId={user.id}/>
+          <p className="gg27-profile-timing">Medidas: acompanhe semanal, quinzenal ou mensalmente.</p>
           <div className="gg-profile-section-name"><span>01 / ACOMPANHAMENTO</span><h2>SUAS MEDIDAS.</h2></div>
           <div className="gg-profile-stat-grid">
-            {stats.map(([name,value,unit])=><div key={name}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong></div>)}
+            {stats.map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={'Atualizar '+name.toLowerCase()}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
           </div>
           <Link className="gg-profile-data-link" to="/profile-form">REGISTRAR NOVO PESO E MEDIDAS <FiArrowRight aria-hidden="true"/></Link>
           <section className="gg-profile-weight-progress" aria-label="Evolução do peso">
-            <header><span>META DE PESO</span><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'SEM META DEFINIDA'}</strong></header>
+            <header><span>META DE PESO</span><Link to="/profile-form" className="gg27-weight-link"><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'DEFINIR META'}</strong><FiEdit3 aria-hidden="true"/></Link></header>
             {weightGoal&&currentWeight ? <>
               {weightProgressPct!==null ? <>
                 <div className="gg-profile-weight-track" role="progressbar" aria-label="Progresso real em direção à meta de peso" aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">

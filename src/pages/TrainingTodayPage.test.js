@@ -46,3 +46,18 @@ test('registrar musculação envia exercise ao backend, sem contar alimentação
   await waitFor(()=>expect(addDiaryLog).toHaveBeenCalled());
   expect(addDiaryLog.mock.calls[0][0]).toEqual(expect.objectContaining({type:'exercise',calories:180,name:expect.stringContaining('Costas e bíceps')}));
 });
+
+test('adiciona supino com séries sem inventar calorias',async()=>{
+ const {fireEvent,waitFor}=require('@testing-library/react');
+ render(<TrainingTodayPage/>);
+ fireEvent.click(await screen.findByRole('button',{name:/registrar treino feito/i}));
+ fireEvent.change(screen.getByLabelText(/^Exercício/i),{target:{value:'Supino unilateral'}});
+ fireEvent.change(screen.getByLabelText(/^Séries/i),{target:{value:'3'}});
+ fireEvent.change(screen.getByLabelText(/^Repetições/i),{target:{value:'10'}});
+ fireEvent.click(screen.getByRole('button',{name:/salvar treino/i}));
+ await waitFor(()=>expect(addDiaryLog).toHaveBeenCalled());
+ const entry=addDiaryLog.mock.calls[0][0];
+ expect(entry.name).toContain('Supino unilateral');
+ expect(entry.name).toContain('3x10');
+ expect(entry.calories).toBe(0);
+});
