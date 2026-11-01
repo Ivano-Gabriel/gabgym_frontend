@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiHelpCircle, FiUsers, FiFolder, FiBookOpen, FiInfo, FiX } from 'react-icons/fi';
+import { FiHelpCircle, FiUsers, FiFolder, FiBookOpen, FiX } from 'react-icons/fi';
 import './MobileMenu.css';
 
 /* O hamburger é apenas para ferramentas secundárias; as quatro ações diárias
@@ -9,9 +9,8 @@ export default function MobileMenu({isOpen,onClose}){
   const links=[
     {label:'Me ajude',to:'/me-ajude',Icon:FiHelpCircle},
     {label:'Meu personal',to:'/meu-personal',Icon:FiUsers},
-    {label:'Registros',to:'/registros',Icon:FiFolder},
-    {label:'Biblioteca de conteúdo',to:'/biblioteca',Icon:FiBookOpen},
-    {label:'Sobre o GABGYM',to:'/portfolio',Icon:FiInfo}
+    {label:'Diário de atividades',to:'/registros',Icon:FiFolder},
+    {label:'Biblioteca de conteúdo',to:'/biblioteca',Icon:FiBookOpen}
   ];
   return <aside className={'gg-mobile-menu'+(isOpen?' open':'')} aria-hidden={!isOpen} aria-label="Menu secundário">
     <button type="button" onClick={onClose} className="gg-mobile-menu-close" aria-label="Fechar menu"><FiX/></button>

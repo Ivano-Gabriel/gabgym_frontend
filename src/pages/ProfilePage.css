@@ -46,3 +46,22 @@
 .gg-profile-weight-progress small{color:#ccb9ac;font-size:10px;line-height:1.55;display:block;}
 .gg-profile-projection{border-left:3px solid #ffa87f;padding-left:11px;}
 @media(prefers-reduced-motion:reduce){.gg-profile-weight-track>span{transition:none}}
+
+/* 2.7: perfil pessoal, centralizado e navegável */
+.gg-profile{background:radial-gradient(ellipse at 50% 0%,#5c3b287a,transparent 48%),#1d1c1e}
+.gg-profile-eyebrow{text-align:center;color:#e1ac80}
+.gg-profile-heading{flex-direction:column;text-align:center;gap:14px;justify-content:center;padding:19px 0;border:0}
+.gg-profile-avatar{width:128px;height:128px;flex:0 0 128px;border-radius:50%;border:2px solid #d89863;background:#3d302d;font-size:56px;box-shadow:0 0 0 5px #ca845c28,0 8px 22px #0004}
+.gg-profile-avatar img{border-radius:50%}.gg-profile-avatar label{right:1px;bottom:1px;border-radius:50%;background:#e2a065}
+.gg-profile-heading h1{margin:5px 0;font-size:clamp(36px,9vw,58px);overflow-wrap:anywhere}
+.gg27-profile-kicker{font-size:10px;color:#f0bf8c;font-weight:900;letter-spacing:.12em}
+.gg27-profile-timing{font-size:11px;color:#e0b996;border:1px solid #826049;border-radius:14px;background:#392e29;padding:11px 13px}
+.gg-profile-section-name{margin:17px 0 12px}
+.gg-profile-stat-grid>a{min-width:0;position:relative;display:grid;gap:10px;padding:16px 13px;text-decoration:none;color:#fff0e1;border:1px solid #906b55;border-radius:19px;background:linear-gradient(145deg,#42332d,#2b2c2f);box-shadow:inset 0 1px #fff2,0 6px 18px #0003}
+.gg-profile-stat-grid>a span{color:#edc098;font-size:10px;font-weight:850}
+.gg-profile-stat-grid>a strong{font-size:clamp(16px,4vw,23px);font-weight:900}
+.gg-profile-stat-grid>a svg{position:absolute;right:12px;top:12px;color:#e9ac74;font-size:14px}
+.gg-profile-weight-progress{border-radius:20px;background:linear-gradient(145deg,#443127,#2b2b2d)}
+.gg27-weight-link{display:inline-flex;align-items:center;gap:10px;color:#ffe3c7;text-decoration:none}.gg27-weight-link svg{color:#e6a66c}
+.gg-profile-links>a{border-radius:18px;border-color:#86644d;background:linear-gradient(145deg,#40322e,#2b2c2e)}
+@media(max-width:767px){.gg-profile-avatar{width:128px;height:128px;flex-basis:128px;border-radius:50%;font-size:54px}.gg-profile-avatar img{border-radius:50%}.gg-profile-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gg-profile-links{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(205px,78%);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}.gg-profile-links>a{scroll-snap-align:start}}
