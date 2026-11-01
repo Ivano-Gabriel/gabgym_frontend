@@ -42,7 +42,7 @@ import MinhasMetasPage from './pages/MinhasMetasPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
-import { FiMenu, FiArrowRight } from "react-icons/fi";
+import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
 import { isLoggedIn, isSuperAdmin } from './utils/auth';
 import AdminPage from './pages/AdminPage';
@@ -141,7 +141,7 @@ function AppContent() {
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
           <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
-            <FiMenu />
+            {isMobileMenuOpen?<FiX className="gg-menu-symbol" aria-hidden="true"/>:<FiMenu className="gg-menu-symbol" aria-hidden="true"/>}
           </button>
         </div>
       </header>}

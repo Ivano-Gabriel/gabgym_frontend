@@ -193,3 +193,9 @@
 @media(max-width:767px){.gg-header{min-height:65px;padding:9px 15px}.gg-header-route{font-size:10px;padding:7px 9px}.gg-logo-text{font-size:26px}.gg-header-monogram{width:39px;height:39px}}
 @media(max-width:360px){.gg-header-route{display:none}}
 @media(prefers-reduced-motion:reduce){.gg-hamburger{transition:none}}
+
+/* Hamburger com ícone que aparece suavemente ao alternar */
+.gg-hamburger .gg-menu-symbol{animation:gg-menu-symbol-in .18s cubic-bezier(.2,.8,.2,1)}
+.gg-hamburger.is-open{background:#624735;border-color:#d5a27b}
+@keyframes gg-menu-symbol-in{from{opacity:.4;transform:scale(.72) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
+@media(prefers-reduced-motion:reduce){.gg-hamburger .gg-menu-symbol{animation:none!important}}

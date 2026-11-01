@@ -79,3 +79,14 @@
 .gg-mobile-menu-link:hover{background:#614638;transform:translateX(-3px)}
 .gg-mobile-menu-link svg{color:#e4ab79}
 @media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link{transition:none!important}}
+
+/* Hamburger: rolagem fluida e microinterações menos agressivas */
+.gg-mobile-menu{overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;scrollbar-color:#966e50 transparent;scrollbar-width:thin;transition:transform .27s cubic-bezier(.19,.83,.23,1),visibility .27s!important}
+.gg-mobile-menu-nav{gap:10px}
+.gg-mobile-menu-link{min-height:64px;padding:15px 17px;border:1px solid #977156;border-radius:19px;box-shadow:inset 0 1px #fff2;transition:background .18s ease,transform .18s ease}
+.gg-mobile-menu.open .gg-mobile-menu-link{animation:gg-menu-link-in .24s both;animation-delay:calc(var(--drawer-index) * 35ms)}
+.gg-mobile-menu-link:active{transform:scale(.97);box-shadow:inset 0 2px 4px #0004}
+.gg-mobile-menu-close{transition:transform .18s ease,background .18s ease}
+.gg-mobile-menu-close:active{transform:scale(.93)}
+@keyframes gg-menu-link-in{from{opacity:.3;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link,.gg-mobile-menu-close{transition:none!important;animation:none!important}}

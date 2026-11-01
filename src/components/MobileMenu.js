@@ -7,10 +7,19 @@ import './MobileMenu.css';
    ficam no dock + no Hub GG. */
 export default function MobileMenu({isOpen,onClose}){
   const closeRef=useRef(null);
+  const navRef=useRef(null);
   useEffect(()=>{
     if(!isOpen)return undefined;
     closeRef.current?.focus();
-    const onKey=e=>{if(e.key==='Escape')onClose();};
+    const onKey=e=>{
+      if(e.key==='Escape'){onClose();return;}
+      if(e.key==='Tab'){
+        const focusable=[closeRef.current,...Array.from(navRef.current?.querySelectorAll('a')||[])].filter(Boolean);
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      }
+    };
     document.addEventListener('keydown',onKey);
     return()=>document.removeEventListener('keydown',onKey);
   },[isOpen,onClose]);
@@ -23,8 +32,8 @@ export default function MobileMenu({isOpen,onClose}){
   return <aside className={'gg-mobile-menu'+(isOpen?' open':'')} aria-hidden={!isOpen} aria-label="Menu secundário">
     <button ref={closeRef} tabIndex={isOpen?0:-1} type="button" onClick={onClose} className="gg-mobile-menu-close" aria-label="Fechar menu"><FiX/></button>
     <div className="gg-mobile-menu-heading">MAIS OPÇÕES</div>
-    <nav className="gg-mobile-menu-nav" aria-label="Ferramentas secundárias">
-      {links.map(({label,to,Icon})=><Link key={to} to={to} className="gg-mobile-menu-link" onClick={onClose} tabIndex={isOpen?0:-1}>
+    <nav ref={navRef} className="gg-mobile-menu-nav" aria-label="Ferramentas secundárias">
+      {links.map(({label,to,Icon},index)=><Link key={to} to={to} style={{'--drawer-index':index}} className="gg-mobile-menu-link" onClick={onClose} tabIndex={isOpen?0:-1}>
         <Icon aria-hidden="true"/> {label}
       </Link>)}
     </nav>
