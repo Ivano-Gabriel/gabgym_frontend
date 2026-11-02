@@ -19,7 +19,7 @@
 .gg-profile-editor-field :is(input,select):focus-visible { outline:3px solid #ff9299; outline-offset:2px; }
 .gg-profile-editor-local { padding:12px 15px; border-left:3px solid #b1111b; background:#303030; border-radius:3px 8px 8px 3px; }
 .gg-profile-editor-goals a { display:flex; justify-content:space-between; align-items:center; min-height:53px; border-radius:10px; color:#ff9299; border:1px solid #595052; text-decoration:none; padding:0 16px; font-size:12px; font-weight:900; }
-.gg-profile-editor-save { display:flex; align-items:center; justify-content:space-between; min-height:59px; width:100%; background:#b1111b; color:#15191b; border:0; border-radius:11px; padding:0 20px; font:900 13px var(--gg-font-body,Arial,sans-serif); cursor:pointer; }
+.gg-profile-editor-save { display:flex; align-items:center; justify-content:space-between; min-height:59px; width:100%; background:#b1111b; color:#ffffff; border:0; border-radius:11px; padding:0 20px; font:900 13px var(--gg-font-body,Arial,sans-serif); cursor:pointer; }
 .gg-profile-editor-save:disabled { opacity:.7; cursor:wait; }
 .gg-profile-editor-error { padding:15px; border:1px solid #b1111b; color:#f5f5f5; background:#303030; border-radius:10px; font-size:12px; }
 .gg-profile-editor :is(button,a):focus-visible { outline:3px solid #ff9299; outline-offset:3px; }
