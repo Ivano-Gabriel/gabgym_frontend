@@ -159,5 +159,5 @@
 .start-button,.pause-button,.finish-button {min-height:56px;border-radius:12px;}
 .start-button {background:#b1111b;color:#f5f5f5;box-shadow:0 5px 15px rgba(0,0,0,.19);}
 .pause-button {background:#424d55;color:#fff;}
-.finish-button {background:#b1111b;color:#15191b;}
+.finish-button {background:#b1111b;color:#fff;}
 .cardio-page-container :is(button,a):focus-visible{outline:3px solid #ff9299;outline-offset:3px;}
