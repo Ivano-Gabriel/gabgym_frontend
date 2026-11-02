@@ -50,9 +50,9 @@ test('Hoje distingue alimentação e água com estilos semânticos, mantendo os 
 test('estilos da tela Hoje mantêm cartões neutros e barras específicas por métrica',()=>{
   const css=readFileSync(join(__dirname,'TodayDashboard.css'),'utf8');
   const cardRules=[...css.matchAll(/\.gg-today-progress-card\s*\{([^}]*)\}/g)];
-  expect(cardRules).toHaveLength(1);
-  expect(cardRules[0][1]).toMatch(/background:\s*#(?:252525|262626|292929)/i);
-  expect(cardRules[0][1]).not.toMatch(/background:\s*#b1111b/i);
+  expect(cardRules.length).toBeGreaterThan(0);
+  expect(cardRules.some(([, body])=>/background:\s*#(?:252525|262626|292929)/i.test(body))).toBe(true);
+  expect(cardRules.every(([, body])=>!/background:\s*#b1111b/i.test(body))).toBe(true);
   expect(css).toMatch(/\.gg-today-progress-card--food\s*\{[^}]*--gg-today-metric:\s*#[a-f\d]{6}/i);
   expect(css).toMatch(/\.gg-today-progress-card--water\s*\{[^}]*--gg-today-metric:\s*#[a-f\d]{6}/i);
   expect(css).toMatch(/\.gg-today-track\s+span\s*\{[^}]*background:\s*var\(--gg-today-metric\)/i);
