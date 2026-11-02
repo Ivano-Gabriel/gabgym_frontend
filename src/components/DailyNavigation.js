@@ -55,7 +55,7 @@ export default function DailyNavigation() {
         <button ref={triggerRef} type="button" className={'gg-hub-trigger' + (open ? ' active' : '')}
           aria-label={open ? 'Recolher hub' : 'Abrir hub'} aria-expanded={open} aria-controls="gg-hub-sheet"
           onClick={() => setOpen(value => !value)}>
-          <span className="gg-hub-glyph" aria-hidden="true">GG</span><span>Hub</span>
+          <span className="gg-hub-glyph" aria-hidden="true"><img src="/gg-mark.svg" alt="" /></span><span>Hub</span>
         </button>
         {primary.slice(2).map(({ label, to, icon: Icon }) =>
           <NavLink key={to} to={to} className={({isActive}) => 'gg-daily-navitem' + (isActive ? ' active' : '')}>
