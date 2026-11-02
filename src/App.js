@@ -51,6 +51,7 @@ import { getSwipeDestination, shouldIgnoreSwipeOrigin } from './utils/swipeNavig
 import './components/Header.css';
 import './styles/metalFinish.css';
 import './styles/interactionPolish.css';
+import './styles/redEdition.css';
 
 
 function RequireAuth({ children, admin = false }) {
