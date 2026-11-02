@@ -20,9 +20,9 @@ html, body, #root {
 /* --- VARIÁVEIS DE CORES (para fácil manutenção) --- */
 /* Mantive aqui porque App.js também usa cores. É uma boa centralizar */
 :root {
-  --primaryGreen: #8FA993;
-  --darkGreen: #21331D;
-  --mediumDarkGray: #303E2E;
+  --primaryGreen: var(--gg-accent);
+  --darkGreen: var(--gg-void);
+  --mediumDarkGray: var(--gg-surface);
   --lightGray: #60695E;
   --whiteText: #f8f9fa;
   --darkText: #1a1a1a;
@@ -100,7 +100,7 @@ html, body, #root {
 }
 
 .header-enroll-button:hover {
-  background-color: #8FA993; /* Um tom um pouco mais escuro do seu primaryGreen */
+  background-color: #b1111b; /* Um tom um pouco mais escuro do seu primaryGreen */
 }
 
 /* Hover para o hambúrguer */
@@ -138,7 +138,7 @@ html, body, #root {
 
 /* Efeito de "acender" no hover/clique */
 .logo-dropdown a:hover {
-  background-color: #8FA993; /* Um tom um pouco mais escuro do verde primário */
+  background-color: #b1111b; /* Um tom um pouco mais escuro do verde primário */
   color: white; /* Texto branco no hover */
   transform: scale(1.02); /* Pequeno zoom no hover */
   box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra sutil ao acender */
@@ -514,7 +514,7 @@ html, body, #root {
 }
 
 .profile-form-button:hover {
-  background-color: #8FA993; /* Tom mais escuro do primaryGreen no hover */
+  background-color: #b1111b; /* Tom mais escuro do primaryGreen no hover */
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -609,7 +609,7 @@ html, body, #root {
 /* --- VARIÁVEIS DE CORES (para fácil manutenção) --- */
 /* Mantive aqui porque App.js também usa cores. É uma boa centralizar */
 :root {
-  --primaryGreen: #8FA993;
+  --primaryGreen: #b1111b;
   --darkGreen: #21331D;
   --mediumDarkGray: #303E2E;
   --lightGray: #60695E;
@@ -689,7 +689,7 @@ html, body, #root {
 }
 
 .header-enroll-button:hover {
-  background-color: #8FA993; /* Um tom um pouco mais escuro do seu primaryGreen */
+  background-color: #b1111b; /* Um tom um pouco mais escuro do seu primaryGreen */
 }
 
 /* Hover para o hambúrguer */
@@ -727,7 +727,7 @@ html, body, #root {
 
 /* Efeito de "acender" no hover/clique */
 .logo-dropdown a:hover {
-  background-color: #8FA993; /* Um tom um pouco mais escuro do verde primário */
+  background-color: #b1111b; /* Um tom um pouco mais escuro do verde primário */
   color: white; /* Texto branco no hover */
   transform: scale(1.02); /* Pequeno zoom no hover */
   box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Sombra sutil ao acender */
@@ -1103,7 +1103,7 @@ html, body, #root {
 }
 
 .profile-form-button:hover {
-  background-color: #8FA993; /* Tom mais escuro do primaryGreen no hover */
+  background-color: #b1111b; /* Tom mais escuro do primaryGreen no hover */
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -1378,7 +1378,7 @@ html, body, #root {
 
 .view-workout-button:hover {
   transform: scale(1.05);
-  background-color: #8FA993;
+  background-color: #b1111b;
 }
 /* Em App.css */
 
@@ -1528,7 +1528,7 @@ html, body, #root {
   color: #C3A06F; /* Amarelo */
 }
 .imc-status.obese {
-  color: #C18B60; /* Vermelho */
+  color: #b1111b; /* Vermelho */
 }
 /* Estilo para a descrição dentro dos cards de macro */
 .macro-description {
@@ -1715,14 +1715,14 @@ html, body, #root {
   }
   
   .progress-bar.status-mid-orange {
-    background-color: #C18B60; /* Laranja */
+    background-color: #b1111b; /* Laranja */
   }
 }
 
 /* Regras de status com maior especificidade para garantir que funcionem */
 .summary-item .progress-bar.status-empty,
 .general-progress-container .progress-bar.status-empty {
-  background-color: #C18B60; /* Vermelho */
+  background-color: #b1111b; /* Vermelho */
 }
 .summary-item .progress-bar.status-mid,
 .general-progress-container .progress-bar.status-mid {
@@ -1734,10 +1734,10 @@ html, body, #root {
 }
 .summary-item .progress-bar.status-over,
 .general-progress-container .progress-bar.status-over {
-  background-color: #C18B60; /* Laranja */
+  background-color: #b1111b; /* Laranja */
 }
 .remove-food-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   width: 25px;
@@ -1901,7 +1901,7 @@ html, body, #root {
 .clear-log-button {
   width: 100%;
   padding: 15px;
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -2114,7 +2114,7 @@ activity-icon {
 }
 
 .finish-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 /* Em App.css */
@@ -2250,7 +2250,7 @@ activity-icon {
 }
 
 .modal-button.confirm {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 /* =============================================== */
@@ -2473,7 +2473,7 @@ activity-icon {
   gap: 10px;
 }
 .exercise-option-button {
-  background-color: #C18B60; /* Um vermelho mais escuro */
+  background-color: #b1111b; /* Um vermelho mais escuro */
   color: white;
   border: none;
   border-radius: 8px;
@@ -2489,7 +2489,7 @@ activity-icon {
 }
 .exercise-option-button:hover {
   transform: scale(1.05);
-  background-color: #C18B60;
+  background-color: #b1111b;
 }
 .exercise-icon { font-size: 1.5em; }
 .exercise-name { font-weight: bold; margin-top: 5px; font-size: 0.9em; }
@@ -2531,7 +2531,7 @@ activity-icon {
   transition: background-color 0.2s;
 }
 .log-sleep-button:hover {
-  background-color: #8FA993;
+  background-color: #b1111b;
 }
 .sleep-duration-display {
   font-size: 1.5em;
@@ -2540,9 +2540,9 @@ activity-icon {
   padding: 10px;
   border-radius: 5px;
 }
-.sleep-duration-display.bad { color: #C18B60; }
+.sleep-duration-display.bad { color: #b1111b; }
 .sleep-duration-display.good { color: #87A8B7; }
-.sleep-duration-display.too-much { color: #C18B60; }
+.sleep-duration-display.too-much { color: #b1111b; }
 
 /* Estilos para o Gasto Calórico Manual */
 .manual-calorie-form {
@@ -2562,7 +2562,7 @@ activity-icon {
   text-align: center;
 }
 .manual-calorie-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -2600,7 +2600,7 @@ activity-icon {
 }
 
 .logout-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -2612,7 +2612,7 @@ activity-icon {
 }
 
 .logout-button:hover {
-  background-color: #C18B60;
+  background-color: #b1111b;
 }
 /* Bloco de código para adicionar no final do App.css */
 
@@ -2876,7 +2876,7 @@ activity-icon {
 
 .view-workout-button:hover {
   transform: scale(1.05);
-  background-color: #8FA993;
+  background-color: #b1111b;
 }
 /* Em App.css */
 
@@ -3026,7 +3026,7 @@ activity-icon {
   color: #C3A06F; /* Amarelo */
 }
 .imc-status.obese {
-  color: #C18B60; /* Vermelho */
+  color: #b1111b; /* Vermelho */
 }
 /* Estilo para a descrição dentro dos cards de macro */
 .macro-description {
@@ -3213,14 +3213,14 @@ activity-icon {
   }
   
   .progress-bar.status-mid-orange {
-    background-color: #C18B60; /* Laranja */
+    background-color: #b1111b; /* Laranja */
   }
 }
 
 /* Regras de status com maior especificidade para garantir que funcionem */
 .summary-item .progress-bar.status-empty,
 .general-progress-container .progress-bar.status-empty {
-  background-color: #C18B60; /* Vermelho */
+  background-color: #b1111b; /* Vermelho */
 }
 .summary-item .progress-bar.status-mid,
 .general-progress-container .progress-bar.status-mid {
@@ -3232,10 +3232,10 @@ activity-icon {
 }
 .summary-item .progress-bar.status-over,
 .general-progress-container .progress-bar.status-over {
-  background-color: #C18B60; /* Laranja */
+  background-color: #b1111b; /* Laranja */
 }
 .remove-food-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   width: 25px;
@@ -3399,7 +3399,7 @@ activity-icon {
 .clear-log-button {
   width: 100%;
   padding: 15px;
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -3612,7 +3612,7 @@ activity-icon {
 }
 
 .finish-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 /* Em App.css */
@@ -3748,7 +3748,7 @@ activity-icon {
 }
 
 .modal-button.confirm {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 /* =============================================== */
@@ -3971,7 +3971,7 @@ activity-icon {
   gap: 10px;
 }
 .exercise-option-button {
-  background-color: #C18B60; /* Um vermelho mais escuro */
+  background-color: #b1111b; /* Um vermelho mais escuro */
   color: white;
   border: none;
   border-radius: 8px;
@@ -3987,7 +3987,7 @@ activity-icon {
 }
 .exercise-option-button:hover {
   transform: scale(1.05);
-  background-color: #C18B60;
+  background-color: #b1111b;
 }
 .exercise-icon { font-size: 1.5em; }
 .exercise-name { font-weight: bold; margin-top: 5px; font-size: 0.9em; }
@@ -4029,7 +4029,7 @@ activity-icon {
   transition: background-color 0.2s;
 }
 .log-sleep-button:hover {
-  background-color: #8FA993;
+  background-color: #b1111b;
 }
 .sleep-duration-display {
   font-size: 1.5em;
@@ -4038,9 +4038,9 @@ activity-icon {
   padding: 10px;
   border-radius: 5px;
 }
-.sleep-duration-display.bad { color: #C18B60; }
+.sleep-duration-display.bad { color: #b1111b; }
 .sleep-duration-display.good { color: #87A8B7; }
-.sleep-duration-display.too-much { color: #C18B60; }
+.sleep-duration-display.too-much { color: #b1111b; }
 
 .manual-calorie-form {
   display: flex;
@@ -4059,7 +4059,7 @@ activity-icon {
   text-align: center;
 }
 .manual-calorie-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -4097,7 +4097,7 @@ activity-icon {
 }
 
 .logout-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -4109,7 +4109,7 @@ activity-icon {
 }
 
 .logout-button:hover {
-  background-color: #C18B60;
+  background-color: #b1111b;
 }
 /* Bloco de código para adicionar no final do App.css */
 
@@ -4209,8 +4209,8 @@ activity-icon {
 /* Estilo para o nosso novo botão secundário */
 .secondary-button {
   background-color: transparent;
-  color: #C18B60; /* Cor do texto (amarelo) */
-  border: 1px solid #C18B60; /* Borda amarela */
+  color: #b1111b; /* Cor do texto (amarelo) */
+  border: 1px solid #b1111b; /* Borda amarela */
   padding: 12px 25px;
   border-radius: 8px;
   text-decoration: none;
@@ -4221,7 +4221,7 @@ activity-icon {
 }
 
 .secondary-button:hover {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: #121212; /* Cor do texto ao passar o mouse (preto) */
   transform: translateY(-2px);
 }

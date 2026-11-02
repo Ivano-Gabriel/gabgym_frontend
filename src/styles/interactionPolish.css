@@ -1,24 +1,26 @@
 /* GABGYM 2.8 — botões do Hoje com legibilidade real, sem neon. */
 .gg-today .gg-today-shortcuts a,.gg-today .gg-today-shortcuts a:last-child{
- background:#c18b60!important;border:1px solid #c18b60!important;color:#211913!important;
+ background:#b1111b!important;border:1px solid #b1111b!important;color:#ffffff!important;
  text-shadow:none!important;box-shadow:0 4px 12px rgba(0,0,0,.18)!important;
  border-radius:17px!important;min-height:62px;font-weight:950;letter-spacing:.01em;
  transition:background-color .18s ease,transform .18s ease!important;
 }
-.gg-today .gg-today-shortcuts a:last-child{background:#d0a578!important;border-color:#d0a578!important}
-.gg-today .gg-today-shortcuts a :is(svg,span,strong,small){color:#211913!important;stroke:#211913!important}
-.gg-today .gg-today-shortcuts a:hover,.gg-today .gg-today-shortcuts a:focus-visible{background:#d3aa81!important;box-shadow:0 4px 12px rgba(0,0,0,.18)!important}
+.gg-today .gg-today-shortcuts a:last-child{background:#c62934!important;border-color:#c62934!important}
+.gg-today .gg-today-shortcuts a :is(svg,span,strong,small){color:#ffffff!important;stroke:#ffffff!important}
+.gg-today .gg-today-shortcuts a:hover,.gg-today .gg-today-shortcuts a:focus-visible{background:#d32f3b!important;box-shadow:0 4px 12px rgba(0,0,0,.18)!important}
 .gg-today .gg-today-shortcuts a:active{transform:scale(.98)!important}
-.gg-today .gg-today-shortcuts a:focus-visible{outline:3px solid #ead4ba;outline-offset:3px}
+.gg-today .gg-today-shortcuts a:focus-visible{outline:3px solid #f2b7bb;outline-offset:3px}
 @media(max-width:440px){.gg-today .gg-today-shortcuts a{padding:12px 10px;min-height:64px;font-size:clamp(10px,2.8vw,12px);line-height:1.3}}
 /* Toasts sóbrios, contrastados e com personalidade */
 .Toastify__toast-container.gg-toast-container{width:min(360px,calc(100vw - 30px));z-index:1400}
-.gg-toast-container .Toastify__toast.gg-toast{background:#302b28;border:1px solid #756252;border-radius:17px;color:#ede0d2;box-shadow:0 7px 20px rgba(0,0,0,.22);padding:14px;min-height:72px;font-family:var(--gg-font-body,Manrope,Arial,sans-serif)}
-.gg-toast-container .gg-toast .Toastify__toast-icon{width:27px;margin-inline-end:12px;color:#cda077}
+.gg-toast-container .Toastify__toast.gg-toast{background:#303030;border:1px solid #555555;border-radius:17px;color:#f5f5f5;box-shadow:0 7px 20px rgba(0,0,0,.22);padding:14px;min-height:72px;font-family:var(--gg-font-body,Manrope,Arial,sans-serif)}
+.gg-toast-container .gg-toast .Toastify__toast-icon{width:27px;margin-inline-end:12px;color:#ed6670}
 .gg-toast-container .gg-toast .Toastify__toast-icon svg{width:25px;height:25px}
-.gg-toast-container .gg-toast .Toastify__close-button{color:#ead4bc;opacity:.85;align-self:start}
-.gg-toast-container .gg-toast .Toastify__progress-bar{height:3px;background:#c18b60}
+.gg-toast-container .gg-toast .Toastify__close-button{color:#f2b7bb;opacity:.85;align-self:start}
+.gg-toast-container .gg-toast .Toastify__progress-bar{height:3px;background:#b1111b}
 .gg-toast-container .gg-toast.gg-toast-error{background:#392c29;border-color:#af766f}
-.gg-toast-copy{display:grid;gap:5px}.gg-toast-copy strong{font-size:11px;font-weight:950;letter-spacing:.08em;color:#e2b890}.gg-toast-copy span{font-size:12px;line-height:1.45;font-weight:650;color:#ede0d2}
+.gg-toast-copy{display:grid;gap:5px}.gg-toast-copy strong{font-size:11px;font-weight:950;letter-spacing:.08em;color:#f1a2a8}.gg-toast-copy span{font-size:12px;line-height:1.45;font-weight:650;color:#f5f5f5}
 @media(max-width:767px){.Toastify__toast-container.gg-toast-container.Toastify__toast-container--top-right{top:calc(75px + env(safe-area-inset-top,0px));left:15px;right:15px;width:calc(100vw - 30px);max-width:390px;margin-inline:auto;transform:none;padding:0}.gg-toast-container .Toastify__toast.gg-toast{margin-bottom:9px}}
 @media(prefers-reduced-motion:reduce){.gg-today .gg-today-shortcuts a{transition:none!important;transform:none!important}.Toastify__toast{animation:none!important}}
+
+.gg-today .gg-today-shortcuts a :is(svg,span,strong,small){color:#fff!important;stroke:currentColor!important}

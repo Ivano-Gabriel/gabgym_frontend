@@ -3,11 +3,11 @@
    layout Nummo. Escopo isolado: .gg-auth-screen. */
 .gg-auth-screen {
   color-scheme: dark;
-  --auth-bg: var(--gg-void, #0e1113);
-  --auth-panel: var(--gg-surface, #1c2225);
+  --auth-bg: var(--gg-void, #171717);
+  --auth-panel: var(--gg-surface, #242424);
   --auth-ink: var(--gg-text, #f5f2ea);
   --auth-muted: var(--gg-muted, #b8bec0);
-  --auth-orange: var(--gg-accent, #C18B60);
+  --auth-orange: var(--gg-accent, #b1111b);
   width: 100%;
   min-height: 100dvh;
   color: var(--auth-ink);
@@ -34,7 +34,7 @@
   gap: 24px;
   padding: 14px clamp(22px, 4.4vw, 82px);
   border-bottom: 1px solid var(--gg-line, rgba(255, 255, 255, .16));
-  background: #0e1113;
+  background: #171717;
 }
 .gg-auth-brand { display: inline-flex; gap: 11px; align-items: center; color: var(--auth-ink); }
 .gg-auth-brand-symbol {
@@ -80,7 +80,7 @@
   padding: clamp(34px, 4.5vw, 78px) clamp(26px, 5.5vw, 100px);
   border-right: 1px solid var(--gg-line, #343a3c);
   display: flex; flex-direction: column; justify-content: space-between;
-  background: linear-gradient(125deg, #131719 0%, #101416 60%, #171c1f 100%);
+  background: linear-gradient(125deg, #131719 0%, #171717 60%, #171c1f 100%);
 }
 .gg-auth-showcase:before {
   content: ''; position: absolute; top: 0; left: clamp(26px, 5.5vw, 100px);
@@ -185,7 +185,7 @@
 .gg-auth-show-password {
   position: absolute; right: 9px; top: 7px; bottom: 7px;
   padding: 0 12px; border: 0; background: transparent;
-  color: #D9B18A; font-size: 11px; font-weight: 800; cursor: pointer;
+  color: #ed6670; font-size: 11px; font-weight: 800; cursor: pointer;
   text-transform: uppercase; letter-spacing: .06em;
 }
 .gg-auth-show-password:hover { color: #fff; }
@@ -193,13 +193,13 @@
   margin-top: 12px; min-height: 60px;
   width: 100%; display: flex; align-items: center; justify-content: space-between;
   border: 1px solid var(--auth-orange); border-radius: var(--gg-radius-control, 5px);
-  background: var(--auth-orange); color: #0e1113;
+  background: var(--auth-orange); color: #171717;
   padding: 0 19px 0 22px; cursor: pointer;
   font-family: inherit; font-size: 13px; font-weight: 900; letter-spacing: .03em;
   transition: background .16s ease, transform .16s ease;
 }
 .gg-auth-submit > span:last-child { font-size: 24px; line-height: 1; }
-.gg-auth-submit:hover:not(:disabled) { background: #D9B18A; transform: translateY(-1px); }
+.gg-auth-submit:hover:not(:disabled) { background: #ed6670; transform: translateY(-1px); }
 .gg-auth-submit:active:not(:disabled) { transform: translateY(0); }
 .gg-auth-submit:disabled { opacity: .62; cursor: progress; }
 .gg-auth-error {
@@ -208,7 +208,7 @@
   font-size: 12px; line-height: 1.55;
 }
 .gg-auth-bottom { margin-top: 28px; font-size: 13px; color: var(--auth-muted); }
-.gg-auth-bottom a { color: #D9B18A; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+.gg-auth-bottom a { color: #ed6670; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
 .gg-auth-bottom a:hover { color: #fff; }
 .gg-auth-trust {
   margin: 42px 0 0; padding-top: 20px; border-top: 1px solid var(--gg-line);
@@ -220,7 +220,7 @@
   min-height: 53px; padding: 13px clamp(22px, 4.4vw, 82px);
   border-top: 1px solid var(--gg-line);
   display: flex; gap: 20px; justify-content: space-between; align-items: center;
-  background: #0e1113; color: #98a2a6;
+  background: #171717; color: #98a2a6;
   font-size: 10px; font-weight: 800; letter-spacing: .13em;
 }
 .gg-auth-page-footer > span:last-child span { color: var(--auth-orange); padding: 0 8px; }
@@ -287,44 +287,44 @@
 .gg-auth-brand-symbol { display:block;width:35px;height:35px;padding:0;transform:none;border:0;object-fit:contain;background:transparent; }
 
 /* 2.7.2 — autenticação minimalista, âmbar discreto, formulário prioritário */
-.gg-auth-screen{--auth-bg:#1c1b1d;--auth-panel:#302825;--auth-ink:#E6CEB6;--auth-muted:#dbc4b3;--auth-orange:#C18B60;background:#1c1b1d}
+.gg-auth-screen{--auth-bg:#1c1b1d;--auth-panel:#302825;--auth-ink:#E6CEB6;--auth-muted:#dbc4b3;--auth-orange:#b1111b;background:#1c1b1d}
 .gg-auth-masthead{min-height:66px;background:#211e1e;border-bottom:1px solid #58483c;padding:10px clamp(18px,4vw,52px)}
-.gg-auth-brand{gap:10px}.gg-auth-brand strong span{color:#C18B60}.gg-auth-brand small{color:#c9aa91}
+.gg-auth-brand{gap:10px}.gg-auth-brand strong span{color:#b1111b}.gg-auth-brand small{color:#c9aa91}
 .gg-auth-brand-symbol{width:36px;height:36px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.15))}
 .gg-auth-masthead-link{border-radius:15px;border:1px solid #85674e;color:#E6CEB6;padding:12px 15px}
-.gg-auth-masthead-link span,.gg-auth-masthead-link:hover{color:#D9B18A}
+.gg-auth-masthead-link span,.gg-auth-masthead-link:hover{color:#ed6670}
 .gg-auth-stage{min-height:calc(100dvh - 120px);grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)}
 .gg-auth-showcase{background:radial-gradient(ellipse at 65% 25%,rgba(171,103,53,.19),transparent 55%),linear-gradient(145deg,#342820,#1e1c1d 78%);border-right:1px solid #58463a}
-.gg-auth-showcase:before{background:#C18B60;height:3px;width:75px}
+.gg-auth-showcase:before{background:#b1111b;height:3px;width:75px}
 .gg-auth-showcase:after{display:none}
-.gg-auth-index,.gg-auth-overline{color:#D9B18A}
+.gg-auth-index,.gg-auth-overline{color:#ed6670}
 .gg-auth-showcase-top{color:#cfb6a1}
 .gg-auth-showcase-copy{padding:40px 0 24px}
 .gg-auth-showcase h1{font-size:clamp(57px,6.3vw,116px);line-height:.93;letter-spacing:-.018em}
-.gg-auth-showcase h1 em{margin-top:10px;color:#D9B18A;border:0;padding:0}
+.gg-auth-showcase h1 em{margin-top:10px;color:#ed6670;border:0;padding:0}
 .gg-auth-showcase-copy p{margin:20px 0 0;font-size:15px;color:#d7bdab;line-height:1.5}
 .gg-auth-performance-strip{border-top-color:#725340}
-.gg-auth-performance-strip>span{font-size:10px;color:#D9B18A}
+.gg-auth-performance-strip>span{font-size:10px;color:#ed6670}
 .gg-auth-watermark{font-size:clamp(230px,29vw,530px);color:rgba(193,139,96,0.035)}
 .gg-auth-access{background:linear-gradient(135deg,#252122,#302823);padding:clamp(20px,4vw,55px)}
 .gg-auth-panel{max-width:440px}
 .gg-auth-panel:before{display:none}
 .gg-auth-panel-meta{margin-bottom:26px;padding-bottom:13px;border-bottom-color:#735a46}
-.gg-auth-panel-meta-icon{color:#C18B60}
-.gg-auth-context{color:#D9B18A;margin-bottom:11px;font-size:10px}
-.gg-auth-context-marker{background:#C18B60}
+.gg-auth-panel-meta-icon{color:#b1111b}
+.gg-auth-context{color:#ed6670;margin-bottom:11px;font-size:10px}
+.gg-auth-context-marker{background:#b1111b}
 .gg-auth-panel h2{font-size:clamp(41px,4vw,65px);line-height:.96}
 .gg-auth-description{margin:13px 0 24px;color:#d7bcaa;font-size:13px;line-height:1.45}
 .gg-auth-form{gap:15px}
 .gg-auth-field input{border-radius:15px;min-height:54px;border-color:#856a55;background:#211e1f;color:#E6CEB6}
-.gg-auth-field input:hover{border-color:#C18B60}
-.gg-auth-field input:focus{border-color:#C18B60;background:#211e1f;outline-color:#C18B60}
+.gg-auth-field input:hover{border-color:#b1111b}
+.gg-auth-field input:focus{border-color:#b1111b;background:#211e1f;outline-color:#b1111b}
 .gg-auth-field>span:first-child{color:#E6CEB6}
-.gg-auth-show-password{color:#D9B18A}
-.gg-auth-submit{min-height:62px;margin-top:6px;border-radius:18px;color:#251910;background:#C18B60;border:1px solid #C18B60;box-shadow:inset 0 1px 0 #ffffff7a,0 7px 19px #C18B6038}
-.gg-auth-submit:hover:not(:disabled){background:linear-gradient(140deg,#E6CEB6,#D9B18A)}
+.gg-auth-show-password{color:#ed6670}
+.gg-auth-submit{min-height:62px;margin-top:6px;border-radius:18px;color:#251910;background:#b1111b;border:1px solid #b1111b;box-shadow:inset 0 1px 0 #ffffff7a,0 7px 19px #b1111b38}
+.gg-auth-submit:hover:not(:disabled){background:linear-gradient(140deg,#E6CEB6,#ed6670)}
 .gg-auth-bottom{margin-top:21px;color:#d2b9a4}
-.gg-auth-bottom a{color:#D9B18A}
+.gg-auth-bottom a{color:#ed6670}
 .gg-auth-trust{margin:22px 0 0;padding-top:14px;color:#cbb5a3;letter-spacing:0;font-size:11px}
 .gg-auth-page-footer{min-height:42px;border-top-color:#5a4839;background:#211e1e;color:#bca28f}
 .gg-auth-error{border-radius:13px}

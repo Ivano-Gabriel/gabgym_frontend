@@ -1,37 +1,37 @@
 /* Home GABGYM 2.0 — rotina diaria, sem fotos ou estimativas falsas. */
-.gg-home { min-height: 100dvh; background: #0e1113; color: #f5f2ea; padding-bottom: calc(85px + env(safe-area-inset-bottom,0px)); font-family: var(--gg-font-body, 'Manrope', sans-serif); text-align: left; }
+.gg-home { min-height: 100dvh; background: #171717; color: #f5f2ea; padding-bottom: calc(85px + env(safe-area-inset-bottom,0px)); font-family: var(--gg-font-body, 'Manrope', sans-serif); text-align: left; }
 .gg-home * { box-sizing: border-box; }
-.gg-home-hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(130deg, #14191b, #101416 72%); padding: 26px clamp(20px,5.2vw,92px) 24px; min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid #394247; }
-.gg-home-hero:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: #C18B60; z-index: -1; }
+.gg-home-hero { position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(130deg, #1f1f1f, #171717 72%); padding: 26px clamp(20px,5.2vw,92px) 24px; min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid #454545; }
+.gg-home-hero:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: #b1111b; z-index: -1; }
 .gg-home-topline,.gg-home-footnote { display: flex; gap: 8px 20px; align-items: center; justify-content: space-between; font-size: 10px; color: #bac4c5; font-weight: 900; letter-spacing: .15em; }
-.gg-home-live { background: #C18B60; height: 8px; width: 8px; transform: skew(-16deg); display: inline-block; margin-right: 6px; }
-.gg-home-topline { justify-content: flex-start; color: #D9B18A; }
+.gg-home-live { background: #b1111b; height: 8px; width: 8px; transform: skew(-16deg); display: inline-block; margin-right: 6px; }
+.gg-home-topline { justify-content: flex-start; color: #ed6670; }
 .gg-home-copy { max-width: 880px; margin: 60px 0 40px; z-index: 1; }
-.gg-home-edition { display: block; color: #D9B18A; font-size: 11px; letter-spacing: .15em; font-weight: 900; margin-bottom: 21px; }
+.gg-home-edition { display: block; color: #ed6670; font-size: 11px; letter-spacing: .15em; font-weight: 900; margin-bottom: 21px; }
 .gg-home h1 { margin: 0; font: 850 clamp(72px, 12.5vw, 174px)/.84 var(--gg-font-display, Impact, sans-serif); letter-spacing: -.008em; }
-.gg-home h1 em { color: #C18B60; font-style: normal; }
+.gg-home h1 em { color: #b1111b; font-style: normal; }
 .gg-home-copy p { max-width: 445px; margin: 29px 0 27px; color: #c6ced0; font: 500 clamp(13px, 1.3vw, 16px)/1.8 var(--gg-font-body, Arial, sans-serif); }
 .gg-home-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .gg-home-main-action,.gg-home-secondary-action { min-height: 56px; display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; text-decoration: none; padding: 0 22px; font-size: 12px; font-weight: 900; border-radius: 5px; letter-spacing: .035em; transition: transform .2s ease, background .2s ease; }
-.gg-home-main-action { background: #C18B60; color: #101315; min-width: 226px; }
+.gg-home-main-action { background: #b1111b; color: #ffffff; min-width: 226px; }
 .gg-home-secondary-action { border: 1px solid #626d70; color: #f5f2ea; }
 .gg-home-main-action:hover,.gg-home-secondary-action:hover { transform: translateY(-2px); }
-.gg-home-main-action:hover { background: #D9B18A; }
+.gg-home-main-action:hover { background: #ed6670; }
 .gg-home-mark { position: absolute; right: -8%; bottom: -6%; z-index: 0; font: 900 clamp(220px,38vw,580px)/.7 var(--gg-font-display, Impact, sans-serif); font-style: italic; letter-spacing: -.17em; white-space: nowrap; opacity: .045; pointer-events: none; }
 .gg-home-footnote { border-top: 1px solid #41494c; padding-top: 17px; z-index: 1; }
 .gg-home-pillars { max-width: 1260px; margin: 0 auto; padding: 44px clamp(20px,5.2vw,64px) 60px; }
-.gg-home-pillar-title > span { color: #D9B18A; font-size: 10px; letter-spacing: .16em; font-weight: 900; }
+.gg-home-pillar-title > span { color: #ed6670; font-size: 10px; letter-spacing: .16em; font-weight: 900; }
 .gg-home-pillar-title h2 { font: 800 clamp(40px,5.5vw,62px)/.98 var(--gg-font-display, Impact, sans-serif); margin: 13px 0 28px; }
 .gg-home-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
-.gg-home-pillar { min-width: 0; padding: 24px; background: #1c2225; color: #f5f2ea; text-decoration: none; border: 1px solid #3e484c; border-radius: 7px; display: grid; gap: 19px; transition: border-color .17s ease, transform .17s ease; }
-.gg-home-pillar:hover { border-color: #C18B60; transform: translateY(-2px); }
-.gg-home-pillar-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #D9B18A; font: 850 10px var(--gg-font-body, Arial, sans-serif); letter-spacing: .13em; }
+.gg-home-pillar { min-width: 0; padding: 24px; background: #242424; color: #f5f2ea; text-decoration: none; border: 1px solid #454545; border-radius: 7px; display: grid; gap: 19px; transition: border-color .17s ease, transform .17s ease; }
+.gg-home-pillar:hover { border-color: #b1111b; transform: translateY(-2px); }
+.gg-home-pillar-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #ed6670; font: 850 10px var(--gg-font-body, Arial, sans-serif); letter-spacing: .13em; }
 .gg-home-pillar-top svg { font-size: 23px; }
 .gg-home-pillar strong { font: 800 clamp(29px,3.4vw,43px)/1 var(--gg-font-display, Impact, sans-serif); }
 .gg-home-pillar p { margin: 0; font-size: 12px; line-height: 1.6; color: #c5ced0; }
-.gg-home-pillar-arrow { justify-self: end; font-size: 19px; color: #D9B18A; }
+.gg-home-pillar-arrow { justify-self: end; font-size: 19px; color: #ed6670; }
 .gg-home-small-note { margin: 24px 0 0; font-size: 11px; line-height: 1.7; color: #aeb8bb; }
-.gg-home a:focus-visible { outline: 3px solid #D9B18A; outline-offset: 3px; }
+.gg-home a:focus-visible { outline: 3px solid #ed6670; outline-offset: 3px; }
 @media (max-width: 767px) {
   .gg-home-hero { min-height: min(670px, 78dvh); padding: 27px 22px 20px; }
   .gg-home-copy { margin: 60px 0 36px; }
@@ -50,21 +50,21 @@
 /* GABGYM 2.7 landing: uma ação, menos rolagem. */
 .gg-home{background:radial-gradient(ellipse at 50% 25%,#684B3B,#171515 70%)}
 .gg-home-hero{min-height:calc(100svh - 74px);background:radial-gradient(circle at 70% 30%,#684B3B,#201716 60%);border:0;border-radius:0 0 30px 30px}
-.gg-home h1 em{color:#C18B60;text-shadow:none}.gg-home-copy p{color:#E6CEB6;font-size:17px;font-weight:750;line-height:1.5}
-.gg-home-main-action{min-height:76px;border-radius:22px;padding:0 25px;font-size:15px;background:#C18B60;box-shadow:0 5px 15px rgba(0,0,0,.19)}
+.gg-home h1 em{color:#b1111b;text-shadow:none}.gg-home-copy p{color:#E6CEB6;font-size:17px;font-weight:750;line-height:1.5}
+.gg-home-main-action{min-height:76px;border-radius:22px;padding:0 25px;font-size:15px;background:#b1111b;box-shadow:0 5px 15px rgba(0,0,0,.19)}
 .gg-home-secondary-action{border-radius:19px;background:#684B3B5b}.gg-home-mark{opacity:.1}
 
 /* 2.7.2 — intensidade controlada, um CTA claro e sem neon */
 .gg-home{background:#1d1a19}
 .gg-home-hero{background:radial-gradient(ellipse at 80% 35%,rgba(140,77,40,.22),transparent 57%),linear-gradient(135deg,#322720,#1c1b1c 68%);border-bottom:1px solid #6f5140;box-shadow:none}
-.gg-home-hero:before{width:3px;background:#C18B60}
-.gg-home h1 em{color:#C18B60;text-shadow:none}
+.gg-home-hero:before{width:3px;background:#b1111b}
+.gg-home h1 em{color:#b1111b;text-shadow:none}
 .gg-home-mark{opacity:.045}
-.gg-home-live{background:#C18B60}
-.gg-home-edition,.gg-home-topline{color:#D9B18A}
+.gg-home-live{background:#b1111b}
+.gg-home-edition,.gg-home-topline{color:#ed6670}
 .gg-home-copy p{color:#d9c3b4;font-size:clamp(14px,1.6vw,17px);font-weight:650}
-.gg-home-main-action{color:#684B3B;background:#C18B60;border:1px solid #D9B18A;box-shadow:0 5px 15px rgba(0,0,0,.19);border-radius:21px}
-.gg-home-main-action:hover{background:linear-gradient(138deg,#E6CEB6,#D9B18A)}
+.gg-home-main-action{color:#684B3B;background:#b1111b;border:1px solid #ed6670;box-shadow:0 5px 15px rgba(0,0,0,.19);border-radius:21px}
+.gg-home-main-action:hover{background:linear-gradient(138deg,#E6CEB6,#ed6670)}
 .gg-home-secondary-action{background:#332824;border:1px solid #7a5944;color:#E6CEB6;border-radius:19px}
 .gg-home-footnote{border-top-color:#695044;color:#c9a88e}
 @media(max-width:767px){.gg-home{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}.gg-home-hero{min-height:calc(100svh - 80px)}.gg-home-copy{margin:35px 0}.gg-home-main-action{min-height:70px}.gg-home-footnote{font-size:9px}}

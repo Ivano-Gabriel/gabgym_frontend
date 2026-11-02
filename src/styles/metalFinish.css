@@ -1,24 +1,26 @@
 /* GABGYM 2.8 — acabamento fosco. Sem glows, sem gradientes luminosos globais. */
-:root{--gg-metal:#34302d;--gg-metal-edge:#67594e;--gg-warm-glow:rgba(190,137,95,.10);}
+:root{--gg-metal:#303030;--gg-metal-edge:#555555;--gg-warm-glow:rgba(190,137,95,.10);}
 .gg-daily,.gg-history,.gg-records,.gg-help,.biblioteca-page,
-.gg-select-container,.gg-startcardio-container{background:#211f1f!important;}
+.gg-select-container,.gg-startcardio-container{background:#171717!important;}
 .gg-daily-food,.gg-records-row,.gg-history-day,.gg-help-faq details,.article-card,
-.gg-exlib-card,.gg-today-no-goal{background:#302c29!important;border-color:#65574b!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;}
+.gg-exlib-card,.gg-today-no-goal{background:#303030!important;border-color:#505050!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;}
 .gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,
 .gg-startcardio-btn-primary,.gg-movement-primary{
- background:#c18b60!important;
- color:#211913!important;
+ background:#b1111b!important;
+ color:#ffffff!important;
  text-shadow:none!important;
  box-shadow:0 4px 12px rgba(0,0,0,.18)!important;
- border:1px solid #c18b60!important;
+ border:1px solid #b1111b!important;
  border-radius:16px;
  transition:background-color .18s ease,transform .18s ease!important;
 }
 .gg-daily-cta:hover,.gg-catalog-trigger:hover,.gg-today-shortcuts a:hover,
 .gg-profile-editor-save:hover,.gg-startcardio-btn-primary:hover,.gg-movement-primary:hover{
- background:#cfa276!important;
+ background:#951018!important;
  box-shadow:0 4px 12px rgba(0,0,0,.18)!important;
  filter:none!important;
 }
 .gg-daily-cta:active,.gg-catalog-trigger:active,.gg-profile-editor-save:active,.gg-movement-primary:active{transform:scale(.98)}
 @media(prefers-reduced-motion:reduce){.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{transition:none!important;transform:none!important}}
+
+.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{color:#fff!important;text-shadow:none!important;box-shadow:none!important}

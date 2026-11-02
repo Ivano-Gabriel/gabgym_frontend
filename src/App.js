@@ -51,6 +51,7 @@ import { getSwipeDestination, shouldIgnoreSwipeOrigin } from './utils/swipeNavig
 import './components/Header.css';
 import './styles/metalFinish.css';
 import './styles/interactionPolish.css';
+import './styles/redEdition.css';
 
 
 function RequireAuth({ children, admin = false }) {
@@ -67,6 +68,8 @@ function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
   const swipeStart = useRef(null);
+  const swipeSurface = useRef(null);
+  const resetSwipe = () => { if (swipeSurface.current) { swipeSurface.current.style.transform = ''; swipeSurface.current.style.transition = ''; } };
 
   const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
@@ -99,8 +102,23 @@ function AppContent() {
     if(touch.clientX<28||touch.clientX>window.innerWidth-28)return;
     swipeStart.current={x:touch.clientX,y:touch.clientY,id:touch.identifier,at:Date.now()};
   };
+  const onTabTouchMove = event => {
+    const start = swipeStart.current;
+    if (!start || !swipeSurface.current || event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    const dx = touch.clientX - start.x, dy = touch.clientY - start.y;
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) { swipeStart.current = null; resetSwipe(); return; }
+    if (Math.abs(dx) < 9 || Math.abs(dx) < Math.abs(dy) * 1.35) return;
+    const pageIndex = ['/', '/alimentacao', '/treino', '/perfil'].indexOf(location.pathname);
+    if (pageIndex < 0) return;
+    const edge = (pageIndex === 0 && dx > 0) || (pageIndex === 3 && dx < 0);
+    const offset = Math.max(-110, Math.min(110, dx * (edge ? .12 : .34)));
+    swipeSurface.current.style.transition = 'none';
+    swipeSurface.current.style.transform = `translate3d(${offset}px,0,0)`;
+  };
   const onTabTouchEnd = event => {
     const start=swipeStart.current;swipeStart.current=null;
+    if(swipeSurface.current){swipeSurface.current.style.transition='transform 180ms ease-out';swipeSurface.current.style.transform='';}
     if(!start||isOverlayActive||event.changedTouches.length!==1)return;
     const touch=event.changedTouches[0];if(touch.identifier!==start.id)return;
     const next=getSwipeDestination(location.pathname,touch.clientX-start.x,touch.clientY-start.y,Date.now()-start.at);
@@ -149,7 +167,7 @@ function AppContent() {
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="top-right" className="gg-toast-container" newestOnTop limit={3} autoClose={3200} hideProgressBar={false} theme="dark" closeOnClick={false} draggable={false}/>
 
-      <main className={isAuthPage ? 'gg-auth-main' : undefined} onTouchStart={onTabTouchStart} onTouchEnd={onTabTouchEnd} onTouchCancel={()=>{swipeStart.current=null;}}>
+      <main ref={swipeSurface} className={isAuthPage ? 'gg-auth-main' : 'gg-swipe-surface'} onTouchStart={onTabTouchStart} onTouchMove={onTabTouchMove} onTouchEnd={onTabTouchEnd} onTouchCancel={()=>{swipeStart.current=null;resetSwipe();}}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
