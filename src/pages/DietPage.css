@@ -6,8 +6,7 @@
   padding: 24px 16px 60px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(143,169,147,0.1), transparent),
-    var(--gg-void);
+    #262626;
   font-family: var(--gg-font-body);
   color: var(--gg-text);
 }
@@ -96,7 +95,7 @@
 /* Cores por card — tinta translúcida + borda na cor, o texto pontual segue colorido */
 .gg-diet-stat-card.neutral   { --card-color: #9CA8A0; --card-bg: rgba(156, 168, 160, 0.10); }
 .gg-diet-stat-card.hero      { --card-color: var(--gg-neon); --card-bg: rgba(179,201,172,0.12); box-shadow: 0 0 24px rgba(143,169,147,0.15); }
-.gg-diet-stat-card.protein   { --card-color: #D9B18A; --card-bg: rgba(217,177,138,0.1); }
+.gg-diet-stat-card.protein   { --card-color: #ff9299; --card-bg: rgba(217,177,138,0.1); }
 .gg-diet-stat-card.carbs     { --card-color: var(--gg-warning); --card-bg: rgba(217,177,138,0.1); }
 .gg-diet-stat-card.fat       { --card-color: #C7B2C0; --card-bg: rgba(199,178,192,0.1); }
 .gg-diet-stat-card.water     { --card-color: var(--gg-water); --card-bg: rgba(175,196,206,0.1); }
@@ -110,7 +109,7 @@
   padding: 20px;
   border-radius: 16px;
   background: var(--gg-green);
-  color: #0A0F0C;
+  color:#f5f5f5;
   font-family: var(--gg-font-display);
   font-weight: 400;
   font-size: 1.2em;
