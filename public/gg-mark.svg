@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="gg-title">
-<title id="gg-title">GABGYM GG</title>
-<rect width="256" height="256" rx="48" fill="#111719"/>
-<path fill="none" stroke="#ff7847" stroke-linejoin="bevel" stroke-width="29"
-  d="M115 74H64L43 98v60l21 24h55v-58H83
-     M213 74h-51l-21 24v60l21 24h55v-58h-36"/>
-<path d="M42 207h174" stroke="#ff7847" stroke-width="8" stroke-linecap="square"/>
+<title id="gg-title">GabGym — monograma GG vermelho</title>
+<rect width="256" height="256" rx="48" fill="#171717"/>
+<path d="M113 75H67L43 100v57l24 24h47v-55H83 M214 75h-47l-24 25v57l24 24h47v-55h-31" fill="none" stroke="#D32F3B" stroke-width="25" stroke-linejoin="bevel" stroke-linecap="square"/>
+<path d="M43 207h171" stroke="#F5F5F5" stroke-width="7"/>
 </svg>
