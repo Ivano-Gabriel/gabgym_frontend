@@ -6,8 +6,7 @@
   padding: 24px 16px 40px;
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(193,139,96,0.1), transparent),
-    var(--gg-void);
+    #262626;
   font-family: var(--gg-font-body);
   color: var(--gg-text);
 }
@@ -52,7 +51,7 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.gg-rg-gender-btn.active { background: var(--gg-green); color: #0A0F0C; }
+.gg-rg-gender-btn.active { background: var(--gg-green); color:#f5f5f5; }
 
 .gg-rg-grid {
   display: grid;
@@ -83,7 +82,7 @@
 .gg-rg-plan-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10,15,12,0.95) 0%, rgba(10,15,12,0.4) 55%, transparent 100%);
+  background: #262626;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -128,12 +127,12 @@
 }
 /* Revisão de cores GABGYM 2.4 */
 
-.gg-rg-container { background:#0e1113; padding-bottom:calc(105px + env(safe-area-inset-bottom,0px)); }
+.gg-rg-container { background:#171717; padding-bottom:calc(105px + env(safe-area-inset-bottom,0px)); }
 .gg-rg-top { text-align:left; }
 .gg-rg-title { font:850 clamp(42px,8vw,64px)/1 var(--gg-font-display,Impact,sans-serif); }
 .gg-rg-subtitle { line-height:1.6; font-size:12px; }
 .gg-rg-plan-card { border-radius:13px; }
-.gg-rg-plan-overlay { background:linear-gradient(to top,rgba(14,17,19,.97),rgba(14,17,19,.40) 61%,transparent); }
+.gg-rg-plan-overlay { background:#262626; }
 .gg-rg-gender-toggle { background:#20272a; border-color:#495256; }
-.gg-rg-gender-btn.active { background:#C18B60; color:#111719; }
-.gg-rg-container :is(a,button):focus-visible { outline:3px solid #D9B18A; outline-offset:3px; }
+.gg-rg-gender-btn.active { background:#b1111b; color:#f5f5f5; }
+.gg-rg-container :is(a,button):focus-visible { outline:3px solid #ff9299; outline-offset:3px; }

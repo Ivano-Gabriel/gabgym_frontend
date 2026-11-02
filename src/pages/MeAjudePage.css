@@ -1,39 +1,39 @@
 /* Ajuda / GABGYM — sem verde, respostas rápidas e acessíveis */
-.gg-help{background:#0e1113;color:#f5f2ea;min-height:100dvh;padding:30px 16px calc(112px + env(safe-area-inset-bottom,0px));font-family:var(--gg-font-body,Manrope,Arial,sans-serif);text-align:left}
+.gg-help{background:#171717;color:#f5f5f5;min-height:100dvh;padding:30px 16px calc(112px + env(safe-area-inset-bottom,0px));font-family:var(--gg-font-body,Manrope,Arial,sans-serif);text-align:left}
 .gg-help *{box-sizing:border-box}
 .gg-help-inner{max-width:920px;margin:0 auto}
 .gg-help-header{padding-bottom:28px;border-bottom:1px solid #444f52}
-.gg-help-header>span{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.14em;color:#D9B18A;font-weight:900}
+.gg-help-header>span{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.14em;color:#ff9299;font-weight:900}
 .gg-help-header h1{font:900 clamp(55px,10vw,92px)/.92 var(--gg-font-display,Impact,sans-serif);margin:21px 0 14px}
-.gg-help-header h1 span{color:#C18B60}
+.gg-help-header h1 span{color:#ff9299}
 .gg-help-header p{margin:0;font-size:13px;color:#c2cbcd}
 .gg-help-title{margin:29px 0 17px}
-.gg-help-title>span{font-size:10px;color:#D9B18A;letter-spacing:.14em;font-weight:900}
+.gg-help-title>span{font-size:10px;color:#ff9299;letter-spacing:.14em;font-weight:900}
 .gg-help-title h2{font:850 clamp(29px,6vw,42px)/1 var(--gg-font-display,Impact,sans-serif);margin:8px 0 0}
 .gg-help-faq{display:grid;gap:9px}
 .gg-help-faq details{border:1px solid #4b5559;border-radius:12px;background:#1c2528;overflow:hidden}
 .gg-help-faq summary{display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;list-style:none;min-height:66px;padding:14px 17px;font-size:13px;font-weight:850}
 .gg-help-faq summary::-webkit-details-marker{display:none}
-.gg-help-faq summary svg{color:#D9B18A;flex-shrink:0;transition:transform .15s ease}
-.gg-help-faq details[open] summary{color:#E6CEB6;border-bottom:1px solid #465155}
+.gg-help-faq summary svg{color:#ff9299;flex-shrink:0;transition:transform .15s ease}
+.gg-help-faq details[open] summary{color:#f5f5f5;border-bottom:1px solid #465155}
 .gg-help-faq details[open] svg{transform:rotate(180deg)}
 .gg-help-faq details p{margin:0;padding:17px;color:#c6ced0;font-size:12px;line-height:1.8}
 .gg-help-contacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.gg-help-contacts a{display:flex;align-items:center;gap:11px;border:1px solid #4b5457;border-radius:12px;min-height:72px;padding:15px 13px;color:#f5f2ea;background:#20282b;text-decoration:none}
-.gg-help-contacts a>svg:first-child{width:22px;height:22px;color:#D9B18A}
-.gg-help-contacts a>svg:last-child{margin-left:auto;color:#D9B18A}
+.gg-help-contacts a{display:flex;align-items:center;gap:11px;border:1px solid #4b5457;border-radius:12px;min-height:72px;padding:15px 13px;color:#f5f5f5;background:#292929;text-decoration:none}
+.gg-help-contacts a>svg:first-child{width:22px;height:22px;color:#ff9299}
+.gg-help-contacts a>svg:last-child{margin-left:auto;color:#ff9299}
 .gg-help-contacts strong{font-size:12px}
 .gg-help-footer{display:flex;align-items:center;gap:9px;margin:25px 0 0;color:#abb9bb;font-size:10px;letter-spacing:.12em;font-weight:850}
-.gg-help :is(a,summary):focus-visible{outline:3px solid #D9B18A;outline-offset:3px}
+.gg-help :is(a,summary):focus-visible{outline:3px solid #ff9299;outline-offset:3px}
 @media(max-width:550px){.gg-help-contacts{grid-template-columns:1fr}.gg-help-contacts a{min-height:60px}}
 @media(prefers-reduced-motion:reduce){.gg-help-faq summary svg{transition:none}}
 
 /* 2.7.2 — suporte com cards e contraste quente, sem neon */
-.gg-help{background:radial-gradient(ellipse at 15% 0%,#51362775,transparent 45%),#1e1c1d}
-.gg-help-header{padding-bottom:17px;border-color:#81614d}
+.gg-help{background:#262626}
+.gg-help-header{padding-bottom:17px;border-color:#595052}
 .gg-help-header h1{font-size:clamp(45px,8vw,73px);margin:15px 0 11px}
-.gg-help-faq details{border:1px solid #85634e;border-radius:19px;background:linear-gradient(145deg,#403229,#2e2b2c)}
+.gg-help-faq details{border:1px solid #595052;border-radius:19px;background:#262626}
 .gg-help-faq summary{min-height:62px}
-.gg-help-faq details[open] summary{color:#D9B18A;border-color:#775943}
-.gg-help-contacts a{border-radius:18px;background:#39302c;border-color:#876650;min-height:67px}
+.gg-help-faq details[open] summary{color:#ff9299;border-color:#595052}
+.gg-help-contacts a{border-radius:18px;background:#303030;border-color:#595052;min-height:67px}
 .gg-help-footer{color:#c7aa95}

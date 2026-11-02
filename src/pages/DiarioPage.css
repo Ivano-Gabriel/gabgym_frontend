@@ -72,7 +72,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: #262626;
   color: white;
   padding: 20px 15px 10px 15px;
   font-weight: bold;
@@ -298,12 +298,12 @@
 }
 
 .checkin-button.nao-seguida {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 .checkin-button.nao-seguida:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(193,139,96,0.22);
+  box-shadow: 0 4px 15px rgba(177,17,27,0.22);
 }
 
 .checkin-message {
@@ -346,8 +346,8 @@
 }
 
 .status-nao_seguida {
-  background-color: rgba(193,139,96,0.2);
-  color: #C18B60;
+  background-color: rgba(177,17,27,0.2);
+  color:#ff9299;
 }
 
 /* src/pages/DiarioPage.css */
@@ -391,7 +391,7 @@
 .fotos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
 .foto-card { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5); aspect-ratio: 3 / 4; }
 .foto-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.foto-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; padding: 20px 15px 10px 15px; font-weight: bold; }
+.foto-info { position: absolute; bottom: 0; left: 0; right: 0; background: #262626; color: white; padding: 20px 15px 10px 15px; font-weight: bold; }
 
 /* --- Estilos para a Aba de Cardio --- */
 .cardio-form { background-color: rgba(44, 44, 44, 0.8); padding: 25px; border-radius: 10px; max-width: 800px; margin: 0 auto 40px auto; backdrop-filter: blur(5px); }
@@ -522,6 +522,6 @@
 }
 
 .status-message.error {
-  color: #C18B60; /* Vermelho para erros */
+  color:#ff9299; /* Vermelho para erros */
   font-weight: bold;
 }

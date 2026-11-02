@@ -18,7 +18,7 @@
 .gg-toast-container .gg-toast .Toastify__toast-icon svg{width:25px;height:25px}
 .gg-toast-container .gg-toast .Toastify__close-button{color:#f2b7bb;opacity:.85;align-self:start}
 .gg-toast-container .gg-toast .Toastify__progress-bar{height:3px;background:#b1111b}
-.gg-toast-container .gg-toast.gg-toast-error{background:#392c29;border-color:#af766f}
+.gg-toast-container .gg-toast.gg-toast-error{background:#303030;border-color:#af766f}
 .gg-toast-copy{display:grid;gap:5px}.gg-toast-copy strong{font-size:11px;font-weight:950;letter-spacing:.08em;color:#f1a2a8}.gg-toast-copy span{font-size:12px;line-height:1.45;font-weight:650;color:#f5f5f5}
 @media(max-width:767px){.Toastify__toast-container.gg-toast-container.Toastify__toast-container--top-right{top:calc(75px + env(safe-area-inset-top,0px));left:15px;right:15px;width:calc(100vw - 30px);max-width:390px;margin-inline:auto;transform:none;padding:0}.gg-toast-container .Toastify__toast.gg-toast{margin-bottom:9px}}
 @media(prefers-reduced-motion:reduce){.gg-today .gg-today-shortcuts a{transition:none!important;transform:none!important}.Toastify__toast{animation:none!important}}

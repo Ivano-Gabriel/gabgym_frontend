@@ -23,7 +23,7 @@ html, body, #root {
   --primaryGreen: var(--gg-accent);
   --darkGreen: var(--gg-void);
   --mediumDarkGray: var(--gg-surface);
-  --lightGray: #60695E;
+  --lightGray: var(--gg-muted);
   --whiteText: #f8f9fa;
   --darkText: #1a1a1a;
 }
@@ -609,10 +609,10 @@ html, body, #root {
 /* --- VARIÁVEIS DE CORES (para fácil manutenção) --- */
 /* Mantive aqui porque App.js também usa cores. É uma boa centralizar */
 :root {
-  --primaryGreen: #b1111b;
-  --darkGreen: #21331D;
-  --mediumDarkGray: #303E2E;
-  --lightGray: #60695E;
+  --primaryGreen: var(--gg-accent);
+  --darkGreen: var(--gg-void);
+  --mediumDarkGray: var(--gg-surface);
+  --lightGray: var(--gg-muted);
   --whiteText: #f8f9fa;
   --darkText: #1a1a1a;
 }

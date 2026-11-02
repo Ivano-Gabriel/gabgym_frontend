@@ -1,67 +1,135 @@
-/* GABGYM / Perfil renovado. Sem verde, e-mail fictício ou meta simulada. */
-.gg-profile { background:#0e1113; min-height:100dvh; padding:26px 16px calc(110px + env(safe-area-inset-bottom,0px)); color:#f5f2ea; font-family:var(--gg-font-body,'Manrope',sans-serif); text-align:left; }
-.gg-profile * { box-sizing:border-box; }
-.gg-profile-wrap { max-width:880px; margin:0 auto; }
-.gg-profile-eyebrow { color:#D9B18A; font-size:10px; font-weight:900; letter-spacing:.14em; }
-.gg-profile-heading { display:flex; align-items:center; gap:19px; padding:28px 0; border-bottom:1px solid #40494d; }
-.gg-profile-heading h1 { font:850 clamp(39px,9vw,73px)/.95 var(--gg-font-display,Impact,sans-serif); margin:0 0 11px; }
-.gg-profile-heading h1 span {color:#C18B60;}
-.gg-profile-heading p { margin:0; font-size:13px; color:#c2cbce; }
-.gg-profile-avatar { position:relative; flex:0 0 83px; width:83px; height:83px; display:grid; place-items:center; background:#283034; border:1px solid #697276; border-radius:20px; color:#D9B18A; font-size:36px; }
-.gg-profile-avatar img { width:100%; height:100%; border-radius:20px; object-fit:cover; }
-.gg-profile-avatar label { position:absolute; right:-7px; bottom:-7px; display:grid; place-items:center; width:36px; height:36px; border-radius:11px; border:2px solid #0e1113; background:#C18B60; color:#101315; cursor:pointer; font-size:17px; overflow:hidden; }
-.gg-profile-avatar input { position:absolute; width:1px; height:1px; opacity:0; }
-.gg-profile-avatar label:focus-within { outline:3px solid #D9B18A; outline-offset:2px; }
-.gg-profile-section-name { margin:28px 0 17px; }
-.gg-profile-section-name span { font-size:10px; color:#D9B18A; letter-spacing:.13em; font-weight:900; }
-.gg-profile-section-name h2 { font:850 clamp(29px,6.5vw,40px)/1 var(--gg-font-display,Impact,sans-serif); margin:7px 0 0; }
-.gg-profile-stat-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
-.gg-profile-stat-grid > div { display:grid; gap:11px; background:#1b2326; border:1px solid #424d50; border-radius:12px; padding:17px 13px; min-width:0; }
-.gg-profile-stat-grid span { font:850 10px var(--gg-font-body,Arial,sans-serif); color:#b6c0c2; }
-.gg-profile-stat-grid strong { font-size:clamp(15px,3.5vw,22px); color:#f5f2ea; font-weight:900; white-space:nowrap; }
-.gg-profile-data-link { color:#D9B18A; display:flex; align-items:center; gap:8px; min-height:47px; text-decoration:none; font-size:11px; font-weight:850; }
-.gg-profile-links { display:grid; gap:9px; }
-.gg-profile-links > a { display:flex; align-items:center; min-height:74px; gap:15px; color:#f5f2ea; background:#20282b; border:1px solid #444f52; border-radius:12px; padding:14px 16px; text-decoration:none; }
-.gg-profile-links > a > svg:first-child { color:#D9B18A; width:22px; height:22px; flex-shrink:0; }
-.gg-profile-links > a > svg:last-child { margin-left:auto; color:#D9B18A; }
-.gg-profile-links > a span { display:grid; gap:4px; }
-.gg-profile-links strong { font-size:12px; letter-spacing:.025em; }
-.gg-profile-links small { color:#bdc7c9; font-size:11px; line-height:1.45; }
-.gg-profile-logout { display:flex; align-items:center; gap:11px; margin:24px 0; min-height:52px; width:100%; border:1px solid #a06750; border-radius:10px; background:#302421; color:#E6CEB6; font-size:12px; font-weight:900; padding:14px 18px; cursor:pointer; }
-.gg-profile-error { color:#E6CEB6; background:#3d2625; border:1px solid #be776e; padding:13px; border-radius:10px; }
-.gg-profile a:focus-visible,.gg-profile button:focus-visible { outline:3px solid #D9B18A; outline-offset:3px; }
-@media(max-width:520px){ .gg-profile-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .gg-profile-avatar{flex-basis:67px;width:67px;height:67px;font-size:28px;border-radius:14px;} .gg-profile-avatar img{border-radius:14px;} .gg-profile-heading{gap:14px;} }
-
-
-/* Progresso de peso e luz metálica */
-.gg-profile{background:radial-gradient(ellipse at 15% 0%,#5e3a2e7d,transparent 44%),#1a2024;}
-.gg-profile-stat-grid>div,.gg-profile-links>a{background:linear-gradient(145deg,#343d43,#252e33 75%);border-color:#70655d;box-shadow:inset 0 1px 1px #ffffff25,0 5px 18px #00000024;}
-.gg-profile-weight-progress{margin:18px 0 26px;padding:19px 16px;border-radius:14px;border:1px solid #ae7555;background:linear-gradient(145deg,#49352c,#2c3338);box-shadow:inset 0 1px 1px #fff3;}
-.gg-profile-weight-progress header{display:flex;align-items:baseline;justify-content:space-between;gap:9px;flex-wrap:wrap;font-weight:900;}
-.gg-profile-weight-progress header span{font-size:10px;letter-spacing:.12em;color:#D9B18A;}
-.gg-profile-weight-progress header strong{color:#E6CEB6;font-size:20px;}
-.gg-profile-weight-track{background:#626066;height:14px;border-radius:50px;overflow:hidden;margin:17px 0 11px;}
-.gg-profile-weight-track>span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#C18B60,#D9B18A,#E6CEB6);transition:width .25s ease;}
-.gg-profile-weight-progress p{font-size:12px;line-height:1.7;color:#E6CEB6;margin:12px 0;}
-.gg-profile-weight-progress small{color:#ccb9ac;font-size:10px;line-height:1.55;display:block;}
-.gg-profile-projection{border-left:3px solid #D9B18A;padding-left:11px;}
-@media(prefers-reduced-motion:reduce){.gg-profile-weight-track>span{transition:none}}
-
-/* 2.7: perfil pessoal, centralizado e navegável */
-.gg-profile{background:radial-gradient(ellipse at 50% 0%,#5c3b287a,transparent 48%),#1d1c1e}
-.gg-profile-eyebrow{text-align:center;color:#D9B18A}
-.gg-profile-heading{flex-direction:column;text-align:center;gap:14px;justify-content:center;padding:19px 0;border:0}
-.gg-profile-avatar{width:128px;height:128px;flex:0 0 128px;border-radius:50%;border:2px solid #C18B60;background:#3d302d;font-size:56px;box-shadow:0 0 0 5px #C18B6028,0 8px 22px #0004}
-.gg-profile-avatar img{border-radius:50%}.gg-profile-avatar label{right:1px;bottom:1px;border-radius:50%;background:#C18B60}
-.gg-profile-heading h1{margin:5px 0;font-size:clamp(36px,9vw,58px);overflow-wrap:anywhere}
-.gg27-profile-kicker{font-size:10px;color:#D9B18A;font-weight:900;letter-spacing:.12em}
-.gg27-profile-timing{font-size:11px;color:#D9B18A;border:1px solid #826049;border-radius:14px;background:#392e29;padding:11px 13px}
-.gg-profile-section-name{margin:17px 0 12px}
-.gg-profile-stat-grid>a{min-width:0;position:relative;display:grid;gap:10px;padding:16px 13px;text-decoration:none;color:#E6CEB6;border:1px solid #906b55;border-radius:19px;background:linear-gradient(145deg,#42332d,#2b2c2f);box-shadow:inset 0 1px #fff2,0 6px 18px #0003}
-.gg-profile-stat-grid>a span{color:#D9B18A;font-size:10px;font-weight:850}
-.gg-profile-stat-grid>a strong{font-size:clamp(16px,4vw,23px);font-weight:900}
-.gg-profile-stat-grid>a svg{position:absolute;right:12px;top:12px;color:#D9B18A;font-size:14px}
-.gg-profile-weight-progress{border-radius:20px;background:linear-gradient(145deg,#443127,#2b2b2d)}
-.gg27-weight-link{display:inline-flex;align-items:center;gap:10px;color:#E6CEB6;text-decoration:none}.gg27-weight-link svg{color:#C18B60}
-.gg-profile-links>a{border-radius:18px;border-color:#86644d;background:linear-gradient(145deg,#40322e,#2b2c2e)}
-@media(max-width:767px){.gg-profile-avatar{width:128px;height:128px;flex-basis:128px;border-radius:50%;font-size:54px}.gg-profile-avatar img{border-radius:50%}.gg-profile-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gg-profile-links{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(205px,78%);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}.gg-profile-links>a{scroll-snap-align:start}}
+/* GABGYM Red Edition — Perfil. Componentes sólidos, contraste e progresso reais. */
+.gg-profile {
+  min-height:100dvh;
+  padding:26px 16px calc(112px + env(safe-area-inset-bottom,0px));
+  background:var(--gg-void,#171717);
+  color:var(--gg-text,#f5f5f5);
+  font-family:var(--gg-font-body,Manrope,sans-serif);
+  text-align:left;
+}
+.gg-profile *{box-sizing:border-box}
+.gg-profile-wrap{max-width:920px;margin:0 auto}
+.gg-profile-eyebrow,.gg27-profile-kicker,.gg-profile-section-name>span{
+  color:#ff9299;font-size:10px;font-weight:900;letter-spacing:.13em;
+}
+.gg-profile-eyebrow{text-align:center}
+.gg-profile-heading{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding:23px 0 17px;text-align:center;
+}
+.gg-profile-heading h1{
+  margin:5px 0;font:850 clamp(36px,9vw,62px)/.96 var(--gg-font-display,Impact,sans-serif);
+  overflow-wrap:anywhere;
+}
+.gg-profile-heading h1 span{color:#ef6772}
+.gg-profile-heading p{margin:0;font-size:13px;color:var(--gg-muted,#c9c9c9)}
+.gg-profile-avatar{
+  position:relative;display:grid;place-items:center;
+  width:128px;height:128px;flex:0 0 128px;
+  background:#282828;border:2px solid #b1111b;border-radius:50%;
+  color:#f0757e;font-size:55px;
+  box-shadow:0 0 0 5px rgba(177,17,27,.12),0 8px 22px rgba(0,0,0,.2);
+}
+.gg-profile-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.gg-profile-avatar label{
+  position:absolute;right:1px;bottom:1px;display:grid;place-items:center;
+  width:43px;height:43px;border-radius:50%;border:3px solid #171717;
+  background:#b1111b;color:#fff;cursor:pointer;font-size:17px;
+}
+.gg-profile-avatar label:hover{background:#d32f3b}
+.gg-profile-avatar input{position:absolute;width:1px;height:1px;opacity:0}
+.gg-profile-avatar label:focus-within{outline:3px solid #ffd1d4;outline-offset:2px}
+.gg27-profile-timing{
+  margin:14px 0;color:#d5d5d5;border:1px solid #444;border-radius:14px;
+  background:#242424;padding:12px 14px;font-size:11px;line-height:1.6;
+}
+.gg-profile-section-name{margin:24px 0 14px}
+.gg-profile-section-name h2{
+  margin:7px 0 0;font:850 clamp(29px,6.5vw,42px)/1 var(--gg-font-display,Impact,sans-serif);
+}
+.gg-profile-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gg-profile-stat-grid>div,.gg-profile-stat-grid>a{
+  position:relative;display:grid;min-width:0;gap:10px;padding:17px 14px;
+  text-decoration:none;background:#252525;border:1px solid #454545;
+  border-radius:17px;color:#f5f5f5;
+  transition:background-color .18s ease,border-color .18s ease,transform .18s ease;
+}
+.gg-profile-stat-grid>a:hover{background:#302427;border-color:#b1111b}
+.gg-profile-stat-grid>a:active{transform:scale(.985)}
+.gg-profile-stat-grid :is(a,div)>span,.gg-profile-stat-grid>div span{
+  color:#ff9299;font:850 10px var(--gg-font-body,Arial,sans-serif);letter-spacing:.04em;
+}
+.gg-profile-stat-grid :is(a,div)>strong{
+  color:#f5f5f5;font-size:clamp(16px,4vw,24px);font-weight:900;overflow-wrap:anywhere;
+}
+.gg-profile-stat-grid>a svg{position:absolute;right:12px;top:12px;color:#ff9299;font-size:14px}
+.gg-profile-data-link{
+  display:inline-flex;align-items:center;gap:9px;min-height:48px;
+  color:#ff9299;text-decoration:none;font-size:11px;font-weight:850;
+}
+.gg-profile-weight-progress{
+  margin:18px 0 26px;padding:20px 17px;border-radius:19px;
+  border:1px solid #494949;background:#252525;
+}
+.gg-profile-weight-progress header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:9px;flex-wrap:wrap;font-weight:900;
+}
+.gg-profile-weight-progress header>span{color:#ff9299;font-size:10px;letter-spacing:.12em}
+.gg27-weight-link{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#f5f5f5;
+}
+.gg27-weight-link strong{font-size:20px}
+.gg27-weight-link svg{color:#ff9299}
+.gg-profile-weight-track{
+  height:12px;margin:17px 0 11px;background:#414141;border-radius:99px;overflow:hidden;
+}
+.gg-profile-weight-track>span{
+  display:block;height:100%;border-radius:inherit;background:#d32f3b;
+  transition:width .55s cubic-bezier(.22,1,.36,1);
+}
+.gg-profile-weight-progress p{margin:12px 0;font-size:12px;line-height:1.7;color:#e2e2e2}
+.gg-profile-weight-progress small{display:block;color:#bcbcbc;font-size:10px;line-height:1.6}
+.gg-profile-projection{border-left:3px solid #d32f3b;padding-left:11px}
+.gg-profile-links{display:grid;gap:10px}
+.gg-profile-links>a{
+  display:flex;align-items:center;gap:15px;min-height:76px;padding:15px 16px;
+  text-decoration:none;color:#f5f5f5;background:#252525;
+  border:1px solid #454545;border-radius:18px;
+  transition:border-color .18s ease,background-color .18s ease,transform .18s ease;
+}
+.gg-profile-links>a:hover{border-color:#b1111b;background:#302427}
+.gg-profile-links>a:active{transform:scale(.985)}
+.gg-profile-links>a>svg:first-child{width:22px;height:22px;flex-shrink:0;color:#ff9299}
+.gg-profile-links>a>svg:last-child{margin-left:auto;color:#ff9299}
+.gg-profile-links>a span{display:grid;gap:5px;min-width:0}
+.gg-profile-links strong{font-size:12px;letter-spacing:.025em}
+.gg-profile-links small{color:#ccc;font-size:11px;line-height:1.45}
+.gg-profile-logout{
+  display:flex;align-items:center;gap:11px;width:100%;min-height:52px;
+  margin:24px 0;padding:14px 18px;border-radius:13px;
+  border:1px solid #94414a;background:#332025;color:#ffc3c7;
+  font-size:12px;font-weight:900;cursor:pointer;
+}
+.gg-profile-logout:hover{background:#48262b}
+.gg-profile-error{
+  padding:13px;background:#3d2327;border:1px solid #aa4d56;
+  border-radius:10px;color:#fff;
+}
+.gg-profile :is(a,button):focus-visible{outline:3px solid #ffd1d4;outline-offset:3px}
+@media(max-width:767px){
+  .gg-profile-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gg-profile-links{
+    grid-auto-flow:column;grid-auto-columns:minmax(205px,78%);
+    grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    overscroll-behavior-inline:contain;padding-bottom:12px;
+  }
+  .gg-profile-links>a{scroll-snap-align:start}
+}
+@media(max-width:360px){
+  .gg-profile-stat-grid{gap:7px}
+  .gg-profile-stat-grid>a{padding:14px 11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .gg-profile :is(a,button),.gg-profile-weight-track>span{transition:none!important}
+}

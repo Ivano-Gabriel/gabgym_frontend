@@ -3,8 +3,7 @@
 .gg-metas-container {
   min-height: calc(100vh - 60px);
   background:
-    radial-gradient(ellipse 600px 300px at 50% 0%, rgba(193,139,96,0.1), transparent),
-    var(--gg-void);
+    #262626;
   color: var(--gg-text);
   padding: 24px 16px 100px; /* espaço embaixo pro FAB não tampar o último card */
   display: flex;
@@ -66,7 +65,7 @@
 
 .gg-metas-tab.active {
   background: var(--gg-green);
-  color: #0A0F0C;
+  color:#f5f5f5;
 }
 
 .gg-tab-count {
@@ -194,7 +193,7 @@
   transition: filter 0.2s ease;
 }
 
-.gg-btn-concluir { background: var(--gg-green); color: #0A0F0C; }
+.gg-btn-concluir { background: var(--gg-green); color:#f5f5f5; }
 .gg-btn-desistir { background: transparent; color: var(--gg-danger); border: 1px solid rgba(217,177,138,0.25); }
 .gg-btn-concluir:hover, .gg-btn-desistir:hover { filter: brightness(1.12); }
 
@@ -211,7 +210,7 @@
   font-weight: 700;
 }
 
-.gg-status-badge.concluida { background: rgba(193,139,96,0.14); color: var(--gg-green); }
+.gg-status-badge.concluida { background: rgba(177,17,27,0.14); color: var(--gg-green); }
 .gg-status-badge.desistida { background: rgba(217,177,138,0.14); color: var(--gg-danger); }
 
 /* ---------- FAB — Nova Meta ---------- */
@@ -227,7 +226,7 @@
   border-radius: 999px;
   border: none;
   background: var(--gg-green);
-  color: #0A0F0C;
+  color:#f5f5f5;
   font-weight: 800;
   font-size: 0.92em;
   cursor: pointer;
@@ -337,7 +336,7 @@
 
 .gg-btn-salvar {
   background: var(--gg-green);
-  color: #0A0F0C;
+  color:#f5f5f5;
   border: none;
   padding: 11px 20px;
   border-radius: 10px;
@@ -354,18 +353,18 @@
 }
 /* Revisão de cores GABGYM 2.4 */
 
-.gg-metas-container { background:#0e1113; padding-bottom:calc(113px + env(safe-area-inset-bottom,0px)); }
+.gg-metas-container { background:#171717; padding-bottom:calc(113px + env(safe-area-inset-bottom,0px)); }
 .gg-metas-top { text-align:left; }
 .gg-metas-title { font:850 clamp(46px,9vw,67px)/1 var(--gg-font-display,Impact,sans-serif); }
 .gg-metas-subtitle { font-size:12px; line-height:1.6; margin-top:11px; }
 .gg-metas-tabs { background:#1d2427; border-color:#465055; }
-.gg-metas-tab.active { background:#C18B60; color:#111719; }
+.gg-metas-tab.active { background:#b1111b; color:#f5f5f5; }
 .gg-meta-card { background:#1e272a; border-color:#495255; border-radius:12px; }
-.gg-meta-icon,.gg-meta-icon.done { color:#D9B18A; }
-.gg-btn-concluir,.gg-btn-salvar,.gg-fab-nova-meta { background:#C18B60; color:#101315; }
-.gg-meta-card.history-card.concluida { border-left-color:#C18B60; }
-.gg-status-badge.concluida { color:#E6CEB6; background:#3a2b26; }
-.gg-metas-container :is(button,a,input,textarea):focus-visible { outline:3px solid #D9B18A; outline-offset:2px; }
+.gg-meta-icon,.gg-meta-icon.done { color:#ff9299; }
+.gg-btn-concluir,.gg-btn-salvar,.gg-fab-nova-meta { background:#b1111b; color:#ffffff; }
+.gg-meta-card.history-card.concluida { border-left-color:#b1111b; }
+.gg-status-badge.concluida { color:#f5f5f5; background:#303030; }
+.gg-metas-container :is(button,a,input,textarea):focus-visible { outline:3px solid #ff9299; outline-offset:2px; }
 @media(max-width:767px){ .gg-fab-nova-meta { bottom:calc(81px + env(safe-area-inset-bottom,0px)); } }
 @media(prefers-reduced-motion:reduce){ .fade-in-metas { animation:none; } }
 
@@ -377,15 +376,15 @@
  .gg-modal-overlay { z-index:1550; }
  .gg-modal-content { padding-bottom:calc(32px + env(safe-area-inset-bottom,0px)); max-height:90dvh; }
 }
-.gg-fab-nova-meta,.gg-btn-salvar {background:#C18B60;box-shadow:0 5px 15px rgba(0,0,0,.19);}
+.gg-fab-nova-meta,.gg-btn-salvar {background:#b1111b;box-shadow:0 5px 15px rgba(0,0,0,.19);}
 
 /* Meta de peso — destaque saudável sem disputa visual com metas habituais */
-.gg-goal-weight{display:grid;gap:13px;max-width:920px;margin:20px auto 26px;padding:22px 18px;border-radius:14px;background:linear-gradient(135deg,#4b352c,#303940 68%,#293135);border:1px solid #af7957;box-shadow:inset 0 1px 2px #ffffff33,0 10px 24px #0000003b;color:#f5f2ea;}
-.gg-goal-weight>div>span{font-size:10px;font-weight:950;color:#D9B18A;letter-spacing:.12em;}
+.gg-goal-weight{display:grid;gap:13px;max-width:920px;margin:20px auto 26px;padding:22px 18px;border-radius:14px;background:#262626;border:1px solid #af7957;box-shadow:inset 0 1px 2px #ffffff33,0 10px 24px #0000003b;color:#f5f5f5;}
+.gg-goal-weight>div>span{font-size:10px;font-weight:950;color:#ff9299;letter-spacing:.12em;}
 .gg-goal-weight h2{font:850 37px/1 var(--gg-font-display,Impact,sans-serif);margin:8px 0 0;}
-.gg-goal-weight p{font-size:12px;line-height:1.6;color:#E6CEB6;margin:8px 0;}
-.gg-goal-weight label{display:grid;gap:7px;font-size:11px;font-weight:850;color:#E6CEB6;}
+.gg-goal-weight p{font-size:12px;line-height:1.6;color:#f5f5f5;margin:8px 0;}
+.gg-goal-weight label{display:grid;gap:7px;font-size:11px;font-weight:850;color:#f5f5f5;}
 .gg-goal-weight input{width:100%;min-width:0;height:53px;padding:0 13px;border-radius:10px;background:#20282c;border:1px solid #a38b7d;color:#fff;font-size:15px;font-weight:800;}
-.gg-goal-weight button{min-height:53px;border-radius:10px;border:0;background:#C18B60;color:#111719;font-weight:950;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,.19);cursor:pointer;}
+.gg-goal-weight button{min-height:53px;border-radius:10px;border:0;background:#b1111b;color:#f5f5f5;font-weight:950;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,.19);cursor:pointer;}
 .gg-goal-weight button:disabled{opacity:.6;cursor:not-allowed;}
 .gg-goal-weight small{color:#d4bbb0;font-size:10px;line-height:1.6;}
