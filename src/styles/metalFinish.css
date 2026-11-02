@@ -4,7 +4,7 @@
 .gg-select-container,.gg-startcardio-container{background:#171717!important;}
 .gg-daily-food,.gg-records-row,.gg-history-day,.gg-help-faq details,.article-card,
 .gg-exlib-card,.gg-today-no-goal{background:#303030!important;border-color:#505050!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;}
-.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,
+.gg-daily-cta,.gg-catalog-trigger,.gg-profile-editor-save,
 .gg-startcardio-btn-primary,.gg-movement-primary{
  background:#b1111b!important;
  color:#ffffff!important;
@@ -14,13 +14,13 @@
  border-radius:16px;
  transition:background-color .18s ease,transform .18s ease!important;
 }
-.gg-daily-cta:hover,.gg-catalog-trigger:hover,.gg-today-shortcuts a:hover,
+.gg-daily-cta:hover,.gg-catalog-trigger:hover,
 .gg-profile-editor-save:hover,.gg-startcardio-btn-primary:hover,.gg-movement-primary:hover{
  background:#951018!important;
  box-shadow:0 4px 12px rgba(0,0,0,.18)!important;
  filter:none!important;
 }
 .gg-daily-cta:active,.gg-catalog-trigger:active,.gg-profile-editor-save:active,.gg-movement-primary:active{transform:scale(.98)}
-@media(prefers-reduced-motion:reduce){.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{transition:none!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.gg-daily-cta,.gg-catalog-trigger,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{transition:none!important;transform:none!important}}
 
-.gg-daily-cta,.gg-catalog-trigger,.gg-today-shortcuts a,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{color:#fff!important;text-shadow:none!important;box-shadow:none!important}
+.gg-daily-cta,.gg-catalog-trigger,.gg-profile-editor-save,.gg-startcardio-btn-primary,.gg-movement-primary{color:#fff!important;text-shadow:none!important;box-shadow:none!important}
