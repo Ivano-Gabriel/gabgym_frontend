@@ -57,7 +57,7 @@
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
-  background: var(--gg-void, #0A0F0C);
+  background: var(--gg-void, #171717);
   border: 1px solid var(--gg-line, rgba(255,255,255,0.08));
   padding: 6px;
   border-radius: 12px;
@@ -110,7 +110,7 @@
 
 .gg-header-cta {
   background: var(--gg-green, #b1111b);
-  color: #0A0F0C;
+  color:#f5f5f5;
   text-decoration: none;
   padding: 9px 16px;
   border-radius: 999px;
@@ -161,42 +161,42 @@
   width: 39px; height: 39px; flex: 0 0 auto;
   border: 2px solid #b1111b; border-radius: 4px;
   transform: skew(-12deg); background: #2b201d;
-  color: #b1111b; font-family: 'Barlow Condensed', Impact, sans-serif;
+  color:#ff9299; font-family: 'Barlow Condensed', Impact, sans-serif;
   font-size: 20px; font-weight: 900; font-style: italic; letter-spacing: -.13em;
   padding-right: 4px; line-height: 1;
 }
-.gg-logo-text { color: #f5f2ea; font-family: 'Barlow Condensed', Impact, sans-serif; font-size: 28px; font-weight: 850; letter-spacing: .02em; }
+.gg-logo-text { color: #f5f5f5; font-family: 'Barlow Condensed', Impact, sans-serif; font-size: 28px; font-weight: 850; letter-spacing: .02em; }
 .gg-header-cta { border-radius: 5px; background: #b1111b; color: #ffffff; box-shadow: none; min-height: 46px; }
 .gg-header-cta:hover { box-shadow: none; background: #ed6670; }
 .gg-nav-link:hover { color: #ed6670; }
-.gg-hamburger { color: #f5f2ea; border: 1px solid #566064; border-radius: 5px; min-width: 44px; min-height: 44px; }
+.gg-hamburger { color: #f5f5f5; border: 1px solid #566064; border-radius: 5px; min-width: 44px; min-height: 44px; }
 .gg-logo-link:focus-visible,.gg-hamburger:focus-visible,.gg-header-cta:focus-visible { outline: 3px solid #ed6670; outline-offset: 3px; }
 
 /* SVG angular GG único em todo o produto */
 .gg-header-monogram { width:39px;height:39px;padding:0;border:0;transform:none;background:transparent;border-radius:9px;object-fit:contain; }
 
 /* 2.7: header âmbar minimalista, sem verde nem luz intensa */
-.gg-header{min-height:68px;background:rgba(35,29,27,.96);border-bottom:1px solid #82624d;box-shadow:0 5px 16px #0003;padding:10px clamp(16px,3vw,36px)}
+.gg-header{min-height:68px;background:rgba(35,29,27,.96);border-bottom:1px solid #595052;box-shadow:0 5px 16px #0003;padding:10px clamp(16px,3vw,36px)}
 .gg-header-monogram{width:42px;height:42px;border-radius:13px;filter:drop-shadow(0 3px 7px #95694E33)}
-.gg-logo-text{color:#E6CEB6;font-size:28px}
-.gg-header-route{margin-left:5px;color:#ed6670;background:#46342b;border:1px solid #8d6b51;border-radius:50px;padding:8px 11px;font-size:10px;font-weight:900;white-space:nowrap}
+.gg-logo-text{color:#f5f5f5;font-size:28px}
+.gg-header-route{margin-left:5px;color:#ed6670;background:#303030;border:1px solid #595052;border-radius:50px;padding:8px 11px;font-size:10px;font-weight:900;white-space:nowrap}
 .gg-header-right{gap:10px}
 .gg-header-cta{background:#b1111b;color:#241a12;border-radius:15px;border:1px solid #ed6670;box-shadow:none;min-height:44px}
 .gg-header-cta:hover{background:#ed6670;box-shadow:none}
 .gg-nav-link{color:#ed6670;border-radius:12px}
-.gg-nav-link:hover{background:#574032;color:#E6CEB6}
-.gg-hamburger{min-width:46px;min-height:46px;width:46px;height:46px;border-radius:15px;border-color:#a37b5d;background:#45342c;color:#E6CEB6;transition:background .2s ease,transform .2s ease}
-.gg-hamburger:hover,.gg-hamburger.is-open{background:#5b4334;border-color:#b1111b;color:#E6CEB6}
+.gg-nav-link:hover{background:#303030;color:#f5f5f5}
+.gg-hamburger{min-width:46px;min-height:46px;width:46px;height:46px;border-radius:15px;border-color:#595052;background:#303030;color:#f5f5f5;transition:background .2s ease,transform .2s ease}
+.gg-hamburger:hover,.gg-hamburger.is-open{background:#303030;border-color:#b1111b;color:#f5f5f5}
 .gg-hamburger:active{transform:scale(.96)}
-.gg-logo-dropdown{background:#322823;border-color:#947154;border-radius:18px}
-.gg-logo-dropdown-link{color:#E6CEB6;border-radius:13px}
+.gg-logo-dropdown{background:#303030;border-color:#595052;border-radius:18px}
+.gg-logo-dropdown-link{color:#f5f5f5;border-radius:13px}
 @media(max-width:767px){.gg-header{min-height:65px;padding:9px 15px}.gg-header-route{font-size:10px;padding:7px 9px}.gg-logo-text{font-size:26px}.gg-header-monogram{width:39px;height:39px}}
 @media(max-width:360px){.gg-header-route{display:none}}
 @media(prefers-reduced-motion:reduce){.gg-hamburger{transition:none}}
 
 /* Hamburger com ícone que aparece suavemente ao alternar */
 .gg-hamburger .gg-menu-symbol{animation:gg-menu-symbol-in .18s cubic-bezier(.2,.8,.2,1)}
-.gg-hamburger.is-open{background:#624735;border-color:#b1111b}
+.gg-hamburger.is-open{background:#303030;border-color:#b1111b}
 @keyframes gg-menu-symbol-in{from{opacity:.4;transform:scale(.72) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
 @media(prefers-reduced-motion:reduce){.gg-hamburger .gg-menu-symbol{animation:none!important}}
 
@@ -206,3 +206,9 @@
 .gg-header-cta{background:#b1111b;color:#fff;box-shadow:none}
 .gg-header-cta:hover{background:#951018;box-shadow:none}
 .gg-header-monogram{background:#1f1f1f;border-color:#b1111b;transform:none}
+
+/* Detalhes da marca no cabeçalho. */
+.gg-logo-text{color:#f5f5f5}
+.gg-logo-dropdown{background:#242424;border-color:#484848}
+.gg-logo-dropdown-link{color:#f5f5f5}
+.gg-hamburger.is-open{background:#3b2024;border-color:#d32f3b}
