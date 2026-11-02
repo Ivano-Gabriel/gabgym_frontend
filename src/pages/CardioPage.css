@@ -100,7 +100,7 @@
 }
 
 .finish-button {
-  background-color: #C18B60;
+  background-color: #b1111b;
   color: white;
 }
 
@@ -129,7 +129,7 @@
   font-weight: 700;
   margin: 12px 0 0 16px;
 }
-.gg-cardio-back:hover { color: var(--gg-neon, #C18B60); }
+.gg-cardio-back:hover { color: var(--gg-neon, #b1111b); }
 
 .gg-cardio-activity-name {
   text-align: center;
@@ -142,14 +142,14 @@
 /* Revisão de cores GABGYM 2.4 */
 
 /* Rota de GPS continua com os componentes e cálculos originais. */
-.gg-cardio-container { background:#0e1113; }
-.gg-cardio-back { color:#D9B18A; }
-.gg-cardio-container :is(button,a):focus-visible { outline:3px solid #D9B18A; outline-offset:2px; }
+.gg-cardio-container { background:#171717; }
+.gg-cardio-back { color:#f0757e; }
+.gg-cardio-container :is(button,a):focus-visible { outline:3px solid #f0757e; outline-offset:2px; }
 
 
 /* GPS precisa de espaço rolável: altura fixa escondia comandos sob o Hub. */
-.cardio-page-container {height:auto; min-height:100dvh; padding-bottom:calc(155px + env(safe-area-inset-bottom,0px)); background:#151b1e; }
-.gg-cardio-gps-status {margin:8px 15px;padding:11px 13px;border-radius:10px;background:#394147;color:#E6CEB6;border:1px solid #73574b;font-size:12px;text-align:center;}
+.cardio-page-container {height:auto; min-height:100dvh; padding-bottom:calc(155px + env(safe-area-inset-bottom,0px)); background:#171717; }
+.gg-cardio-gps-status {margin:8px 15px;padding:11px 13px;border-radius:10px;background:#394147;color:#f5f5f5;border:1px solid #73574b;font-size:12px;text-align:center;}
 .metrics-panel {padding:19px 13px;}
 .main-metric #duration {font-size:clamp(45px,10vw,76px);}
 .secondary-metrics {gap:8px;flex-wrap:wrap;}
@@ -157,7 +157,7 @@
 .map-container {flex-grow:0;height:clamp(255px,42dvh,450px);min-height:255px;}
 .controls-panel {position:relative;z-index:1;padding:19px 14px 30px;background:#242b30;min-height:95px;}
 .start-button,.pause-button,.finish-button {min-height:56px;border-radius:12px;}
-.start-button {background:#C18B60;color:#111719;box-shadow:0 5px 15px rgba(0,0,0,.19);}
+.start-button {background:#b1111b;color:#171717;box-shadow:0 5px 15px rgba(0,0,0,.19);}
 .pause-button {background:#424d55;color:#fff;}
-.finish-button {background:#C18B60;color:#15191b;}
-.cardio-page-container :is(button,a):focus-visible{outline:3px solid #D9B18A;outline-offset:3px;}
+.finish-button {background:#b1111b;color:#15191b;}
+.cardio-page-container :is(button,a):focus-visible{outline:3px solid #f0757e;outline-offset:3px;}
