@@ -7,7 +7,7 @@
   width: 280px;
   max-width: 82vw;
   height: 100vh;
-  background: var(--gg-void, #0A0F0C);
+  background: var(--gg-void, #171717);
   border-left: 1px solid var(--gg-line, rgba(255,255,255,0.08));
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
   z-index: 1100;
@@ -64,29 +64,36 @@
 .gg-mobile-menu-link:hover { background: rgba(255, 255, 255, 0.05); }
 /* Menu secundário GABGYM 2.3, desassociado do verde legado. */
 .gg-mobile-menu { background:#242424; border-left:1px solid #515b5f; color:#f5f5f5; z-index:1230; }
-.gg-mobile-menu-close { width:48px;height:48px;border-radius:11px;color:#f0757e;border:1px solid #7b5e53; }
+.gg-mobile-menu-close { width:48px;height:48px;border-radius:11px;color:#ff9299;border:1px solid #595052; }
 .gg-mobile-menu-heading { font:850 31px var(--gg-font-display,Impact,sans-serif); margin:10px 6px 16px; color:#f5f5f5; }
 .gg-mobile-menu-link { min-height:58px;color:#e9ebea;background:#232b2f;border:1px solid #3e494d;font-weight:800;font-size:12px;border-radius:11px; }
-.gg-mobile-menu-link svg { color:#f0757e; }
+.gg-mobile-menu-link svg { color:#ff9299; }
 .gg-mobile-menu-link:hover { background:#343033; }
-.gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #f0757e;outline-offset:3px; }
+.gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #ff9299;outline-offset:3px; }
 
 /* 2.7: menu arredondado com transição de entrada e saída */
-.gg-mobile-menu{width:min(340px,88vw);height:100dvh;max-width:88vw;background:linear-gradient(155deg,#322023,#28282a 75%);border-left:1px solid #a37a59;border-radius:25px 0 0 25px;visibility:hidden;pointer-events:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility .25s}
+.gg-mobile-menu{width:min(340px,88vw);height:100dvh;max-width:88vw;background:#262626;border-left:1px solid #595052;border-radius:25px 0 0 25px;visibility:hidden;pointer-events:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility .25s}
 .gg-mobile-menu.open{visibility:visible;pointer-events:auto}
-.gg-mobile-menu-close{background:#4a382e;border-radius:16px;border-color:#a37a5b;color:#f0757e}
-.gg-mobile-menu-link{border-radius:18px;min-height:62px;background:linear-gradient(135deg,#48362b,#2d2b2c);border-color:#80604b;color:#f5f5f5;transition:background .18s ease,transform .18s ease}
-.gg-mobile-menu-link:hover{background:#614638;transform:translateX(-3px)}
-.gg-mobile-menu-link svg{color:#f0757e}
+.gg-mobile-menu-close{background:#303030;border-radius:16px;border-color:#595052;color:#ff9299}
+.gg-mobile-menu-link{border-radius:18px;min-height:62px;background:#262626;border-color:#595052;color:#f5f5f5;transition:background .18s ease,transform .18s ease}
+.gg-mobile-menu-link:hover{background:#303030;transform:translateX(-3px)}
+.gg-mobile-menu-link svg{color:#ff9299}
 @media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link{transition:none!important}}
 
 /* Hamburger: rolagem fluida e microinterações menos agressivas */
-.gg-mobile-menu{overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;scrollbar-color:#966e50 transparent;scrollbar-width:thin;transition:transform .27s cubic-bezier(.19,.83,.23,1),visibility .27s!important}
+.gg-mobile-menu{overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;scrollbar-color:#595052 transparent;scrollbar-width:thin;transition:transform .27s cubic-bezier(.19,.83,.23,1),visibility .27s!important}
 .gg-mobile-menu-nav{gap:10px}
-.gg-mobile-menu-link{min-height:64px;padding:15px 17px;border:1px solid #977156;border-radius:19px;box-shadow:inset 0 1px #fff2;transition:background .18s ease,transform .18s ease}
+.gg-mobile-menu-link{min-height:64px;padding:15px 17px;border:1px solid #595052;border-radius:19px;box-shadow:inset 0 1px #fff2;transition:background .18s ease,transform .18s ease}
 .gg-mobile-menu.open .gg-mobile-menu-link{animation:gg-menu-link-in .24s both;animation-delay:calc(var(--drawer-index) * 35ms)}
 .gg-mobile-menu-link:active{transform:scale(.97);box-shadow:inset 0 2px 4px #0004}
 .gg-mobile-menu-close{transition:transform .18s ease,background .18s ease}
 .gg-mobile-menu-close:active{transform:scale(.93)}
 @keyframes gg-menu-link-in{from{opacity:.3;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
 @media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link,.gg-mobile-menu-close{transition:none!important;animation:none!important}}
+
+/* Superfícies do drawer sem marrom residual. */
+.gg-mobile-menu{background:#1f1f1f;border-color:#494949;scrollbar-color:#555 transparent}
+.gg-mobile-menu-close{background:#303030;border-color:#575757;color:#fff}
+.gg-mobile-menu-link{background:#303030;color:#f5f5f5;border-color:#4a4a4a;box-shadow:none}
+.gg-mobile-menu-link:hover{background:#38252a;border-color:#b1111b}
+.gg-mobile-menu-link svg{color:#ff9299}
