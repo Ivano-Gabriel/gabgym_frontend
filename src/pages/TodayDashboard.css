@@ -37,7 +37,7 @@
 .gg-today-goal span { flex:1; }
 .gg-today-goals p { font-size:11px; color:#bec7c9; line-height:1.6; }
 .gg-today-shortcuts { display:grid; gap:11px; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:26px; }
-.gg-today-shortcuts a { color:#15191b; display:flex; justify-content:space-between; align-items:center; gap:9px; padding:15px 13px; min-height:58px; text-decoration:none; background:#b1111b; border-radius:11px; font-size:11px; font-weight:900; }
+.gg-today-shortcuts a { color:#ffffff; display:flex; justify-content:space-between; align-items:center; gap:9px; padding:15px 13px; min-height:58px; text-decoration:none; background:#b1111b; border-radius:11px; font-size:11px; font-weight:900; }
 .gg-today-shortcuts a:last-child { background:#2b3033; color:#f5f5f5; border:1px solid #595052; }
 .gg-today-state,.gg-today-error { font-size:13px; padding:16px; background:#252e31; border:1px solid #516064; border-radius:10px; color:#dee4e4; }
 .gg-today-error { border-color:#b47871; color:#f5f5f5; }
