@@ -63,7 +63,7 @@ export default function TodayDashboard() {
           <StreakCalendar userId={user.id} todayLogs={logs}/>
           <div className="gg-today-section-heading"><div><span>01 / HOJE</span><h2>SUA CONSTÂNCIA.</h2></div></div>
           <div className="gg-today-progress-grid">
-            <Link to="/alimentacao" className="gg-today-progress-card">
+            <Link to="/alimentacao" className="gg-today-progress-card gg-today-progress-card--food">
               <div className="gg-today-card-top"><FiCoffee aria-hidden="true"/><span>ALIMENTAÇÃO</span><FiArrowRight aria-hidden="true"/></div>
               <strong>{n(totals.calories)} <small>kcal</small></strong>
               {kcalProgress ? <>
@@ -71,7 +71,7 @@ export default function TodayDashboard() {
                 <small>{n(totals.calories)} / {n(foodGoal)} kcal</small>
               </> : <small>Sem meta definida · Definir na Alimentação</small>}
             </Link>
-            <Link to="/alimentacao" className="gg-today-progress-card">
+            <Link to="/alimentacao" className="gg-today-progress-card gg-today-progress-card--water">
               <div className="gg-today-card-top"><FiDroplet aria-hidden="true"/><span>ÁGUA</span><FiArrowRight aria-hidden="true"/></div>
               <strong>{n(totals.water)} <small>ml</small></strong>
               {waterProgress ? <>
