@@ -181,7 +181,7 @@
 .gg-logo-text{color:#f5f5f5;font-size:28px}
 .gg-header-route{margin-left:5px;color:#ed6670;background:#303030;border:1px solid #595052;border-radius:50px;padding:8px 11px;font-size:10px;font-weight:900;white-space:nowrap}
 .gg-header-right{gap:10px}
-.gg-header-cta{background:#b1111b;color:#241a12;border-radius:15px;border:1px solid #ed6670;box-shadow:none;min-height:44px}
+.gg-header-cta{background:#b1111b;color:#fff;border-radius:15px;border:1px solid #ed6670;box-shadow:none;min-height:44px}
 .gg-header-cta:hover{background:#ed6670;box-shadow:none}
 .gg-nav-link{color:#ed6670;border-radius:12px}
 .gg-nav-link:hover{background:#303030;color:#f5f5f5}
