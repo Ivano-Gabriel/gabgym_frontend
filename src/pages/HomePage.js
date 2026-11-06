@@ -111,7 +111,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="recursos" className="gg-home-features" role="region" aria-label="Recursos GabGym">
+      <section id="recursos" className="gg-home-features" aria-label="Recursos GabGym">
         <div className="gg-home-features-heading">
           <div>
             <span className="gg-home-section-kicker">FEITO PARA CONTINUAR</span>
