@@ -1,5 +1,5 @@
 import React from 'react';
-import {render,screen,fireEvent} from '@testing-library/react';
+import {render,screen,fireEvent,act} from '@testing-library/react';
 import LoginPage from './LoginPage';
 import {loginUser,warmUpApi} from '../services/apiService';
 
@@ -36,4 +36,18 @@ test('MFA solicitado pelo servidor mantém campo de seis dígitos no login',asyn
   expect(code).toHaveAttribute('maxlength','6');
   expect(screen.getByRole('button',{name:/VALIDAR CÓDIGO/i})).toBeInTheDocument();
   expect(loginUser).toHaveBeenCalledWith({username:'teste',password:'senhaforteexemplo',codigoMfa:null});
+});
+
+test('login bloqueia cliques duplicados enquanto o servidor responde',async()=>{
+  let liberar;
+  loginUser.mockImplementationOnce(()=>new Promise(resolve=>{liberar=resolve;}));
+  render(<LoginPage/>);
+  fireEvent.change(screen.getByLabelText('Usuário'),{target:{value:'teste'}});
+  fireEvent.change(screen.getByLabelText('Senha'),{target:{value:'senhaforteexemplo'}});
+  fireEvent.click(screen.getByRole('button',{name:/ENTRAR NO GABGYM/i}));
+  const verifying=screen.getByRole('button',{name:/VERIFICANDO/i});
+  expect(verifying).toBeDisabled();
+  fireEvent.click(verifying);
+  expect(loginUser).toHaveBeenCalledTimes(1);
+  await act(async()=>{liberar({data:{role:'SUPER_ADMIN'}});});
 });
