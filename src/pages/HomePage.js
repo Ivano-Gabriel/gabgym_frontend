@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FiActivity, FiArrowRight, FiArrowUpRight,
-  FiChevronDown, FiTarget, FiTrendingUp
+  FiChevronDown
 } from 'react-icons/fi';
 import { isLoggedIn } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
@@ -18,22 +18,18 @@ const heroPhoto = width =>
 const heroPhotoSet = [640, 960, 1440, 1920, 2560, 3840]
   .map(width => `${heroPhoto(width)} ${width}w`).join(', ');
 
-const features = [
-  {
-    number: '01', Icon: FiActivity, name: 'Treine com direção.',
-    copy: 'Organize os treinos e registre o que realmente foi feito. Sem perder o fio da sua evolução.',
-    tag: 'TREINO'
-  },
-  {
-    number: '02', Icon: FiTarget, name: 'Cuide da rotina.',
-    copy: 'Alimentação, água e metas no mesmo lugar. Clareza para fazer escolhas todos os dias.',
-    tag: 'ALIMENTAÇÃO'
-  },
-  {
-    number: '03', Icon: FiTrendingUp, name: 'Enxergue o progresso.',
-    copy: 'Acompanhe medidas, histórico e constância. O processo também merece ser visto.',
-    tag: 'EVOLUÇÃO'
-  }
+const gymPhoto = width =>
+  `https://images.unsplash.com/photo-1689877020200-403d8542d95d?auto=format&fit=crop&q=82&w=${width}`;
+const strengthPhoto = width =>
+  `https://images.unsplash.com/photo-1546817372-628669db4655?auto=format&fit=crop&q=82&w=${width}`;
+const photoSet = (makeUrl, widths) => widths.map(width => `${makeUrl(width)} ${width}w`).join(', ');
+const featureEssays = [
+  { number: '01', tag: 'TREINO', headline: 'EXECUÇÃO ACIMA DE DESCULPAS.',
+    description: 'Organize suas sessões e registre os exercícios. O que foi feito hoje precisa contar amanhã.' },
+  { number: '02', tag: 'ALIMENTAÇÃO', headline: 'ROTINA SEM ADIVINHAÇÃO.',
+    description: 'Alimentação, água e metas em um só lugar. Acompanhe o básico com clareza, sem inventar números.' },
+  { number: '03', tag: 'EVOLUÇÃO', headline: 'PROGRESSO QUE VOCÊ VÊ.',
+    description: 'Medidas, histórico e constância para comparar o que mudou ao longo do tempo.' }
 ];
 
 export default function HomePage() {
@@ -112,27 +108,52 @@ export default function HomePage() {
       </section>
 
       <section id="recursos" className="gg-home-features" aria-label="Recursos GabGym">
-        <div className="gg-home-features-heading">
-          <div>
-            <span className="gg-home-section-kicker">FEITO PARA CONTINUAR</span>
+        <header className="gg-home-editorial-heading">
+          <div className="gg-home-editorial-index"><span>02</span> / A FERRAMENTA</div>
+          <div className="gg-home-editorial-heading-grid">
             <h2>MENOS PROMESSA.<br /><em>MAIS PROCESSO.</em></h2>
+            <p>Seu treino não é uma sequência de telas. É uma sequência de escolhas. O GabGym ajuda a registrar cada uma delas.</p>
           </div>
-          <p>O essencial para construir uma rotina de treino mais clara, tudo no seu ritmo.</p>
+        </header>
+
+        <div className="gg-home-editorial-layout">
+          <figure className="gg-home-training-photo">
+            <img src={gymPhoto(1200)}
+              srcSet={photoSet(gymPhoto,[640,960,1200,1600,2400,3840])}
+              sizes="(max-width: 760px) 100vw, 44vw"
+              loading="lazy" decoding="async"
+              alt="Academia real com bancos, pesos e equipamentos de musculação" />
+            <figcaption>
+              <span>AMBIENTE REAL / FOCO REAL</span>
+              <strong>ENTRE, TREINE, REGISTRE.</strong>
+            </figcaption>
+            <span className="gg-home-photo-origin">FOTO: <a href="https://unsplash.com/photos/a-gym-filled-with-lots-of-machines-and-weights-1RNQ11ZODJM" target="_blank" rel="noreferrer">RICK BARRETT / UNSPLASH</a></span>
+          </figure>
+          <div className="gg-home-editorial-list">
+            {featureEssays.map(({number,tag,headline,description})=>(
+              <article className="gg-home-editorial-row" key={number}>
+                <div className="gg-home-editorial-row-top"><span>{number}</span><small>{tag}</small></div>
+                <h3>{headline}</h3>
+                <p>{description}</p>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="gg-home-feature-grid">
-          {features.map(({number, Icon, name, copy, tag}) => (
-            <article className="gg-home-feature" key={number}>
-              <div className="gg-home-feature-top">
-                <span>{number} / {tag}</span>
-                <Icon aria-hidden="true" />
-              </div>
-              <div className="gg-home-feature-content">
-                <h3>{name}</h3>
-                <p>{copy}</p>
-              </div>
-              <div className="gg-home-feature-bar" aria-hidden="true" />
-            </article>
-          ))}
+
+        <div className="gg-home-athlete-strip">
+          <figure className="gg-home-athlete-photo">
+            <img src={strengthPhoto(960)}
+              srcSet={photoSet(strengthPhoto,[480,720,960,1440,1920])}
+              sizes="(max-width: 760px) 100vw, 30vw"
+              loading="lazy" decoding="async"
+              alt="Mulher levantando barra de musculação em academia" />
+            <figcaption><a href="https://unsplash.com/photos/woman-standing-and-carrying-barbell-eFx1KZhaSvo" target="_blank" rel="noreferrer">SUSHIL GHIMIRE / UNSPLASH</a></figcaption>
+          </figure>
+          <div className="gg-home-athlete-copy">
+            <span className="gg-home-athlete-index">03 / SEM ATALHOS</span>
+            <p>O TREINO DE HOJE<br />NÃO DEVE SE<br /><strong>PERDER AMANHÃ.</strong></p>
+            <span className="gg-home-athlete-aside">Registre. Acompanhe. Volte mais forte.</span>
+          </div>
         </div>
       </section>
 
