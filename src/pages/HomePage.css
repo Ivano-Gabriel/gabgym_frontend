@@ -1,78 +1,493 @@
-/* Home GABGYM 2.0 — rotina diaria, sem fotos ou estimativas falsas. */
-.gg-home { min-height: 100dvh; background: #171717; color: #f5f5f5; padding-bottom: calc(85px + env(safe-area-inset-bottom,0px)); font-family: var(--gg-font-body, 'Manrope', sans-serif); text-align: left; }
-.gg-home * { box-sizing: border-box; }
-.gg-home-hero { position: relative; isolation: isolate; overflow: hidden; background: #262626; padding: 26px clamp(20px,5.2vw,92px) 24px; min-height: 620px; display: flex; flex-direction: column; justify-content: space-between; border-bottom: 1px solid #454545; }
-.gg-home-hero:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: #b1111b; z-index: -1; }
-.gg-home-topline,.gg-home-footnote { display: flex; gap: 8px 20px; align-items: center; justify-content: space-between; font-size: 10px; color: #bac4c5; font-weight: 900; letter-spacing: .15em; }
-.gg-home-live { background: #b1111b; height: 8px; width: 8px; transform: skew(-16deg); display: inline-block; margin-right: 6px; }
-.gg-home-topline { justify-content: flex-start; color: #ed6670; }
-.gg-home-copy { max-width: 880px; margin: 60px 0 40px; z-index: 1; }
-.gg-home-edition { display: block; color: #ed6670; font-size: 11px; letter-spacing: .15em; font-weight: 900; margin-bottom: 21px; }
-.gg-home h1 { margin: 0; font: 850 clamp(72px, 12.5vw, 174px)/.84 var(--gg-font-display, Impact, sans-serif); letter-spacing: -.008em; }
-.gg-home h1 em { color:#ff9299; font-style: normal; }
-.gg-home-copy p { max-width: 445px; margin: 29px 0 27px; color: #c6ced0; font: 500 clamp(13px, 1.3vw, 16px)/1.8 var(--gg-font-body, Arial, sans-serif); }
-.gg-home-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.gg-home-main-action,.gg-home-secondary-action { min-height: 56px; display: inline-flex; justify-content: space-between; align-items: center; gap: 26px; text-decoration: none; padding: 0 22px; font-size: 12px; font-weight: 900; border-radius: 5px; letter-spacing: .035em; transition: transform .2s ease, background .2s ease; }
-.gg-home-main-action { background: #b1111b; color: #ffffff; min-width: 226px; }
-.gg-home-secondary-action { border: 1px solid #626d70; color: #f5f5f5; }
-.gg-home-main-action:hover,.gg-home-secondary-action:hover { transform: translateY(-2px); }
-.gg-home-main-action:hover { background: #ed6670; }
-.gg-home-mark { position: absolute; right: -8%; bottom: -6%; z-index: 0; font: 900 clamp(220px,38vw,580px)/.7 var(--gg-font-display, Impact, sans-serif); font-style: italic; letter-spacing: -.17em; white-space: nowrap; opacity: .045; pointer-events: none; }
-.gg-home-footnote { border-top: 1px solid #41494c; padding-top: 17px; z-index: 1; }
-.gg-home-pillars { max-width: 1260px; margin: 0 auto; padding: 44px clamp(20px,5.2vw,64px) 60px; }
-.gg-home-pillar-title > span { color: #ed6670; font-size: 10px; letter-spacing: .16em; font-weight: 900; }
-.gg-home-pillar-title h2 { font: 800 clamp(40px,5.5vw,62px)/.98 var(--gg-font-display, Impact, sans-serif); margin: 13px 0 28px; }
-.gg-home-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
-.gg-home-pillar { min-width: 0; padding: 24px; background: #242424; color: #f5f5f5; text-decoration: none; border: 1px solid #454545; border-radius: 7px; display: grid; gap: 19px; transition: border-color .17s ease, transform .17s ease; }
-.gg-home-pillar:hover { border-color: #b1111b; transform: translateY(-2px); }
-.gg-home-pillar-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #ed6670; font: 850 10px var(--gg-font-body, Arial, sans-serif); letter-spacing: .13em; }
-.gg-home-pillar-top svg { font-size: 23px; }
-.gg-home-pillar strong { font: 800 clamp(29px,3.4vw,43px)/1 var(--gg-font-display, Impact, sans-serif); }
-.gg-home-pillar p { margin: 0; font-size: 12px; line-height: 1.6; color: #c5ced0; }
-.gg-home-pillar-arrow { justify-self: end; font-size: 19px; color: #ed6670; }
-.gg-home-small-note { margin: 24px 0 0; font-size: 11px; line-height: 1.7; color: #aeb8bb; }
-.gg-home a:focus-visible { outline: 3px solid #ed6670; outline-offset: 3px; }
-@media (max-width: 767px) {
-  .gg-home-hero { min-height: min(670px, 78dvh); padding: 27px 22px 20px; }
-  .gg-home-copy { margin: 60px 0 36px; }
-  .gg-home h1 { font-size: clamp(58px, 15.3vw, 106px); }
-  .gg-home-copy p { margin: 22px 0 26px; max-width: 350px; }
-  .gg-home-actions { flex-direction: column; }
-  .gg-home-main-action,.gg-home-secondary-action { width: 100%; }
-  .gg-home-footnote { align-items: start; flex-direction: column; font-size: 9px; gap: 5px; }
-  .gg-home-grid { grid-template-columns: 1fr; }
-  .gg-home-pillar { min-height: 145px; padding: 20px; }
-  .gg-home-mark { font-size: 250px; right: -30%; bottom: 1%; }
+/* GABGYM — Premium Landing v1.
+   Apenas para visitantes. O painel Hoje autenticado nao usa estas regras.
+   Foto real, superficie grafite, detalhes vermelhos e movimentos discretos. */
+
+.gg-home-premium {
+  --landing-bg: #111214;
+  --landing-panel: #1d1e20;
+  --landing-panel-raised: #27282b;
+  --landing-white: #f6f5f3;
+  --landing-muted: #bdbec2;
+  --landing-accent: #bc1926;
+  background: var(--landing-bg);
+  color: var(--landing-white);
+  min-height: 100dvh;
+  padding: 0;
+  overflow: clip;
+  font-family: var(--gg-font-body, 'Manrope', Arial, sans-serif);
+  text-align: left;
+}
+.gg-home-premium *, .gg-home-premium *::before, .gg-home-premium *::after { box-sizing: border-box; }
+.gg-home-premium a { text-decoration: none; }
+.gg-home-premium a:focus-visible { outline: 3px solid #ffd1d4; outline-offset: 4px; }
+.gg-home-premium .gg-home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 690px;
+  background: #111214;
+  border-bottom: 1px solid #313236;
+}
+.gg-home-hero-shell {
+  width: min(100%, 1720px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, .99fr) minmax(0, 1.01fr);
+  gap: clamp(28px, 4vw, 80px);
+  padding: clamp(30px, 4.2vw, 72px) clamp(24px, 5.6vw, 104px) 33px;
+  min-height: clamp(690px, 77svh, 900px);
+  align-items: center;
+}
+.gg-home-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding-top: 24px;
+  animation: gg-home-rise .68s cubic-bezier(.2,.8,.2,1) both;
+}
+.gg-home-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: clamp(25px, 3vw, 42px);
+  color: #d8d7d7;
+  font-weight: 800;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: .18em;
+}
+.gg-home-eyebrow-line {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  flex: none;
+  background: #ef4858;
+}
+.gg-home-premium h1 {
+  max-width: 800px;
+  margin: 0;
+  font: 900 clamp(65px, 6.3vw, 120px)/.88 var(--gg-font-display, Impact, sans-serif);
+  letter-spacing: -.024em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.gg-home-premium h1 span { white-space: nowrap; }
+.gg-home-premium h1 em {
+  font-style: normal;
+  color: #ed3a4b;
+}
+.gg-home-intro {
+  max-width: 475px;
+  margin: 31px 0 30px;
+  color: #d0d0d3;
+  font-size: clamp(14px, 1.15vw, 17px);
+  line-height: 1.76;
+  font-weight: 500;
+}
+.gg-home-actions {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-wrap: wrap;
+}
+.gg-home-main-action, .gg-home-secondary-action, .gg-home-closing-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+  padding: 0 22px;
+  min-height: 58px;
+  border-radius: 14px;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 900;
+  letter-spacing: .045em;
+  transition: transform .22s ease, border-color .22s ease, background-color .22s ease;
+}
+.gg-home-main-action {
+  min-width: 214px;
+  color: #fff;
+  background: #b1111b;
+  border: 1px solid #b1111b;
+  box-shadow: none;
+}
+.gg-home-main-action:hover {
+  background: #d32f3b;
+  border-color: #d32f3b;
+  transform: translateY(-2px);
+}
+.gg-home-secondary-action {
+  background: #242527;
+  color: #f5f5f5;
+  border: 1px solid #57595c;
+}
+.gg-home-secondary-action:hover {
+  border-color: #aeafb2;
+  background: #313235;
+  transform: translateY(-2px);
+}
+.gg-home-premium .gg-home-actions svg { width: 19px; height: 19px; flex-shrink: 0; }
+.gg-home-hero-bottom {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 44px);
+  margin-top: clamp(44px, 6vw, 82px);
+}
+.gg-home-hero-index {
+  white-space: nowrap;
+  color: #919296;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+.gg-home-hero-index span { color: #e35f6a; padding: 0 5px; }
+.gg-home-discover {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #e2e2e2;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .11em;
+}
+.gg-home-discover svg { color: #e66a78; font-size: 19px; transition: transform .2s ease; }
+.gg-home-discover:hover svg { transform: translateY(4px); }
+.gg-home-stage {
+  position: relative;
+  width: 100%;
+  max-width: 730px;
+  height: clamp(515px, 65svh, 750px);
+  justify-self: end;
+  animation: gg-home-stage-arrive .82s cubic-bezier(.22,1,.36,1) both;
+}
+.gg-home-photo-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: clamp(20px, 2vw, 30px);
+  background: #231619;
+  border: 1px solid #484043;
+  box-shadow: 0 27px 85px rgba(0,0,0,.38);
+}
+.gg-home-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 36%;
+  filter: saturate(.83) contrast(1.05);
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.gg-home-stage:hover .gg-home-photo { transform: scale(1.035); }
+.gg-home-photo-tint {
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.02) 44%, rgba(0,0,0,.82) 100%);
+}
+.gg-home-photo-caption {
+  position: absolute;
+  display: grid;
+  gap: 6px;
+  bottom: clamp(34px, 4vw, 62px);
+  right: clamp(20px, 3.5vw, 48px);
+  z-index: 2;
+  text-align: right;
+  text-shadow: 0 2px 13px rgba(0,0,0,.8);
+}
+.gg-home-photo-caption > span {
+  color: #e1dfe0;
+  font-size: 10px;
+  letter-spacing: .17em;
+  font-weight: 800;
+}
+.gg-home-photo-caption strong {
+  font: 900 clamp(25px, 3.1vw, 43px)/.95 var(--gg-font-display, Impact, sans-serif);
+  color: #fff;
+}
+.gg-home-float-card {
+  position: absolute;
+  z-index: 4;
+  left: -36px;
+  bottom: 96px;
+  width: min(320px, 86%);
+  min-height: 91px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 17px 18px;
+  background: rgba(28,29,31,.92);
+  border: 1px solid rgba(232,232,232,.24);
+  border-radius: 17px;
+  box-shadow: 0 16px 44px rgba(0,0,0,.43);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: gg-home-float 7s ease-in-out infinite;
+}
+.gg-home-float-icon {
+  display: grid;
+  flex: 0 0 46px;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #452329;
+  color: #ff7b87;
+  font-size: 22px;
+}
+.gg-home-float-card > span:nth-child(2) { display: grid; gap: 6px; min-width: 0; }
+.gg-home-float-card small {
+  color: #bebfc3;
+  font-size: 9px;
+  letter-spacing: .07em;
+  font-weight: 800;
+}
+.gg-home-float-card strong {
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 900;
+}
+.gg-home-float-arrow { margin-left: auto; flex: none; color: #ff8e97; font-size: 18px; }
+.gg-home-photo-credit {
+  margin-top: 13px;
+  text-align: right;
+  color: #919297;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: .11em;
+}
+.gg-home-photo-credit a { color: #bfc0c4; }
+.gg-home-photo-credit a:hover { color: #fff; }
+.gg-home-hero-footer {
+  width: min(100%, 1720px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 0 clamp(24px, 5.6vw, 104px) 26px;
+  color: #939598;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+.gg-home-hero-footer-line {
+  display: inline-block;
+  width: 74px;
+  height: 1px;
+  background: #af3540;
+}
+.gg-home-features {
+  max-width: 1720px;
+  margin: auto;
+  padding: clamp(70px, 9vw, 126px) clamp(24px,5.6vw,104px);
+  scroll-margin-top: 85px;
+}
+.gg-home-features-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 42px;
+  margin-bottom: 38px;
+}
+.gg-home-section-kicker {
+  display: inline-flex;
+  gap: 8px;
+  color: #f0808a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+.gg-home-features h2, .gg-home-closing h2 {
+  margin: 19px 0 0;
+  color: #f6f5f3;
+  font: 900 clamp(45px, 5.7vw, 84px)/.89 var(--gg-font-display, Impact, sans-serif);
+}
+.gg-home-features h2 em,.gg-home-closing h2 em { color: #e95361; font-style: normal; }
+.gg-home-features-heading > p {
+  max-width: 285px;
+  margin: 0 0 6px;
+  color: #bfc0c3;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.gg-home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 15px;
+}
+.gg-home-feature {
+  position: relative;
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(22px,2.6vw,38px);
+  border: 1px solid #424448;
+  border-radius: 21px;
+  background: #1d1e20;
+  transition: transform .26s ease,border-color .26s ease,background-color .26s ease;
+}
+.gg-home-feature:hover {
+  transform: translateY(-5px);
+  border-color: #7b434a;
+  background: #242426;
+}
+.gg-home-feature-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #f18a95;
+}
+.gg-home-feature-top span {
+  color: #bfc0c3;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+.gg-home-feature-top svg { width: 25px; height: 25px; }
+.gg-home-feature h3 {
+  color: #fff;
+  margin: 0 0 13px;
+  font: 850 clamp(31px,3vw,43px)/1 var(--gg-font-display,Impact,sans-serif);
+}
+.gg-home-feature p {
+  margin: 0;
+  color: #c0c0c4;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.gg-home-feature-bar {
+  position: absolute;
+  left: 34px;
+  bottom: -1px;
+  width: 62px;
+  height: 2px;
+  border-radius: 2px;
+  background: #bb2837;
+  transition: width .26s ease;
+}
+.gg-home-feature:hover .gg-home-feature-bar { width: 112px; }
+.gg-home-closing {
+  width: min(calc(100% - 48px), 1504px);
+  margin: 4px auto clamp(38px,4.5vw,74px);
+  padding: clamp(38px, 5vw, 70px);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  border: 1px solid #464749;
+  border-radius: 27px;
+  background: #212224;
+}
+.gg-home-closing h2 { font-size: clamp(43px,5vw,72px); }
+.gg-home-closing-cta {
+  min-width: 232px;
+  background: #b1111b;
+  border: 1px solid #b1111b;
+  color: #fff;
+}
+.gg-home-closing-cta:hover { background: #d32f3b; border-color: #d32f3b; transform: translateY(-2px); }
+
+@keyframes gg-home-rise {
+  from { transform: translate3d(0,20px,0); opacity: 0; }
+  to { transform: translate3d(0,0,0); opacity: 1; }
+}
+@keyframes gg-home-stage-arrive {
+  from { transform: translate3d(26px,0,0); opacity: .4; }
+  to { transform: translate3d(0,0,0); opacity: 1; }
+}
+@keyframes gg-home-float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@media (min-width: 1720px) {
+  .gg-home-hero-shell { grid-template-columns: minmax(0,1fr) minmax(0,1.04fr); }
+}
+@media (max-width: 1080px) {
+  .gg-home-hero-shell { gap: 30px; padding-inline: clamp(22px,4vw,44px); }
+  .gg-home-premium h1 { font-size: clamp(57px,6.4vw,78px); }
+  .gg-home-stage { height: clamp(490px,61svh,700px); }
+  .gg-home-float-card { left: -14px; bottom: 78px; }
+  .gg-home-hero-footer { padding-inline: clamp(22px,4vw,44px); }
+}
+@media (max-width: 720px) {
+  .gg-home-premium .gg-home-hero { min-height: 0; }
+  .gg-home-hero-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 38px 20px 35px;
+    min-height: 0;
+    align-items: stretch;
+  }
+  .gg-home-copy { max-width: 100%; padding-top: 0; }
+  .gg-home-eyebrow { margin-bottom: 21px; font-size: 9px; gap: 10px; }
+  .gg-home-eyebrow-line { width: 18px; }
+  .gg-home-premium h1 { font-size: clamp(54px, 12.8vw, 86px); line-height: .9; }
+  .gg-home-intro { margin: 24px 0; font-size: 14px; line-height: 1.65; }
+  .gg-home-actions { gap: 10px; }
+  .gg-home-main-action,.gg-home-secondary-action {
+    flex: 1 1 180px;
+    min-width: 0;
+    min-height: 58px;
+    padding: 0 16px;
+    border-radius: 13px;
+  }
+  .gg-home-hero-bottom { margin-top: 32px; justify-content: space-between; }
+  .gg-home-stage {
+    width: 100%;
+    max-width: none;
+    height: clamp(380px, 110vw, 580px);
+    margin: 0 0 14px;
+  }
+  .gg-home-photo-frame { border-radius: 23px; }
+  .gg-home-photo { object-position: center 26%; }
+  .gg-home-photo-caption { bottom: 32px; right: 19px; }
+  .gg-home-photo-caption strong { font-size: 29px; }
+  .gg-home-float-card {
+    left: 14px;
+    bottom: 84px;
+    width: min(285px,76%);
+    min-height: 74px;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 15px;
+  }
+  .gg-home-float-icon { width: 38px; height: 38px; flex-basis: 38px; font-size: 18px; }
+  .gg-home-float-card strong { font-size: 10px; }
+  .gg-home-float-card small { font-size: 8px; }
+  .gg-home-photo-credit { margin-top: 10px; }
+  .gg-home-hero-footer { display: none; }
+  .gg-home-features { padding: 69px 20px; }
+  .gg-home-features-heading { flex-direction: column; align-items: start; gap: 22px; }
+  .gg-home-features-heading > p { max-width: 440px; margin: 0; }
+  .gg-home-feature-grid { grid-template-columns: 1fr; }
+  .gg-home-feature { min-height: 215px; padding: 25px; }
+  .gg-home-closing {
+    margin: 0 auto 30px;
+    width: calc(100% - 40px);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 28px 25px;
+  }
+  .gg-home-closing-cta { min-width: 0; width: 100%; }
+}
+@media (max-width: 400px) {
+  .gg-home-premium h1 { font-size: clamp(47px, 12.2vw, 59px); }
+  .gg-home-actions { flex-direction: column; align-items: stretch; }
+  .gg-home-main-action,.gg-home-secondary-action { flex: 0 0 auto; width: 100%; }
+  .gg-home-stage { height: 410px; }
+  .gg-home-float-card { width: 82%; bottom: 86px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .gg-home * { transition: none !important; }
+  .gg-home-premium *, .gg-home-premium *::before, .gg-home-premium *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
-/* GABGYM 2.7 landing: uma ação, menos rolagem. */
-.gg-home{background:#262626}
-.gg-home-hero{min-height:calc(100svh - 74px);background:#262626;border:0;border-radius:0 0 30px 30px}
-.gg-home h1 em{color:#ff9299;text-shadow:none}.gg-home-copy p{color:#f5f5f5;font-size:17px;font-weight:750;line-height:1.5}
-.gg-home-main-action{min-height:76px;border-radius:22px;padding:0 25px;font-size:15px;background:#b1111b;box-shadow:0 5px 15px rgba(0,0,0,.19)}
-.gg-home-secondary-action{border-radius:19px;background:#684B3B5b}.gg-home-mark{opacity:.1}
-
-/* 2.7.2 — intensidade controlada, um CTA claro e sem neon */
-.gg-home{background:#1d1a19}
-.gg-home-hero{background:#262626;border-bottom:1px solid #595052;box-shadow:none}
-.gg-home-hero:before{width:3px;background:#b1111b}
-.gg-home h1 em{color:#ff9299;text-shadow:none}
-.gg-home-mark{opacity:.045}
-.gg-home-live{background:#b1111b}
-.gg-home-edition,.gg-home-topline{color:#ed6670}
-.gg-home-copy p{color:#d9c3b4;font-size:clamp(14px,1.6vw,17px);font-weight:650}
-.gg-home-main-action{color:#f5f5f5;background:#b1111b;border:1px solid #ed6670;box-shadow:0 5px 15px rgba(0,0,0,.19);border-radius:21px}
-.gg-home-main-action:hover{background:#262626}
-.gg-home-secondary-action{background:#303030;border:1px solid #595052;color:#f5f5f5;border-radius:19px}
-.gg-home-footnote{border-top-color:#303030;color:#c9a88e}
-@media(max-width:767px){.gg-home{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}.gg-home-hero{min-height:calc(100svh - 80px)}.gg-home-copy{margin:35px 0}.gg-home-main-action{min-height:70px}.gg-home-footnote{font-size:9px}}
-@media(prefers-reduced-motion:reduce){.gg-home-main-action{transition:none}}
-
-/* Red Edition — acessibilidade dos CTAs no marketing. */
-.gg-home-main-action{background:#b1111b;color:#fff;border-color:#b1111b;box-shadow:none}
-.gg-home-main-action:hover{background:#d32f3b;border-color:#d32f3b}
-.gg-home-secondary-action{background:#292929;color:#f5f5f5;border:1px solid #555}
-.gg-home-secondary-action:hover{background:#373737}
-.gg-home-hero{background:#171717;border-bottom:1px solid #444}
