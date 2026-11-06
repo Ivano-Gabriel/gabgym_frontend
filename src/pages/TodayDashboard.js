@@ -6,6 +6,8 @@ import { dayKey, summarizeDay, calorieProgress } from '../utils/nutrition';
 import StreakCalendar from '../components/StreakCalendar';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
 import './TodayDashboard.css';
+import '../styles/premiumExperience.css';
+import './TodayPremium.css';
 
 const n = value => Number(value).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 
@@ -50,16 +52,32 @@ export default function TodayDashboard() {
   const activeGoals = goals.filter(g => g.status === 'ATIVA').slice(0,3);
 
   return (
-    <div className="gg-today">
+    <div className="gg-today gg-today-premium">
       <div className="gg-today-inner">
-        <header className="gg-today-heading">
-          <span className="gg-today-eyebrow"><FiCalendar aria-hidden="true"/> {dateLabel}</span>
-          <h1>SEU DIA<span>.</span></h1>
-          <p>{user?.name ? 'Continue, ' + user.name.split(' ')[0] + '.' : 'O importante é continuar.'}</p>
+        <header className="gg-today-heading gg-today-hero">
+          <img className="gg-today-hero-photo"
+            src="https://images.unsplash.com/photo-1689877020200-403d8542d95d?auto=format&fit=crop&q=80&w=1440"
+            srcSet={[480,720,960,1440,1920,2560].map(w =>
+              `https://images.unsplash.com/photo-1689877020200-403d8542d95d?auto=format&fit=crop&q=80&w=${w} ${w}w`).join(', ')}
+            sizes="(max-width: 720px) 100vw, 1200px"
+            loading="eager" decoding="async"
+            alt="Equipamentos e pesos em uma academia real" />
+          <div className="gg-today-hero-overlay" aria-hidden="true" />
+          <div className="gg-today-hero-body">
+            <span className="gg-today-eyebrow"><FiCalendar aria-hidden="true" /> {dateLabel}</span>
+            <h1>SEU DIA<span>.</span></h1>
+            <p>{user?.name ? 'Continue, ' + user.name.split(' ')[0] + '.' : 'O importante é continuar.'}</p>
+            <Link to="/treino" className="gg-today-hero-action">
+              ABRIR MEU TREINO <FiArrowRight aria-hidden="true" />
+            </Link>
+          </div>
+          <span className="gg-today-hero-watermark" aria-hidden="true">GABGYM / 01</span>
         </header>
         {loading && <div className="gg-today-state" role="status">Sincronizando seus registros…</div>}
         {error && <div className="gg-today-error" role="alert">{error}</div>}
         {!loading && user && <>
+          <div className="gg-today-dashboard-grid">
+            <section className="gg-today-dashboard-main" aria-label="Registros do dia">
           <StreakCalendar userId={user.id} todayLogs={logs}/>
           <div className="gg-today-section-heading"><div><span>01 / HOJE</span><h2>SUA CONSTÂNCIA.</h2></div></div>
           <div className="gg-today-progress-grid">
@@ -80,6 +98,8 @@ export default function TodayDashboard() {
               </> : <small>Sem meta definida · Ajustar hidratação</small>}
             </Link>
           </div>
+            </section>
+            <section className="gg-today-dashboard-aside" aria-label="Metas e ações">
           <div className="gg-today-section-heading">
             <div><span>02 / SEUS OBJETIVOS</span><h2>UM DIA DE CADA VEZ.</h2></div>
             <Link to="/minhas-metas" aria-label="Definir ou ver metas"><FiPlus aria-hidden="true"/> METAS</Link>
@@ -95,6 +115,8 @@ export default function TodayDashboard() {
           <div className="gg-today-shortcuts">
             <Link to="/treino"><FiActivity aria-hidden="true"/> INICIAR TREINO <FiArrowRight aria-hidden="true"/></Link>
             <Link to="/alimentacao"><FiCoffee aria-hidden="true"/> REGISTRAR REFEIÇÃO <FiArrowRight aria-hidden="true"/></Link>
+          </div>
+            </section>
           </div>
         </>}
       </div>

@@ -7,7 +7,7 @@ jest.mock('react-router-dom', () => ({
   Link: ({ to, children, ...props }) => require('react').createElement('a', { href: to, ...props }, children),
 }));
 
-test('identidade GABGYM exibe treino e nutricao sem fotos nem grafismos legados', () => {
+test('identidade Premium mostra fotografia real sem alterar os links de acesso', () => {
   const { container } = render(
     <AuthShell type="login" title="VOLTE MAIS FORTE."
       subtitle="Continue sua evolução." footer={<>Primeiro acesso?</>}>
@@ -15,13 +15,15 @@ test('identidade GABGYM exibe treino e nutricao sem fotos nem grafismos legados'
     </AuthShell>
   );
 
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/seu ritmo\.sua evolução\./i);
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/continue\.mais forte\./i);
   expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('VOLTE MAIS FORTE.');
   expect(screen.getByText('O PROGRESSO É SEU.')).toBeInTheDocument();
   expect(screen.queryByText(/Planeje seus treinos/i)).not.toBeInTheDocument();
   expect(screen.getByRole('link', { name: /criar conta/i })).toHaveAttribute('href', '/signup');
-  expect(container.querySelectorAll('img')).toHaveLength(1);
-  expect(container.querySelector('img')).toHaveAttribute('src', '/gg-mark.svg');
+  expect(container.querySelectorAll('img')).toHaveLength(2);
+  expect(container.querySelector('img.gg-auth-brand-symbol')).toHaveAttribute('src', '/gg-mark.svg');
+  expect(screen.getByRole('img',{name:/atleta treinando com barra/i})).toHaveAttribute('sizes');
+  expect(screen.getByText(/SUSHIL GHIMIRE \/ UNSPLASH/i)).toBeInTheDocument();
   expect(container.querySelector('.gg-auth-visual-circle')).toBeNull();
   expect(screen.getByRole('link',{name:/gabgym, ir para o início/i})).toHaveAttribute('href','/');
 });

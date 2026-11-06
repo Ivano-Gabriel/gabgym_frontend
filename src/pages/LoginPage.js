@@ -44,16 +44,16 @@ export default function LoginPage() {
   return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'BEM-VINDO DE VOLTA.'}
     subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Acesse seu progresso.'}
     footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link></>}>
-    <form className="gg-auth-form" onSubmit={handleSubmit}>
+    <form className="gg-auth-form" onSubmit={handleSubmit} aria-busy={isLoading}>
       <label className="gg-auth-field"><span>Usuário</span>
-        <input value={username} onChange={e => { setUsername(e.target.value); setMfaRequired(false); }}
+        <input name="username" value={username} onChange={e => { setUsername(e.target.value); setMfaRequired(false); }}
           autoComplete="username" placeholder="Seu nome de usuário" required maxLength={40} disabled={isLoading} />
       </label>
       <label className="gg-auth-field"><span>Senha</span>
         <div className="gg-auth-input-wrap">
-          <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
+          <input name="password" type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
             autoComplete="current-password" placeholder="Sua senha" required disabled={isLoading}/>
-          <button className="gg-auth-show-password" type="button" onClick={() => setShowPassword(x => !x)}>
+          <button className="gg-auth-show-password" type="button" aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'} aria-pressed={showPassword} disabled={isLoading} onClick={() => setShowPassword(x => !x)}>
             {showPassword ? 'Ocultar' : 'Mostrar'}
           </button>
         </div>

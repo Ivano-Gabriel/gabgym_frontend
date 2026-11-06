@@ -1,0 +1,191 @@
+/* GabGym Premium Auth — mobile-first photographic access; login + signup.
+   Strong specificity intentionally retires amber/pink rules from LoginPage.css. */
+.gg-auth-screen.gg-auth-premium {
+  --auth-orange:#b1111b;--auth-bg:#0f1011;--auth-panel:#1d1e20;
+  --auth-ink:#f5f5f3;--auth-muted:#c3c5c7;
+  background:#0f1011;color:#f5f5f3;
+}
+.gg-auth-screen.gg-auth-premium .gg-auth-masthead {
+  background:#101112!important;border-bottom:1px solid #38393b;
+  min-height:68px;padding:12px clamp(18px,4vw,64px);
+}
+.gg-auth-premium .gg-auth-brand-symbol {
+  width:38px;height:38px;filter:none;border:1px solid #393b3e;border-radius:9px;
+  background:#161719;object-fit:contain;
+}
+.gg-auth-premium .gg-auth-brand strong {
+  color:#fff;font:700 32px/.9 var(--premium-display);letter-spacing:.012em;
+}
+.gg-auth-premium .gg-auth-brand strong span {color:#c31320;}
+.gg-auth-premium .gg-auth-brand small,.gg-auth-premium .gg-auth-masthead-edition {
+  color:#bcbfc2;font:700 9px var(--premium-label);letter-spacing:.1em;
+}
+.gg-auth-premium .gg-auth-masthead-link {
+  min-height:46px;border:1px solid #5b5d5f;border-radius:9px;
+  background:#252628;color:#fff;font:800 10px var(--premium-label);
+  padding:0 15px;display:inline-flex;align-items:center;gap:17px;
+  transition:background-color .2s,border-color .2s,transform .2s;
+}
+.gg-auth-premium .gg-auth-masthead-link span {color:#fff;}
+.gg-auth-premium .gg-auth-masthead-link:hover {background:#303134;border-color:#a3a5a7;}
+.gg-auth-premium .gg-auth-stage {
+  display:flex;flex-direction:column;min-height:auto;
+}
+.gg-auth-premium .gg-auth-showcase {
+  order:0;position:relative;isolation:isolate;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:228px;padding:24px 22px;
+  background:#171819!important;border:0;border-bottom:1px solid #414245;
+}
+.gg-auth-premium .gg-auth-showcase::before,
+.gg-auth-premium .gg-auth-showcase::after {display:none!important;}
+.gg-auth-premium .gg-auth-backdrop-photo {
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:50% 35%;
+  z-index:-2;filter:saturate(.78) contrast(1.08);
+}
+.gg-auth-premium .gg-auth-photo-overlay {
+  position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background:linear-gradient(90deg,#0b0c0eea 0%,#111215b0 50%,#0a0b0e35 100%);
+}
+.gg-auth-premium .gg-auth-showcase-top {
+  display:flex!important;gap:12px;align-items:center;position:relative;z-index:1;
+  color:#e9e9e9;font:800 9px var(--premium-label);letter-spacing:.08em;
+}
+.gg-auth-premium .gg-auth-index {color:#eee;}
+.gg-auth-premium .gg-auth-top-divider {background:#bb1823;width:28px;height:2px;}
+.gg-auth-premium .gg-auth-discipline {color:#c7c8cc;}
+.gg-auth-premium .gg-auth-showcase-copy {
+  position:relative;z-index:1;padding:20px 0 8px;max-width:680px;
+}
+.gg-auth-premium .gg-auth-overline {margin:0 0 10px;color:#d5d5d5;font:800 9px var(--premium-label);letter-spacing:.11em;}
+.gg-auth-premium .gg-auth-showcase h1 {
+  max-width:660px;margin:0;color:#fff;
+  font:700 clamp(52px,12vw,75px)/.78 var(--premium-display);
+  letter-spacing:-.008em;
+}
+.gg-auth-premium .gg-auth-showcase h1 em {
+  display:inline;color:#c31320;border:0;padding:0;margin:0;font-style:normal;
+}
+.gg-auth-premium .gg-auth-showcase-copy p {display:none;color:#e4e4e4;}
+.gg-auth-premium .gg-auth-performance-strip {display:none;}
+.gg-auth-premium .gg-auth-photo-credit {
+  position:absolute;right:16px;bottom:13px;z-index:1;
+  color:#b6b8ba;font-size:8px;letter-spacing:.07em;
+  text-shadow:0 1px 5px #000;
+}
+.gg-auth-premium .gg-auth-photo-credit a {color:#f1f1f1;}
+.gg-auth-premium .gg-auth-watermark {display:none;}
+.gg-auth-premium .gg-auth-access {
+  order:1;background:#161719!important;
+  padding:28px 20px 42px;justify-content:center;
+}
+.gg-auth-premium .gg-auth-panel {max-width:460px;width:100%;margin:0 auto;}
+.gg-auth-premium .gg-auth-panel::before {display:none;}
+.gg-auth-premium .gg-auth-panel-meta {
+  margin:0 0 24px;padding-bottom:17px;border-bottom:1px solid #444649;
+  color:#bfc1c3;font:800 10px var(--premium-label);letter-spacing:.1em;
+}
+.gg-auth-premium .gg-auth-panel-meta-icon {color:#fff;}
+.gg-auth-premium .gg-auth-context {
+  color:#f5f5f3;margin:0 0 12px;
+  font:800 10px var(--premium-label);letter-spacing:.12em;
+}
+.gg-auth-premium .gg-auth-context-marker {width:18px;height:3px;background:#b1111b;transform:none;}
+.gg-auth-premium .gg-auth-panel h2 {
+  color:#fff;margin:0;font:700 clamp(48px,11vw,73px)/.83 var(--premium-display);
+  letter-spacing:-.008em;
+}
+.gg-auth-premium .gg-auth-description {
+  margin:15px 0 27px;font-size:13px;line-height:1.7;color:#c4c5c9;
+}
+.gg-auth-premium .gg-auth-form {gap:18px;}
+.gg-auth-premium .gg-auth-field {gap:9px;}
+.gg-auth-premium .gg-auth-field>span:first-child {
+  color:#f3f3f3;font:800 11px var(--premium-label);letter-spacing:.03em;
+}
+.gg-auth-premium .gg-auth-field input {
+  width:100%;min-height:56px;padding:15px 16px;
+  border:1px solid #55575a;border-radius:10px;
+  background:#252628;color:#fff;
+  font-size:16px;font-weight:600;
+  transition:border-color .19s,box-shadow .19s,background-color .19s;
+}
+.gg-auth-premium .gg-auth-field input::placeholder {color:#acafb2;font-weight:500;}
+.gg-auth-premium .gg-auth-field input:hover {border-color:#85878a;}
+.gg-auth-premium .gg-auth-field input:focus {
+  border-color:#d0d1d2;background:#2a2b2d;
+  box-shadow:0 0 0 3px #ffffff13;
+  outline:2px solid #fff;outline-offset:2px;
+}
+.gg-auth-premium .gg-auth-field input:disabled {opacity:.55;}
+.gg-auth-premium .gg-auth-input-wrap input {padding-right:105px;}
+.gg-auth-premium .gg-auth-show-password {
+  position:absolute;right:7px;top:7px;bottom:7px;
+  display:grid;place-items:center;min-width:86px;min-height:42px;
+  padding:0 10px;border:1px solid #56585b;border-radius:7px;
+  color:#fff;background:#303134;cursor:pointer;
+  font:800 10px var(--premium-label);
+  transition:background-color .2s,transform .18s,border-color .2s;
+}
+.gg-auth-premium .gg-auth-show-password:hover {background:#454648;border-color:#a2a4a6;}
+.gg-auth-premium .gg-auth-show-password:disabled {opacity:.55;cursor:wait;}
+.gg-auth-premium .gg-auth-submit {
+  margin:5px 0 0;min-height:59px;
+  border:1px solid #b1111b;border-radius:10px;
+  background:#b1111b;color:#fff;
+  padding:0 20px;box-shadow:none;
+  font:800 12px var(--premium-label);letter-spacing:.04em;
+  transition:background-color .2s,transform .18s,border-color .2s;
+}
+.gg-auth-premium .gg-auth-submit:hover:not(:disabled) {
+  background:#951019;border-color:#951019;transform:translateY(-1px);
+}
+.gg-auth-premium .gg-auth-submit:active:not(:disabled) {transform:scale(.985);}
+.gg-auth-premium .gg-auth-submit:disabled {opacity:.6;cursor:progress;}
+.gg-auth-premium .gg-auth-error {border:1px solid #bf555b;border-radius:9px;background:#361a1e;color:#fff;padding:14px 16px;}
+.gg-auth-premium .gg-auth-bottom {margin-top:25px;color:#c5c7c9;font-size:13px;line-height:1.7;}
+.gg-auth-premium .gg-auth-bottom a {color:#fff;font-weight:900;text-decoration:underline;text-decoration-color:#b1111b;text-decoration-thickness:2px;text-underline-offset:4px;}
+.gg-auth-premium .gg-auth-trust {
+  display:flex;margin:25px 0 0;padding-top:18px;
+  border-top:1px solid #424447;color:#bfc1c3;
+  font-size:11px;line-height:1.6;letter-spacing:0;
+}
+.gg-auth-premium .gg-auth-page-footer {
+  min-height:44px;padding:14px clamp(18px,4vw,64px);
+  background:#101112;color:#c2c3c5;border-top:1px solid #3d3e40;
+}
+.gg-auth-premium .gg-auth-page-footer>span:last-child {display:block;}
+@media(min-width:770px){
+  .gg-auth-premium .gg-auth-stage {
+    display:grid;grid-template-columns:minmax(0,1.07fr) minmax(365px,.93fr);
+    min-height:clamp(650px,calc(100dvh - 115px),1000px);
+  }
+  .gg-auth-premium .gg-auth-showcase {
+    min-height:650px;padding:clamp(34px,4.5vw,80px);
+    border-right:1px solid #414346;border-bottom:0;
+  }
+  .gg-auth-premium .gg-auth-showcase-copy {padding:70px 0 60px;}
+  .gg-auth-premium .gg-auth-showcase h1 {font-size:clamp(86px,8vw,152px);}
+  .gg-auth-premium .gg-auth-showcase-copy p {display:block;max-width:360px;margin:28px 0 0;font-size:15px;}
+  .gg-auth-premium .gg-auth-performance-strip {display:flex;border-top:1px solid #b2b2b255;padding-top:17px;}
+  .gg-auth-premium .gg-auth-performance-strip>span {color:#fff;font:800 10px var(--premium-label);}
+  .gg-auth-premium .gg-auth-photo-credit {right:28px;bottom:25px;}
+  .gg-auth-premium .gg-auth-access {padding:clamp(30px,5vw,80px);}
+  .gg-auth-premium .gg-auth-panel-meta {margin-bottom:clamp(34px,5vw,78px);}
+  .gg-auth-premium .gg-auth-panel h2 {font-size:clamp(55px,4.5vw,85px);}
+}
+@media(min-width:770px) and (max-width:1050px){
+  .gg-auth-premium .gg-auth-stage {grid-template-columns:1fr 1fr;}
+  .gg-auth-premium .gg-auth-showcase {padding:34px;}
+  .gg-auth-premium .gg-auth-showcase h1 {font-size:clamp(65px,7.4vw,100px);}
+  .gg-auth-premium .gg-auth-access {padding:32px;}
+}
+@media(max-width:380px){
+  .gg-auth-premium .gg-auth-masthead {padding:10px 15px;}
+  .gg-auth-premium .gg-auth-brand strong {font-size:29px;}
+  .gg-auth-premium .gg-auth-masthead-link {padding:0 11px;font-size:9px;}
+  .gg-auth-premium .gg-auth-showcase {min-height:212px;padding:21px 17px;}
+  .gg-auth-premium .gg-auth-showcase h1 {font-size:54px;}
+  .gg-auth-premium .gg-auth-access {padding:24px 16px 37px;}
+}
