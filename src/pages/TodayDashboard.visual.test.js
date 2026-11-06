@@ -64,3 +64,15 @@ test('atalho secundário não é forçado a ficar vermelho pelas regras comparti
   expect(polish).toMatch(/\.gg-today\s+\.gg-today-shortcuts\s+a:last-child\s*\{[^}]*background:\s*#(?:292929|303030)/i);
   expect(metal).not.toMatch(/\.gg-today-shortcuts\s+a/);
 });
+
+
+test('Hoje premium mantém dados reais, hero fotográfico e acesso ao treino',async()=>{
+  render(<TodayDashboard />);
+  await screen.findByRole('progressbar',{name:'Calorias diárias'});
+  expect(screen.getByRole('img',{name:/equipamentos e pesos/i})).toHaveAttribute('sizes');
+  expect(screen.getByRole('link',{name:/abrir meu treino/i})).toHaveAttribute('href','/treino');
+  expect(screen.getByRole('heading',{name:/seu dia/i})).toBeInTheDocument();
+  expect(screen.getByRole('region',{name:'Registros do dia'})).toBeInTheDocument();
+  expect(screen.getByRole('region',{name:'Metas e ações'})).toBeInTheDocument();
+  expect(screen.getByText((_,el)=>el?.tagName==='STRONG'&&el.textContent?.includes('800 kcal'))).toBeInTheDocument();
+});

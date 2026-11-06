@@ -31,18 +31,18 @@ export default function SignupPage() {
   return <AuthShell type="signup" title="SEU COMEÇO."
     subtitle="Crie sua conta e comece."
     footer={<>Já tem uma conta? <Link to="/login">Entrar</Link></>}>
-    <form className="gg-auth-form" onSubmit={submit}>
+    <form className="gg-auth-form" onSubmit={submit} aria-busy={isLoading}>
       <label className="gg-auth-field"><span>Nome de usuário</span>
-        <input value={username} onChange={e => setUsername(e.target.value)}
+        <input name="username" value={username} onChange={e => setUsername(e.target.value)}
           autoComplete="username" placeholder="Como vamos chamar você?" required
           pattern="[A-Za-z0-9_.\-]{3,40}" maxLength={40} disabled={isLoading}/>
       </label>
       <label className="gg-auth-field"><span>Senha (10 a 72 caracteres)</span>
         <div className="gg-auth-input-wrap">
-          <input type={showPassword ? 'text' : 'password'} value={password}
+          <input name="password" type={showPassword ? 'text' : 'password'} value={password}
             onChange={e => setPassword(e.target.value)} autoComplete="new-password"
             placeholder="Crie uma senha forte" required minLength={10} maxLength={72} disabled={isLoading}/>
-          <button type="button" className="gg-auth-show-password" onClick={() => setShowPassword(x => !x)}>
+          <button type="button" className="gg-auth-show-password" aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'} aria-pressed={showPassword} disabled={isLoading} onClick={() => setShowPassword(x => !x)}>
             {showPassword ? 'Ocultar' : 'Mostrar'}
           </button>
         </div>

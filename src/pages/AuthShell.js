@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
+import '../styles/premiumExperience.css';
+import './AuthPremium.css';
 
-/**
- * GABGYM / Performance Access
- * Composicao editorial proprietaria: grafite, laranja, tipografia condensada,
- * sem fotografia e sem animacoes decorativas. Preserva login, cadastro e MFA.
- */
+/** Premium visual shell shared by Login and Signup. Authentication logic stays separate. */
+const image = width => `https://images.unsplash.com/photo-1546817372-628669db4655?auto=format&fit=crop&q=80&w=${width}`;
+const imageSet = [480,720,960,1440,1920,2560].map(w => `${image(w)} ${w}w`).join(', ');
+
 export default function AuthShell({ type = 'login', title, subtitle, children, footer }) {
   const isSignup = type === 'signup';
   return (
-    <div className="gg-auth-screen">
+    <div className="gg-auth-screen gg-auth-premium">
       <header className="gg-auth-masthead">
         <Link to="/" className="gg-auth-brand" aria-label="GABGYM, ir para o início">
           <img className="gg-auth-brand-symbol" src="/gg-mark.svg" alt="" aria-hidden="true"/>
@@ -27,6 +28,12 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
 
       <div className="gg-auth-stage">
         <section className="gg-auth-showcase" aria-label="Nossa filosofia">
+          <img className="gg-auth-backdrop-photo"
+            src={image(1440)} srcSet={imageSet}
+            sizes="(max-width: 770px) 100vw, 54vw"
+            alt="Atleta treinando com barra na academia"
+            loading="eager" decoding="async" />
+          <div className="gg-auth-photo-overlay" aria-hidden="true" />
           <div className="gg-auth-showcase-top">
             <span className="gg-auth-index">GABGYM / CONTINUE</span>
             <span className="gg-auth-top-divider" aria-hidden="true" />
@@ -35,13 +42,15 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
 
           <div className="gg-auth-showcase-copy">
             <span className="gg-auth-overline">TREINO, ALIMENTAÇÃO, EVOLUÇÃO.</span>
-            <h1>SEU RITMO.<br /><em>SUA EVOLUÇÃO.</em></h1>
+            <h1>CONTINUE.<br /><em>MAIS FORTE.</em></h1>
             <p>Um lugar para continuar.</p>
           </div>
 
           <div className="gg-auth-performance-strip" aria-label="Nossa filosofia"><span>O PROGRESSO É SEU.</span></div>
 
-          <span className="gg-auth-watermark" aria-hidden="true">GG</span>
+          <span className="gg-auth-photo-credit">
+            FOTO: <a href="https://unsplash.com/photos/woman-standing-and-carrying-barbell-eFx1KZhaSvo" target="_blank" rel="noreferrer">SUSHIL GHIMIRE / UNSPLASH</a>
+          </span>
         </section>
 
         <section className="gg-auth-access" aria-label={title}>

@@ -1,0 +1,35 @@
+/* GabGym Premium UI: a restrained visual language for the authenticated app.
+ * No new npm dependency. Typography and touch rules scoped to premium screens. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Teko:wght@500;600;700&display=swap');
+.gg-auth-premium,.gg-today-premium {
+  --premium-black:#0f1011;
+  --premium-surface:#1d1e20;
+  --premium-raised:#28292b;
+  --premium-line:#444649;
+  --premium-ink:#f5f5f3;
+  --premium-muted:#bfc1c4;
+  --premium-red:#b1111b;
+  --premium-red-hover:#951019;
+  --premium-display:'Teko','Arial Narrow',Impact,sans-serif;
+  --premium-label:'Archivo',Arial,sans-serif;
+  color:#f5f5f3;
+  font-family:var(--gg-font-body,'Manrope',Arial,sans-serif);
+  -webkit-font-smoothing:antialiased;
+}
+.gg-auth-premium :is(a,button,input),
+.gg-today-premium :is(a,button) { -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+.gg-auth-premium :is(a,button,input):focus-visible,
+.gg-today-premium :is(a,button):focus-visible {
+  outline:3px solid #fff!important;
+  outline-offset:3px!important;
+}
+.gg-auth-premium :is(a,button):active:not(:disabled),
+.gg-today-premium :is(a,button):active:not(:disabled) {
+  transform:scale(.975);
+}
+@media(prefers-reduced-motion:reduce){
+  .gg-auth-premium *, .gg-auth-premium *::before,.gg-auth-premium *::after,
+  .gg-today-premium *, .gg-today-premium *::before,.gg-today-premium *::after {
+    animation:none!important;transition:none!important;scroll-behavior:auto!important;
+  }
+}

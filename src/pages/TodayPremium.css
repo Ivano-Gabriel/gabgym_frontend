@@ -1,0 +1,175 @@
+/* GabGym Premium Today — real data, no decorative/fake metrics.
+ * Mobile-first dashboard; one photographic hero and readable neutral surfaces. */
+.gg-today.gg-today-premium {
+  background:#0f1011!important;color:#f5f5f3;
+  padding:18px 16px calc(110px + env(safe-area-inset-bottom,0px));
+}
+.gg-today-premium .gg-today-inner {max-width:1216px;margin:0 auto;}
+.gg-today-premium .gg-today-hero {
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:flex-end;
+  min-height:310px;margin:0 0 22px;padding:28px 22px;
+  background:#161719;border:1px solid #434447;border-radius:12px;
+}
+.gg-today-premium .gg-today-hero-photo {
+  position:absolute;inset:0;z-index:-2;display:block;width:100%;height:100%;
+  object-fit:cover;object-position:50% 45%;filter:contrast(1.15) saturate(.70);
+}
+.gg-today-premium .gg-today-hero-overlay {
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,#08090bed 3%,#08090bbb 57%,#08090b35 100%);
+}
+.gg-today-premium .gg-today-hero-body {position:relative;z-index:1;max-width:720px;width:100%;}
+.gg-today-premium .gg-today-eyebrow {
+  display:flex;gap:9px;align-items:center;color:#f5f5f5;
+  font:800 10px var(--premium-label);letter-spacing:.07em;text-transform:uppercase;
+}
+.gg-today-premium .gg-today-eyebrow svg {color:#fff;}
+.gg-today-premium .gg-today-hero h1 {
+  margin:13px 0 4px;color:#fff;
+  font:700 clamp(82px,16vw,128px)/.78 var(--premium-display);
+  letter-spacing:-.012em;
+}
+.gg-today-premium .gg-today-hero h1 span {color:#c31320;}
+.gg-today-premium .gg-today-hero p {
+  margin:16px 0 21px;color:#e4e4e4;font-size:14px;font-weight:600;line-height:1.5;
+}
+.gg-today-premium .gg-today-hero-action {
+  display:inline-flex;align-items:center;justify-content:space-between;
+  gap:20px;min-height:49px;min-width:193px;padding:0 15px;
+  text-decoration:none;border-radius:9px;
+  color:#fff;background:#b1111b;border:1px solid #b1111b;
+  font:800 11px var(--premium-label);
+  transition:background-color .2s,transform .18s,border-color .2s;
+}
+.gg-today-premium .gg-today-hero-action:hover {background:#951019;border-color:#951019;}
+.gg-today-premium .gg-today-hero-watermark {
+  display:none;position:absolute;bottom:23px;right:25px;color:#d2d2d2;
+  font:800 10px var(--premium-label);letter-spacing:.18em;
+}
+.gg-today-premium .gg-today-dashboard-grid {display:grid;grid-template-columns:1fr;gap:21px;align-items:start;}
+.gg-today-premium .gg-today-dashboard-main,.gg-today-premium .gg-today-dashboard-aside {min-width:0;}
+.gg-today-premium .gg27-streak {
+  margin:0 0 23px;background:#202123;border:1px solid #444649;border-radius:11px;box-shadow:none;
+}
+.gg-today-premium .gg27-streak-button {min-height:78px;padding:13px 15px;}
+.gg-today-premium .gg27-flame {background:#37171a;color:#fff;border:1px solid #5e272d;border-radius:8px;}
+.gg-today-premium .gg27-calendar>strong {color:#fff;}
+.gg-today-premium .gg-today-section-heading {margin:10px 0 15px;gap:20px;}
+.gg-today-premium .gg-today-section-heading span {
+  display:inline-block;color:#bfc1c4;
+  font:800 10px var(--premium-label);letter-spacing:.1em;
+}
+.gg-today-premium .gg-today-section-heading h2 {
+  margin:7px 0 0;color:#fff;
+  font:700 clamp(37px,8vw,60px)/.86 var(--premium-display);
+}
+.gg-today-premium .gg-today-section-heading>a {
+  min-height:45px;color:#fff;text-decoration:none;
+  border:1px solid #505256;border-radius:8px;background:#2a2b2d;
+  padding:0 13px;display:inline-flex;align-items:center;gap:8px;
+  font:800 10px var(--premium-label);transition:background-color .2s,border-color .2s;
+}
+.gg-today-premium .gg-today-section-heading>a:hover {background:#353638;border-color:#8d9092;}
+.gg-today-premium .gg-today-progress-grid {
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+.gg-today-premium .gg-today-progress-card {
+  position:relative;display:flex;flex-direction:column;gap:14px;
+  min-height:175px;padding:22px 20px;
+  background:#202123;border:1px solid #45474a;border-radius:11px;
+  color:#f5f5f3;text-decoration:none;
+  transition:background-color .2s,border-color .2s,transform .2s;
+}
+.gg-today-premium .gg-today-progress-card:hover {background:#292a2d;border-color:#86888a;}
+.gg-today-premium .gg-today-progress-card:active {transform:scale(.985);}
+.gg-today-premium .gg-today-card-top {
+  display:flex;gap:10px;align-items:center;color:#ddd;
+  font:800 10px var(--premium-label);letter-spacing:.08em;
+}
+.gg-today-premium .gg-today-card-top>svg:first-child {width:20px;height:20px;color:#f5f5f3;}
+.gg-today-premium .gg-today-card-top>svg:last-child {color:#aaa;}
+.gg-today-premium .gg-today-progress-card>strong {
+  color:#fff;line-height:.85;
+  font:700 clamp(48px,10vw,70px)/.82 var(--premium-display);
+  font-variant-numeric:tabular-nums;
+}
+.gg-today-premium .gg-today-progress-card>strong small {
+  color:#c4c6c8;font:700 12px var(--premium-label);
+}
+.gg-today-premium .gg-today-progress-card>small {color:#c5c6c9;font-size:11px;}
+.gg-today-premium .gg-today-progress-card--food {--gg-today-metric:#d01925;}
+.gg-today-premium .gg-today-progress-card--water {--gg-today-metric:#65b3d5;}
+.gg-today-premium .gg-today-track {
+  height:10px;background:#46484b;border-radius:5px;overflow:hidden;
+}
+.gg-today-premium .gg-today-track span {
+  display:block;height:100%;border-radius:5px;background:var(--gg-today-metric);
+  transition:width .56s cubic-bezier(.22,1,.36,1);
+}
+.gg-today-premium .gg-today-goals {display:grid;gap:9px;}
+.gg-today-premium .gg-today-goal,.gg-today-premium .gg-today-no-goal {
+  min-height:62px;padding:14px 16px;
+  border-radius:9px;border:1px solid #45474a;background:#252628;
+  color:#fff;display:flex;gap:14px;align-items:center;text-decoration:none;
+  transition:background-color .2s,transform .2s,border-color .2s;
+}
+.gg-today-premium .gg-today-goal:hover,.gg-today-premium .gg-today-no-goal:hover {background:#303133;border-color:#858789;}
+.gg-today-premium .gg-today-goal svg,.gg-today-premium .gg-today-no-goal svg {color:#fff;flex:none;}
+.gg-today-premium .gg-today-no-goal>span {display:grid;gap:8px;flex:1;}
+.gg-today-premium .gg-today-no-goal strong {color:#fff;font-size:12px;}
+.gg-today-premium .gg-today-no-goal small {color:#bfc1c4;line-height:1.55;}
+.gg-today-premium .gg27-biblioteca {
+  display:flex;align-items:center;gap:12px;min-height:53px;margin:15px 0;
+  padding:12px 15px;border:1px solid #4a4c4f;border-radius:9px;
+  background:#262729;color:#fff;font:800 11px var(--premium-label);
+  text-decoration:none;transition:background-color .2s,border-color .2s;
+}
+.gg-today-premium .gg27-biblioteca:hover {background:#353639;border-color:#898b8e;}
+.gg-today-premium .gg27-biblioteca svg {color:#fff;}
+.gg-today-premium .gg-today-shortcuts {
+  display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 0;
+}
+.gg-today-premium .gg-today-shortcuts a {
+  display:flex;align-items:center;justify-content:space-between;gap:13px;
+  min-height:58px;padding:13px 17px;
+  border:1px solid #b1111b;border-radius:9px;
+  color:#fff!important;background:#b1111b!important;
+  font:800 11px/1.35 var(--premium-label);
+  transition:background-color .2s,border-color .2s,transform .18s;
+}
+.gg-today-premium .gg-today-shortcuts a:first-child:hover {background:#951019!important;border-color:#951019!important;}
+.gg-today-premium .gg-today-shortcuts a:last-child {
+  color:#fff!important;background:#2a2b2d!important;border:1px solid #595b5e!important;
+}
+.gg-today-premium .gg-today-shortcuts a:last-child:hover {background:#393a3d!important;border-color:#999!important;}
+.gg-today-premium .gg-today-state,.gg-today-premium .gg-today-error {
+  padding:16px;margin:0 0 20px;background:#242527;border:1px solid #57595c;
+  border-radius:9px;color:#fff;
+}
+.gg-today-premium .gg-today-error {background:#32171b;border-color:#ac545b;}
+@media(min-width:540px){
+  .gg-today-premium .gg-today-progress-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .gg-today-premium .gg-today-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(min-width:960px){
+  .gg-today.gg-today-premium {padding:30px clamp(24px,4vw,64px) 80px;}
+  .gg-today-premium .gg-today-hero {
+    min-height:390px;padding:38px 48px;margin-bottom:32px;
+  }
+  .gg-today-premium .gg-today-hero h1 {font-size:clamp(112px,11vw,174px);}
+  .gg-today-premium .gg-today-hero-watermark {display:block;}
+  .gg-today-premium .gg-today-dashboard-grid {
+    grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:28px;
+  }
+  .gg-today-premium .gg-today-dashboard-aside {
+    background:#1b1c1e;border:1px solid #434447;border-radius:12px;
+    padding:25px 26px 28px;
+  }
+  .gg-today-premium .gg-today-progress-card {min-height:205px;}
+}
+@media(max-width:400px){
+  .gg-today.gg-today-premium {padding-inline:12px;}
+  .gg-today-premium .gg-today-hero {padding:25px 18px;min-height:296px;}
+  .gg-today-premium .gg-today-hero h1 {font-size:83px;}
+}
