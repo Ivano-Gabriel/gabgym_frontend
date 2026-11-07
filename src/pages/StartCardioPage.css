@@ -98,12 +98,12 @@
 .gg-startcardio-container { background:#171717; padding:25px 16px calc(100px + env(safe-area-inset-bottom,0px)); }
 .gg-startcardio-card { background:#242424; border-color:#465054; border-radius:15px; padding:26px 18px; }
 .gg-startcardio-title { font:850 clamp(40px,9vw,61px)/1 var(--gg-font-display,Impact,sans-serif); }
-.gg-startcardio-timer { font:900 clamp(49px,12vw,78px)/1 var(--gg-font-display,Impact,sans-serif); color:#ff9299; font-variant-numeric:tabular-nums; }
+.gg-startcardio-timer { font:900 clamp(49px,12vw,78px)/1 var(--gg-font-display,Impact,sans-serif); color:#f5f5f3; font-variant-numeric:tabular-nums; }
 .gg-startcardio-btn-primary { background:#b1111b; color:#f5f5f5; box-shadow:0 5px 15px rgba(0,0,0,.19); }
 .gg-startcardio-btn-secondary { background:#252d30; color:#f5f5f5; border-color:#5e696d; }
-.gg-startcardio-back { color:#ff9299; }
+.gg-startcardio-back { color:#f5f5f3; }
 .gg-startcardio-btn-primary,.gg-startcardio-btn-secondary { min-height:56px; }
-.gg-startcardio-container button:focus-visible { outline:3px solid #ff9299; outline-offset:2px; }
+.gg-startcardio-container button:focus-visible { outline:3px solid #b1111b; outline-offset:2px; }
 
 
 .gg-startcardio-container {min-height:100dvh;padding-bottom:calc(170px + env(safe-area-inset-bottom,0px));}

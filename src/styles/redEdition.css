@@ -2,7 +2,7 @@
    Component-specific styles (Profile, GG hub, navigation) live in their own CSS. */
 :root{
   --gg-red-glow:rgba(177,17,27,.22);
-  --gg-accent-text:#ff9299;
+  --gg-accent-text:#b1111b;
 }
 body,.App{background:#171717;color:#f5f5f5}
 .gg-header{background:#171717!important;border-bottom:1px solid #454545!important}
@@ -56,7 +56,7 @@ body,.App{background:#171717;color:#f5f5f5}
 .gg-auth-showcase{background:#262626!important}
 .gg-auth-brand-symbol{background:rgba(177,17,27,.13)!important}
 :where(.gg-home,.gg-daily,.gg-movement,.gg-today,.gg-auth-screen)
-:is(a,button):focus-visible{outline:3px solid #ffd1d4!important;outline-offset:3px}
+:is(a,button):focus-visible{outline:3px solid #b1111b!important;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){
   .gg-swipe-surface,.gg-hamburger .gg-menu-symbol,.gg-movement-meter>span,
   :where([role="progressbar"] > *, .gg-daily [class*="progress"] > span, .gg-today [class*="progress"] > span){

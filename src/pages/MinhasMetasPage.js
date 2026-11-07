@@ -106,7 +106,8 @@ const MinhasMetasPage = () => {
         <p className="gg-metas-subtitle">Defina, acompanhe e destrua seus objetivos.</p>
       </div>
 
-      <form className="gg-goal-weight" onSubmit={saveWeightGoal}>
+      <form className="gg-goal-weight gg-photo-surface" onSubmit={saveWeightGoal}>
+        <PremiumPhoto scene="goals" decorative />
         <div><span>SEU OBJETIVO / OPCIONAL</span><h2>META DE PESO.</h2>
           <p>Escolha um objetivo possível e acompanhe a evolução por novas pesagens.</p></div>
         <label>Meta de peso (kg)

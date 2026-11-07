@@ -92,9 +92,9 @@
 .gg-select-card-item { min-height:113px; align-items:flex-start; text-align:left; background:#262626; border:1px solid #475155; border-radius:13px; padding:17px; touch-action:manipulation; }
 .gg-select-card-item:hover { border-color:#b1111b; box-shadow:0 5px 15px rgba(0,0,0,.19); }
 .gg-select-name { font:850 clamp(21px,5vw,28px)/1 var(--gg-font-display,Impact,sans-serif); }
-.gg-select-mode { color:#ff9299; font-size:11px; font-weight:850; }
-.gg-select-back { justify-content:flex-start; padding:9px 0; min-height:48px; color:#ff9299; }
-.gg-select-card-item:focus-visible { outline:3px solid #ff9299; outline-offset:2px; }
+.gg-select-mode { color:#f5f5f3; font-size:11px; font-weight:850; }
+.gg-select-back { justify-content:flex-start; padding:9px 0; min-height:48px; color:#f5f5f3; }
+.gg-select-card-item:focus-visible { outline:3px solid #b1111b; outline-offset:2px; }
 @media(max-width:375px) { .gg-select-grid { grid-template-columns:1fr; } }
 @media(prefers-reduced-motion:reduce){ .gg-select-card-item { transition:none; } }
 

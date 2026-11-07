@@ -92,6 +92,7 @@ export default function TodayDashboard() {
               </> : <small>Sem meta definida · Definir na Alimentação</small>}
             </Link>
             <Link to="/alimentacao" className="gg-today-progress-card gg-today-progress-card--water">
+              <PremiumPhoto scene="water" decorative />
               <div className="gg-today-card-top"><FiDroplet aria-hidden="true"/><span>ÁGUA</span><FiArrowRight aria-hidden="true"/></div>
               <strong>{n(totals.water)} <small>ml</small></strong>
               {waterProgress ? <>
@@ -102,6 +103,7 @@ export default function TodayDashboard() {
           </div>
             </section>
             <section className="gg-today-dashboard-aside" aria-label="Metas e ações">
+              <PremiumPhoto scene="goals" decorative />
           <div className="gg-today-section-heading">
             <div><span>02 / SEUS OBJETIVOS</span><h2>UM DIA DE CADA VEZ.</h2></div>
             <Link to="/minhas-metas" aria-label="Definir ou ver metas"><FiPlus aria-hidden="true"/> METAS</Link>

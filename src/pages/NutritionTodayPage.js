@@ -398,7 +398,8 @@ export default function NutritionTodayPage() {
               <div className="gg-daily-heading">
                 <div><span>02 / HIDRATAÇÃO</span><h2 id="gg-water-heading">ÁGUA, TODO DIA.</h2></div>
               </div>
-              <div className="gg-daily-water">
+              <div className="gg-daily-water gg-photo-surface">
+                <PremiumPhoto scene="water" decorative />
                 <div><FiDroplet /><strong>{totals.water.toLocaleString('pt-BR')} ml</strong><span>registrados hoje</span>
                   {hydrationProgress && <div className="gg-daily-water-meter">
                     <div className="gg-daily-water-meter-track" role="progressbar" aria-label="Água em relação à referência" aria-valuenow={Math.min(totals.water, hydrationTarget)} aria-valuemin="0" aria-valuemax={hydrationTarget}>

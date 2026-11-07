@@ -64,20 +64,20 @@
 .gg-mobile-menu-link:hover { background: rgba(255, 255, 255, 0.05); }
 /* Menu secundário GABGYM 2.3, desassociado do verde legado. */
 .gg-mobile-menu { background:#242424; border-left:1px solid #515b5f; color:#f5f5f5; z-index:1230; }
-.gg-mobile-menu-close { width:48px;height:48px;border-radius:11px;color:#ff9299;border:1px solid #595052; }
+.gg-mobile-menu-close { width:48px;height:48px;border-radius:11px;color:#f5f5f3;border:1px solid #595052; }
 .gg-mobile-menu-heading { font:850 31px var(--gg-font-display,Impact,sans-serif); margin:10px 6px 16px; color:#f5f5f5; }
 .gg-mobile-menu-link { min-height:58px;color:#e9ebea;background:#232b2f;border:1px solid #3e494d;font-weight:800;font-size:12px;border-radius:11px; }
-.gg-mobile-menu-link svg { color:#ff9299; }
+.gg-mobile-menu-link svg { color:#f5f5f3; }
 .gg-mobile-menu-link:hover { background:#343033; }
-.gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #ff9299;outline-offset:3px; }
+.gg-mobile-menu :is(a,button):focus-visible { outline:3px solid #b1111b;outline-offset:3px; }
 
 /* 2.7: menu arredondado com transição de entrada e saída */
 .gg-mobile-menu{width:min(340px,88vw);height:100dvh;max-width:88vw;background:#262626;border-left:1px solid #595052;border-radius:25px 0 0 25px;visibility:hidden;pointer-events:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility .25s}
 .gg-mobile-menu.open{visibility:visible;pointer-events:auto}
-.gg-mobile-menu-close{background:#303030;border-radius:16px;border-color:#595052;color:#ff9299}
+.gg-mobile-menu-close{background:#303030;border-radius:16px;border-color:#595052;color:#f5f5f3}
 .gg-mobile-menu-link{border-radius:18px;min-height:62px;background:#262626;border-color:#595052;color:#f5f5f5;transition:background .18s ease,transform .18s ease}
 .gg-mobile-menu-link:hover{background:#303030;transform:translateX(-3px)}
-.gg-mobile-menu-link svg{color:#ff9299}
+.gg-mobile-menu-link svg{color:#f5f5f3}
 @media(prefers-reduced-motion:reduce){.gg-mobile-menu,.gg-mobile-menu-link{transition:none!important}}
 
 /* Hamburger: rolagem fluida e microinterações menos agressivas */
@@ -96,4 +96,4 @@
 .gg-mobile-menu-close{background:#303030;border-color:#575757;color:#fff}
 .gg-mobile-menu-link{background:#303030;color:#f5f5f5;border-color:#4a4a4a;box-shadow:none}
 .gg-mobile-menu-link:hover{background:#38252a;border-color:#b1111b}
-.gg-mobile-menu-link svg{color:#ff9299}
+.gg-mobile-menu-link svg{color:#f5f5f3}

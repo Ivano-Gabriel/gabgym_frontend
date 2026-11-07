@@ -135,4 +135,4 @@
 .gg-rg-plan-overlay { background:#262626; }
 .gg-rg-gender-toggle { background:#20272a; border-color:#495256; }
 .gg-rg-gender-btn.active { background:#b1111b; color:#f5f5f5; }
-.gg-rg-container :is(a,button):focus-visible { outline:3px solid #ff9299; outline-offset:3px; }
+.gg-rg-container :is(a,button):focus-visible { outline:3px solid #b1111b; outline-offset:3px; }
