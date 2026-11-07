@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { getMetas, createMeta, updateMetaStatus, getCurrentUser } from '../services/apiService';
 import { toast } from 'react-toastify';
 import { FiTarget, FiAward, FiXCircle, FiChevronDown, FiPlus, FiX } from 'react-icons/fi';
+import PremiumPhoto from '../components/PremiumPhoto';
 import '../styles/MinhasMetas.css';
 
 const MinhasMetasPage = () => {
@@ -99,7 +100,8 @@ const MinhasMetasPage = () => {
   return (
     <div className="gg-metas-container">
 
-      <div className="gg-metas-top">
+      <div className="gg-metas-top gg-photo-hero">
+        <PremiumPhoto scene="strength" decorative priority />
         <h1 className="gg-metas-title">Minhas Metas</h1>
         <p className="gg-metas-subtitle">Defina, acompanhe e destrua seus objetivos.</p>
       </div>

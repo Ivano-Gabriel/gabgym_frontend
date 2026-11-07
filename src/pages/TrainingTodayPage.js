@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiActivity, FiArrowRight, FiBookOpen, FiClock, FiCompass, FiMapPin, FiTrendingUp, FiZap, FiTarget } from 'react-icons/fi';
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
 import { dayKey, calorieProgress } from '../utils/nutrition';
+import PremiumPhoto from '../components/PremiumPhoto';
 import './TrainingTodayPage.css';
 
 const format = value => Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1});
@@ -100,7 +101,8 @@ export default function TrainingTodayPage(){
   return (
     <main className="gg-movement">
       <div className="gg-movement-inner">
-        <header className="gg-movement-hero">
+        <header className="gg-movement-hero gg-photo-hero">
+          <PremiumPhoto scene="strength" decorative priority />
           <span className="gg-movement-kicker"><FiActivity aria-hidden="true"/> MOVIMENTO / TODOS OS DIAS</span>
           <h1>TREINO <em>+</em> CARDIO<span>.</span></h1>
           <p>Escolha sua atividade. Faça o seu melhor hoje.</p>

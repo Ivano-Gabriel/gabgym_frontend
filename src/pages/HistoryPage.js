@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {FiArrowLeft,FiActivity,FiCalendar,FiChevronDown,FiCoffee,FiDroplet,FiRefreshCw} from 'react-icons/fi';
 import {getCurrentUser,getDiaryLogs} from '../services/apiService';
 import {buildRecentDays,summarizeHistoryDay} from '../utils/historyUtils';
+import PremiumPhoto from '../components/PremiumPhoto';
 import './HistoryPage.css';
 
 const fmt = n => Number(n).toLocaleString('pt-BR',{maximumFractionDigits:1});
@@ -54,7 +55,8 @@ export default function HistoryPage(){
 
   return <main className="gg-history">
     <div className="gg-history-inner">
-      <header className="gg-history-heading">
+      <header className="gg-history-heading gg-photo-hero">
+        <PremiumPhoto scene="gym" decorative priority />
         <Link to="/perfil" className="gg-history-back"><FiArrowLeft aria-hidden="true"/> PERFIL</Link>
         <span className="gg-history-eyebrow"><FiCalendar aria-hidden="true"/> UM DIA DE CADA VEZ</span>
         <h1>HISTÓRICO<span>.</span></h1>

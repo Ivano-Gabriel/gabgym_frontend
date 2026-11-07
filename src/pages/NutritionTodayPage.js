@@ -5,6 +5,7 @@ import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, 
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
+import PremiumPhoto from '../components/PremiumPhoto';
 import './NutritionTodayPage.css';
 
 const todayLabel = () => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
@@ -190,7 +191,8 @@ export default function NutritionTodayPage() {
     <main className="gg-daily">
       <div className="gg-daily-wrap">
         <div className="gg-daily-eyebrow"><span className="gg-daily-dot" /> CONSTÂNCIA / TODOS OS DIAS</div>
-        <header className="gg-daily-title">
+        <header className="gg-daily-title gg-photo-hero">
+          <PremiumPhoto scene="food" decorative priority />
           <div><h1>ALIMENTAÇÃO<span>.</span></h1><p>Continue de onde parou. O que conta é aparecer todos os dias.</p></div>
           <span className="gg-daily-date">{todayLabel()}</span>
         </header>

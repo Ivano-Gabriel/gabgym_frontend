@@ -8,6 +8,7 @@ import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
 import './TodayDashboard.css';
 import '../styles/premiumExperience.css';
 import './TodayPremium.css';
+import PremiumPhoto from '../components/PremiumPhoto';
 
 const n = value => Number(value).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 
@@ -82,6 +83,7 @@ export default function TodayDashboard() {
           <div className="gg-today-section-heading"><div><span>01 / HOJE</span><h2>SUA CONSTÂNCIA.</h2></div></div>
           <div className="gg-today-progress-grid">
             <Link to="/alimentacao" className="gg-today-progress-card gg-today-progress-card--food">
+              <PremiumPhoto scene="food" decorative />
               <div className="gg-today-card-top"><FiCoffee aria-hidden="true"/><span>ALIMENTAÇÃO</span><FiArrowRight aria-hidden="true"/></div>
               <strong>{n(totals.calories)} <small>kcal</small></strong>
               {kcalProgress ? <>

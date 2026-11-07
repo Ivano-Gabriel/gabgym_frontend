@@ -1,0 +1,309 @@
+/* GABGYM PREMIUM / MODULE EDITION
+   2026: responsive editorial photo + strong red + single form language.
+   Loaded after redEdition: no JS dependencies and no changes to existing data calculations. */
+:root { --gg-premium-red:#b1111b; --gg-premium-hit:#951019; --gg-premium-ink:#f6f6f4; --gg-premium-line:#46484b; }
+.gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-metas-container,
+.gg-select-container,.gg-startcardio-container,.cardio-page-container {
+  background:#101112!important;color:#f5f5f3;
+  font-family:'Manrope',Arial,sans-serif;
+}
+.gg-movement-inner,.gg-daily-wrap,.gg-profile-wrap,.gg-history-inner {max-width:1180px;margin-inline:auto;}
+.gg-photo-hero {
+  position:relative!important;isolation:isolate;overflow:hidden;
+  background:#1c1d20;border:1px solid #47484b;border-radius:11px;
+}
+.gg-photo-hero>.gg-premium-photo {
+  display:block;position:absolute;inset:0;width:100%;height:100%;z-index:0;
+  object-fit:cover;object-position:center 42%;filter:contrast(1.11) saturate(.71);
+  pointer-events:none;
+}
+.gg-photo-hero::before {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,9,10,.96) 0%,rgba(10,11,12,.82) 48%,rgba(8,9,10,.26) 100%),
+             linear-gradient(0deg,rgba(5,6,7,.33),transparent 70%);
+}
+.gg-photo-hero>:not(.gg-premium-photo) {position:relative;z-index:2;}
+.gg-photo-hero h1,.gg-photo-hero h2,.gg-metas-title {
+  font-family:'Teko',Impact,'Arial Narrow',sans-serif!important;
+  font-weight:700!important;letter-spacing:-.015em!important;text-transform:uppercase;
+}
+.gg-photo-hero h1 :is(span,em),.gg-photo-hero h2 :is(span,em){color:#c31320!important;}
+.gg-photo-hero p,.gg-photo-hero small {color:#e0e1e2!important;}
+.gg-movement .gg-movement-hero {
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  min-height:280px;padding:30px 23px;margin-bottom:22px;
+  border-bottom:1px solid #4f5153;
+}
+.gg-movement .gg-movement-hero h1 {
+  max-width:660px;font:700 clamp(66px,15vw,120px)/.78 'Teko',Impact,sans-serif;
+  margin:20px 0 16px;overflow-wrap:break-word;
+}
+.gg-movement .gg-movement-hero p {max-width:440px;margin:0;font-size:13px;line-height:1.65;}
+.gg-movement .gg-movement-kicker,.gg-daily .gg-daily-eyebrow,
+.gg-profile .gg-profile-eyebrow,.gg-history .gg-history-eyebrow {
+  color:#f5f5f3;letter-spacing:.1em;font:800 10px 'Archivo',Arial,sans-serif;
+}
+.gg-movement .gg-movement-day,.gg-movement .gg-movement-stats>div,
+.gg-movement .gg-movement-meters,.gg-movement .gg-movement-workout-form,
+.gg-movement .gg-movement-last {
+  background:#202123!important;border:1px solid #484a4c!important;border-radius:11px!important;box-shadow:none!important;
+}
+.gg-movement .gg-movement-section-heading h2,.gg-movement .gg-movement-day-title h2 {
+  color:#fff;font:700 clamp(36px,7.5vw,60px)/.86 'Teko',Impact,sans-serif;
+}
+.gg-movement .gg-movement-stats strong {color:#fff;}
+.gg-movement .gg-movement-day-title a {min-height:44px;color:#fff;display:inline-flex;align-items:center;}
+.gg-movement .gg-movement-primary,.gg-movement .gg-movement-secondary,
+.gg-movement .gg-movement-workout-toggle,.gg-movement .gg-movement-save-workout {
+  min-height:58px;border-radius:9px!important;box-shadow:none!important;
+  border:1px solid #525457;transition:background-color .18s,border-color .18s,transform .18s;
+}
+.gg-movement .gg-movement-primary,.gg-movement .gg-movement-save-workout {
+  background:#b1111b!important;border-color:#b1111b!important;color:#fff!important;
+}
+.gg-movement .gg-movement-primary:hover,.gg-movement .gg-movement-save-workout:hover {background:#951019!important;border-color:#951019!important;}
+.gg-movement .gg-movement-secondary {background:#292a2c!important;color:#fff!important;border-color:#55575a!important;}
+.gg-movement .gg-movement-secondary:hover {background:#353638!important;border-color:#87898b!important;}
+.gg-movement .gg-movement-action-icon {background:#3b1b1e;color:#fff;border-radius:8px;}
+.gg-movement :is(input,select,textarea) {background:#292a2c!important;border:1px solid #56585b!important;border-radius:9px!important;color:#fff!important;min-height:46px;font-size:16px;}
+.gg-movement .gg-movement-meter>span {background:#c31320;}
+/* Food */
+.gg-daily .gg-daily-title {
+  min-height:278px;padding:30px 23px;margin:13px 0 26px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
+}
+.gg-daily .gg-daily-title h1 {
+  margin:0 0 10px;max-width:720px;color:#fff!important;
+  font:700 clamp(59px,12vw,106px)/.81 'Teko',Impact,sans-serif;
+}
+.gg-daily .gg-daily-title h1 span{color:#c31320!important;}
+.gg-daily .gg-daily-title p {max-width:410px;margin:0;font-size:13px;line-height:1.65;}
+.gg-daily .gg-daily-date {display:block;align-self:flex-end;color:#e4e4e4!important;font:800 10px 'Archivo',Arial,sans-serif;letter-spacing:.04em;}
+.gg-daily .gg-consumption,.gg-daily .gg-daily-section,.gg-daily .gg-daily-goal-settings,
+.gg-daily .gg-daily-water,.gg-daily .gg-daily-portion,.gg-daily .gg-daily-manual {
+  background:#202123!important;border:1px solid #484a4d!important;border-radius:11px!important;box-shadow:none!important;
+}
+.gg-daily .gg-consumption {position:relative;overflow:hidden;}
+.gg-daily .gg-consumption-total strong {color:#fff;font:700 clamp(62px,12vw,100px)/.85 'Teko',Impact,sans-serif;}
+.gg-daily .gg-consumption-header h2,.gg-daily .gg-daily-heading h2,.gg-daily .gg-goals-title {
+  color:#fff!important;font:700 clamp(34px,7vw,56px)/.85 'Teko',Impact,sans-serif;
+}
+.gg-daily .gg-consumption-track,.gg-daily .gg-daily-water-meter-track {background:#505255!important;}
+.gg-daily .gg-consumption-fill {background:#c31320!important;}
+.gg-daily .gg-daily-food {background:#292a2c!important;border:1px solid #4a4c4f!important;border-radius:9px!important;}
+.gg-daily .gg-daily-food:hover {background:#343537!important;border-color:#919396!important;}
+.gg-daily .gg-daily-food-photo {border-radius:7px;}
+.gg-daily .gg-daily-search,.gg-daily .gg-daily-portion input,
+.gg-daily .gg-daily-manual input,.gg-daily .gg-daily-goal-editor input {
+  min-height:46px;background:#2b2c2e!important;border:1px solid #595b5e!important;
+  color:#fff!important;border-radius:8px!important;font-size:16px;
+}
+.gg-daily :is(button,.gg-daily-cta,.gg-catalog-trigger,.gg-consumption-config) {
+  min-height:44px;touch-action:manipulation;transition:background-color .18s,border-color .18s,transform .18s;
+}
+.gg-daily .gg-daily-cta,.gg-daily .gg-daily-water-actions button,
+.gg-daily .gg-daily-portion-actions button:last-child {
+  background:#b1111b!important;border-color:#b1111b!important;color:#fff!important;border-radius:9px!important;
+}
+.gg-daily .gg-daily-cta:hover,.gg-daily .gg-daily-water-actions button:hover {background:#951019!important;}
+.gg-daily .gg-catalog-trigger,.gg-daily .gg-consumption-config {border-radius:9px!important;background:#2b2c2e!important;color:#fff!important;border-color:#5b5c5f!important;}
+.gg-daily .gg-daily-heading span,.gg-daily .gg-consumption-header span {color:#cfd1d3!important;}
+/* Profile: photo stays behind the editable user avatar. */
+.gg-profile .gg-profile-heading {
+  min-height:295px;margin:14px 0 25px;padding:32px 22px;
+  display:flex;align-items:center;justify-content:center;gap:19px;
+}
+.gg-profile .gg-profile-heading h1 {
+  color:#fff;font:700 clamp(41px,9vw,78px)/.85 'Teko',Impact,sans-serif;overflow-wrap:anywhere;
+}
+.gg-profile .gg-profile-heading h1 span {color:#c31320!important;}
+.gg-profile .gg-profile-heading .gg-profile-avatar {
+  z-index:3;position:relative;width:96px;height:96px;flex-basis:96px;
+  border:2px solid #b1111b;box-shadow:0 7px 26px #0009;background:#212224;color:#f1f1f1;
+}
+.gg-profile .gg-profile-avatar label {background:#b1111b;}
+.gg-profile .gg-profile-section-name h2 {font:700 clamp(37px,8vw,59px)/.85 'Teko',Impact,sans-serif;}
+.gg-profile .gg27-profile-kicker,.gg-profile .gg-profile-section-name>span,
+.gg-profile .gg-profile-eyebrow {color:#e0e0e0!important;}
+.gg-profile .gg-profile-stat-grid>a,.gg-profile .gg-profile-stat-grid>div,
+.gg-profile .gg-profile-card,.gg-profile .gg27-profile-timing,
+.gg-profile .gg-profile-weight-panel {
+  background:#202123!important;border:1px solid #4c4e51!important;border-radius:10px!important;box-shadow:none!important;
+}
+.gg-profile .gg-profile-stat-grid strong {color:#fff;}
+.gg-profile :is(a,button,label):focus-visible {outline:3px solid #fff!important;outline-offset:3px;}
+.gg-profile a {touch-action:manipulation;}
+/* Cardio selection */
+.gg-select-container {padding:19px 16px calc(110px + env(safe-area-inset-bottom,0px));}
+.gg-select-container .gg-select-card {width:100%;max-width:1100px;}
+.gg-select-container .gg-select-top {
+  min-height:270px;margin:0 0 24px;padding:31px 23px;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;
+}
+.gg-select-container .gg-select-title {color:#fff;font:700 clamp(61px,12vw,100px)/.8 'Teko',Impact,sans-serif;}
+.gg-select-container .gg-select-subtitle {max-width:460px;color:#e4e4e4;font-size:13px;line-height:1.6;}
+.gg-select-container .gg-select-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;}
+.gg-select-container .gg-select-card-item {
+  min-height:120px;padding:22px 18px;
+  background:#222325!important;color:#fff!important;
+  border:1px solid #4d4f51!important;border-radius:10px!important;
+  transition:background-color .2s,border-color .2s,transform .18s;
+}
+.gg-select-container .gg-select-card-item:hover {background:#313235!important;border-color:#86888a!important;box-shadow:none!important;}
+.gg-select-container .gg-select-card-item:active {transform:scale(.985);}
+.gg-select-container .gg-select-name {font:700 clamp(23px,5vw,36px)/.9 'Teko',Impact,sans-serif;}
+.gg-select-container .gg-select-mode {color:#cfd0d2!important;}
+.gg-select-container .gg-select-back {min-height:44px;color:#e0e0e0;}
+/* History & goals */
+.gg-history .gg-history-heading {
+  min-height:270px;padding:25px 22px 31px;margin-bottom:22px;
+  display:flex;align-items:flex-start;justify-content:flex-end;flex-direction:column;
+}
+.gg-history .gg-history-heading h1 {font:700 clamp(72px,15vw,120px)/.78 'Teko',Impact,sans-serif;color:#fff;}
+.gg-history .gg-history-heading h1 span {color:#c31320!important;}
+.gg-history .gg-history-back {min-height:44px;color:#fff;}
+.gg-history .gg-history-week,.gg-history .gg-history-day,.gg-history .gg-history-stats>div {
+  background:#202123!important;border:1px solid #4c4e51!important;border-radius:10px!important;box-shadow:none!important;
+}
+.gg-history .gg-history-section-title h2 {font:700 clamp(35px,7vw,54px)/.86 'Teko',Impact,sans-serif;}
+.gg-history .gg-history-day-toggle {min-height:63px;color:#fff;touch-action:manipulation;}
+.gg-history .gg-history-actions a {min-height:50px;border-radius:9px!important;}
+.gg-metas-container {gap:8px;padding:20px 16px calc(125px + env(safe-area-inset-bottom,0px));}
+.gg-metas-container .gg-metas-top {
+  width:min(100%,1100px);max-width:1100px;min-height:254px;
+  margin:0 0 23px;padding:29px 22px;
+  display:flex;align-items:flex-start;justify-content:flex-end;flex-direction:column;text-align:left;
+}
+.gg-metas-container .gg-metas-title {color:#fff;font:700 clamp(61px,12vw,100px)/.8 'Teko',Impact,sans-serif;}
+.gg-metas-container .gg-metas-subtitle {color:#e0e0e0;font-size:13px;line-height:1.7;}
+.gg-metas-container .gg-goal-weight,.gg-metas-container .gg-meta-card,
+.gg-metas-container .gg-metas-tabs,.gg-metas-container .gg-empty-state {
+  background:#202123!important;border:1px solid #4a4b4f!important;border-radius:10px!important;box-shadow:none!important;
+}
+.gg-metas-container .gg-metas-tab {min-height:46px;border-radius:8px!important;touch-action:manipulation;color:#ddd;}
+.gg-metas-container .gg-metas-tab.active,.gg-metas-container .gg-fab-nova-meta,
+.gg-metas-container .gg-btn-salvar,.gg-metas-container .gg-goal-weight button {
+  background:#b1111b!important;color:#fff!important;border:1px solid #b1111b!important;border-radius:9px!important;
+}
+.gg-metas-container .gg-metas-title,.gg-metas-container .gg-goal-weight h2 {letter-spacing:-.015em;}
+.gg-metas-container .gg-goal-weight input,.gg-metas-container .gg-modal-content input,
+.gg-metas-container .gg-modal-content textarea {
+  min-height:46px;font-size:16px;background:#292a2c!important;color:#fff!important;border:1px solid #595b5d!important;border-radius:8px!important;
+}
+/* Active cardio keeps a quiet surface: timer, map, controls always above aesthetics. */
+.cardio-page-container,.gg-startcardio-container {padding-bottom:calc(110px + env(safe-area-inset-bottom,0px));}
+.cardio-page-container .metrics-panel,.cardio-page-container .map-container,
+.cardio-page-container .controls-panel,.gg-startcardio-container .gg-startcardio-card {
+  background:#202123!important;border:1px solid #4e5053!important;border-radius:11px!important;box-shadow:none!important;
+}
+.cardio-page-container .gg-cardio-activity-name,.gg-startcardio-container .gg-startcardio-title {
+  color:#fff;font:700 clamp(42px,9vw,76px)/.85 'Teko',Impact,sans-serif;
+}
+.cardio-page-container .main-metric #duration,.gg-startcardio-container .gg-startcardio-timer {
+  color:#fff;font:700 clamp(57px,12vw,100px)/.9 'Teko',Impact,sans-serif;
+  font-variant-numeric:tabular-nums;
+}
+.cardio-page-container :is(button,.start-button,.finish-button,.pause-button),
+.gg-startcardio-container :is(button,.gg-startcardio-btn-primary,.gg-startcardio-btn-secondary){
+  min-height:52px;border-radius:9px!important;box-shadow:none!important;transition:transform .17s,background-color .18s;
+}
+.cardio-page-container .start-button,.cardio-page-container .finish-button,
+.gg-startcardio-container .gg-startcardio-btn-primary {background:#b1111b!important;color:#fff!important;}
+.cardio-page-container :is(button,.start-button,.finish-button,.pause-button):active,
+.gg-startcardio-container :is(button,.gg-startcardio-btn-primary,.gg-startcardio-btn-secondary):active {transform:scale(.975);}
+/* Food photograph inside the Today energy panel; readable numbers are never masked. */
+.gg-today-premium .gg-today-progress-card--food {position:relative;isolation:isolate;overflow:hidden;background:#191a1b!important;}
+.gg-today-premium .gg-today-progress-card--food>.gg-premium-photo {
+  position:absolute;inset:0;z-index:0;width:100%;height:100%;
+  object-fit:cover;object-position:50% 40%;pointer-events:none;
+  opacity:.55;filter:contrast(1.2) saturate(.75);
+}
+.gg-today-premium .gg-today-progress-card--food::before {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(95deg,rgba(9,10,11,.96) 0%,rgba(9,10,11,.89) 58%,rgba(10,11,12,.57) 100%);
+}
+.gg-today-premium .gg-today-progress-card--food>:not(.gg-premium-photo) {position:relative;z-index:2;}
+.gg-today-premium .gg-today-progress-card--food .gg-today-track {background:#57595c;}
+.gg-today-premium .gg-today-progress-card--food .gg-today-track>span {background:#d01a26;}
+.gg-today-premium .gg-today-progress-card--food>strong {color:#fff!important;}
+/* Top bar: genuinely compact, while touch targets remain at least 44px. */
+.App .gg-header {
+  gap:10px;padding:8px clamp(12px,2.4vw,30px)!important;
+  background:#101112!important;border-color:#393b3d!important;
+}
+.App .gg-header .gg-logo-container {gap:4px;min-width:0;}
+.App .gg-header .gg-header-monogram {width:36px;height:36px;flex:none;}
+.App .gg-header .gg-logo-text {
+  font:700 29px/.9 'Teko',Impact,sans-serif;letter-spacing:.005em;
+  color:#fff!important;white-space:nowrap;
+}
+.App .gg-header .gg-logo-dropdown-trigger {
+  display:grid;place-items:center;min-width:35px;min-height:44px;
+  margin:0;padding:0;border:0;background:transparent;color:#fff;
+  cursor:pointer;border-radius:7px;
+}
+.App .gg-header .gg-header-cta {
+  min-height:44px;padding:0 13px!important;border-radius:9px!important;
+  font:800 10px 'Archivo',Arial,sans-serif;letter-spacing:0;
+  background:#b1111b!important;border-color:#b1111b!important;color:#fff!important;
+  box-shadow:none!important;
+}
+.App .gg-header .gg-header-cta:hover {background:#951019!important;border-color:#951019!important;}
+.App .gg-header .gg-hamburger {width:44px;height:44px;min-width:44px;min-height:44px;padding:9px;border-radius:9px;}
+.App .gg-header .gg-header-route {padding:6px 8px;border-radius:8px;color:#e5e5e5;background:#242527;border-color:#494b4d;font-size:9px;}
+.gg-auth-premium .gg-auth-masthead {min-height:60px!important;padding:7px clamp(13px,2.4vw,28px)!important;}
+.gg-auth-premium .gg-auth-brand-symbol {width:32px;height:32px;}
+.gg-auth-premium .gg-auth-brand strong {font-size:28px;}
+.gg-auth-premium .gg-auth-masthead-link {min-height:44px;padding:0 11px;font-size:9px;gap:8px;border-radius:8px;}
+.gg-auth-premium .gg-auth-masthead-side {gap:10px;}
+/* Generic response: focus, active feedback, tap sizing, readable disabled. */
+:is(.gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-metas-container,.gg-select-container,
+.cardio-page-container,.gg-startcardio-container) :is(a,button,input,textarea,select):focus-visible {
+  outline:3px solid #fff!important;outline-offset:3px!important;
+}
+:is(.gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-metas-container,.gg-select-container,
+.cardio-page-container,.gg-startcardio-container) :is(a,button):active:not(:disabled) {transform:scale(.985);}
+:is(.gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-metas-container,.gg-select-container,
+.cardio-page-container,.gg-startcardio-container) button:disabled {opacity:.6;cursor:progress;}
+@media(min-width:780px){
+  .gg-movement .gg-movement-hero,.gg-daily .gg-daily-title,.gg-profile .gg-profile-heading,
+  .gg-history .gg-history-heading,.gg-select-container .gg-select-top,.gg-metas-container .gg-metas-top {
+    min-height:360px;padding:44px 48px;
+  }
+  .gg-profile .gg-profile-heading {flex-direction:row;gap:32px;text-align:left;}
+  .gg-profile .gg-profile-heading .gg-profile-avatar {width:118px;height:118px;flex-basis:118px;}
+  .gg-daily .gg-daily-date {white-space:nowrap;}
+  .gg-select-container .gg-select-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media(max-width:600px){
+  .gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-select-container {padding-inline:14px!important;}
+  .gg-movement .gg-movement-hero,.gg-daily .gg-daily-title,.gg-profile .gg-profile-heading,
+  .gg-history .gg-history-heading,.gg-select-container .gg-select-top,.gg-metas-container .gg-metas-top{
+    min-height:245px;padding:25px 18px;margin-bottom:19px;
+  }
+  .gg-daily .gg-daily-title{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;}
+  .gg-daily .gg-daily-date{font-size:9px;}
+  .gg-profile .gg-profile-heading{gap:12px;}
+  .gg-profile .gg-profile-heading .gg-profile-avatar{width:82px;height:82px;flex-basis:82px;}
+  .gg-metas-container .gg-metas-top {width:100%;}
+  .App .gg-header .gg-logo-text{font-size:24px;}
+  .App .gg-header .gg-header-monogram{width:31px;height:31px;}
+  .App .gg-header .gg-header-route{display:none;}
+  .App .gg-header .gg-header-cta{min-height:44px;padding-inline:10px!important;font-size:9px;}
+  .App .gg-header .gg-header-right{gap:7px;}
+}
+@media(max-width:375px){
+  .App .gg-header .gg-logo-text{font-size:22px;}
+  .App .gg-header .gg-header-monogram{width:29px;height:29px;}
+  .App .gg-header .gg-logo-dropdown-trigger {min-width:28px;}
+  .App .gg-header .gg-header-cta{padding:0 8px!important;}
+  .gg-movement .gg-movement-hero h1{font-size:62px;}
+  .gg-daily .gg-daily-title h1{font-size:56px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .gg-photo-hero *, .gg-photo-hero *::before,
+  :is(.gg-movement,.gg-daily,.gg-profile,.gg-history,.gg-metas-container,.gg-select-container,
+  .cardio-page-container,.gg-startcardio-container) :is(a,button,input) {
+    animation:none!important;transition:none!important;transform:none!important;
+  }
+}
