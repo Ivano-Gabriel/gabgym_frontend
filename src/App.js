@@ -17,6 +17,7 @@ import MuscleGroupPage from './pages/MuscleGroupPage';
 import DietPage from './pages/DietPage';
 import NutritionTodayPage from './pages/NutritionTodayPage';
 import DailyNavigation from './components/DailyNavigation';
+import DesktopRail from './components/DesktopRail';
 import CardioPage from './pages/CardioPage';
 import CuriositiesPage from './pages/CuriositiesPage';
 import StartCardioPage from './pages/StartCardioPage';
@@ -53,6 +54,7 @@ import './styles/metalFinish.css';
 import './styles/interactionPolish.css';
 import './styles/redEdition.css';
 import './styles/premiumModules.css';
+import './styles/premiumRefinements.css';
 
 
 function RequireAuth({ children, admin = false }) {
@@ -165,6 +167,8 @@ function AppContent() {
         </div>
       </header>}
       
+      {isLoggedIn() && !isAuthPage && <DesktopRail />}
+
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="top-right" className="gg-toast-container" newestOnTop limit={3} autoClose={3200} hideProgressBar={false} theme="dark" closeOnClick={false} draggable={false}/>
 

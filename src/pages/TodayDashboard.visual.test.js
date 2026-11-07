@@ -76,3 +76,14 @@ test('Hoje premium mantém dados reais, hero fotográfico e acesso ao treino',as
   expect(screen.getByRole('region',{name:'Metas e ações'})).toBeInTheDocument();
   expect(screen.getByText((_,el)=>el?.tagName==='STRONG'&&el.textContent?.includes('800 kcal'))).toBeInTheDocument();
 });
+
+test('card de água e painel de metas têm fotos decorativas com dados intactos',async()=>{
+  render(<TodayDashboard/>);
+  const water=await screen.findByRole('progressbar',{name:'Água diária'});
+  expect(water).toHaveAttribute('aria-valuenow','1000');
+  const card=water.closest('.gg-today-progress-card--water');
+  expect(card.querySelector('img.gg-premium-photo')).toHaveAttribute('alt','');
+  const metas=screen.getByRole('region',{name:'Metas e ações'});
+  expect(metas.querySelector('img.gg-premium-photo')).toHaveAttribute('loading','lazy');
+  expect(screen.getByRole('link',{name:/sem metas/i})).toHaveAttribute('href','/minhas-metas');
+});

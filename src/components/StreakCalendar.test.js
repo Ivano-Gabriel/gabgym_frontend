@@ -18,3 +18,18 @@ test('falha na API é desconhecida, não ausência',async()=>{
  fireEvent.click(screen.getByRole('button',{name:/constância/i}));
  await waitFor(()=>expect(document.querySelectorAll('.gg27-calendar-day.unknown')).toHaveLength(7));
 });
+
+test('foguinho premium pulsa ao expandir e recolhe no segundo toque',async()=>{
+  getDiaryLogs.mockResolvedValue({data:[]});
+  render(<StreakCalendar userId={17} todayLogs={[]}/>);
+  const button=screen.getByRole('button',{name:/constância/i});
+  const section=document.querySelector('.gg27-streak');
+  expect(section).not.toHaveClass('is-expanded');
+  expect(section.querySelector('.gg27-flame-icon')).toBeInTheDocument();
+  fireEvent.click(button);
+  expect(section).toHaveClass('is-expanded');
+  expect(button).toHaveAttribute('aria-expanded','true');
+  fireEvent.click(button);
+  expect(section).not.toHaveClass('is-expanded');
+  expect(button).toHaveAttribute('aria-expanded','false');
+});

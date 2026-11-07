@@ -2,15 +2,15 @@
 .gg-records{background:#171717;color:#f5f5f5;min-height:100dvh;padding:20px 15px calc(108px + env(safe-area-inset-bottom,0px));font-family:var(--gg-font-body,Manrope,Arial,sans-serif);text-align:left}
 .gg-records *{box-sizing:border-box}
 .gg-records-inner{max-width:920px;margin:0 auto}
-.gg-records-back{min-height:45px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#ff9299;font-size:11px;font-weight:900}
+.gg-records-back{min-height:45px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#f5f5f3;font-size:11px;font-weight:900}
 .gg-records-heading{border-bottom:1px solid #41494d;padding:0 0 22px}
-.gg-records-eyebrow{display:flex;align-items:center;gap:8px;margin-top:17px;font-size:10px;font-weight:900;letter-spacing:.12em;color:#ff9299}
+.gg-records-eyebrow{display:flex;align-items:center;gap:8px;margin-top:17px;font-size:10px;font-weight:900;letter-spacing:.12em;color:#f5f5f3}
 .gg-records-heading h1{font:900 clamp(52px,10vw,88px)/.9 var(--gg-font-display,Impact,sans-serif);margin:18px 0 12px}
-.gg-records-heading h1 span{color:#ff9299}
+.gg-records-heading h1 span{color:#f5f5f3}
 .gg-records-heading p{font-size:12px;line-height:1.65;color:#c4cdcf;margin:0}
 .gg-records-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:22px 0 21px}
 .gg-records-summary>div{background:#1f272a;border:1px solid #455154;border-radius:12px;padding:15px 13px;display:grid;gap:8px;min-width:0}
-.gg-records-summary svg{color:#ff9299;font-size:21px}
+.gg-records-summary svg{color:#f5f5f3;font-size:21px}
 .gg-records-summary span{font-size:10px;font-weight:850;letter-spacing:.03em;color:#b7c2c4}
 .gg-records-summary strong{font:900 clamp(26px,5vw,39px)/1 var(--gg-font-display,Impact,sans-serif);font-variant-numeric:tabular-nums}
 .gg-records-summary small{font:800 10px var(--gg-font-body,Arial,sans-serif);color:#c7d1d2}
@@ -20,7 +20,7 @@
 .gg-records-list{list-style:none;display:grid;gap:10px;margin:0;padding:0}
 .gg-records-row{border:1px solid #455054;border-radius:12px;background:#1e2629;overflow:hidden}
 .gg-records-entry{display:flex;align-items:center;gap:12px;min-height:76px;padding:12px}
-.gg-records-icon{display:grid;place-items:center;flex:0 0 45px;height:45px;background:#302924;border:1px solid #595052;color:#ff9299;border-radius:10px;font-size:21px}
+.gg-records-icon{display:grid;place-items:center;flex:0 0 45px;height:45px;background:#302924;border:1px solid #595052;color:#f5f5f3;border-radius:10px;font-size:21px}
 .gg-records-icon.water{background:#223238;color:#AFC4CE;border-color:#455e68}
 .gg-records-copy{display:grid;gap:7px;flex:1;min-width:0}
 .gg-records-copy strong{font-size:13px;font-weight:850;overflow-wrap:anywhere}
@@ -35,7 +35,7 @@
 .gg-records-error,.gg-records-message,.gg-records-loading{padding:15px;margin:17px 0;background:#292d2f;border:1px solid #616669;border-radius:11px;color:#f5f5f5;font-size:12px;line-height:1.55}
 .gg-records-error{background:#303030;border-color:#b0796b;color:#f5f5f5}
 .gg-records-error button{min-height:45px;display:flex;align-items:center;gap:7px;margin-top:10px;padding:0 11px;background:#302626;color:#f5f5f5;border:1px solid #595052;border-radius:8px;cursor:pointer;font-weight:850}
-.gg-records-message{border-color:#ff9299;color:#f5f5f5;background:#303030}
+.gg-records-message{border-color:#b1111b;color:#f5f5f5;background:#303030}
 .gg-records-empty{border:1px dashed #5b676b;border-radius:12px;padding:25px 17px;background:#262626;display:grid;gap:9px}
 .gg-records-empty strong{font:850 26px var(--gg-font-display,Impact,sans-serif)}
 .gg-records-empty p{font-size:12px;color:#bec8ca}
@@ -43,7 +43,7 @@
 .gg-records-bottom{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:25px}
 .gg-records-bottom a{display:flex;align-items:center;justify-content:center;text-align:center;gap:9px;min-height:55px;padding:10px;text-decoration:none;font-size:10px;font-weight:900;border-radius:9px;color:#f5f5f5;border:1px solid #595052;background:#282526}
 .gg-records-bottom a:last-child{background:#b1111b;color:#f5f5f5;border-color:#b1111b}
-.gg-records :is(a,button):focus-visible{outline:3px solid #ff9299;outline-offset:3px}
+.gg-records :is(a,button):focus-visible{outline:3px solid #b1111b;outline-offset:3px}
 @media(max-width:500px){.gg-records-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.gg-records-summary>div:first-child{grid-column:1/-1}.gg-records-bottom{grid-template-columns:1fr}}
 
 /* 2.7.2 — registros acessíveis e tom âmbar moderado */
@@ -54,8 +54,8 @@
 .gg-records-filters button{border-radius:17px;background:#303030;color:#f5f5f5;border-color:#595052}
 .gg-records-filters button[aria-pressed=true]{background:#b1111b;color:#ffffff;border-color:#b1111b}
 .gg-records-row{border-radius:18px;background:#312b2b;border-color:#595052}
-.gg-records-icon{border-radius:15px;background:#303030;color:#ff9299}
-.gg-records-delete{border-radius:15px;background:#303030;color:#ff9299;border-color:#595052}
+.gg-records-icon{border-radius:15px;background:#303030;color:#f5f5f3}
+.gg-records-delete{border-radius:15px;background:#303030;color:#f5f5f3;border-color:#595052}
 .gg-records-empty{border-radius:20px;background:#303030;border-color:#595052}
 .gg-records-empty a{background:#b1111b;color:#ffffff;border-radius:16px}
 .gg-records-bottom a{border-radius:17px;background:#303030}

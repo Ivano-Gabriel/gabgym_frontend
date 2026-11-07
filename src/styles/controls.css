@@ -6,7 +6,7 @@
 }
 :where(button, [role="button"], input[type="submit"], input[type="button"]):not(:disabled):active { transform: scale(.98); }
 :where(button, [role="button"], a, input, select, textarea):focus-visible {
-  outline: 3px solid #f2b7bb;
+  outline: 3px solid #b1111b;
   outline-offset: 3px;
 }
 :where(button, [role="button"], input[type="submit"], input[type="button"]):disabled {

@@ -185,7 +185,7 @@
 .gg-auth-show-password {
   position: absolute; right: 9px; top: 7px; bottom: 7px;
   padding: 0 12px; border: 0; background: transparent;
-  color: #ed6670; font-size: 11px; font-weight: 800; cursor: pointer;
+  color: #f5f5f3; font-size: 11px; font-weight: 800; cursor: pointer;
   text-transform: uppercase; letter-spacing: .06em;
 }
 .gg-auth-show-password:hover { color: #fff; }
@@ -199,7 +199,7 @@
   transition: background .16s ease, transform .16s ease;
 }
 .gg-auth-submit > span:last-child { font-size: 24px; line-height: 1; }
-.gg-auth-submit:hover:not(:disabled) { background: #ed6670; transform: translateY(-1px); }
+.gg-auth-submit:hover:not(:disabled) { background: #b1111b; transform: translateY(-1px); }
 .gg-auth-submit:active:not(:disabled) { transform: translateY(0); }
 .gg-auth-submit:disabled { opacity: .62; cursor: progress; }
 .gg-auth-error {
@@ -208,7 +208,7 @@
   font-size: 12px; line-height: 1.55;
 }
 .gg-auth-bottom { margin-top: 28px; font-size: 13px; color: var(--auth-muted); }
-.gg-auth-bottom a { color: #ed6670; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+.gg-auth-bottom a { color: #f5f5f3; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
 .gg-auth-bottom a:hover { color: #fff; }
 .gg-auth-trust {
   margin: 42px 0 0; padding-top: 20px; border-top: 1px solid var(--gg-line);
@@ -289,29 +289,29 @@
 /* 2.7.2 — autenticação minimalista, âmbar discreto, formulário prioritário */
 .gg-auth-screen{--auth-bg:#1c1b1d;--auth-panel:#303030;--auth-ink:#f5f5f5;--auth-muted:#dbc4b3;--auth-orange:#b1111b;background:#1c1b1d}
 .gg-auth-masthead{min-height:66px;background:#211e1e;border-bottom:1px solid #303030;padding:10px clamp(18px,4vw,52px)}
-.gg-auth-brand{gap:10px}.gg-auth-brand strong span{color:#ff9299}.gg-auth-brand small{color:#c9aa91}
+.gg-auth-brand{gap:10px}.gg-auth-brand strong span{color:#f5f5f3}.gg-auth-brand small{color:#c9aa91}
 .gg-auth-brand-symbol{width:36px;height:36px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.15))}
 .gg-auth-masthead-link{border-radius:15px;border:1px solid #595052;color:#f5f5f5;padding:12px 15px}
-.gg-auth-masthead-link span,.gg-auth-masthead-link:hover{color:#ed6670}
+.gg-auth-masthead-link span,.gg-auth-masthead-link:hover{color:#f5f5f3}
 .gg-auth-stage{min-height:calc(100dvh - 120px);grid-template-columns:minmax(0,1fr) minmax(360px,.9fr)}
 .gg-auth-showcase{background:#262626;border-right:1px solid #303030}
 .gg-auth-showcase:before{background:#b1111b;height:3px;width:75px}
 .gg-auth-showcase:after{display:none}
-.gg-auth-index,.gg-auth-overline{color:#ed6670}
+.gg-auth-index,.gg-auth-overline{color:#f5f5f3}
 .gg-auth-showcase-top{color:#cfb6a1}
 .gg-auth-showcase-copy{padding:40px 0 24px}
 .gg-auth-showcase h1{font-size:clamp(57px,6.3vw,116px);line-height:.93;letter-spacing:-.018em}
-.gg-auth-showcase h1 em{margin-top:10px;color:#ed6670;border:0;padding:0}
+.gg-auth-showcase h1 em{margin-top:10px;color:#f5f5f3;border:0;padding:0}
 .gg-auth-showcase-copy p{margin:20px 0 0;font-size:15px;color:#d7bdab;line-height:1.5}
 .gg-auth-performance-strip{border-top-color:#595052}
-.gg-auth-performance-strip>span{font-size:10px;color:#ed6670}
+.gg-auth-performance-strip>span{font-size:10px;color:#f5f5f3}
 .gg-auth-watermark{font-size:clamp(230px,29vw,530px);color:rgba(177,17,27,0.035)}
 .gg-auth-access{background:#262626;padding:clamp(20px,4vw,55px)}
 .gg-auth-panel{max-width:440px}
 .gg-auth-panel:before{display:none}
 .gg-auth-panel-meta{margin-bottom:26px;padding-bottom:13px;border-bottom-color:#595052}
-.gg-auth-panel-meta-icon{color:#ff9299}
-.gg-auth-context{color:#ed6670;margin-bottom:11px;font-size:10px}
+.gg-auth-panel-meta-icon{color:#f5f5f3}
+.gg-auth-context{color:#f5f5f3;margin-bottom:11px;font-size:10px}
 .gg-auth-context-marker{background:#b1111b}
 .gg-auth-panel h2{font-size:clamp(41px,4vw,65px);line-height:.96}
 .gg-auth-description{margin:13px 0 24px;color:#d7bcaa;font-size:13px;line-height:1.45}
@@ -320,11 +320,11 @@
 .gg-auth-field input:hover{border-color:#b1111b}
 .gg-auth-field input:focus{border-color:#b1111b;background:#211e1f;outline-color:#b1111b}
 .gg-auth-field>span:first-child{color:#f5f5f5}
-.gg-auth-show-password{color:#ed6670}
+.gg-auth-show-password{color:#f5f5f3}
 .gg-auth-submit{min-height:62px;margin-top:6px;border-radius:18px;color:#251910;background:#b1111b;border:1px solid #b1111b;box-shadow:inset 0 1px 0 #ffffff7a,0 7px 19px #b1111b38}
 .gg-auth-submit:hover:not(:disabled){background:#262626}
 .gg-auth-bottom{margin-top:21px;color:#d2b9a4}
-.gg-auth-bottom a{color:#ed6670}
+.gg-auth-bottom a{color:#f5f5f3}
 .gg-auth-trust{margin:22px 0 0;padding-top:14px;color:#cbb5a3;letter-spacing:0;font-size:11px}
 .gg-auth-page-footer{min-height:42px;border-top-color:#303030;background:#211e1e;color:#bca28f}
 .gg-auth-error{border-radius:13px}

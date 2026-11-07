@@ -1,0 +1,170 @@
+/* GabGym Premium Refinements / Palette, mobile rhythm, photographic surfaces.
+   This layer is imported after the module edition; keep user data and actions intact. */
+:root { --gg-accent:#b1111b;--gg-accent-hover:#951019;--gg-warning:#d3a64f;--gg-danger:#b1111b; }
+/* Photos use the same left-to-right dark fade as the nutrition card. */
+.gg-photo-surface {position:relative!important;isolation:isolate;overflow:hidden;}
+.gg-photo-surface>.gg-premium-photo,
+.gg-today-premium .gg-today-progress-card--water>.gg-premium-photo,
+.gg-today-premium .gg-today-dashboard-aside>.gg-premium-photo {
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  z-index:0;pointer-events:none;filter:contrast(1.14) saturate(.72);
+  opacity:.64;
+}
+.gg-photo-surface::before,
+.gg-today-premium .gg-today-progress-card--water::before,
+.gg-today-premium .gg-today-dashboard-aside::before {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(95deg,rgba(9,10,11,.97) 0%,rgba(9,10,11,.89) 55%,rgba(9,10,11,.59) 100%);
+}
+.gg-photo-surface>:not(.gg-premium-photo),
+.gg-today-premium .gg-today-progress-card--water>:not(.gg-premium-photo),
+.gg-today-premium .gg-today-dashboard-aside>:not(.gg-premium-photo) {
+  position:relative;z-index:2;
+}
+.gg-photo-surface strong,.gg-photo-surface h2,.gg-photo-surface span,.gg-photo-surface p,
+.gg-today-premium .gg-today-progress-card--water strong {
+  color:#f5f5f3;
+}
+.gg-photo-surface button,.gg-photo-surface input,.gg-photo-surface textarea {
+  position:relative;z-index:3;
+}
+/* Hydration remains identifiable: blue progress, white labels and photo. */
+.gg-today-premium .gg-today-progress-card--water {
+  position:relative;isolation:isolate;overflow:hidden;background:#1a1b1d!important;
+}
+.gg-today-premium .gg-today-progress-card--water .gg-today-track {background:#4d5054!important;}
+.gg-today-premium .gg-today-progress-card--water .gg-today-track span {background:#65b3d5!important;}
+.gg-today-premium .gg-today-progress-card--water .gg-today-card-top {color:#f5f5f3;}
+.gg-today-premium .gg-today-dashboard-aside {
+  position:relative;isolation:isolate;overflow:hidden;
+  background:#1b1c1e!important;border:1px solid #484a4c;
+  border-radius:12px;padding:20px 16px 23px;
+}
+.gg-today-premium .gg-today-dashboard-aside>.gg-premium-photo {object-position:center 30%;opacity:.38;}
+.gg-today-premium .gg-today-dashboard-aside .gg-today-goal,
+.gg-today-premium .gg-today-dashboard-aside .gg-today-no-goal,
+.gg-today-premium .gg-today-dashboard-aside .gg27-biblioteca {
+  background:#222326eb!important;backdrop-filter:blur(2px);
+  border-color:#5b5d60!important;color:#fff!important;
+}
+.gg-today-premium .gg-today-dashboard-aside .gg-today-section-heading h2 {color:#fff;}
+.gg-today-premium .gg-today-dashboard-aside .gg-today-goal svg,
+.gg-today-premium .gg-today-dashboard-aside .gg-today-no-goal svg {color:#fff;}
+/* Hydration section of /alimentacao — photo stays under counters and buttons. */
+.gg-daily .gg-daily-water.gg-photo-surface {
+  position:relative;min-height:190px;background:#1a1b1d!important;
+  border:1px solid #4e5154!important;border-radius:11px!important;
+}
+.gg-daily .gg-daily-water>.gg-premium-photo {object-position:55% 48%;opacity:.7;}
+.gg-daily .gg-daily-water>div:first-of-type {
+  display:grid;grid-template-columns:auto auto;gap:4px 10px;align-items:center;
+}
+.gg-daily .gg-daily-water strong {color:#fff;}
+.gg-daily .gg-daily-water span,.gg-daily .gg-daily-water small {color:#e0e1e3;}
+.gg-daily .gg-daily-water svg {color:#a7d0e4;}
+.gg-daily .gg-daily-water-meter-track {background:#505257!important;}
+.gg-daily .gg-daily-water-meter-track>div {background:#65b3d5!important;}
+.gg-daily .gg-daily-water-actions button {
+  background:#b1111b!important;color:#fff!important;border:1px solid #b1111b!important;
+}
+/* Profile target (real values) and Goals target (editable) get photographic depth. */
+.gg-profile .gg-profile-weight-progress.gg-photo-surface,
+.gg-metas-container .gg-goal-weight.gg-photo-surface {
+  background:#1c1d1f!important;border:1px solid #4b4d50!important;
+  border-radius:12px!important;
+}
+.gg-profile .gg-profile-weight-progress>.gg-premium-photo,
+.gg-metas-container .gg-goal-weight>.gg-premium-photo {opacity:.42;object-position:center 36%;}
+.gg-profile .gg-profile-weight-progress header,
+.gg-profile .gg-profile-weight-progress .gg27-weight-link,
+.gg-profile .gg-profile-weight-progress>p,
+.gg-profile .gg-profile-weight-progress>small,
+.gg-metas-container .gg-goal-weight>div,
+.gg-metas-container .gg-goal-weight>label {position:relative;z-index:2;}
+.gg-profile .gg-profile-weight-progress :is(p,small) {color:#dedfe1!important;}
+.gg-profile .gg-profile-weight-progress header>span {color:#f5f5f3!important;}
+.gg-profile .gg-profile-weight-progress .gg27-weight-link {color:#fff!important;}
+.gg-metas-container .gg-goal-weight :is(label,small,p) {color:#e1e1e3;}
+/* Editorial headings: intentional mobile sizes, not oversized display banners. */
+.gg-today-premium .gg-today-hero h1 {font-size:clamp(68px,9vw,137px)!important;line-height:.84!important;max-width:100%;white-space:normal;overflow-wrap:break-word;}
+.gg-today-premium .gg-today-hero-body {min-width:0;}
+.gg-daily .gg-daily-heading h2 {letter-spacing:-.008em;}
+.gg-daily .gg-daily-water-actions {align-items:stretch;}
+.gg-daily .gg-daily-water-actions button {min-width:0;min-height:49px;}
+.gg-daily .gg-catalog-trigger-text strong {line-height:1!important;}
+.gg-daily .gg-catalog-trigger {align-items:center;}
+.gg-daily .gg-catalog-trigger-text {min-width:0;}
+.gg-daily .gg-catalog-trigger-text small {color:#d8d9db!important;}
+/* Decorative text colors: no pastel pink accents on headings or action icons. */
+.gg-hub-trigger,.gg-hub-sheet-head h2 span,.gg-hub-sheet-head>div>span,
+.gg-hub-link>svg:first-child,.gg-hub-link>svg:last-child {color:#f5f5f3!important;}
+.gg-profile .gg-profile-heading h1 span,.gg-daily .gg-daily-title h1 span,
+.gg-movement .gg-movement-hero h1 em,.gg-today-premium .gg-today-hero h1 span {
+  color:#c31320!important;
+}
+.gg-today-premium .gg-today-section-heading>div>span,
+.gg-profile .gg-profile-section-name>span,
+.gg-movement .gg-movement-kicker {color:#f5f5f3!important;}
+/* No incidental shifts; press has clear feedback, keyboard keeps visible focus. */
+.gg-daily :is(a,button),.gg-profile :is(a,button),.gg-today-premium :is(a,button) {touch-action:manipulation;}
+.gg-daily :is(a,button):focus-visible,.gg-profile :is(a,button):focus-visible,
+.gg-today-premium :is(a,button):focus-visible {outline:3px solid #f5f5f3!important;outline-offset:3px!important;}
+@media(min-width:1024px){
+  .gg-today-premium .gg-today-hero {min-height:365px!important;}
+  .gg-today-premium .gg-today-hero h1 {font-size:clamp(90px,8vw,139px)!important;}
+  .gg-today-premium .gg-today-dashboard-aside {padding:25px 26px 28px;}
+}
+/* 320–600 px: one surface per section, concise labels and sane tap targets. */
+@media(max-width:600px){
+  .gg-daily .gg-daily-wrap {padding-inline:0;min-width:0;}
+  .gg-daily .gg-daily-section {
+    margin-top:20px!important;padding:0!important;background:transparent!important;
+    border:0!important;box-shadow:none!important;border-radius:0!important;
+  }
+  .gg-daily .gg-daily-heading {margin:0 0 10px;gap:8px;align-items:flex-start;}
+  .gg-daily .gg-daily-heading h2 {
+    margin:6px 0 0!important;font:700 clamp(27px,7.9vw,36px)/.95 'Teko',Impact,sans-serif!important;
+    letter-spacing:0!important;
+  }
+  .gg-daily .gg-daily-heading span {font-size:9px!important;letter-spacing:.08em!important;}
+  .gg-daily .gg-catalog-trigger {
+    min-height:70px!important;padding:10px 12px!important;gap:11px!important;
+    border-radius:10px!important;
+  }
+  .gg-daily .gg-catalog-trigger-icon {width:43px;height:43px;flex:0 0 43px;border-radius:9px;}
+  .gg-daily .gg-catalog-trigger-icon svg {width:22px;height:22px;}
+  .gg-daily .gg-catalog-trigger-text strong {
+    font:700 clamp(21px,6vw,27px)/.92 'Teko',Impact,sans-serif!important;
+    letter-spacing:0!important;
+  }
+  .gg-daily .gg-catalog-trigger-text small {font-size:10px;line-height:1.35;}
+  .gg-daily .gg-daily-water.gg-photo-surface {
+    padding:16px 14px!important;gap:15px!important;min-height:176px;
+  }
+  .gg-daily .gg-daily-water strong {font-size:clamp(22px,6vw,29px);}
+  .gg-daily .gg-daily-water-actions {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;}
+  .gg-daily .gg-daily-water-actions button {padding:0 6px!important;font-size:10px!important;min-height:49px;}
+  .gg-daily .gg-daily-water-meter {min-width:0;}
+  .gg-daily .gg-daily-water-meter small {font-size:10px;line-height:1.5;}
+  .gg-today-premium .gg-today-hero {padding:23px 18px!important;min-height:265px!important;}
+  .gg-today-premium .gg-today-hero h1 {font-size:clamp(67px,16.2vw,90px)!important;}
+  .gg-today-premium .gg-today-section-heading h2 {font-size:clamp(30px,8vw,42px)!important;}
+  .gg-today-premium .gg-today-progress-card {padding:17px 15px!important;min-height:165px!important;}
+  .gg-today-premium .gg-today-progress-card>strong {font-size:clamp(39px,10vw,53px)!important;}
+  .gg-today-premium .gg-today-dashboard-aside {padding:18px 14px;}
+  .gg-today-premium .gg-today-hero-action {min-height:47px;}
+  .gg-metas-container .gg-goal-weight,.gg-profile .gg-profile-weight-progress {padding:17px 15px!important;}
+  .gg-profile .gg-profile-section-name h2 {font-size:clamp(31px,8vw,43px)!important;}
+  .gg27-streak-button {min-height:73px;}
+}
+@media(max-width:365px){
+  .gg-daily .gg-daily-heading h2 {font-size:26px!important;}
+  .gg-daily .gg-catalog-trigger-text strong {font-size:22px!important;}
+  .gg-daily .gg-catalog-trigger {padding:9px 10px!important;}
+  .gg-daily .gg-daily-water-actions button {font-size:9px!important;}
+  .gg-today-premium .gg-today-hero h1 {font-size:65px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ .gg-photo-surface *, .gg-today-premium .gg-today-progress-card--water *,
+ .gg-today-premium .gg-today-dashboard-aside * {animation:none!important;transition:none!important;}
+}

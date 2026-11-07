@@ -100,7 +100,8 @@ export default function ProfilePage() {
             {stats.map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={'Atualizar '+name.toLowerCase()}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
           </div>
           <Link className="gg-profile-data-link" to="/profile-form">REGISTRAR NOVO PESO E MEDIDAS <FiArrowRight aria-hidden="true"/></Link>
-          <section className="gg-profile-weight-progress" aria-label="Evolução do peso">
+          <section className="gg-profile-weight-progress gg-photo-surface" aria-label="Evolução do peso">
+            <PremiumPhoto scene="goals" decorative />
             <header><span>META DE PESO</span><Link to="/profile-form" className="gg27-weight-link"><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'DEFINIR META'}</strong><FiEdit3 aria-hidden="true"/></Link></header>
             {weightGoal&&currentWeight ? <>
               {weightProgressPct!==null ? <>

@@ -23,7 +23,7 @@
   .gg-daily-navitem svg{font-size:23px}
   .gg-daily-navitem.active{color:#fff;background:#3d2226}
   .gg-daily-navitem:hover{color:#fff}
-  .gg-hub-trigger{color:#ff9299}
+  .gg-hub-trigger{color:#f5f5f3}
   .gg-hub-glyph{
     display:grid;place-items:center;width:55px;height:52px;flex:0 0 auto;
     margin-top:-22px;padding:3px;
@@ -36,7 +36,7 @@
     border-color:#d32f3b;box-shadow:0 0 16px rgba(177,17,27,.25);
   }
   .gg-hub-trigger:active .gg-hub-glyph{transform:scale(.95)}
-  .gg-daily-navigation :is(a,button):focus-visible{outline:3px solid #ffd1d4;outline-offset:-2px}
+  .gg-daily-navigation :is(a,button):focus-visible{outline:3px solid #b1111b;outline-offset:-2px}
   .gg-hub-overlay{
     display:block;position:fixed;inset:0;z-index:1190;
     background:rgba(0,0,0,.72);border:0;
@@ -74,13 +74,13 @@
   }
   .gg-hub-sheet-head>div>span{
     font:800 10px var(--gg-font-body,Manrope,sans-serif);
-    letter-spacing:.14em;color:#ff9299;
+    letter-spacing:.14em;color:#f5f5f3;
   }
   .gg-hub-sheet-head h2{
     margin:6px 0 0;font:850 41px/.94 var(--gg-font-display,Impact,sans-serif);
     color:#f5f5f5;
   }
-  .gg-hub-sheet-head h2 span{color:#ef6772}
+  .gg-hub-sheet-head h2 span{color:#f5f5f3}
   .gg-hub-sheet-head button{
     min-width:48px;min-height:48px;border-radius:15px;
     background:#303030;color:#fff;border:1px solid #575757;
@@ -99,16 +99,16 @@
   }
   .gg-hub-link:hover{background:#382529;border-color:#b1111b}
   .gg-hub-link:active{transform:scale(.975)}
-  .gg-hub-link>svg:first-child{width:24px;height:24px;color:#ff9299}
+  .gg-hub-link>svg:first-child{width:24px;height:24px;color:#f5f5f3}
   .gg-hub-link>span{display:grid;gap:5px;min-width:0}
   .gg-hub-link strong{font-size:12px}
   .gg-hub-link small{font-size:11px;line-height:1.4;color:#c8c8c8}
-  .gg-hub-link>svg:last-child{color:#ff9299}
+  .gg-hub-link>svg:last-child{color:#f5f5f3}
   .gg-hub-caption{
     margin:22px 0 0;color:#bdbdbd;
     font:800 10px var(--gg-font-body,Manrope,sans-serif);letter-spacing:.13em;
   }
-  .gg-hub-sheet :is(a,button):focus-visible{outline:3px solid #ffd1d4;outline-offset:2px}
+  .gg-hub-sheet :is(a,button):focus-visible{outline:3px solid #b1111b;outline-offset:2px}
   .App:has(.gg-daily-navigation) .gg-header{padding:10px 15px;min-height:64px}
   .App:has(.gg-daily-navigation) .gg-header .gg-hamburger{min-width:44px;min-height:44px}
   .App:has(.gg-daily-navigation) .gg-header .gg-header-cta,

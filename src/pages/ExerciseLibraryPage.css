@@ -70,8 +70,8 @@
 .gg-exlib-tabs { max-width:980px; margin-left:auto; margin-right:auto; }
 .gg-exlib-tab { min-height:47px; border-radius:10px; background:#242c30; border-color:#465155; }
 .gg-exlib-tab.active { background:#b1111b; border-color:#b1111b; color:#ffffff; }
-.gg-exlib-back { color:#ff9299; }
-.gg-exlib-container :is(button,a):focus-visible { outline:3px solid #ff9299; outline-offset:2px; }
+.gg-exlib-back { color:#f5f5f3; }
+.gg-exlib-container :is(button,a):focus-visible { outline:3px solid #b1111b; outline-offset:2px; }
 
 /* 2.7.2: remover resquício verde e alinhar com as bibliotecas */
 .gg-exlib-container{background:#262626;padding-bottom:calc(105px + env(safe-area-inset-bottom,0px))}
@@ -79,5 +79,5 @@
 .gg-exlib-subtitle{font-size:13px;line-height:1.5;color:#d5bdaa}
 .gg-exlib-tabs{justify-content:flex-start;gap:10px;margin-bottom:16px;overflow-x:auto;scrollbar-width:thin}
 .gg-exlib-tab{border-radius:17px;background:#303030;color:#f5f5f5;border:1px solid #595052;min-height:50px;font-size:13px}
-.gg-exlib-tab.active{background:#b1111b;color:#241911;border-color:#ff9299}
-.gg-exlib-back{color:#ff9299;min-height:45px}
+.gg-exlib-tab.active{background:#b1111b;color:#241911;border-color:#b1111b}
+.gg-exlib-back{color:#f5f5f3;min-height:45px}

@@ -21,3 +21,15 @@ test('cena desconhecida não renderiza elemento quebrado',()=>{
   const {container}=render(<PremiumPhoto scene="unknown" />);
   expect(container.querySelector('img')).toBeNull();
 });
+
+test('foto de água e foto de metas usam cenas próprias e carregamento preguiçoso',()=>{
+  const {container}=render(<>
+    <PremiumPhoto scene="water" decorative />
+    <PremiumPhoto scene="goals" decorative />
+  </>);
+  const [water,goals]=container.querySelectorAll('img.gg-premium-photo');
+  expect(water).toHaveAttribute('src',expect.stringContaining('photo-1518837695005-2083093ee35b'));
+  expect(goals).toHaveAttribute('src',expect.stringContaining('photo-1517836357463-d25dfeac3438'));
+  expect(water).toHaveAttribute('loading','lazy');
+  expect(goals.getAttribute('srcset')).toContain('3840w');
+});
