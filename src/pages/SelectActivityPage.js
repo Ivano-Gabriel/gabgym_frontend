@@ -4,6 +4,7 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { CARDIO_LIST } from '../data/CardioList';
 import { FiMapPin, FiClock, FiArrowLeft } from 'react-icons/fi';
+import PremiumPhoto from '../components/PremiumPhoto';
 import './SelectActivityPage.css';
 
 function SelectActivityPage() {
@@ -21,7 +22,8 @@ function SelectActivityPage() {
     <div className="gg-select-container">
       <div className="gg-select-card">
 
-        <div className="gg-select-top">
+        <div className="gg-select-top gg-photo-hero">
+          <PremiumPhoto scene="cardio" decorative priority />
           <h1 className="gg-select-title">Escolha seu Cardio</h1>
           <p className="gg-select-subtitle">Atividades ao ar livre usam GPS pra medir distância. As outras usam cronômetro.</p>
         </div>

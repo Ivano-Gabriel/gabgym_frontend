@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, FiCamera } from 'react-icons/fi';
 import { getCurrentUser, logoutUser } from '../services/apiService';
 import { isSuperAdmin } from '../utils/auth';
+import PremiumPhoto from '../components/PremiumPhoto';
 import './ProfilePage.css';
 import {loadWeightHistory,weightTrend,safeWeightProjection,weightGoalProgress} from '../utils/weightProgress';
 import {readProfileAvatar,saveProfileAvatar,isSupportedProfileImage} from '../utils/profileAvatar';
@@ -79,7 +80,8 @@ export default function ProfilePage() {
     <main className="gg-profile">
       <div className="gg-profile-wrap">
         <div className="gg-profile-eyebrow">GABGYM / SUA JORNADA</div>
-        <section className="gg-profile-heading">
+        <section className="gg-profile-heading gg-photo-hero">
+          <PremiumPhoto scene="gym" decorative priority />
           <div className="gg-profile-avatar">
             {avatar?<img src={avatar} alt="Foto de perfil"/>:<FiUser aria-hidden="true"/>}
             <label title="Alterar foto de perfil" aria-label="Alterar foto de perfil"><FiCamera aria-hidden="true"/>

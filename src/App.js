@@ -52,6 +52,7 @@ import './components/Header.css';
 import './styles/metalFinish.css';
 import './styles/interactionPolish.css';
 import './styles/redEdition.css';
+import './styles/premiumModules.css';
 
 
 function RequireAuth({ children, admin = false }) {
@@ -134,9 +135,9 @@ function AppContent() {
             <img className="gg-header-monogram" src="/gg-mark.svg" alt="" aria-hidden="true"/>
             <span className="gg-logo-text">GABGYM</span>
           </Link>
-          <div className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
+          <button type="button" aria-label="Abrir atalhos" aria-expanded={isLogoMenuOpen} className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
             <BsChevronDown />
-          </div>
+          </button>
           {isLogoMenuOpen && (
             <div className="gg-logo-dropdown">
               <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Biblioteca</Link>
