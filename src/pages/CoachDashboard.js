@@ -42,7 +42,9 @@ export default function CoachDashboard(){
       setProfile(me.data);setStudents(list);
       setActiveId(value=>list.some(s=>s.id===value&&s.status==='ACTIVE')?value:
         list.find(s=>s.status==='ACTIVE')?.id||null);
-    }).catch(()=>{if(alive)setError('Não foi possível carregar a área profissional. Confira sua conexão e tente novamente.');})
+    }).catch((error)=>{if(alive)setError(error.response?.status===404
+      ? 'A API deste servidor ainda não possui o Portal do Personal.'
+      : 'Não foi possível carregar a área profissional. Confira sua conexão e tente novamente.');})
       .finally(()=>{if(alive)setLoading(false);});
     return()=>{alive=false};
   },[revision]);
