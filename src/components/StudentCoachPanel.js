@@ -34,8 +34,10 @@ export default function StudentCoachPanel({userId}) {
         const entries=await getPersonalTimeline(userId);
         setTimeline(Array.isArray(entries.data)?entries.data:[]);
       }else setTimeline([]);
-    } catch {
-      setError('Não foi possível abrir o Meu Personal. O servidor pode estar iniciando.');
+    } catch (error) {
+      setError(error.response?.status===404
+        ? 'Meu Personal ainda não está disponível nesta API. Seus registros normais continuam acessíveis.'
+        : 'Não foi possível abrir o Meu Personal. O servidor pode estar iniciando.');
     } finally {setLoading(false);}
   },[userId]);
   useEffect(()=>{if(userId)load();},[userId,revision,load]);
