@@ -1,0 +1,94 @@
+/* PR26 / GabGym Workout Planner — mobile-first, premium and keyboard accessible. */
+.gg-plan {margin:18px 0 35px;padding:20px 17px 22px;background:#191a1c;border:1px solid #4d4f52;border-radius:12px;color:#f5f5f3;text-align:left;}
+.gg-plan * {box-sizing:border-box;}
+.gg-plan-heading>span,.gg-plan-templates>strong {font:800 10px 'Archivo',Arial,sans-serif;letter-spacing:.12em;color:#bfc1c4;}
+.gg-plan-heading h3 {margin:10px 0 11px;font:700 clamp(41px,8.5vw,67px)/.83 'Teko',Impact,sans-serif;color:#fff;}
+.gg-plan-heading p {margin:0 0 24px;max-width:610px;font-size:13px;line-height:1.7;color:#ced0d2;}
+.gg-plan-metadata {display:grid;grid-template-columns:1fr;gap:11px;}
+.gg-plan label {display:grid;gap:8px;color:#f3f3f3;font:800 11px 'Archivo',Arial,sans-serif;letter-spacing:.025em;}
+.gg-plan :is(input,select) {
+  display:block;width:100%;min-width:0;min-height:48px;padding:10px 12px;
+  border:1px solid #57595c;border-radius:8px;background:#292a2d;color:#fff;
+  font:600 16px 'Manrope',Arial,sans-serif;
+}
+.gg-plan input::placeholder {color:#adafb1;}
+.gg-plan input:focus {border-color:#fff;outline:2px solid #fff;outline-offset:2px;}
+.gg-plan button {
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:45px;padding:10px 14px;border:1px solid #55575a;border-radius:8px;
+  background:#2b2c2e;color:#fff;font:800 10px 'Archivo',Arial,sans-serif;
+  cursor:pointer;touch-action:manipulation;
+  transition:background-color .18s,border-color .18s,transform .15s;
+}
+.gg-plan button:hover:not(:disabled) {background:#37383a;border-color:#999;}
+.gg-plan button:active:not(:disabled) {transform:scale(.975);}
+.gg-plan button:disabled {opacity:.55;cursor:not-allowed;}
+.gg-plan button:focus-visible {outline:3px solid #fff;outline-offset:3px;}
+.gg-plan-rest {display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:17px 0 23px;padding:13px;background:#222326;border:1px solid #424447;border-radius:9px;}
+.gg-plan-rest>div {display:flex;align-items:center;gap:7px;flex:1 1 120px;}
+.gg-plan-rest>div svg {font-size:21px;}
+.gg-plan-rest>div strong {font:800 12px 'Archivo',Arial,sans-serif;}
+.gg-plan-rest small {font-size:10px;color:#b9babd;}
+.gg-plan-stats {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.gg-plan-stats>div {min-width:0;padding:15px 10px;background:#262729;border:1px solid #444649;border-radius:8px;}
+.gg-plan-stats span {display:block;min-height:25px;color:#c9cbcd;font:700 9px 'Archivo',Arial,sans-serif;letter-spacing:.055em;}
+.gg-plan-stats strong {display:block;color:#fff;font:700 clamp(26px,5.4vw,38px)/.9 'Teko',Impact,sans-serif;}
+.gg-plan-track {height:8px;background:#424447;border-radius:99px;overflow:hidden;margin:11px 0 25px;}
+.gg-plan-track>span {display:block;height:100%;border-radius:99px;background:#c31320;transition:width .2s;}
+.gg-plan-add-exercise {display:flex;align-items:end;gap:9px;margin-bottom:18px;}
+.gg-plan-add-exercise label {flex:1;min-width:0;}
+.gg-plan-add-exercise button,.gg-plan-save-session {background:#b1111b!important;border-color:#b1111b!important;}
+.gg-plan-add-exercise button:hover:not(:disabled),.gg-plan-save-session:hover:not(:disabled) {background:#951019!important;border-color:#951019!important;}
+.gg-plan-empty {padding:18px;background:#242527;border:1px dashed #646669;border-radius:8px;color:#c9cbcd;font-size:12px;line-height:1.7;}
+.gg-plan-exercises {display:grid;gap:14px;margin:18px 0;}
+.gg-plan-exercise {padding:15px 12px;background:#212224;border:1px solid #505255;border-radius:10px;}
+.gg-plan-exercise header {display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;}
+.gg-plan-exercise header span {color:#c7c8ca;font:800 9px 'Archivo',Arial,sans-serif;letter-spacing:.06em;}
+.gg-plan-exercise h4 {margin:5px 0 0;color:#fff;font:700 clamp(29px,6vw,41px)/.86 'Teko',Impact,sans-serif;overflow-wrap:anywhere;}
+.gg-plan-exercise header button {min-width:44px;min-height:44px;padding:9px;}
+.gg-plan-sets {display:grid;gap:8px;}
+.gg-plan-set {display:grid;grid-template-columns:25px minmax(0,1fr) minmax(0,1fr) 43px 43px;align-items:end;gap:6px;padding:10px 6px;border-radius:8px;background:#2a2b2d;border:1px solid #46484a;}
+.gg-plan-set.is-done {border-color:#854048;background:#2c2326;}
+.gg-plan-set-number {align-self:center;justify-self:center;font:800 11px 'Archivo',Arial,sans-serif;color:#e8e8e8;}
+.gg-plan-set label {font-size:9px;letter-spacing:0;}
+.gg-plan-set label input {min-height:43px;padding:8px 7px;text-align:center;}
+.gg-plan-set .gg-plan-done,.gg-plan-set .gg-plan-remove-set {width:43px;min-width:43px;min-height:43px;padding:9px;}
+.gg-plan-set .gg-plan-done[aria-pressed="true"] {background:#b1111b;border-color:#b1111b;color:#fff;}
+.gg-plan-add-set {margin-top:11px;}
+.gg-plan-footer {display:grid;grid-template-columns:1fr;gap:9px;margin-top:19px;}
+.gg-plan-footer button {width:100%;min-height:53px;}
+.gg-plan-footer form {margin:0;}
+.gg-plan-feedback {padding:12px 13px;margin:16px 0 0;background:#313234;border:1px solid #77797b;border-radius:8px;color:#fff;font-size:12px;line-height:1.55;}
+.gg-plan-disclaimer {margin:18px 0 4px;color:#c4c6c8;font-size:11px;line-height:1.65;}
+.gg-plan-templates {margin-bottom:22px;padding:14px 12px;border:1px solid #4d4f52;border-radius:9px;background:#232426;}
+.gg-plan-templates>div {display:grid;gap:8px;margin-top:11px;}
+.gg-plan-template {display:flex;align-items:center;gap:8px;padding:7px;border-radius:8px;border:1px solid #4a4c4e;background:#2b2c2f;}
+.gg-plan-template>span {min-width:0;flex:1;overflow-wrap:anywhere;font-size:12px;font-weight:700;}
+.gg-plan-template button {font-size:9px;min-height:43px;padding:8px 9px;}
+.gg-plan-template button:last-child {width:43px;min-width:43px;}
+.gg-plan-history {border-top:1px solid #484a4c;padding-top:19px;margin-top:23px;}
+.gg-plan-history>strong {display:flex;align-items:center;gap:8px;font:800 11px 'Archivo',Arial,sans-serif;color:#fff;}
+.gg-plan-history details {margin-top:10px;padding:12px;border-radius:7px;border:1px solid #4e5053;background:#242527;}
+.gg-plan-history summary {cursor:pointer;font-size:12px;font-weight:800;}
+.gg-plan-history li {margin:8px 0;color:#ccd0d2;font-size:11px;}
+@media(min-width:750px){
+  .gg-plan {padding:26px;}
+  .gg-plan-metadata {grid-template-columns:2fr 1fr 1fr;}
+  .gg-plan-footer {grid-template-columns:1fr 1fr;}
+  .gg-plan-exercise {padding:20px;}
+}
+@media(max-width:420px){
+  .gg-plan {padding:16px 10px;}
+  .gg-plan-heading {padding:0 5px;}
+  .gg-plan-rest {gap:8px;}
+  .gg-plan-rest>div {flex:1 1 100%;}
+  .gg-plan-add-exercise {display:grid;grid-template-columns:1fr;}
+  .gg-plan-set {grid-template-columns:20px minmax(0,1fr) minmax(0,1fr) 39px;gap:5px;padding:8px 4px;}
+  .gg-plan-set .gg-plan-done {width:39px;min-width:39px;}
+  .gg-plan-set .gg-plan-remove-set {grid-column:4;min-height:36px;width:39px;min-width:39px;padding:6px;}
+  .gg-plan-set label {font-size:8px;}
+  .gg-plan-set label input {font-size:15px;}
+  .gg-plan-template {flex-wrap:wrap;}
+  .gg-plan-template>span {flex-basis:100%;}
+}
+@media(prefers-reduced-motion:reduce){.gg-plan * {transition:none!important;animation:none!important;}}
