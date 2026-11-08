@@ -4,6 +4,8 @@ import {FiArrowLeft,FiCheckCircle,FiEdit3,FiLock,FiUsers} from 'react-icons/fi';
 import {getCurrentUser} from '../services/apiService';
 import {PERSONAL_GOALS,PERSONAL_FOCUS,personalBriefKey,sanitizePersonalBrief} from '../utils/personalBrief';
 import './PersonalPage.css';
+import StudentCoachPanel from '../components/StudentCoachPanel';
+import '../pages/CoachPortal.css';
 
 const blank={goal:'',focus:'',days:'',notes:''};
 /** Rascunho local de preferências; sem mensagens, coaches conectados ou prescrição. */
@@ -43,7 +45,8 @@ export default function PersonalPage(){
        <h1>MEU PERSONAL<span>.</span></h1>
        <p>Organize seu foco para a próxima fase do GABGYM.</p>
      </header>
-     <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
+     {!loading&&userId&&<StudentCoachPanel userId={userId}/>}
+   <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
        <div className="gg-personal-card-head"><FiEdit3 aria-hidden="true"/><div>
          <h2 id="gg-personal-preferences">SUA ROTINA</h2>
          <span>Suas preferências, sempre editáveis.</span>
@@ -76,8 +79,8 @@ export default function PersonalPage(){
        </form>}
        {error&&loading&&<p role="alert">{error}</p>}
      </section>
-     <aside className="gg-personal-future"><FiLock aria-hidden="true"/><div><strong>PERSONAL+ · PARA O FUTURO</strong>
-       <p>Conexão com profissionais, acompanhamento e mensagens ainda não estão disponíveis. Aqui não há plano automático nem aconselhamento profissional.</p>
+     <aside className="gg-personal-future"><FiLock aria-hidden="true"/><div><strong>CONTROLE E PRIVACIDADE</strong>
+       <p>Você decide quando solicitar ou revogar o acompanhamento. Mensagens e planos do personal exigem vínculo ativo; propostas não alteram seu treino sem sua aprovação. <Link to="/login-personal">Sou personal trainer</Link>.</p>
      </div></aside>
    </div>
  </div>;

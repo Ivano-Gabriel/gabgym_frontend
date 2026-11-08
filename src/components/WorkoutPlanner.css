@@ -92,3 +92,27 @@
   .gg-plan-template>span {flex-basis:100%;}
 }
 @media(prefers-reduced-motion:reduce){.gg-plan * {transition:none!important;animation:none!important;}}
+
+/* PR27 / Biblioteca nativa e descanso automático, sem biblioteca adicional. */
+.gg-plan-library-header{display:flex;align-items:center;gap:8px;margin:20px 0 12px;color:#e3e4e5;
+  font:800 10px/1.5 'Archivo',Arial,sans-serif;letter-spacing:.07em;}
+.gg-plan-library-header svg{font-size:18px;}
+.gg-plan-exercise-quick{display:flex;flex-wrap:wrap;gap:7px;margin:-6px 0 19px;}
+.gg-plan-exercise-quick button{min-height:43px;font-size:10px;background:#303134;border-color:#585a5d;
+  max-width:100%;white-space:normal;text-align:left;justify-content:flex-start;}
+.gg-plan-exercise-quick button:hover{border-color:#b1111b!important;background:#3a2226!important;}
+.gg-plan-add-exercise .gg-plan-group{flex:0 1 190px;min-width:136px;}
+.gg-plan-add-exercise .gg-plan-group select{min-height:48px;font-size:12px;text-transform:uppercase;}
+.gg-plan-last-record{display:block;margin:9px 0 0!important;
+  color:#d7d8db;font:800 10px/1.5 'Archivo',Arial,sans-serif;letter-spacing:.025em;}
+.gg-plan-rest .gg-plan-auto-rest{display:inline-flex;align-items:center;gap:8px;
+  padding:8px 7px;font-size:10px;min-height:43px;cursor:pointer;}
+.gg-plan-rest .gg-plan-auto-rest input[type="checkbox"]{width:19px;height:19px;min-height:19px;accent-color:#b1111b;}
+@media(max-width:660px){
+ .gg-plan-add-exercise{flex-wrap:wrap;}
+ .gg-plan-add-exercise .gg-plan-group{min-width:120px;}
+}
+@media(max-width:420px){
+ .gg-plan-add-exercise{display:grid;grid-template-columns:1fr;}
+ .gg-plan-add-exercise .gg-plan-group{width:100%;min-width:0;}
+}

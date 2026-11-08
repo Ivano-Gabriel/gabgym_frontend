@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { FiActivity, FiBarChart2, FiChevronLeft, FiChevronRight, FiCoffee, FiHeart, FiHome, FiTarget, FiUser } from 'react-icons/fi';
+import { FiActivity, FiBarChart2, FiChevronLeft, FiChevronRight, FiCoffee, FiHeart, FiHome, FiTarget, FiUser, FiUsers } from 'react-icons/fi';
 import './DesktopRail.css';
 
 const links = [
   { to:'/',label:'Hoje',Icon:FiHome, end:true },
   { to:'/treino',label:'Treino',Icon:FiActivity },
+  { to:'/meu-personal',label:'Meu Personal',Icon:FiUsers },
   { to:'/alimentacao',label:'Comer',Icon:FiCoffee },
   { to:'/cardio/select',label:'Cardio',Icon:FiHeart },
   { to:'/minhas-metas',label:'Metas',Icon:FiTarget },

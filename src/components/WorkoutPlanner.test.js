@@ -67,3 +67,22 @@ test('toque repetido durante POST pendente não duplica treinos',async()=>{
   await act(async()=>{resolvePost({data:{id:1}});});
   expect(screen.getByRole('button',{name:'TREINO REGISTRADO'})).toBeDisabled();
 });
+
+test('biblioteca de exercícios oferece busca por grupo e adiciona supino em um toque',()=>{
+ render(<WorkoutPlanner userId={17}/>);
+ fireEvent.change(screen.getByLabelText('Grupo muscular'),{target:{value:'peito'}});
+ fireEvent.change(screen.getByLabelText('Adicionar exercício'),{target:{value:'supino reto com barra'}});
+ const button=screen.getByRole('button',{name:/Supino reto com barra/i});
+ fireEvent.click(button);
+ expect(screen.getByRole('heading',{name:'Supino reto com barra'})).toBeInTheDocument();
+ expect(screen.getByRole('button',{name:'Concluir série 1 de Supino reto com barra'})).toBeInTheDocument();
+});
+test('descanso automático só inicia após marcar uma série quando ativado',()=>{
+ render(<WorkoutPlanner userId={17}/>);
+ addSupino();
+ fireEvent.click(screen.getByLabelText('AUTO DESCANSO'));
+ fireEvent.click(screen.getByRole('button',{name:'Concluir série 1 de Supino reto'}));
+ expect(screen.getByText('90 s')).toBeInTheDocument();
+ fireEvent.click(screen.getByRole('button',{name:'PARAR'}));
+ expect(screen.getByText('DESCANSO')).toBeInTheDocument();
+});

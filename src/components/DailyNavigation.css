@@ -122,3 +122,13 @@
     transition:none!important;animation:none!important;
   }
 }
+
+/* Portal do Personal destacado na primeira posição do Hub GG. */
+.gg-hub-link.gg-hub-link--personal {
+  background:linear-gradient(105deg,rgba(66,20,25,.96),rgba(36,37,39,.97))!important;
+  border:1px solid #b1111b!important;box-shadow:inset 3px 0 0 #c31320!important;
+}
+.gg-hub-link.gg-hub-link--personal :is(strong,svg){color:#fff!important;}
+.gg-hub-link.gg-hub-link--personal small{color:#dadbdc!important;}
+.gg-hub-link.gg-hub-link--personal:hover{background:#412025!important;}
+.gg-hub-link.gg-hub-link--personal:focus-visible{outline:3px solid #fff!important;outline-offset:3px;}

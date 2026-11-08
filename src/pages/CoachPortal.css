@@ -1,0 +1,155 @@
+/* GabGym Coach / Preto + vermelho, premium mobile-first.
+   Nunca usa aparência para autorizar acesso; as permissões pertencem à API. */
+.gg-coach-portal,.gg-coach-student{color:#f5f5f3;font-family:'Manrope',Arial,sans-serif;}
+.gg-coach-portal{min-height:100dvh;padding:18px 15px calc(110px + env(safe-area-inset-bottom,0px));background:#101112;}
+.gg-coach-wrap{max-width:1210px;margin:auto;}
+.gg-coach-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:290px;display:flex;align-items:flex-end;padding:31px 22px;
+  border:1px solid #46484c;border-radius:12px;background:#191a1c;margin-bottom:19px;
+}
+.gg-coach-hero>.gg-premium-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;opacity:.66;filter:contrast(1.1) saturate(.75);z-index:0;pointer-events:none;}
+.gg-coach-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#060708f7 1%,#08090ae3 51%,#08090a4f 100%);z-index:1;}
+.gg-coach-hero-copy{position:relative;z-index:2;max-width:680px;}
+.gg-coach-hero-copy>span,.gg-coach-section-heading>span,.gg-coach-student-header span{
+  font:800 10px/1.5 'Archivo',Arial,sans-serif;letter-spacing:.115em;color:#c6c8cb;
+}
+.gg-coach-hero h1{font:700 clamp(62px,11vw,112px)/.78 'Teko',Impact,sans-serif;color:#fff;margin:17px 0 11px;letter-spacing:-.005em;}
+.gg-coach-hero h1 em{font-style:normal;color:#c31320;}
+.gg-coach-hero p{max-width:490px;font-size:13px;line-height:1.65;color:#e4e4e5;margin:12px 0 18px;}
+.gg-coach-hero-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.gg-coach-hero-actions button{background:#292a2c;border:1px solid #777;color:#fff;}
+.gg-coach-hero-actions button:hover{background:#37383a;}
+.gg-coach-portal button,.gg-coach-student button{
+  min-height:45px;border-radius:9px;cursor:pointer;
+  font:800 10px/1.25 'Archivo',Arial,sans-serif;letter-spacing:.02em;
+  transition:background-color .18s,border-color .18s,transform .16s;
+  touch-action:manipulation;
+}
+.gg-coach-portal button:active:not(:disabled),.gg-coach-student button:active:not(:disabled){transform:scale(.975);}
+.gg-coach-portal button:disabled,.gg-coach-student button:disabled{opacity:.6;cursor:wait;}
+.gg-coach-portal :is(a,button,input,select,textarea):focus-visible,.gg-coach-student :is(a,button,input,select,textarea):focus-visible{
+  outline:3px solid #fff;outline-offset:3px;
+}
+.gg-coach-portal :is(input,select,textarea),.gg-coach-student :is(input,select,textarea){
+  display:block;width:100%;min-height:46px;border-radius:8px;border:1px solid #606164;
+  background:#252629;color:#fff;padding:10px 12px;font:600 16px/1.5 'Manrope',Arial,sans-serif;
+}
+.gg-coach-portal :is(label),.gg-coach-student :is(label){
+  display:grid;gap:8px;font:800 11px/1.5 'Archivo',Arial,sans-serif;color:#f1f1f2;
+}
+.gg-coach-portal textarea,.gg-coach-student textarea{resize:vertical;}
+.gg-coach-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0 20px;}
+.gg-coach-overview>div{
+  min-width:0;display:flex;flex-direction:column;gap:8px;
+  padding:17px 14px;border-radius:10px;border:1px solid #4d4f52;background:#202123;
+}
+.gg-coach-overview svg{font-size:22px;color:#f5f5f3;}
+.gg-coach-overview small{color:#b8babd;font:800 10px 'Archivo',Arial,sans-serif;}
+.gg-coach-overview strong{font:700 clamp(26px,6vw,48px)/.88 'Teko',Impact,sans-serif;color:#fff;overflow-wrap:anywhere;}
+.gg-coach-workspace{display:grid;grid-template-columns:1fr;align-items:start;gap:17px;}
+.gg-coach-roster,.gg-coach-details,.gg-coach-requests,.gg-coach-student{
+  background:#1d1e20;border:1px solid #4a4c4f;border-radius:11px;padding:20px 15px;
+}
+.gg-coach-section-heading{margin:0 0 19px;}
+.gg-coach-section-heading h2,.gg-coach-student-header h2{
+  font:700 clamp(34px,7vw,58px)/.88 'Teko',Impact,sans-serif;color:#fff;
+  margin:9px 0 0;overflow-wrap:anywhere;
+}
+.gg-coach-section-heading p{margin:9px 0;color:#d2d4d6;font-size:12px;}
+.gg-coach-roster>p,.gg-coach-empty p,.gg-coach-panel p,.gg-coach-thread>p,
+.gg-coach-student>p{font-size:12px;color:#c9cbcd;line-height:1.7;}
+.gg-coach-student-option{display:flex;gap:12px;align-items:center;justify-content:space-between;
+  width:100%;padding:10px 13px;margin:8px 0;background:#28292c;border:1px solid #4f5154;color:#fff;text-align:left;}
+.gg-coach-student-option.is-selected{background:#411c22;border-color:#b1111b;}
+.gg-coach-student-option span,.gg-coach-request>span{display:grid;gap:5px;min-width:0;}
+.gg-coach-student-option strong,.gg-coach-request strong{font-size:13px;overflow-wrap:anywhere;}
+.gg-coach-student-option small,.gg-coach-request small{font-size:10px;color:#c9cbcd;}
+.gg-coach-request{display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:10px 12px;margin:9px 0;background:#28292a;border:1px solid #4f5153;border-radius:9px;}
+.gg-coach-request>span{flex:1;min-width:120px;}
+.gg-coach-request button{padding:9px 13px;border:1px solid #b1111b;background:#b1111b;color:#fff;}
+.gg-coach-request button.gg-coach-reject{background:#313234;border-color:#646568;}
+.gg-coach-date{display:flex;flex-wrap:wrap;align-items:end;gap:9px;margin-bottom:17px;}
+.gg-coach-date label{flex:1;min-width:150px;max-width:270px;}
+.gg-coach-date button{padding:10px 12px;background:#2b2c2f;border:1px solid #5c5e60;color:#fff;}
+.gg-coach-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 18px;}
+.gg-coach-metrics>div{min-width:0;display:flex;flex-direction:column;gap:8px;padding:15px 12px;background:#292a2d;border:1px solid #494b4e;border-radius:9px;}
+.gg-coach-metrics svg{font-size:22px;color:#f5f5f3;}
+.gg-coach-metrics span{font:800 9px/1.4 'Archivo',Arial,sans-serif;color:#c9cbcd;}
+.gg-coach-metrics strong{font:700 clamp(22px,5.5vw,36px)/.9 'Teko',Impact,sans-serif;color:#fff;overflow-wrap:anywhere;}
+.gg-coach-details-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.gg-coach-panel{background:#252629;border:1px solid #515255;border-radius:10px;padding:14px 13px;min-width:0;}
+.gg-coach-panel h3,.gg-coach-thread h3,.gg-coach-student .gg-coach-thread h3{
+  margin:0 0 14px;font:700 clamp(27px,5vw,39px)/.9 'Teko',Impact,sans-serif;color:#fff;
+}
+.gg-coach-row{display:flex;justify-content:space-between;align-items:start;gap:11px;
+  padding:12px 0;border-top:1px solid #434447;}
+.gg-coach-row>div{display:grid;gap:5px;min-width:0;}
+.gg-coach-row span{font:800 9px 'Archivo',Arial,sans-serif;color:#b8babd;}
+.gg-coach-row strong{font-size:12px;color:#fff;overflow-wrap:anywhere;}
+.gg-coach-row small{font-size:11px;color:#d6d7d8;white-space:nowrap;}
+.gg-coach-thread{margin-top:22px;background:#242527;padding:16px 14px;border:1px solid #505256;border-radius:10px;}
+.gg-coach-messages{max-height:440px;overflow:auto;display:flex;flex-direction:column;gap:9px;margin-bottom:17px;}
+.gg-coach-message{background:#2d2e30;border:1px solid #535558;border-radius:8px;padding:12px 14px;}
+.gg-coach-message.is-mine{border-color:#7d383d;background:#322629;}
+.gg-coach-message>span{font:800 9px/1.4 'Archivo',Arial,sans-serif;color:#d0d1d2;}
+.gg-coach-message p{color:#f6f6f6;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;}
+.gg-coach-message small{font-size:10px;color:#d8d9db;}
+.gg-coach-message-form{display:grid;gap:11px;}
+.gg-coach-message-form button,.gg-coach-connect-form button{
+  background:#b1111b;border:1px solid #b1111b;color:#fff;padding:10px 16px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+}
+.gg-coach-message-form button:hover,.gg-coach-connect-form button:hover{background:#941018;}
+.gg-coach-notice,.gg-coach-error{padding:12px 14px;margin:13px 0;border-radius:9px;border:1px solid #5b5d60;background:#2a2b2e;font-size:12px;color:#fff;line-height:1.6;}
+.gg-coach-error{border-color:#b1111b;}
+.gg-coach-error button{margin:10px 0 0;padding:8px 12px;color:#fff;background:#b1111b;border:0;}
+.gg-coach-empty{text-align:center;padding:35px 10px;}
+.gg-coach-empty svg{font-size:36px;color:#fff;}
+.gg-coach-empty h2{font:700 39px/.89 'Teko',Impact,sans-serif;margin:15px 0;}
+.gg-coach-empty a{color:#fff;min-height:44px;display:inline-flex;align-items:center;gap:8px;}
+
+/* Meu Personal do aluno. */
+.gg-coach-student{margin-bottom:24px;min-width:0;}
+.gg-coach-student-header{display:flex;gap:15px;justify-content:space-between;align-items:start;}
+.gg-coach-student-header>div{min-width:0;}
+.gg-coach-student-header button{flex:0 0 45px;width:45px;border:1px solid #585a5e;background:#28292c;color:#fff;font-size:19px;}
+.gg-coach-student>p{margin:10px 0 18px;}
+.gg-coach-connected,.gg-coach-connect-banner{display:flex;align-items:center;gap:14px;padding:14px;background:#2a2b2d;border:1px solid #515357;border-radius:9px;margin:13px 0;}
+.gg-coach-connected svg,.gg-coach-connect-banner svg{font-size:24px;color:#fff;flex:none;}
+.gg-coach-connected div{display:grid;gap:6px;}
+.gg-coach-connected strong{font-size:12px;color:#fff;}
+.gg-coach-connected span,.gg-coach-connect-banner span{font-size:12px;color:#d4d6d8;}
+.gg-coach-student-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0 21px;}
+.gg-coach-student-summary a{display:grid;gap:9px;min-width:0;padding:14px 11px;background:#28292c;border:1px solid #535558;border-radius:8px;text-decoration:none;color:#fff;}
+.gg-coach-student-summary span{font:800 9px/1.4 'Archivo',Arial,sans-serif;color:#c3c5c7;}
+.gg-coach-student-summary strong{font:700 clamp(22px,5vw,32px)/.95 'Teko',Impact,sans-serif;overflow-wrap:anywhere;}
+.gg-coach-connect-form{display:flex;gap:10px;flex-wrap:wrap;align-items:end;}
+.gg-coach-connect-form label{flex:1;min-width:170px;}
+.gg-coach-connect-form button{flex:1;min-width:180px;}
+.gg-coach-disconnect{padding:10px 15px;border:1px solid #6d7072;background:#292a2b;color:#fff;}
+.gg-coach-disclaimer{font-size:11px;color:#c8c9cb!important;line-height:1.6;}
+.gg-coach-decision{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:12px 0 0;}
+.gg-coach-decision strong{font-size:10px;line-height:1.4;}
+.gg-coach-decision button{background:#b1111b;border:1px solid #b1111b;color:#fff;padding:8px 10px;}
+.gg-coach-decision button:last-child{background:#393a3c;border-color:#696b6c;}
+@media(min-width:900px){
+ .gg-coach-portal{padding:22px 27px calc(100px + env(safe-area-inset-bottom,0px));}
+ .gg-coach-hero{min-height:360px;padding:42px;}
+ .gg-coach-workspace{grid-template-columns:minmax(225px,290px) minmax(0,1fr);}
+ .gg-coach-details{min-width:0;padding:22px;}
+ .gg-coach-details-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+ .gg-coach-overview{gap:14px;}
+}
+@media(max-width:420px){
+ .gg-coach-overview>div,.gg-coach-metrics>div{padding:13px 7px;}
+ .gg-coach-overview strong{font-size:27px;}
+ .gg-coach-metrics strong{font-size:24px;}
+ .gg-coach-hero{min-height:260px;padding:24px 16px;}
+ .gg-coach-hero h1{font-size:66px;}
+ .gg-coach-roster,.gg-coach-details,.gg-coach-requests,.gg-coach-student{padding:16px 11px;}
+ .gg-coach-request button{padding:8px;}
+ .gg-coach-student-summary a{padding:12px 7px;}
+ .gg-coach-student-summary strong{font-size:22px;}
+}
+@media(prefers-reduced-motion:reduce){.gg-coach-portal *, .gg-coach-student *{animation:none!important;transition:none!important;}}

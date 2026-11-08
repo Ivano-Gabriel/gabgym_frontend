@@ -8,8 +8,9 @@ import './AuthPremium.css';
 const image = width => `https://images.unsplash.com/photo-1546817372-628669db4655?auto=format&fit=crop&q=80&w=${width}`;
 const imageSet = [480,720,960,1440,1920,2560].map(w => `${image(w)} ${w}w`).join(', ');
 
-export default function AuthShell({ type = 'login', title, subtitle, children, footer }) {
+export default function AuthShell({ type = 'login', title, subtitle, children, footer, audience = 'student' }) {
   const isSignup = type === 'signup';
+  const coach = audience === 'personal';
   return (
     <div className="gg-auth-screen gg-auth-premium">
       <header className="gg-auth-masthead">
@@ -19,8 +20,8 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
           <small>TREINE · EVOLUA</small>
         </Link>
         <div className="gg-auth-masthead-side">
-          <span className="gg-auth-masthead-edition">UM DIA DE CADA VEZ</span>
-          <Link to={isSignup ? '/login' : '/signup'} className="gg-auth-masthead-link">
+          <span className="gg-auth-masthead-edition">{coach ? 'ÁREA PROFISSIONAL' : 'UM DIA DE CADA VEZ'}</span>
+          <Link to={coach ? (isSignup ? '/login-personal' : '/cadastro-personal') : (isSignup ? '/login' : '/signup')} className="gg-auth-masthead-link">
             {isSignup ? 'JÁ TENHO CONTA' : 'CRIAR CONTA'} <span aria-hidden="true">↗</span>
           </Link>
         </div>
@@ -41,9 +42,9 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
           </div>
 
           <div className="gg-auth-showcase-copy">
-            <span className="gg-auth-overline">TREINO, ALIMENTAÇÃO, EVOLUÇÃO.</span>
-            <h1>CONTINUE.<br /><em>MAIS FORTE.</em></h1>
-            <p>Um lugar para continuar.</p>
+            <span className="gg-auth-overline">{coach ? 'ORGANIZE. ACOMPANHE. EVOLUA.' : 'TREINO, ALIMENTAÇÃO, EVOLUÇÃO.'}</span>
+            <h1>{coach ? <>CUIDE.<br /><em>INSPIRE.</em></> : <>CONTINUE.<br /><em>MAIS FORTE.</em></>}</h1>
+            <p>{coach ? 'Seu trabalho com seus alunos, em um só lugar.' : 'Um lugar para continuar.'}</p>
           </div>
 
           <div className="gg-auth-performance-strip" aria-label="Nossa filosofia"><span>O PROGRESSO É SEU.</span></div>
@@ -56,7 +57,7 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
         <section className="gg-auth-access" aria-label={title}>
           <div className="gg-auth-panel">
             <div className="gg-auth-panel-meta">
-              <span>{isSignup ? 'CRIAR CONTA' : 'FAZER LOGIN'}</span>
+              <span>{coach ? (isSignup ? 'NOVO PERSONAL' : 'LOGIN PROFISSIONAL') : (isSignup ? 'CRIAR CONTA' : 'FAZER LOGIN')}</span>
               <span className="gg-auth-panel-meta-icon" aria-hidden="true">↗</span>
             </div>
             <span className="gg-auth-context">
