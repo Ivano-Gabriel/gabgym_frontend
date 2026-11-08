@@ -34,6 +34,8 @@ import ExerciseDetailPage from './pages/ExerciseDetailPage';
 import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import PersonalPage from './pages/PersonalPage';
+import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
+import CoachDashboard from './pages/CoachDashboard';
 import RegistrosPage from './pages/RegistrosPage';
 import SignupPage from './pages/SignupPage';
 import MinhasMetasPage from './pages/MinhasMetasPage';
@@ -45,7 +47,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
 import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
-import { isLoggedIn, isSuperAdmin } from './utils/auth';
+import { isLoggedIn, isSuperAdmin, isPersonal } from './utils/auth';
 import AdminPage from './pages/AdminPage';
 import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
 import { getSwipeDestination, shouldIgnoreSwipeOrigin } from './utils/swipeNavigation';
@@ -57,8 +59,10 @@ import './styles/premiumModules.css';
 import './styles/premiumRefinements.css';
 
 
-function RequireAuth({ children, admin = false }) {
-  if (!isLoggedIn()) return <Navigate to="/login" replace />;
+function RequireAuth({ children, admin = false, professional = false }) {
+  if (!isLoggedIn()) return <Navigate to={professional ? "/login-personal" : "/login"} replace />;
+  if (professional && !isPersonal()) return <Navigate to="/meu-personal" replace />;
+  if (!professional && isPersonal()) return <Navigate to="/painel-personal" replace />;
   if (admin && !isSuperAdmin()) return <Navigate to="/perfil" replace />;
   return children;
 }
@@ -75,7 +79,7 @@ function AppContent() {
   const resetSwipe = () => { if (swipeSurface.current) { swipeSurface.current.style.transform = ''; swipeSurface.current.style.transition = ''; } };
 
   const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+  const isAuthPage = ['/login','/signup','/login-personal','/cadastro-personal'].includes(location.pathname);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
   const toggleLogoMenu = () => setIsLogoMenuOpen(prev => !prev);
@@ -127,7 +131,7 @@ function AppContent() {
     const next=getSwipeDestination(location.pathname,touch.clientX-start.x,touch.clientY-start.y,Date.now()-start.at);
     if(next){event.preventDefault();navigate(next);}
   };
-  const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil'})[location.pathname];
+  const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil','/meu-personal':'Meu Personal','/painel-personal':'Área Personal'})[location.pathname];
 
   return (
     <div className="App">
@@ -143,7 +147,7 @@ function AppContent() {
           {isLogoMenuOpen && (
             <div className="gg-logo-dropdown">
               <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Biblioteca</Link>
-              <Link to="/meu-personal" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Meu Personal</Link>
+              <Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?'Área profissional':'Meu Personal'}</Link>
             </div>
           )}
           <span className="gg-header-route" aria-live="polite">{headerLabel||'SEU PROGRESSO'}</span>
@@ -151,30 +155,30 @@ function AppContent() {
         <nav className="gg-nav-desktop">
           <ul className="gg-nav-list">
             <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li><Link to={isSuperAdmin() ? '/admin' : '/perfil'} className="gg-nav-link" onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
+            <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?'ÁREA PROFISSIONAL':t('header.perfil')}</Link></li>
           </ul>
         </nav>
         <div className="gg-header-right">
           <Link
-            to={isLoggedIn() ? (isSuperAdmin() ? '/admin' : '/perfil') : '/login'}
+            to={isLoggedIn() ? (isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')) : '/login'}
             className="gg-header-cta"
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
-          <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
+          {!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
             {isMobileMenuOpen?<FiX className="gg-menu-symbol" aria-hidden="true"/>:<FiMenu className="gg-menu-symbol" aria-hidden="true"/>}
-          </button>
+          </button>}
         </div>
       </header>}
       
-      {isLoggedIn() && !isAuthPage && <DesktopRail />}
+      {isLoggedIn() && !isAuthPage && !isPersonal() && <DesktopRail />}
 
       {isOverlayActive && ( <div className={`site-blur-overlay active`} onClick={() => { closeAllMenus(); setShowTutorialModal(false); }}></div> )}
       <ToastContainer position="top-right" className="gg-toast-container" newestOnTop limit={3} autoClose={3200} hideProgressBar={false} theme="dark" closeOnClick={false} draggable={false}/>
 
       <main ref={swipeSurface} className={isAuthPage ? 'gg-auth-main' : 'gg-swipe-surface'} onTouchStart={onTabTouchStart} onTouchMove={onTabTouchMove} onTouchEnd={onTabTouchEnd} onTouchCancel={()=>{swipeStart.current=null;resetSwipe();}}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={isPersonal()?<Navigate to="/painel-personal" replace />:<HomePage />} />
           <Route path="/perfil" element={<RequireAuth><ProfilePage /></RequireAuth>} />
           <Route path="/profile-form" element={<RequireAuth><ProfileForm /></RequireAuth>} />
           <Route path="/legado/diario" element={<RequireAuth><DiarioPage /></RequireAuth>} />
@@ -201,16 +205,19 @@ function AppContent() {
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
           <Route path="/historico" element={<RequireAuth><HistoryPage /></RequireAuth>} />
           <Route path="/meu-personal" element={<RequireAuth><PersonalPage /></RequireAuth>} />
+          <Route path="/painel-personal" element={<RequireAuth professional><CoachDashboard /></RequireAuth>} />
           <Route path="/registros" element={<RequireAuth><RegistrosPage /></RequireAuth>} />
           <Route path="/minhas-metas" element={<RequireAuth><MinhasMetasPage /></RequireAuth>} />
           <Route path="/admin" element={<RequireAuth admin><AdminPage /></RequireAuth>} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/login-personal" element={<ProfessionalAuthPage mode="login" />} />
+          <Route path="/cadastro-personal" element={<ProfessionalAuthPage mode="signup" />} />
           <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </main>
       
-      {!isAuthPage && isLoggedIn() && <DailyNavigation />}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} />
+      {!isAuthPage && isLoggedIn() && !isPersonal() && <DailyNavigation />}
+      {!isPersonal() && <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} />}
       {showTutorialModal && ( <TutorialModal onClose={toggleTutorialModal} /> )}
     </div>
   );

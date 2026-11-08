@@ -21,7 +21,9 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const login = await loginUser({ username: username.trim(), password, codigoMfa: mfaRequired ? codigoMfa : null });
-      if (login.data.role === 'SUPER_ADMIN') {
+      if (login.data.role === 'PERSONAL') {
+        navigate('/painel-personal', {replace:true});
+      } else if (login.data.role === 'SUPER_ADMIN') {
         navigate('/admin', { replace: true });
       } else {
         const user = (await getCurrentUser()).data;
@@ -43,7 +45,7 @@ export default function LoginPage() {
 
   return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'BEM-VINDO DE VOLTA.'}
     subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Acesse seu progresso.'}
-    footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link></>}>
+    footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link> · <Link to="/login-personal">Sou personal</Link></>}>
     <form className="gg-auth-form" onSubmit={handleSubmit} aria-busy={isLoading}>
       <label className="gg-auth-field"><span>Usuário</span>
         <input name="username" value={username} onChange={e => { setUsername(e.target.value); setMfaRequired(false); }}

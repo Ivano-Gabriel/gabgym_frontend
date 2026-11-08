@@ -82,3 +82,20 @@ export const createMeta = data => apiClient.post('/metas', data);
 export const updateMetaStatus = (id, data) => apiClient.put(`/metas/${id}/status`, data);
 export const getStudents = () => apiClient.get('/admin/students');
 export const getStudent = id => apiClient.get(`/admin/students/${id}`);
+
+/* Meu Personal — toda autorização e relação são validadas pelo backend. */
+export const registerProfessional = credentials => apiClient.post('/users/register-personal', credentials,{timeout:90000});
+export const getPersonalConnection = () => apiClient.get('/personal/student/connection');
+export const requestPersonal = username => apiClient.post('/personal/student/requests',{username});
+export const revokePersonal = () => apiClient.delete('/personal/student/connection');
+export const getCoachStudents = () => apiClient.get('/personal/coach/students');
+export const decideCoachRequest = (studentId,decision) =>
+  apiClient.post(`/personal/coach/requests/${encodeURIComponent(studentId)}/decision`,{decision});
+export const getCoachDay = (studentId,date) =>
+  apiClient.get(`/personal/coach/students/${encodeURIComponent(studentId)}/day`,{params:date?{date}:{}});
+export const getPersonalTimeline = studentId =>
+  apiClient.get(`/personal/students/${encodeURIComponent(studentId)}/timeline`);
+export const postPersonalMessage = (studentId,kind,content) =>
+  apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/timeline`,{kind,content});
+export const decidePersonalPlan = (studentId,entryId,decision) =>
+  apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/plans/${encodeURIComponent(entryId)}/decision`,{decision});

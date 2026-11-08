@@ -1,13 +1,15 @@
 import React, {useEffect,useRef,useState} from 'react';
-import {FiActivity,FiCheck,FiClock,FiPlus,FiSave,FiTrash2,FiTrendingUp} from 'react-icons/fi';
+import {FiActivity,FiCheck,FiClock,FiPlus,FiSave,FiTrash2,FiTrendingUp,FiBookOpen} from 'react-icons/fi';
 import {addDiaryLog} from '../services/apiService';
 import {
   summarizeWorkout,buildWorkoutDiaryEntry,readWorkoutTemplates,saveWorkoutTemplate,
   deleteWorkoutTemplate,readWorkoutSessions,appendWorkoutSession
 } from '../utils/workoutPlans';
 import './WorkoutPlanner.css';
+import {workoutSuggestions,workoutGroups,lastExerciseResult} from '../utils/workoutInsights';
 
 const idGen = (()=>{let counter=0;return prefix=>prefix+'-'+Date.now()+'-'+(++counter);})();
+const nOrZero = value => Number(value||0).toLocaleString('pt-BR',{maximumFractionDigits:1});
 const newSet = (prev={})=>({id:idGen('set'),reps:prev.reps||'10',
   weightKg:prev.weightKg??'0',done:false});
 
@@ -16,6 +18,8 @@ export default function WorkoutPlanner({userId,onSaved}) {
   const [minutes,setMinutes]=useState('45');
   const [restSeconds,setRestSeconds]=useState('90');
   const [exerciseName,setExerciseName]=useState('');
+  const [exerciseGroup,setExerciseGroup]=useState('');
+  const [autoRest,setAutoRest]=useState(false);
   const [exercises,setExercises]=useState([]);
   const [plans,setPlans]=useState([]);
   const [history,setHistory]=useState([]);
@@ -37,17 +41,23 @@ export default function WorkoutPlanner({userId,onSaved}) {
   },[restRemaining]);
 
   const edit=fn=>{setExercises(fn);setSubmitted(false);setFeedback('');};
-  const addExercise=event=>{
-    event.preventDefault();
-    const name=exerciseName.trim();
+  const addNamedExercise=rawName=>{
+    const name=String(rawName||'').trim();
     if(name.length<2||name.length>60){setFeedback('Informe um exercício com 2–60 caracteres.');return;}
     if(exercises.length>=20){setFeedback('Limite de 20 exercícios por ficha.');return;}
     edit(items=>[...items,{id:idGen('ex'),name,sets:[newSet()]}]);
     setExerciseName('');
   };
+  const addExercise=event=>{event.preventDefault();addNamedExercise(exerciseName);};
+  const suggestions=workoutSuggestions(exerciseName,exerciseGroup,5);
   const changeSet=(exerciseId,setId,patch)=>edit(items=>items.map(ex=>ex.id!==exerciseId?ex:{
     ...ex,sets:ex.sets.map(s=>s.id!==setId?s:{...s,...patch})
   }));
+  const toggleDone=(exerciseId,set)=>{
+    changeSet(exerciseId,set.id,{done:!set.done});
+    if(!set.done && autoRest && Number(restSeconds)>0 && Number(restSeconds)<=600)
+      setRestRemaining(Number(restSeconds));
+  };
   const addSet=exerciseId=>edit(items=>items.map(ex=>{
     if(ex.id!==exerciseId||ex.sets.length>=15)return ex;
     return {...ex,sets:[...ex.sets,newSet(ex.sets[ex.sets.length-1])]};
@@ -129,6 +139,8 @@ export default function WorkoutPlanner({userId,onSaved}) {
     </div>
     <div className="gg-plan-rest">
       <div><FiClock aria-hidden="true"/><strong>{restRemaining>0?restRemaining+' s':'DESCANSO'}</strong><small>Temporizador local</small></div>
+      <label className="gg-plan-auto-rest"><input type="checkbox" checked={autoRest}
+        onChange={e=>setAutoRest(e.target.checked)}/> AUTO DESCANSO</label>
       <button type="button" onClick={()=>setRestRemaining(Number(restSeconds)||0)} disabled={Number(restSeconds)<1||Number(restSeconds)>600}>INICIAR DESCANSO</button>
       {restRemaining>0&&<button type="button" onClick={()=>setRestRemaining(0)}>PARAR</button>}
     </div>
@@ -139,15 +151,32 @@ export default function WorkoutPlanner({userId,onSaved}) {
     </div>
     <div className="gg-plan-track" role="progressbar" aria-label="Séries concluídas da ficha" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress}><span style={{width:progress+'%'}}/></div>
 
+
+    <div className="gg-plan-library-header"><FiBookOpen aria-hidden="true"/><span>BIBLIOTECA DE EXERCÍCIOS DO GABGYM</span></div>
     <form className="gg-plan-add-exercise" onSubmit={addExercise}>
-      <label>Adicionar exercício<input value={exerciseName} maxLength="60" onChange={e=>setExerciseName(e.target.value)} placeholder="Ex.: Supino reto" /></label>
+      <label>Adicionar exercício<input value={exerciseName} maxLength="60" onChange={e=>setExerciseName(e.target.value)} placeholder="Busque ou digite um exercício" /></label>
+      <label className="gg-plan-group">Grupo muscular
+        <select value={exerciseGroup} onChange={e=>setExerciseGroup(e.target.value)}>
+          <option value="">TODOS</option>
+          {workoutGroups.map(group=><option key={group} value={group}>{group.toUpperCase()}</option>)}
+        </select>
+      </label>
       <button type="submit" disabled={busy||exercises.length>=20}><FiPlus aria-hidden="true"/> ADICIONAR</button>
     </form>
+    {suggestions.length>0&&<div className="gg-plan-exercise-quick" aria-label="Sugestões da biblioteca">
+      {suggestions.map(suggestion=><button key={suggestion.id} type="button" disabled={busy||exercises.length>=20}
+        onClick={()=>addNamedExercise(suggestion.name)} title={suggestion.group}>
+        <FiPlus aria-hidden="true"/> {suggestion.name}
+      </button>)}
+    </div>}
 
     {exercises.length===0 && <p className="gg-plan-empty">Sua ficha começa aqui. Adicione um exercício e depois configure repetições e cargas.</p>}
     <div className="gg-plan-exercises">
       {exercises.map((ex,i)=><article className="gg-plan-exercise" key={ex.id}>
-        <header><div><span>{String(i+1).padStart(2,'0')} / EXERCÍCIO</span><h4>{ex.name}</h4></div>
+        <header><div><span>{String(i+1).padStart(2,'0')} / EXERCÍCIO</span><h4>{ex.name}</h4>
+          {lastExerciseResult(history,ex.name)&&<small className="gg-plan-last-record">
+            ÚLTIMA VEZ: {nOrZero(lastExerciseResult(history,ex.name).weightKg)} KG · {lastExerciseResult(history,ex.name).totalSets} SÉRIES
+          </small>}</div>
           <button type="button" disabled={busy} onClick={()=>removeExercise(ex.id)} aria-label={'Remover exercício '+ex.name}><FiTrash2 aria-hidden="true"/></button>
         </header>
         <div className="gg-plan-sets">
@@ -161,7 +190,7 @@ export default function WorkoutPlanner({userId,onSaved}) {
               onChange={e=>changeSet(ex.id,set.id,{weightKg:e.target.value})}/></label>
             <button type="button" className="gg-plan-done" disabled={busy} aria-pressed={set.done}
               aria-label={(set.done?'Desmarcar':'Concluir')+' série '+(j+1)+' de '+ex.name}
-              onClick={()=>changeSet(ex.id,set.id,{done:!set.done})}><FiCheck aria-hidden="true"/></button>
+              onClick={()=>toggleDone(ex.id,set)}><FiCheck aria-hidden="true"/></button>
             <button type="button" className="gg-plan-remove-set" disabled={busy||ex.sets.length===1}
               aria-label={'Excluir série '+(j+1)+' de '+ex.name}
               onClick={()=>removeSet(ex.id,set.id)}><FiTrash2 aria-hidden="true"/></button>

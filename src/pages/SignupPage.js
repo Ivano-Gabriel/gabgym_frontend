@@ -30,7 +30,7 @@ export default function SignupPage() {
 
   return <AuthShell type="signup" title="SEU COMEÇO."
     subtitle="Crie sua conta e comece."
-    footer={<>Já tem uma conta? <Link to="/login">Entrar</Link></>}>
+    footer={<>Já tem uma conta? <Link to="/login">Entrar</Link> · <Link to="/cadastro-personal">Sou personal</Link></>}>
     <form className="gg-auth-form" onSubmit={submit} aria-busy={isLoading}>
       <label className="gg-auth-field"><span>Nome de usuário</span>
         <input name="username" value={username} onChange={e => setUsername(e.target.value)}

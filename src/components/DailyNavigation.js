@@ -37,13 +37,14 @@ export default function DailyNavigation() {
     { label: admin ? 'Admin' : 'Perfil', to: admin ? '/admin' : '/perfil', icon: admin ? FiShield : FiUser },
   ];
   const menu = [
+    { label: 'Meu Personal', to: '/meu-personal', icon: FiUsers, summary: 'Acompanhamento com seu treinador' },
     { label: 'Alimentação', to: '/alimentacao', icon: FiCoffee, summary: 'Registre suas refeições' },
     { label: 'Treinos', to: '/treino', icon: FiActivity, summary: 'Continue seu treino' },
     { label: 'Cardio', to: '/cardio/select', icon: FiHeart, summary: 'Escolha sua atividade' },
     { label: 'Metas', to: '/minhas-metas', icon: FiTarget, summary: 'Defina o próximo passo' },
     { label: 'Progresso', to: '/perfil', icon: FiBarChart2, summary: 'Sua evolução' },
     { label: 'Biblioteca', to: '/biblioteca', icon: FiBookOpen, summary: 'Aprenda e pratique' },
-    { label: 'Meu Personal', to: '/meu-personal', icon: FiUsers, summary: 'Seu foco, seus treinos' },
+
   ];
   return (
     <>
@@ -74,7 +75,7 @@ export default function DailyNavigation() {
           </div>
           <div className="gg-hub-links">
             {menu.map(({label,to,summary,icon:Icon},index) =>
-              <Link key={to} to={to} tabIndex={open?0:-1} onClick={() => setOpen(false)} style={{"--gg-card-index":index}} className="gg-hub-link">
+              <Link key={to} to={to} tabIndex={open?0:-1} onClick={() => setOpen(false)} style={{"--gg-card-index":index}} className={"gg-hub-link"+(to==="/meu-personal"?" gg-hub-link--personal":"")}>
                 <Icon aria-hidden="true" /><span><strong>{label}</strong><small>{summary}</small></span><FiChevronRight aria-hidden="true"/>
               </Link>)}
           </div>

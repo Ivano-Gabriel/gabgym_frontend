@@ -1,4 +1,4 @@
-import { isLoggedIn, isSuperAdmin, clearAuthSession } from './auth';
+import { isLoggedIn, isSuperAdmin, isPersonal, clearAuthSession } from './auth';
 
 afterEach(() => {
   sessionStorage.clear();
@@ -32,4 +32,12 @@ test('logout remove credenciais sem apagar dados não relacionados ao app', () =
   expect(localStorage.getItem('userId')).toBeNull();
   expect(localStorage.getItem('gabgymTodaysSleep')).toBe('dados-locais');
   localStorage.removeItem('gabgymTodaysSleep');
+});
+
+test('personal só é reconhecido com token e papel PERSONAL explícito',()=>{
+ sessionStorage.setItem('role','PERSONAL');
+ expect(isPersonal()).toBe(false);
+ sessionStorage.setItem('authToken','token');
+ expect(isPersonal()).toBe(true);
+ expect(isSuperAdmin()).toBe(false);
 });

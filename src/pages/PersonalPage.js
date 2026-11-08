@@ -4,6 +4,9 @@ import {FiArrowLeft,FiCheckCircle,FiEdit3,FiLock,FiUsers} from 'react-icons/fi';
 import {getCurrentUser} from '../services/apiService';
 import {PERSONAL_GOALS,PERSONAL_FOCUS,personalBriefKey,sanitizePersonalBrief} from '../utils/personalBrief';
 import './PersonalPage.css';
+import StudentCoachPanel from '../components/StudentCoachPanel';
+import PremiumPhoto from '../components/PremiumPhoto';
+import '../pages/CoachPortal.css';
 
 const blank={goal:'',focus:'',days:'',notes:''};
 /** Rascunho local de preferências; sem mensagens, coaches conectados ou prescrição. */
@@ -38,12 +41,14 @@ export default function PersonalPage(){
  return <div className="gg-personal">
    <div className="gg-personal-inner">
      <Link className="gg-personal-back" to="/perfil"><FiArrowLeft aria-hidden="true"/> PERFIL</Link>
-     <header className="gg-personal-intro">
-       <span className="gg-personal-kicker"><FiUsers aria-hidden="true"/> PRIMEIRO PASSO</span>
+     <header className="gg-personal-intro gg-personal-premium-hero">
+       <PremiumPhoto scene="gym" decorative priority />
+       <span className="gg-personal-kicker"><FiUsers aria-hidden="true"/> ALUNO / MEU ACOMPANHAMENTO</span>
        <h1>MEU PERSONAL<span>.</span></h1>
-       <p>Organize seu foco para a próxima fase do GABGYM.</p>
+       <p>Treino, alimentação e metas com seu treinador — somente quando você autorizar.</p>
      </header>
-     <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
+     {!loading&&userId&&<StudentCoachPanel userId={userId}/>}
+   <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
        <div className="gg-personal-card-head"><FiEdit3 aria-hidden="true"/><div>
          <h2 id="gg-personal-preferences">SUA ROTINA</h2>
          <span>Suas preferências, sempre editáveis.</span>
@@ -76,8 +81,8 @@ export default function PersonalPage(){
        </form>}
        {error&&loading&&<p role="alert">{error}</p>}
      </section>
-     <aside className="gg-personal-future"><FiLock aria-hidden="true"/><div><strong>PERSONAL+ · PARA O FUTURO</strong>
-       <p>Conexão com profissionais, acompanhamento e mensagens ainda não estão disponíveis. Aqui não há plano automático nem aconselhamento profissional.</p>
+     <aside className="gg-personal-future"><FiLock aria-hidden="true"/><div><strong>CONTROLE E PRIVACIDADE</strong>
+       <p>Você decide quando solicitar ou revogar o acompanhamento. Mensagens e planos do personal exigem vínculo ativo; propostas não alteram seu treino sem sua aprovação. <Link to="/login-personal">Sou personal trainer</Link>.</p>
      </div></aside>
    </div>
  </div>;
