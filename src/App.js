@@ -155,7 +155,7 @@ function AppContent() {
         <nav className="gg-nav-desktop">
           <ul className="gg-nav-list">
             <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li><Link to={isSuperAdmin() ? '/admin' : '/perfil'} className="gg-nav-link" onClick={closeAllMenus}>{t('header.perfil')}</Link></li>
+            <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?'ÁREA PROFISSIONAL':t('header.perfil')}</Link></li>
           </ul>
         </nav>
         <div className="gg-header-right">
@@ -165,9 +165,9 @@ function AppContent() {
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
-          <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
+          {!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
             {isMobileMenuOpen?<FiX className="gg-menu-symbol" aria-hidden="true"/>:<FiMenu className="gg-menu-symbol" aria-hidden="true"/>}
-          </button>
+          </button>}
         </div>
       </header>}
       
