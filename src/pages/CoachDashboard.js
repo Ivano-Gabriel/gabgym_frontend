@@ -1,14 +1,13 @@
-import React,{useCallback,useEffect,useMemo,useRef,useState} from 'react';
+import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {Link,useNavigate} from 'react-router-dom';
-import {FiActivity,FiArrowRight,FiBell,FiBookOpen,FiCheck,FiCoffee,
-  FiDroplet,FiFileText,FiMessageSquare,FiRefreshCw,FiSend,FiShield,FiUsers,FiX} from 'react-icons/fi';
+import {FiActivity,FiArrowRight,FiBell,FiCheck,FiCoffee,
+  FiDroplet,FiRefreshCw,FiSend,FiShield,FiUsers,FiX} from 'react-icons/fi';
 import {getCurrentUser,getCoachStudents,decideCoachRequest,getCoachDay,
   getPersonalTimeline,postPersonalMessage,logoutUser} from '../services/apiService';
 import PremiumPhoto from '../components/PremiumPhoto';
 import './CoachPortal.css';
 
 const kindLabels={MESSAGE:'MENSAGEM',ALERT:'ALERTA INTERNO',PLAN:'PROPOSTA DE TREINO',NOTE:'ANOTAÇÃO PRIVADA'};
-const kindIcon={MESSAGE:FiMessageSquare,ALERT:FiBell,PLAN:FiBookOpen,NOTE:FiFileText};
 const n=v=>Number(v||0).toLocaleString('pt-BR',{maximumFractionDigits:1});
 
 export default function CoachDashboard(){
