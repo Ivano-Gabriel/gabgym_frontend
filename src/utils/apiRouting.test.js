@@ -8,14 +8,14 @@ test('deploy Vercel usa mesmo dominio para chamadas API, sem CORS de preview', (
   expect(chooseApiBaseUrl('development', 'https://api.example.com/api'))
     .toBe('https://api.example.com/api');
 });
-test('Vercel encaminha /api e /ping ao piloto antes do fallback React', () => {
+test('PREVIEW ISOLADO: Vercel aponta para Neon, não para a API piloto de produção', () => {
   expect(config.rewrites[0]).toEqual({
     source: '/api/:path*',
-    destination: 'https://gabgym-api-piloto-us.onrender.com/api/:path*',
+    destination: 'https://gabgym-backend-java-v2.onrender.com/api/:path*',
   });
   expect(config.rewrites[1]).toEqual({
     source: '/ping',
-    destination: 'https://gabgym-api-piloto-us.onrender.com/ping',
+    destination: 'https://gabgym-backend-java-v2.onrender.com/ping',
   });
   expect(config.rewrites[2]).toEqual({ source: '/:path*', destination: '/index.html' });
   expect(config).not.toHaveProperty('headers');
