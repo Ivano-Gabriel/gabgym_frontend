@@ -26,7 +26,7 @@ test('treino exige pelo menos uma série concluída e nunca envia calorias inven
   expect(addDiaryLog.mock.calls[0][0]).toEqual(expect.objectContaining({
     userId:17,type:'exercise',calories:0,name:expect.stringContaining('1 séries')
   }));
-  expect(screen.getByRole('button',{name:'TREINO REGISTRADO'})).toBeDisabled();
+  expect(await screen.findByRole('button',{name:'TREINO REGISTRADO'})).toBeDisabled();
   expect(screen.getByText(/séries e cargas guardadas neste navegador/i)).toBeInTheDocument();
   expect(JSON.parse(localStorage.getItem('gabgym:workout-sessions:17'))).toHaveLength(1);
 });
@@ -38,7 +38,7 @@ test('salvar e reutilizar ficha preserva carga e reseta séries concluídas',()=
   fireEvent.click(screen.getByRole('button',{name:'Concluir série 1 de Supino reto'}));
   fireEvent.click(screen.getByRole('button',{name:'SALVAR FICHA'}));
   expect(screen.getByText(/Ficha salva neste navegador/)).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button',{name:'USAR FICHA'}));
+  fireEvent.click(screen.getByRole('button',{name:'Carregar ficha Treino do dia'}));
   expect(screen.getByRole('spinbutton',{name:'Carga série 1 de Supino reto'})).toHaveValue(55);
   expect(screen.getByRole('button',{name:'Concluir série 1 de Supino reto'})).toHaveAttribute('aria-pressed','false');
   expect(localStorage.getItem('gabgym:workout-plans:18')).toBeNull();
