@@ -4,6 +4,7 @@ import { FiActivity, FiArrowRight, FiBookOpen, FiClock, FiCompass, FiMapPin, FiT
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
 import { dayKey, calorieProgress } from '../utils/nutrition';
 import PremiumPhoto from '../components/PremiumPhoto';
+import WorkoutPlanner from '../components/WorkoutPlanner';
 import './TrainingTodayPage.css';
 
 const format = value => Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1});
@@ -24,6 +25,7 @@ export default function TrainingTodayPage(){
   const [logs,setLogs]=useState([]);
   const [user,setUser]=useState(null);
   const [showWorkout,setShowWorkout]=useState(false);
+  const [showPlanner,setShowPlanner]=useState(false);
   const [workout,setWorkout]=useState({name:'Costas e bíceps',exercise:'',sets:'',reps:'',minutes:'45',calories:''});
   const [busy,setBusy]=useState(false);
   const [message,setMessage]=useState('');
@@ -144,6 +146,19 @@ export default function TrainingTodayPage(){
         </section>
         <section className="gg-movement-actions" aria-labelledby="gg-movement-start">
           <div className="gg-movement-section-heading"><span>01 / AÇÃO</span><h2 id="gg-movement-start">O QUE VAMOS FAZER?</h2></div>
+          <div className="gg-movement-planner-entry">
+            <button type="button" className="gg-movement-primary gg-movement-workout-toggle"
+              aria-expanded={showPlanner} aria-label="Abrir fichas e séries"
+              onClick={()=>setShowPlanner(value=>!value)}>
+              <span className="gg-movement-action-icon"><FiActivity aria-hidden="true"/></span>
+              <span><strong>FICHAS, SÉRIES E CARGAS</strong><small>Monte sua rotina e registre cada série</small></span>
+              <FiArrowRight aria-hidden="true"/>
+            </button>
+            {showPlanner&&user?.id&&<WorkoutPlanner userId={user.id} onSaved={async()=>{
+              const result=await getDiaryLogs(user.id,dayKey());
+              if(Array.isArray(result.data))setLogs(result.data);
+            }}/>}
+          </div>
           <button type="button" className="gg-movement-primary gg-movement-workout-toggle" aria-expanded={showWorkout}
             onClick={()=>setShowWorkout(!showWorkout)} aria-label="Registrar treino feito">
             <span className="gg-movement-action-icon"><FiActivity aria-hidden="true"/></span>
