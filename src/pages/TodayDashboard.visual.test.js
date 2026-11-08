@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render, screen, fireEvent, waitFor, act} from '@testing-library/react';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 import TodayDashboard from './TodayDashboard';
-import {getCurrentUser,getDiaryLogs,getMetas} from '../services/apiService';
+import {getCurrentUser,getDiaryLogs,getMetas,addDiaryLog} from '../services/apiService';
 
 jest.mock('react-router-dom',()=>({
   Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
@@ -13,7 +13,8 @@ jest.mock('../components/StreakCalendar',()=>()=>null);
 jest.mock('../services/apiService',()=>({
   getCurrentUser:jest.fn(),
   getDiaryLogs:jest.fn(),
-  getMetas:jest.fn()
+  getMetas:jest.fn(),
+  addDiaryLog:jest.fn()
 }));
 
 beforeEach(()=>{
@@ -28,6 +29,7 @@ beforeEach(()=>{
     {id:2,type:'water',volume:1000}
   ]});
   getMetas.mockResolvedValue({data:[]});
+  addDiaryLog.mockResolvedValue({data:{id:99}});
 });
 
 test('Hoje distingue alimentação e água com estilos semânticos, mantendo os valores reais',async()=>{
@@ -86,4 +88,60 @@ test('card de água e painel de metas têm fotos decorativas com dados intactos'
   const metas=screen.getByRole('region',{name:'Metas e ações'});
   expect(metas.querySelector('img.gg-premium-photo')).toHaveAttribute('loading','lazy');
   expect(screen.getByRole('link',{name:/sem metas/i})).toHaveAttribute('href','/minhas-metas');
+});
+
+test('Hoje registra +250 ml no contrato real e atualiza progresso sem recarregar a página', async () => {
+  getDiaryLogs.mockResolvedValueOnce({data:[
+    {id:1,type:'food',name:'Cuscuz',calories:800},{id:2,type:'water',volume:1000}
+  ]}).mockResolvedValueOnce({data:[
+    {id:1,type:'food',name:'Cuscuz',calories:800},{id:2,type:'water',volume:1000},
+    {id:99,type:'water',name:'Água',volume:250}
+  ]});
+  render(<TodayDashboard/>);
+  expect(await screen.findByText('Cuscuz')).toBeInTheDocument();
+  const button=screen.getByRole('button',{name:'Registrar 250 mililitros de água'});
+  fireEvent.click(button);
+  await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledTimes(1));
+  expect(addDiaryLog.mock.calls[0][0]).toEqual(expect.objectContaining({
+    userId:17,type:'water',name:'Água',volume:250,calories:0,logDate:expect.any(String)
+  }));
+  await waitFor(()=>expect(screen.getByRole('progressbar',{name:'Água diária'})).toHaveAttribute('aria-valuenow','1250'));
+  expect(screen.getByText(/250 ml registrados no diário/)).toBeInTheDocument();
+});
+
+test('duplo toque não duplica registro de água enquanto POST está pendente',async()=>{
+  let finish;
+  addDiaryLog.mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
+  render(<TodayDashboard/>);
+  const b=await screen.findByRole('button',{name:'Registrar 500 mililitros de água'});
+  fireEvent.click(b);
+  expect(b).toBeDisabled();
+  fireEvent.click(b);
+  expect(addDiaryLog).toHaveBeenCalledTimes(1);
+  await act(async()=>{finish({data:{id:22}});});
+  await screen.findByText(/500 ml registrados no diário/);
+});
+
+test('ao falhar a API, Hoje mostra tentar novamente e recupera sem recarregar o navegador',async()=>{
+  getCurrentUser.mockRejectedValueOnce(new Error('Render dormindo'));
+  render(<TodayDashboard/>);
+  expect(await screen.findByRole('alert')).toHaveTextContent(/servidor pode estar iniciando/i);
+  fireEvent.click(screen.getByRole('button',{name:/tentar novamente/i}));
+  expect(await screen.findByRole('progressbar',{name:'Água diária'})).toBeInTheDocument();
+  expect(getCurrentUser).toHaveBeenCalledTimes(2);
+});
+
+test('saudação não revela ID do perfil no lugar do nome',async()=>{
+  getCurrentUser.mockResolvedValueOnce({data:{id:17,name:'157',username:'Gabriel',weight:80}});
+  render(<TodayDashboard/>);
+  expect(await screen.findByText('Continue, Gabriel.')).toBeInTheDocument();
+  expect(screen.queryByText(/Continue, 157/)).not.toBeInTheDocument();
+});
+
+test('se POST conclui e GET falha, não informa erro falso e reflete a água na interface',async()=>{
+  getDiaryLogs.mockResolvedValueOnce({data:[]}).mockRejectedValueOnce(new Error('GET offline'));
+  render(<TodayDashboard/>);
+  fireEvent.click(await screen.findByRole('button',{name:'Registrar 250 mililitros de água'}));
+  expect(await screen.findByText(/250 ml registrados no diário/)).toBeInTheDocument();
+  expect(screen.getByRole('progressbar',{name:'Água diária'})).toHaveAttribute('aria-valuenow','250');
 });
