@@ -22,3 +22,45 @@
 .gg-personal-future strong{font-size:12px;color:#f5f5f5}.gg-personal-future p{font-size:12px;color:#d1b49e;line-height:1.6;margin:7px 0 0}
 .gg-personal :is(a,button,input,textarea,select):focus-visible{outline:3px solid #b1111b;outline-offset:3px}
 @media(max-width:560px){.gg-personal-form{grid-template-columns:1fr}.gg-personal-form label:nth-child(4),.gg-personal-save,.gg-personal-ok,.gg-personal-error{grid-column:auto}}
+
+/* Meu Personal / hero Premium que combina com as telas Hoje, Treino e Alimentação. */
+.gg-personal{background:#101112!important;}
+.gg-personal-inner{max-width:1150px;}
+.gg-personal-premium-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  min-height:285px;margin:4px 0 19px;padding:27px 21px;border-radius:12px;
+  border:1px solid #4a4b4e;background:#1b1c1e;
+}
+.gg-personal-premium-hero>.gg-premium-photo{
+  display:block;position:absolute;inset:0;width:100%;height:100%;
+  z-index:0;object-fit:cover;object-position:center 36%;opacity:.71;
+  filter:contrast(1.15) saturate(.7);pointer-events:none;
+}
+.gg-personal-premium-hero:before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#090a0bf7 0%,#090a0bd0 62%,#090a0b55 100%);
+}
+.gg-personal-premium-hero>:not(.gg-premium-photo){position:relative;z-index:2;}
+.gg-personal-premium-hero h1{
+  font:700 clamp(62px,12vw,115px)/.81 'Teko',Impact,sans-serif!important;
+  margin:13px 0 8px!important;letter-spacing:-.01em;
+}
+.gg-personal-premium-hero h1 span{color:#c31320!important;}
+.gg-personal-premium-hero p{max-width:480px;color:#e3e4e5;font-size:13px;line-height:1.6;margin:0!important;}
+.gg-personal .gg-personal-card,.gg-personal .gg-personal-future{
+  background:#202123!important;border:1px solid #4c4e51!important;
+  border-radius:11px!important;box-shadow:none!important;
+}
+.gg-personal .gg-personal-save{border-radius:9px!important;color:#fff!important;}
+.gg-personal .gg-personal-form :is(input,select,textarea){
+  border-radius:9px!important;border-color:#56585b!important;background:#292a2c!important;
+  color:#fff!important;font-size:16px!important;
+}
+.gg-personal .gg-personal-future p{color:#d2d4d6!important;}
+.gg-personal .gg-personal-future a{color:#fff;font-weight:800;text-underline-offset:3px;}
+@media(min-width:780px){.gg-personal-premium-hero{min-height:355px;padding:39px 44px;}}
+@media(max-width:600px){
+  .gg-personal-premium-hero{min-height:260px;padding:24px 17px;}
+  .gg-personal-premium-hero h1{font-size:clamp(58px,12vw,76px)!important;}
+}

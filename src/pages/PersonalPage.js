@@ -5,6 +5,7 @@ import {getCurrentUser} from '../services/apiService';
 import {PERSONAL_GOALS,PERSONAL_FOCUS,personalBriefKey,sanitizePersonalBrief} from '../utils/personalBrief';
 import './PersonalPage.css';
 import StudentCoachPanel from '../components/StudentCoachPanel';
+import PremiumPhoto from '../components/PremiumPhoto';
 import '../pages/CoachPortal.css';
 
 const blank={goal:'',focus:'',days:'',notes:''};
@@ -40,10 +41,11 @@ export default function PersonalPage(){
  return <div className="gg-personal">
    <div className="gg-personal-inner">
      <Link className="gg-personal-back" to="/perfil"><FiArrowLeft aria-hidden="true"/> PERFIL</Link>
-     <header className="gg-personal-intro">
-       <span className="gg-personal-kicker"><FiUsers aria-hidden="true"/> PRIMEIRO PASSO</span>
+     <header className="gg-personal-intro gg-personal-premium-hero">
+       <PremiumPhoto scene="gym" decorative priority />
+       <span className="gg-personal-kicker"><FiUsers aria-hidden="true"/> ALUNO / MEU ACOMPANHAMENTO</span>
        <h1>MEU PERSONAL<span>.</span></h1>
-       <p>Organize seu foco para a próxima fase do GABGYM.</p>
+       <p>Treino, alimentação e metas com seu treinador — somente quando você autorizar.</p>
      </header>
      {!loading&&userId&&<StudentCoachPanel userId={userId}/>}
    <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
