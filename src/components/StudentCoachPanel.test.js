@@ -29,7 +29,10 @@ test('aluno pode solicitar acompanhamento sabendo o username do profissional',as
  render(<StudentCoachPanel userId={17}/>);
  const input=await screen.findByLabelText('Usuário do personal');
  fireEvent.change(input,{target:{value:'coach.gab'}});
- fireEvent.click(screen.getByRole('button',{name:'SOLICITAR ACOMPANHAMENTO'}));
+ const submit=screen.getByRole('button',{name:'SOLICITAR ACOMPANHAMENTO'});
+ expect(submit).toBeDisabled();
+ fireEvent.click(screen.getByRole('checkbox',{name:/Autorizo este personal/i}));
+ fireEvent.click(submit);
  await waitFor(()=>expect(requestPersonal).toHaveBeenCalledWith('coach.gab'));
 });
 test('após aceite exibe métricas reais, plano para aprovar e revogação',async()=>{

@@ -13,6 +13,7 @@ export default function StudentCoachPanel({userId}) {
   const [diary,setDiary]=useState([]);
   const [username,setUsername]=useState('');
   const [message,setMessage]=useState('');
+  const [consent,setConsent]=useState(false);
   const [busy,setBusy]=useState(false);
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState('');
@@ -121,13 +122,19 @@ export default function StudentCoachPanel({userId}) {
           'Nenhum profissional tem acesso aos seus registros.'}</span>
       </div>
       <form className="gg-coach-connect-form" onSubmit={e=>{
-        e.preventDefault();perform(()=>requestPersonal(username.trim()),'Solicitação enviada. Aguarde a aprovação.');
+        e.preventDefault();if(!consent)return;
+        perform(async()=>{await requestPersonal(username.trim());setConsent(false);},
+          'Solicitação enviada. Aguarde a aprovação.');
       }}>
         <label>Usuário do personal
           <input value={username} maxLength={40} required pattern="[A-Za-z0-9_.\\-]{3,40}"
             placeholder="Ex.: treinador.gab" onChange={e=>setUsername(e.target.value)} />
         </label>
-        <button disabled={busy} type="submit">SOLICITAR ACOMPANHAMENTO</button>
+        <label className="gg-coach-consent"><input type="checkbox" checked={consent}
+          required onChange={e=>setConsent(e.target.checked)}/>
+          <span>Autorizo este personal, após aceitar a solicitação, a visualizar meus dados de alimentação, água, treinos e metas. Posso revogar o acesso a qualquer momento.</span>
+        </label>
+        <button disabled={busy||!consent} type="submit">SOLICITAR ACOMPANHAMENTO</button>
       </form>
       <p className="gg-coach-disclaimer">Digite o nome de usuário que o profissional informou. O GabGym não disponibiliza uma lista pública de alunos ou profissionais.</p>
     </>}

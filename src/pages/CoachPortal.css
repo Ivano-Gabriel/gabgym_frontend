@@ -153,3 +153,15 @@
  .gg-coach-student-summary strong{font-size:22px;}
 }
 @media(prefers-reduced-motion:reduce){.gg-coach-portal *, .gg-coach-student *{animation:none!important;transition:none!important;}}
+
+/* Consentimento explícito antes de transmitir o pedido de vínculo. */
+.gg-coach-student .gg-coach-connect-form .gg-coach-consent{
+  display:flex;align-items:flex-start;gap:11px;flex-basis:100%;
+  padding:12px;border:1px solid #55575a;border-radius:9px;background:#28292b;
+  cursor:pointer;font:600 11px/1.65 'Manrope',Arial,sans-serif;color:#fff;
+}
+.gg-coach-student .gg-coach-consent input[type="checkbox"]{
+  flex:0 0 20px;width:20px;height:20px;min-height:20px;padding:0;margin:1px 0 0;
+  accent-color:#b1111b;cursor:pointer;
+}
+.gg-coach-student .gg-coach-consent span{flex:1;min-width:0;}
