@@ -45,6 +45,8 @@ test('após aceite exibe métricas reais, plano para aprovar e revogação',asyn
  expect(screen.getByText('Peito e ombro')).toBeInTheDocument();
  fireEvent.click(screen.getByRole('button',{name:/APROVAR/i}));
  await waitFor(()=>expect(decidePersonalPlan).toHaveBeenCalledWith(17,10,'APPROVE'));
+ await screen.findByText('Plano aprovado.');
+ await waitFor(()=>expect(screen.getByRole('button',{name:/REVOGAR ACESSO/i})).toBeEnabled());
  fireEvent.click(screen.getByRole('button',{name:/REVOGAR ACESSO/i}));
  await waitFor(()=>expect(revokePersonal).toHaveBeenCalledTimes(1));
 });

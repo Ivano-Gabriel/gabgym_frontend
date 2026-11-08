@@ -40,8 +40,9 @@ test('coaching precisa aceitar solicitação e envia proposta sem modificar diá
  render(<CoachDashboard/>);
  fireEvent.click(await screen.findByRole('button',{name:/Aceitar/i}));
  await waitFor(()=>expect(decideCoachRequest).toHaveBeenCalledWith(19,'ACCEPT'));
- fireEvent.change(screen.getByLabelText('Tipo de comunicação'),{target:{value:'PLAN'}});
- fireEvent.change(screen.getByLabelText('Proposta de treino para aprovação'),{target:{value:'Costas 3x10'}});
+ await screen.findByText('960 kcal');
+ fireEvent.change(await screen.findByLabelText('Tipo de comunicação'),{target:{value:'PLAN'}});
+ fireEvent.change(await screen.findByLabelText('Proposta de treino para aprovação'),{target:{value:'Costas 3x10'}});
  fireEvent.click(screen.getByRole('button',{name:/ENVIAR PARA ACOMPANHAMENTO/i}));
  await waitFor(()=>expect(postPersonalMessage).toHaveBeenCalledWith(17,'PLAN','Costas 3x10'));
 });
