@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://gabgym-api-piloto-us.onrender.com/api/:path*" },
-    { "source": "/ping", "destination": "https://gabgym-api-piloto-us.onrender.com/ping" },
+    { "source": "/api/:path*", "destination": "https://gabgym-backend-java-v2.onrender.com/api/:path*" },
+    { "source": "/ping", "destination": "https://gabgym-backend-java-v2.onrender.com/ping" },
     { "source": "/:path*", "destination": "/index.html" }
   ]
 }
