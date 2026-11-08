@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiArrowRight, FiCoffee, FiDroplet, FiActivity, FiTarget, FiPlus, FiCalendar, FiBookOpen } from 'react-icons/fi';
-import { getCurrentUser, getDiaryLogs, getMetas } from '../services/apiService';
+import { FiArrowRight, FiCoffee, FiDroplet, FiActivity, FiTarget, FiPlus, FiCalendar, FiBookOpen, FiRefreshCw, FiCheckCircle } from 'react-icons/fi';
+import { getCurrentUser, getDiaryLogs, getMetas, addDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, calorieProgress } from '../utils/nutrition';
 import StreakCalendar from '../components/StreakCalendar';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
@@ -9,6 +9,8 @@ import './TodayDashboard.css';
 import '../styles/premiumExperience.css';
 import './TodayPremium.css';
 import PremiumPhoto from '../components/PremiumPhoto';
+import {greetingFor,makeWaterEntry,recentFoodsToday} from '../utils/todayActions';
+import './TodayActions.css';
 
 const n = value => Number(value).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 
@@ -18,9 +20,14 @@ export default function TodayDashboard() {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [refreshVersion,setRefreshVersion] = useState(0);
+  const [quickBusy,setQuickBusy] = useState(false);
+  const [quickMessage,setQuickMessage] = useState('');
+  const quickLock=useRef(false);
   const { pathname } = useLocation();
   useEffect(() => {
     let alive = true;
+    setLoading(true);setError('');
     const load = async () => {
       try {
         const response = await getCurrentUser();
@@ -41,7 +48,7 @@ export default function TodayDashboard() {
     };
     load();
     return () => { alive = false; };
-  }, [pathname]);
+  }, [pathname,refreshVersion]);
 
   const totals = useMemo(() => summarizeDay(logs), [logs]);
   const estimates=suggestDailyGoals(user);
@@ -51,6 +58,30 @@ export default function TodayDashboard() {
   const kcalProgress = foodGoal ? calorieProgress(totals.calories, foodGoal) : null;
   const dateLabel = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
   const activeGoals = goals.filter(g => g.status === 'ATIVA').slice(0,3);
+  const recentFoods = recentFoodsToday(logs,2);
+  const reload = () => {
+    setQuickMessage('');
+    setRefreshVersion(value=>value+1);
+  };
+  const registerWater = async volume => {
+    if (!user?.id || quickLock.current || loading) return;
+    quickLock.current=true;setQuickBusy(true);setQuickMessage('');
+    try {
+      const entry=makeWaterEntry(user.id,volume);
+      await addDiaryLog(entry);
+      // Persist first, then refresh. A failed GET cannot turn a saved POST into an error.
+      try {
+        const fresh=await getDiaryLogs(user.id,dayKey());
+        if (Array.isArray(fresh.data)) setLogs(fresh.data);
+        else setLogs(current=>[...current,{...entry,id:'local-'+entry.timestamp}]);
+      } catch {
+        setLogs(current=>[...current,{...entry,id:'local-'+entry.timestamp}]);
+      }
+      setQuickMessage('+'+volume+' ml registrados no diário.');
+    } catch {
+      setQuickMessage('Não foi possível confirmar o registro. Confira o diário antes de tentar novamente.');
+    } finally { quickLock.current=false;setQuickBusy(false); }
+  };
 
   return (
     <div className="gg-today gg-today-premium">
@@ -67,7 +98,7 @@ export default function TodayDashboard() {
           <div className="gg-today-hero-body">
             <span className="gg-today-eyebrow"><FiCalendar aria-hidden="true" /> {dateLabel}</span>
             <h1>SEU DIA<span>.</span></h1>
-            <p>{user?.name ? 'Continue, ' + user.name.split(' ')[0] + '.' : 'O importante é continuar.'}</p>
+            <p>{greetingFor(user)}</p>
             <Link to="/treino" className="gg-today-hero-action">
               ABRIR MEU TREINO <FiArrowRight aria-hidden="true" />
             </Link>
@@ -75,7 +106,12 @@ export default function TodayDashboard() {
           <span className="gg-today-hero-watermark" aria-hidden="true">GABGYM / 01</span>
         </header>
         {loading && <div className="gg-today-state" role="status">Sincronizando seus registros…</div>}
-        {error && <div className="gg-today-error" role="alert">{error}</div>}
+        {error && <div className="gg-today-error" role="alert">
+          <p>{error} O servidor pode estar iniciando.</p>
+          <button type="button" disabled={loading} onClick={reload} className="gg-today-retry">
+            <FiRefreshCw aria-hidden="true"/> TENTAR NOVAMENTE
+          </button>
+        </div>}
         {!loading && user && <>
           <div className="gg-today-dashboard-grid">
             <section className="gg-today-dashboard-main" aria-label="Registros do dia">
@@ -101,6 +137,28 @@ export default function TodayDashboard() {
               </> : <small>Sem meta definida · Ajustar hidratação</small>}
             </Link>
           </div>
+          <section className="gg-today-quick-actions" aria-label="Ações rápidas do dia">
+            <div className="gg-today-quick-head"><span>SEM SAIR DO HOJE</span><h3>REGISTRE EM UM TOQUE.</h3></div>
+            <div className="gg-today-quick-buttons">
+              <button type="button" disabled={quickBusy || loading || Boolean(error)}
+                onClick={()=>registerWater(250)} aria-label="Registrar 250 mililitros de água">
+                <FiDroplet aria-hidden="true"/> +250 ML
+              </button>
+              <button type="button" disabled={quickBusy || loading || Boolean(error)}
+                onClick={()=>registerWater(500)} aria-label="Registrar 500 mililitros de água">
+                <FiDroplet aria-hidden="true"/> +500 ML
+              </button>
+              <Link to="/alimentacao" className="gg-today-quick-food"><FiCoffee aria-hidden="true"/> ADICIONAR REFEIÇÃO <FiArrowRight aria-hidden="true"/></Link>
+            </div>
+            {quickBusy && <p className="gg-today-quick-status" role="status">Salvando no diário…</p>}
+            {quickMessage && <p className="gg-today-quick-status" role="status">{quickMessage.startsWith('+') && <FiCheckCircle aria-hidden="true"/>}{quickMessage}</p>}
+            {recentFoods.length>0 && <div className="gg-today-quick-recent">
+              <strong>ÚLTIMAS REFEIÇÕES DE HOJE</strong>
+              <ul>{recentFoods.map((food,index)=><li key={food.id||index}><span>{food.name}</span>
+                {Number.isFinite(Number(food.calories))&&food.calories!==null&&food.calories!==undefined
+                  ? <small>{n(food.calories)} kcal</small>:null}</li>)}</ul>
+            </div>}
+          </section>
             </section>
             <section className="gg-today-dashboard-aside" aria-label="Metas e ações">
               <PremiumPhoto scene="goals" decorative />
