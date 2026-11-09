@@ -2,7 +2,7 @@ import React from 'react';
 import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 import CoachDashboard from './CoachDashboard';
 import {getCurrentUser,getCoachStudents,getCoachDay,getPersonalTimeline,
-  decideCoachRequest,postPersonalMessage} from '../services/apiService';
+  decideCoachRequest,postPersonalMessage,ensureApiReady} from '../services/apiService';
 
 const mockNavigate=jest.fn();
 jest.mock('react-router-dom',()=>({
@@ -11,10 +11,11 @@ jest.mock('react-router-dom',()=>({
 }));
 jest.mock('../services/apiService',()=>({
  getCurrentUser:jest.fn(),getCoachStudents:jest.fn(),getCoachDay:jest.fn(),
- getPersonalTimeline:jest.fn(),decideCoachRequest:jest.fn(),postPersonalMessage:jest.fn(),logoutUser:jest.fn()
+ getPersonalTimeline:jest.fn(),decideCoachRequest:jest.fn(),postPersonalMessage:jest.fn(),logoutUser:jest.fn(),ensureApiReady:jest.fn()
 }));
 beforeEach(()=>{
  jest.clearAllMocks();
+ ensureApiReady.mockResolvedValue(true);
  getCurrentUser.mockResolvedValue({data:{id:8,role:'PERSONAL',username:'coach.gab'}});
  getCoachStudents.mockResolvedValue({data:[
   {id:17,username:'ana',name:'Ana',status:'ACTIVE'},

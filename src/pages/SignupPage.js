@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/apiService';
 import AuthShell from './AuthShell';
+import {useApiReady} from '../hooks/useApiReady';
+import ApiWakeNotice from '../components/ApiWakeNotice';
 
 export default function SignupPage() {
   const [username, setUsername] = useState('');
@@ -10,10 +12,11 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const connection=useApiReady();
 
   const submit = async event => {
     event.preventDefault();
-    if (isLoading) return;
+    if (isLoading||!connection.ready) return;
     setError('');
     setIsLoading(true);
     try {
@@ -47,8 +50,9 @@ export default function SignupPage() {
           </button>
         </div>
       </label>
+      <ApiWakeNotice connection={connection}/>
       {error && <p role="alert" className="gg-auth-error">{error}</p>}
-      <button className="gg-auth-submit" type="submit" disabled={isLoading}>
+      <button className="gg-auth-submit" type="submit" disabled={isLoading||!connection.ready}>
         <span>{isLoading ? 'CRIANDO CONTA...' : 'CRIAR MINHA CONTA'}</span>
         <span aria-hidden="true">→</span>
       </button>

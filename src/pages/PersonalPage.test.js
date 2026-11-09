@@ -3,6 +3,7 @@ import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 import PersonalPage from './PersonalPage';
 import {getCurrentUser} from '../services/apiService';
 jest.mock('../services/apiService',()=>({getCurrentUser:jest.fn()}));
+jest.mock('../hooks/useApiReady',()=>({useApiReady:()=>({ready:true,checking:false,status:'ready',attempt:0,retry:jest.fn()})}));
 jest.mock('../components/StudentCoachPanel',()=>({__esModule:true,default:({userId})=>require('react').createElement('div',{'data-testid':'portal'},'Conexão do aluno '+userId)}));
 jest.mock('react-router-dom',()=>({Link:({to,children,...rest})=>require('react').createElement('a',{href:to,...rest},children)}));
 beforeEach(()=>{jest.clearAllMocks();localStorage.clear();getCurrentUser.mockResolvedValue({data:{id:17}})});
