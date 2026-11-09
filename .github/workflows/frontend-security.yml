@@ -20,6 +20,6 @@ jobs:
       - run: npm run build
         env:
           REACT_APP_API_URL: https://api.example.invalid/api
-      - name: Compare Register Personal on Render and Vercel preview (QA branch only)
+      - name: Verify isolated Render CORS preflight (QA branch only)
         if: ${{ github.head_ref == 'test/gabgym-personal-neon-preview' }}
         run: node scripts/smoke-personal.mjs
