@@ -9,6 +9,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => jest.fn(),
 }));
 
+jest.mock('../hooks/useApiReady',()=>({useApiReady:()=>({ready:true,checking:false,status:'ready',attempt:0,retry:jest.fn()})}));
 jest.mock('../services/apiService', () => ({
   registerUser: jest.fn(),
 }));

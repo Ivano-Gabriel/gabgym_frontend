@@ -2,7 +2,7 @@ import React,{useCallback,useEffect,useMemo,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FiCheck,FiMessageCircle,FiRefreshCw,FiSend,FiShield,FiUserCheck,FiX} from 'react-icons/fi';
 import {getPersonalConnection,requestPersonal,revokePersonal,getPersonalTimeline,
-  postPersonalMessage,decidePersonalPlan,getDiaryLogs} from '../services/apiService';
+  postPersonalMessage,decidePersonalPlan,getDiaryLogs,ensureApiReady} from '../services/apiService';
 import {dayKey,summarizeDay} from '../utils/nutrition';
 
 const empty={id:null,status:'NONE',coachUsername:null};
@@ -16,6 +16,7 @@ export default function StudentCoachPanel({userId}) {
   const [consent,setConsent]=useState(false);
   const [busy,setBusy]=useState(false);
   const [loading,setLoading]=useState(true);
+  const [wakeAttempt,setWakeAttempt]=useState(0);
   const [error,setError]=useState('');
   const [notice,setNotice]=useState('');
   const [revision,setRevision]=useState(0);
@@ -25,6 +26,8 @@ export default function StudentCoachPanel({userId}) {
   const load=useCallback(async()=>{
     setLoading(true);setError('');
     try {
+      const ready=await ensureApiReady({onAttempt:setWakeAttempt});
+      if(!ready)throw new Error('Servidor temporariamente indisponível');
       const [link,diaryResult]=await Promise.all([
         getPersonalConnection(),getDiaryLogs(userId,dayKey()).catch(()=>({data:[]}))
       ]);
@@ -66,8 +69,10 @@ export default function StudentCoachPanel({userId}) {
       <button type="button" disabled={loading||busy} onClick={refresh} aria-label="Atualizar Meu Personal"><FiRefreshCw aria-hidden="true"/></button>
     </div>
     <p>Você controla quem acompanha sua rotina. Só depois da sua solicitação e da aprovação do profissional os dados são compartilhados.</p>
-    {loading&&<p role="status">Consultando seu acompanhamento…</p>}
-    {error&&<p className="gg-coach-error" role="alert">{error}</p>}
+    {loading&&<p role="status">Conectando ao Meu Personal… {wakeAttempt>1?'Tentativa '+wakeAttempt+' de restabelecer o servidor.':'Consultando seu acompanhamento.'}</p>}
+    {error&&<div className="gg-coach-error" role="alert">{error}
+      <button type="button" disabled={loading||busy} onClick={refresh}>TENTAR NOVAMENTE</button>
+    </div>}
     {notice&&<p className="gg-coach-notice" role="status">{notice}</p>}
     {!loading&&connection.status==='ACTIVE'&&<>
       <div className="gg-coach-connected"><FiUserCheck aria-hidden="true"/><div>
@@ -129,7 +134,7 @@ export default function StudentCoachPanel({userId}) {
           'Solicitação enviada. Aguarde a aprovação.');
       }}>
         <label>Usuário do personal
-          <input value={username} maxLength={40} required pattern="[A-Za-z0-9_.\\-]{3,40}"
+          <input value={username} maxLength={40} required pattern="[A-Za-z0-9_.\-]{3,40}"
             placeholder="Ex.: treinador.gab" onChange={e=>setUsername(e.target.value)} />
         </label>
         <label className="gg-coach-consent"><input type="checkbox" checked={consent}

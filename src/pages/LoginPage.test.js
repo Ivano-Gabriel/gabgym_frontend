@@ -7,6 +7,7 @@ jest.mock('react-router-dom',()=>({
   Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
   useNavigate:()=>jest.fn()
 }));
+jest.mock('../hooks/useApiReady',()=>({useApiReady:()=>({ready:true,checking:false,status:'ready',attempt:0,retry:jest.fn()})}));
 jest.mock('../services/apiService',()=>({
   loginUser:jest.fn(),getCurrentUser:jest.fn(),warmUpApi:jest.fn()
 }));

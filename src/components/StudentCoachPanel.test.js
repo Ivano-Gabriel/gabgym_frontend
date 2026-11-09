@@ -2,17 +2,18 @@ import React from 'react';
 import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 import StudentCoachPanel from './StudentCoachPanel';
 import {getPersonalConnection,requestPersonal,getPersonalTimeline,
-  getDiaryLogs,revokePersonal,decidePersonalPlan} from '../services/apiService';
+  getDiaryLogs,revokePersonal,decidePersonalPlan,ensureApiReady} from '../services/apiService';
 jest.mock('react-router-dom',()=>({
  Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children)
 }));
 jest.mock('../services/apiService',()=>({
  getPersonalConnection:jest.fn(),requestPersonal:jest.fn(),getPersonalTimeline:jest.fn(),
  getDiaryLogs:jest.fn(),revokePersonal:jest.fn(),decidePersonalPlan:jest.fn(),
- postPersonalMessage:jest.fn()
+ postPersonalMessage:jest.fn(),ensureApiReady:jest.fn()
 }));
 beforeEach(()=>{
  jest.clearAllMocks();
+ ensureApiReady.mockResolvedValue(true);
  getDiaryLogs.mockResolvedValue({data:[{type:'food',calories:750},{type:'water',volume:1000},{type:'exercise'}]});
  getPersonalTimeline.mockResolvedValue({data:[]});
  getPersonalConnection.mockResolvedValue({data:{status:'NONE'}});
@@ -52,4 +53,12 @@ test('após aceite exibe métricas reais, plano para aprovar e revogação',asyn
  await waitFor(()=>expect(screen.getByRole('button',{name:/REVOGAR ACESSO/i})).toBeEnabled());
  fireEvent.click(screen.getByRole('button',{name:/REVOGAR ACESSO/i}));
  await waitFor(()=>expect(revokePersonal).toHaveBeenCalledTimes(1));
+});
+
+test('nome de usuário para vincular personal funciona em browsers com RegExp v',async()=>{
+ render(<StudentCoachPanel userId={17}/>);
+ const field=await screen.findByLabelText('Usuário do personal');
+ const re=new RegExp('^(?:'+field.pattern+')$','v');
+ expect(re.test('coach.gab')).toBe(true);
+ expect(re.test('personal-01')).toBe(true);
 });

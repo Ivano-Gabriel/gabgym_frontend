@@ -3,7 +3,7 @@ import {Link,useNavigate} from 'react-router-dom';
 import {FiActivity,FiArrowRight,FiBell,FiCheck,FiCoffee,
   FiDroplet,FiRefreshCw,FiSend,FiShield,FiUsers,FiX} from 'react-icons/fi';
 import {getCurrentUser,getCoachStudents,decideCoachRequest,getCoachDay,
-  getPersonalTimeline,postPersonalMessage,logoutUser} from '../services/apiService';
+  getPersonalTimeline,postPersonalMessage,logoutUser,ensureApiReady} from '../services/apiService';
 import PremiumPhoto from '../components/PremiumPhoto';
 import './CoachPortal.css';
 
@@ -35,7 +35,10 @@ export default function CoachDashboard(){
   useEffect(()=>{
     let alive=true;
     setLoading(true);setError('');
-    Promise.all([getCurrentUser(),getCoachStudents()]).then(([me,roster])=>{
+    ensureApiReady().then(ready=>{
+      if(!ready)throw new Error('Servidor temporariamente indisponível');
+      return Promise.all([getCurrentUser(),getCoachStudents()]);
+    }).then(([me,roster])=>{
       if(!alive)return;
       if(me.data?.role!=='PERSONAL')throw new Error('role');
       const list=Array.isArray(roster.data)?roster.data:[];

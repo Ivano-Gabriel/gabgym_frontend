@@ -3,6 +3,8 @@ import {Link,useNavigate} from 'react-router-dom';
 import {clearAuthSession} from '../utils/auth';
 import {registerProfessional,loginUser,warmUpApi} from '../services/apiService';
 import AuthShell from './AuthShell';
+import {useApiReady} from '../hooks/useApiReady';
+import ApiWakeNotice from '../components/ApiWakeNotice';
 
 /** A mesma autenticação JWT do GabGym, mas com conta e experiência PERSONAL. */
 export default function ProfessionalAuthPage({mode='login'}) {
@@ -13,11 +15,12 @@ export default function ProfessionalAuthPage({mode='login'}) {
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState('');
   const navigate=useNavigate();
+  const connection=useApiReady();
   useEffect(()=>{warmUpApi();},[]);
 
   const submit=async e=>{
     e.preventDefault();
-    if(loading)return;
+    if(loading||!connection.ready)return;
     setLoading(true);setError('');
     try {
       if(signup){
@@ -50,7 +53,7 @@ export default function ProfessionalAuthPage({mode='login'}) {
     <form className="gg-auth-form" onSubmit={submit} aria-busy={loading}>
       <label className="gg-auth-field"><span>Usuário do personal</span>
         <input value={username} name="username" onChange={e=>setUsername(e.target.value)}
-          pattern="[A-Za-z0-9_.\\-]{3,40}" maxLength={40} autoComplete="username"
+          pattern="[A-Za-z0-9_.\-]{3,40}" maxLength={40} autoComplete="username"
           placeholder="Seu usuário profissional" required disabled={loading}/>
       </label>
       <label className="gg-auth-field"><span>Senha</span>
@@ -66,8 +69,9 @@ export default function ProfessionalAuthPage({mode='login'}) {
           </button>
         </div>
       </label>
+      <ApiWakeNotice connection={connection}/>
       {error&&<p role="alert" className="gg-auth-error">{error}</p>}
-      <button type="submit" className="gg-auth-submit" disabled={loading}>
+      <button type="submit" className="gg-auth-submit" disabled={loading||!connection.ready}>
         <span>{loading?'VALIDANDO…':signup?'CRIAR CONTA PROFISSIONAL':'ENTRAR COMO PERSONAL'}</span>
         <span aria-hidden="true">→</span>
       </button>

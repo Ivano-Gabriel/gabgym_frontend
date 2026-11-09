@@ -1,10 +1,31 @@
 import axios from 'axios';
 import { clearAuthSession } from '../utils/auth';
 import { chooseApiBaseUrl } from '../utils/apiRouting';
+import { waitForApiReady } from '../utils/apiReadiness';
 
 // Em deploys Vercel, requisicoes usam o mesmo dominio /api (vercel.json).
 // REACT_APP_API_URL continua disponivel apenas para desenvolvimento local.
 const baseURL = chooseApiBaseUrl(process.env.NODE_ENV, process.env.REACT_APP_API_URL);
+
+/** Sonda pública de prontidão, sem token; GET seguro para repetir.
+ * Em previews Vercel, /ping usa o mesmo proxy do /api (Neon no preview de QA).
+ */
+export const checkApiReady=async signal=>{
+  const url=typeof window==='undefined'?'http://localhost:8080':new URL(baseURL,window.location.href).origin;
+  if(process.env.NODE_ENV!=='production') {
+    await axios.get(baseURL+'/workout/groups',{timeout:12000,signal});
+    return true;
+  }
+  const response=await axios.get(url+'/ping',{timeout:12000,signal,withCredentials:false,
+    headers:{'Cache-Control':'no-cache'}});
+  if(response.data?.status!=='ok') {
+    const error=new Error('Resposta de health check inválida');
+    error.response={status:502};
+    throw error;
+  }
+  return true;
+};
+export const ensureApiReady=options=>waitForApiReady({probe:checkApiReady,...options});
 
 // Render Free pode demorar a iniciar apos inatividade. Dispara um GET publico
 // sem token, nao bloqueante; nao cria intervalo nem ciclo de requisicoes.
