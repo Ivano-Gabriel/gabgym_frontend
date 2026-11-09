@@ -39,7 +39,9 @@ export default function ProfessionalAuthPage({mode='login'}) {
       if(err.response?.status===404)setError('O acesso profissional ainda não está disponível neste servidor.');
       else if(err.response?.status===409)setError('Este nome de usuário já está em uso.');
       else if(err.response?.status===400)setError('Usuário de 3–40 caracteres e senha de 10–72 caracteres.');
-      else if(err.response?.status===401)setError('Usuário ou senha inválidos.');
+      else if(err.response?.status===401)setError(signup
+        ? 'O ambiente de testes bloqueou o cadastro (401). Nenhuma conta foi confirmada.'
+        : 'Usuário ou senha inválidos.');
       else if(err.response?.status===429)setError('Muitas tentativas. Aguarde e tente novamente.');
       else setError('Não foi possível conectar ao servidor. Ele pode estar iniciando.');
     }finally{setLoading(false);}
