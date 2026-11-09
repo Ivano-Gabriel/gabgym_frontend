@@ -1,9 +1,9 @@
 import { chooseApiBaseUrl } from './apiRouting';
 import config from '../../vercel.json';
 
-test('deploy Vercel usa mesmo dominio para chamadas API, sem CORS de preview', () => {
+test('QA preview protegido chama Neon direto para não ser bloqueado pelo proxy Vercel', () => {
   expect(chooseApiBaseUrl('production', 'https://gabgym-api-piloto-us.onrender.com/api'))
-    .toBe('/api');
+    .toBe('https://gabgym-backend-java-v2.onrender.com/api');
   expect(chooseApiBaseUrl('development', undefined)).toBe('http://localhost:8080/api');
   expect(chooseApiBaseUrl('development', 'https://api.example.com/api'))
     .toBe('https://api.example.com/api');
