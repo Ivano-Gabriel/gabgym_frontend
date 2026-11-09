@@ -6,6 +6,8 @@ import {PERSONAL_GOALS,PERSONAL_FOCUS,personalBriefKey,sanitizePersonalBrief} fr
 import './PersonalPage.css';
 import StudentCoachPanel from '../components/StudentCoachPanel';
 import PremiumPhoto from '../components/PremiumPhoto';
+import {useApiReady} from '../hooks/useApiReady';
+import ApiWakeNotice from '../components/ApiWakeNotice';
 import '../pages/CoachPortal.css';
 
 const blank={goal:'',focus:'',days:'',notes:''};
@@ -16,8 +18,13 @@ export default function PersonalPage(){
  const [loading,setLoading]=useState(true);
  const [error,setError]=useState('');
  const [saved,setSaved]=useState(false);
+ const [refreshCount,setRefreshCount]=useState(0);
+ const connection=useApiReady();
  useEffect(()=>{
+   if(!connection.ready)return undefined;
    let alive=true;
+   setLoading(true);
+   setError('');
    getCurrentUser().then(({data})=>{
      if(!alive)return;
      if(!data?.id)throw new Error('Sem usuário');
@@ -29,7 +36,7 @@ export default function PersonalPage(){
    }).catch(()=>{if(alive)setError('Não foi possível carregar sua conta. Tente novamente.');})
    .finally(()=>{if(alive)setLoading(false);});
    return()=>{alive=false;};
- },[]);
+ },[connection.ready,refreshCount]);
  const update=(key,value)=>{setDraft(v=>({...v,[key]:value}));setSaved(false);};
  const store=e=>{
    e.preventDefault();
@@ -47,7 +54,8 @@ export default function PersonalPage(){
        <h1>MEU PERSONAL<span>.</span></h1>
        <p>Treino, alimentação e metas com seu treinador — somente quando você autorizar.</p>
      </header>
-     {!loading&&userId&&<StudentCoachPanel userId={userId}/>}
+     <ApiWakeNotice connection={connection}/>
+     {!loading&&userId&&connection.ready&&<StudentCoachPanel userId={userId}/>}
    <section className="gg-personal-card" aria-labelledby="gg-personal-preferences">
        <div className="gg-personal-card-head"><FiEdit3 aria-hidden="true"/><div>
          <h2 id="gg-personal-preferences">SUA ROTINA</h2>
@@ -79,7 +87,8 @@ export default function PersonalPage(){
          {saved&&<p role="status" className="gg-personal-ok"><FiCheckCircle aria-hidden="true"/> Salvo neste dispositivo.</p>}
          <button type="submit" className="gg-personal-save">SALVAR PREFERÊNCIAS <FiCheckCircle aria-hidden="true"/></button>
        </form>}
-       {error&&loading&&<p role="alert">{error}</p>}
+       {error&&<button type="button" className="gg-personal-save" 
+         onClick={()=>setRefreshCount(value=>value+1)}>TENTAR CARREGAR A CONTA NOVAMENTE</button>}
      </section>
      <aside className="gg-personal-future"><FiLock aria-hidden="true"/><div><strong>CONTROLE E PRIVACIDADE</strong>
        <p>Você decide quando solicitar ou revogar o acompanhamento. Mensagens e planos do personal exigem vínculo ativo; propostas não alteram seu treino sem sua aprovação. <Link to="/login-personal">Sou personal trainer</Link>.</p>

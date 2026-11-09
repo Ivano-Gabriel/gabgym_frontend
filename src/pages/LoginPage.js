@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, getCurrentUser, warmUpApi } from '../services/apiService';
 import AuthShell from './AuthShell';
+import {useApiReady} from '../hooks/useApiReady';
+import ApiWakeNotice from '../components/ApiWakeNotice';
 
 export default function LoginPage() {
   useEffect(() => { warmUpApi(); }, []);
@@ -13,10 +15,11 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const connection=useApiReady();
 
   const handleSubmit = async event => {
     event.preventDefault();
-    if (isLoading) return;
+    if (isLoading||!connection.ready) return;
     setError('');
     setIsLoading(true);
     try {
@@ -65,8 +68,9 @@ export default function LoginPage() {
           inputMode="numeric" pattern="[0-9]{6}" autoComplete="one-time-code" placeholder="000000" required
           maxLength={6} disabled={isLoading} />
       </label>}
+      <ApiWakeNotice connection={connection}/>
       {error && <p className="gg-auth-error" role="alert">{error}</p>}
-      <button className="gg-auth-submit" type="submit" disabled={isLoading}>
+      <button className="gg-auth-submit" type="submit" disabled={isLoading||!connection.ready}>
         <span>{isLoading ? 'VERIFICANDO...' : mfaRequired ? 'VALIDAR CÓDIGO' : 'ENTRAR NO GABGYM'}</span>
         <span aria-hidden="true">→</span>
       </button>
