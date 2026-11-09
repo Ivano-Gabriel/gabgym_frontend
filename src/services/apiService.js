@@ -2,6 +2,7 @@ import axios from 'axios';
 import { clearAuthSession } from '../utils/auth';
 import { chooseApiBaseUrl } from '../utils/apiRouting';
 import { waitForApiReady } from '../utils/apiReadiness';
+import { isPublicIdentityRoute } from '../utils/apiAuthorization';
 
 // Em deploys Vercel, requisicoes usam o mesmo dominio /api (vercel.json).
 // REACT_APP_API_URL continua disponivel apenas para desenvolvimento local.
@@ -12,7 +13,8 @@ const baseURL = chooseApiBaseUrl(process.env.NODE_ENV, process.env.REACT_APP_API
  */
 export const checkApiReady=async signal=>{
   const url=typeof window==='undefined'?'http://localhost:8080':new URL(baseURL,window.location.href).origin;
-  if(process.env.NODE_ENV!=='production') {
+  if(process.env.NODE_ENV!=='production' ||
+     (typeof window!=='undefined' && new URL(baseURL,window.location.href).origin!==window.location.origin)) {
     await axios.get(baseURL+'/workout/groups',{timeout:12000,signal});
     return true;
   }
@@ -48,7 +50,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(config => {
   const token = sessionStorage.getItem('authToken');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (token && !isPublicIdentityRoute(config.url)) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
@@ -56,7 +58,7 @@ apiClient.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401 &&
-        !error.config?.url?.endsWith('/users/login')) {
+        !isPublicIdentityRoute(error.config?.url)) {
       clearAuthSession();
     }
     return Promise.reject(error);
