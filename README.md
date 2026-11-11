@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# GabGym — Frontend 💪
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interface web do **GabGym**, desenvolvida para facilitar o acompanhamento diário de **treinos, alimentação, cardio e metas pessoais**, com atenção especial à experiência no celular.
 
-## Available Scripts
+## Tecnologias
 
-In the project directory, you can run:
+**React** · **JavaScript** · **React Router** · **Axios** · **Create React App** · **CSS**
 
-### `npm start`
+## Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Tela inicial com visão geral do dia e do progresso.
+- Registro e acompanhamento de treinos e cardio.
+- Diário alimentar e biblioteca de alimentos.
+- Metas, perfil, histórico e biblioteca de exercícios.
+- Área **Meu Personal**, com acesso próprio para o profissional acompanhar alunos.
+- Integração com a API Java do GabGym.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Executar localmente
 
-### `npm test`
+**Pré-requisito:** Node.js e npm instalados.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+npm start
+```
 
-### `npm run build`
+A aplicação abre, normalmente, em **http://localhost:3000**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Crie um arquivo `.env` com base em [`.env.example`](./.env.example):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```env
+REACT_APP_API_URL=http://localhost:8080/api
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Outros comandos:
 
-### `npm run eject`
+```bash
+npm test
+npm run build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Organização
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `src/pages/` — telas do aplicativo.
+- `src/components/` — componentes reutilizáveis.
+- `src/utils/` — funções e regras auxiliares.
+- `public/` — imagens e arquivos estáticos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Backend:** [gabgym_backend_java_V2](https://github.com/Ivano-Gabriel/gabgym_backend_java_V2)  
+**Status:** projeto em desenvolvimento, com melhorias contínuas de interface e funcionalidades.
