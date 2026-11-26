@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiActivity, FiArrowRight, FiBookOpen, FiClock, FiCompass, FiMapPin, FiTrendingUp, FiZap, FiTarget } from 'react-icons/fi';
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
@@ -25,6 +25,7 @@ export const summarizeMovement = logs => {
 export default function TrainingTodayPage(){
   const {settings}=useExperience();
   const simple=settings.mode==='simple';
+  const mutationLock=useRef(false);
   const [logs,setLogs]=useState([]);
   const [user,setUser]=useState(null);
   const [showWorkout,setShowWorkout]=useState(false);
@@ -73,7 +74,7 @@ export default function TrainingTodayPage(){
   };
   const saveWorkout=async event=>{
     event.preventDefault();
-    if(!user?.id||busy)return;
+    if(!user?.id||mutationLock.current)return;
     const minutes=Number(workout.minutes);
     const kcal=workout.calories===''?0:Number(workout.calories);
     const name=workout.name.trim();
@@ -86,7 +87,7 @@ export default function TrainingTodayPage(){
       setMessage('Confira treino, duração e a estimativa opcional de calorias.');
       return;
     }
-    setBusy(true);setMessage('');
+    mutationLock.current=true;setBusy(true);setMessage('');
     try{
       await addDiaryLog({
         userId:user.id,type:'exercise',name:name+(exercise?' · '+exercise:'')+(sets&&reps?' · '+sets+'x'+reps:'')+' ('+minutes+' min)',
@@ -101,7 +102,7 @@ export default function TrainingTodayPage(){
         setMessage('Treino salvo no servidor. Atualize a página para ver os totais.');
       }
     }catch{setMessage('Não conseguimos registrar este treino. Confira a conexão.');}
-    finally{setBusy(false);}
+    finally{mutationLock.current=false;setBusy(false);}
   };
   return (
     <main className="gg-movement">

@@ -53,7 +53,7 @@ function SimpleToday({settings}){
       await addDiaryLog(entry);
       try{
         const response=await getDiaryLogs(person.id,dayKey());
-        setLogs(Array.isArray(response.data)?response.data:[]); 
+        setLogs(old=>Array.isArray(response.data)?response.data:[...old,entry]);
       }catch{setLogs(old=>[...old,entry]);}
       setMessage(t('simple.waterSaved'));
     }catch{setMessage(t('today.waterError'));}
@@ -65,7 +65,7 @@ function SimpleToday({settings}){
       <header className="gg-simple-day-hero">
         <span>GABGYM / {t('simple.kicker')}</span>
         <h1>{t('simple.title')}<br/><em>{t('simple.accent')}</em></h1>
-        <p>{person?.name&&person.name.split(' ')[0]+' · '}{t('simple.description')}</p>
+        <p>{typeof person?.name==='string'&&/[A-Za-zÀ-ÿ]/.test(person.name)&&!person.name.includes('@')&&person.name.split(' ')[0]+' · '}{t('simple.description')}</p>
         <Link to="/configuracoes">{t('simple.personalize')} <FiArrowRight aria-hidden="true"/></Link>
       </header>
       {loading&&<p role="status" className="gg-simple-day-notice">{t('simple.loading')}</p>}

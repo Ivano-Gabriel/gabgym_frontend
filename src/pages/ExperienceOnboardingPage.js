@@ -83,7 +83,7 @@ export default function ExperienceOnboardingPage() {
           <div className="gg-experience-heading"><span>03 / {t('experience.language')}</span>
             <h2>{t('experience.language')}</h2></div>
           <label className="gg-experience-language">{t('settings.language')}
-            <select value={draft.language} onChange={e=>setDraft(old=>({...old,language:e.target.value}))}>
+            <select disabled={saving} value={draft.language} onChange={e=>setDraft(old=>({...old,language:e.target.value}))}>
               {languages.map(([code,label])=><option key={code} value={code}>{label}</option>)}
             </select>
           </label>

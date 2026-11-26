@@ -24,7 +24,7 @@ export default function ExperienceSettingsPage() {
     setBusy(true);setMessage('');setError('');
     try{
       const result=await state.save({...draft,completed:true});
-      setMessage(result.source==='server'?t('settings.saved'):t('settings.local'));
+      setMessage(result.source==='server'?'settings.saved':'settings.local');
     }catch{setError(t('experience.error'));}
     finally{setBusy(false);}
   };
@@ -38,7 +38,7 @@ export default function ExperienceSettingsPage() {
       {!state.ready?<p role="status">{t('experience.loading')}</p>:<form onSubmit={save} className="gg-experience-form">
         {state.error&&<p className="gg-experience-warning" role="status">{state.error}</p>}
         {error&&<p className="gg-experience-warning" role="alert">{error}</p>}
-        {message&&<p className="gg-experience-warning" role="status">{message}</p>}
+        {message&&<p className="gg-experience-warning" role="status">{t(message)}</p>}
         <section>
           <div className="gg-experience-heading"><span>01 / {t('settings.modules')}</span>
             <h2>{t('experience.areas')}</h2></div>
@@ -54,7 +54,7 @@ export default function ExperienceSettingsPage() {
           <div className="gg-experience-heading"><span>02 / {t('settings.mode')}</span><h2>{t('experience.complexity')}</h2></div>
           <div className="gg-experience-modes">
             {modes.map(key=><label key={key} className="gg-experience-mode">
-              <input type="radio" name="experience-mode" checked={draft.mode===key}
+              <input type="radio" name="experience-mode" checked={draft.mode===key} disabled={busy}
                 onChange={()=>setDraft(old=>({...old,mode:key}))}/>
               <span><strong>{t('experience.'+key)}</strong><small>{t('experience.'+key+'Detail')}</small></span>
             </label>)}
@@ -64,7 +64,7 @@ export default function ExperienceSettingsPage() {
           <div className="gg-experience-heading"><span>03 / {t('settings.language')}</span>
             <h2>{t('experience.language')}</h2></div>
           <label className="gg-settings-language">{t('settings.language')}
-            <select value={draft.language} onChange={e=>setDraft(old=>({...old,language:e.target.value}))}>
+            <select disabled={busy} value={draft.language} onChange={e=>setDraft(old=>({...old,language:e.target.value}))}>
               {languages.map(([code,name])=><option key={code} value={code}>{name}</option>)}
             </select>
           </label>

@@ -157,3 +157,16 @@ test('simple nutrition opens the catalog and keeps water and food registration',
   await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'water',volume:250})));
  }finally{mockMode='normal';}
 });
+
+test('food deletion requires explicit confirmation and cancel never deletes',async()=>{
+ getDiaryLogs.mockResolvedValue({data:[{id:42,type:'food',name:'Ovo cozido',calories:78}]});
+ render(<NutritionTodayPage/>);
+ fireEvent.click(await screen.findByRole('button',{name:'Excluir Ovo cozido'}));
+ expect(deleteDiaryLog).not.toHaveBeenCalled();
+ fireEvent.click(screen.getByRole('button',{name:'Cancelar exclusão'}));
+ expect(deleteDiaryLog).not.toHaveBeenCalled();
+ fireEvent.click(screen.getByRole('button',{name:'Excluir Ovo cozido'}));
+ fireEvent.click(screen.getByRole('button',{name:'Confirmar exclusão'}));
+ await waitFor(()=>expect(deleteDiaryLog).toHaveBeenCalledWith(42));
+ await waitFor(()=>expect(screen.queryByRole('button',{name:'Excluir Ovo cozido'})).not.toBeInTheDocument());
+});

@@ -2,7 +2,7 @@ import React,{createContext,useCallback,useContext,useEffect,useMemo,useState} f
 import {useLocation} from 'react-router-dom';
 import {getCurrentUser,getExperiencePreferences,updateExperiencePreferences} from '../services/apiService';
 import i18n from '../i18n';
-import {EXPERIENCE_DEFAULTS,normalizeExperience,readLocalExperience,
+import {EXPERIENCE_DEFAULTS,readLocalExperience,
   validateExperience,writeLocalExperience} from '../utils/experience';
 
 const ExperienceContext=createContext({
@@ -36,7 +36,8 @@ export function ExperienceProvider({children}) {
         try{
           const result=await getExperiencePreferences();
           if(!alive)return;
-          const settings=normalizeExperience(result.data);
+          const settings=validateExperience(result.data);
+          try{writeLocalExperience(userId,settings);}catch{}
           setState({settings,ready:true,accountId:userId,source:'server',error:'',sessionToken:token});
         }catch(error){
           if(!alive)return;
@@ -65,15 +66,15 @@ export function ExperienceProvider({children}) {
     const next=validateExperience(input);
     try{
       const response=await updateExperiencePreferences(next);
-      const stored=normalizeExperience(response.data);
-      writeLocalExperience(state.accountId,stored);
-      setState(previous=>({...previous,settings:stored,source:'server',error:''}));
+      const stored=validateExperience(response.data);
+      try{writeLocalExperience(state.accountId,stored);}catch{}
+      setState(previous=>previous.sessionToken===token?({...previous,settings:stored,source:'server',error:''}):previous);
       return {settings:stored,source:'server'};
     }catch(error){
       if(error.response?.status!==404)throw error;
       const stored=writeLocalExperience(state.accountId,next);
-      setState(previous=>({...previous,settings:stored,source:'local',
-        error:'Seu servidor ainda não sincroniza preferências. Alterações salvas somente neste navegador.'}));
+      setState(previous=>previous.sessionToken===token?({...previous,settings:stored,source:'local',
+        error:'Seu servidor ainda não sincroniza preferências. Alterações salvas somente neste navegador.'}):previous);
       return {settings:stored,source:'local'};
     }
   },[state.accountId,state.sessionToken,token]);

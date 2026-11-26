@@ -26,3 +26,7 @@ test('simple mode preserves essential routes and removes advanced workout tools'
  for(const path of ['/','/perfil','/profile-form','/configuracoes','/alimentacao','/treino','/cardio/select','/historico','/registros'])expect(experienceRouteAllowed(path,state)).toBe(true);
  for(const path of ['/routine-generator','/exercise-library','/plano-de-treino/3'])expect(experienceRouteAllowed(path,state)).toBe(false);
 });
+
+test.each(['/ALIMENTACAO','/diario-alimentar','/dietas','/legado/diario'])('disabled nutrition blocks alias %s',path=>{
+ expect(experienceRouteAllowed(path,{mode:'normal',food:false})).toBe(false);
+});
