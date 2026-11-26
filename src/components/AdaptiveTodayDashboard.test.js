@@ -38,3 +38,10 @@ test('modo normal preserva o painel atual',()=>{
  render(<AdaptiveTodayDashboard/>);
  expect(screen.getByText('Hoje normal')).toBeInTheDocument();
 });
+
+test('modo normal respeita módulos desativados sem apagar ou alterar dados',()=>{
+  mockExperience={settings:{mode:'normal',food:false,workout:false,weight:false,coach:true},ready:true};
+  const {container}=render(<AdaptiveTodayDashboard/>);
+  expect(container.querySelector('.gg-adaptive-hide-food.gg-adaptive-hide-workout.gg-adaptive-hide-weight')).not.toBeNull();
+  expect(screen.getByText('Hoje normal')).toBeInTheDocument();
+});
