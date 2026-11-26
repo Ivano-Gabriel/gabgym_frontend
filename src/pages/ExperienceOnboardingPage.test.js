@@ -7,10 +7,11 @@ jest.mock('react-router-dom',()=>({
   Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
   useNavigate:()=>mockNavigate,useLocation:()=>({search:''})
 }));
-jest.mock('../context/ExperienceContext',()=>({
-  useExperience:()=>({settings:{mode:'normal',food:true,workout:true,weight:true,coach:true,
-    language:'pt',completed:false},ready:true,save:mockSave})
-}));
+jest.mock('../context/ExperienceContext',()=>{
+  const settings={mode:'normal',food:true,workout:true,weight:true,coach:true,
+    language:'pt',completed:false};
+  return {useExperience:()=>({settings,ready:true,save:mockSave})};
+});
 beforeEach(()=>{jest.clearAllMocks();mockSave.mockResolvedValue({source:'server'});});
 test('pessoa pode escolher só dieta e modo simples sem perder dados antigos',async()=>{
   render(<ExperienceOnboardingPage/>);
