@@ -17,7 +17,7 @@ test('menu mobile tem acesso direto a hoje, comer, hub, treino e perfil', () => 
   expect(screen.getByRole('button', { name: /abrir hub/i })).toHaveAttribute('aria-expanded','false');
   fireEvent.click(screen.getByRole('button', { name: /abrir hub/i }));
   expect(screen.getByRole('dialog', { name: /hub gabgym/i })).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: /cardio/i })).toHaveAttribute('href','/cardio/select');
+  expect(screen.getByRole('link', { name: /^cardio\b/i })).toHaveAttribute('href','/cardio/select');
   expect(screen.getByRole('link', { name: /metas/i })).toHaveAttribute('href','/minhas-metas');
   fireEvent.click(screen.getByRole('button', { name: /fechar hub/i }));
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
