@@ -1,4 +1,3 @@
-// src/pages/MinhasMetasPage.js — abas Ativas/Histórico, FAB, ícones consistentes
 
 import React, { useState, useEffect } from 'react';
 import { getMetas, createMeta, updateMetaStatus, getCurrentUser } from '../services/apiService';

@@ -47,8 +47,6 @@ export default function NutritionTodayPage() {
         const records = await getDiaryLogs(person.id, dayKey());
         if (!mounted) return;
         setUser(person);
-        // Preferencias locais temporarias do piloto (por conta, neste dispositivo).
-        // Nao se confunde com uma meta clinica nem com metabolismo basal.
         setDailyGoal(localStorage.getItem('gabgym:daily-goal:' + person.id) || '');
         setWaterGoal(localStorage.getItem('gabgym:water-goal:' + person.id) || '');
         setMacroGoals(Object.fromEntries(['protein','carbs','fat'].map(k=>[k,localStorage.getItem('gabgym:macro-goal:'+person.id+':'+k)||''])));

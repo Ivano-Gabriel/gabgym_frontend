@@ -69,7 +69,6 @@ export default function TodayDashboard() {
     try {
       const entry=makeWaterEntry(user.id,volume);
       await addDiaryLog(entry);
-      // Persist first, then refresh. A failed GET cannot turn a saved POST into an error.
       try {
         const fresh=await getDiaryLogs(user.id,dayKey());
         if (Array.isArray(fresh.data)) setLogs(fresh.data);

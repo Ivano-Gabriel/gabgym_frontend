@@ -48,11 +48,11 @@ export default function DailyNavigation() {
   ]:model.primary;
   const menu=admin?[...model.menu]:model.menu;
   return <>
-    <nav className="gg-daily-navigation" aria-label="Navegação principal">
+    <nav className="gg-daily-navigation" aria-label={t('nav.main')}>
       {primary.slice(0,2).map(({key,label,to})=>{
         const Icon=admin&&key==='profile'?FiShield:(icons[key]||FiHome);
         return <NavLink key={key} to={to} end={to==='/'} className={({isActive})=>'gg-daily-navitem'+(isActive?' active':'')}>
-          <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
+          <Icon aria-hidden="true"/><span>{t('nav.'+(admin&&key==='profile'?'admin':key),{defaultValue:label})}</span>
         </NavLink>;
       })}
       <button ref={triggerRef} type="button" className={'gg-hub-trigger'+(open?' active':'')}
@@ -63,21 +63,21 @@ export default function DailyNavigation() {
       {primary.slice(2).map(({key,label,to})=>{
         const Icon=admin&&key==='profile'?FiShield:(icons[key]||FiUser);
         return <NavLink key={key} to={to} className={({isActive})=>'gg-daily-navitem'+(isActive?' active':'')}>
-          <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
+          <Icon aria-hidden="true"/><span>{t('nav.'+(admin&&key==='profile'?'admin':key),{defaultValue:label})}</span>
         </NavLink>;
       })}
     </nav>
     <button type="button" tabIndex={open?0:-1} aria-hidden={!open}
-      className={'gg-hub-overlay'+(open?' is-visible':'')} aria-label="Fechar painel" onClick={()=>setOpen(false)}/>
+      className={'gg-hub-overlay'+(open?' is-visible':'')} aria-label={t('nav.closePanel')} onClick={()=>setOpen(false)}/>
     <section className={'gg-hub-sheet'+(open?' is-visible':'')} id="gg-hub-sheet" role="dialog"
-      aria-modal={open?'true':undefined} aria-hidden={!open} aria-label="Hub GABGYM">
+      aria-modal={open?'true':undefined} aria-hidden={!open} aria-label={t('nav.hubDialog')}>
       <div className="gg-hub-handle" aria-hidden="true"
         onTouchStart={e=>{dragStart.current=e.touches[0]?.clientY??null;}}
         onTouchEnd={e=>{const y=e.changedTouches[0]?.clientY;
           if(dragStart.current!==null&&y!=null&&y-dragStart.current>65)setOpen(false);
           dragStart.current=null;}}/>
       <div className="gg-hub-sheet-head">
-        <div><span>GABGYM / ACESSO RÁPIDO</span><h2>SEU HUB<span>.</span></h2></div>
+        <div><span>GABGYM / {t('nav.quick')}</span><h2>{t('nav.hubTitle')}<span>.</span></h2></div>
         <button ref={closeRef} tabIndex={open?0:-1} type="button" aria-label={t('nav.closeHub')}
           onClick={()=>setOpen(false)}><FiX/></button>
       </div>
@@ -88,7 +88,7 @@ export default function DailyNavigation() {
             onClick={()=>setOpen(false)} style={{'--gg-card-index':index}}
             className={'gg-hub-link'+(key==='coach'?' gg-hub-link--personal':'')}>
             <Icon aria-hidden="true"/>
-            <span><strong>{t('nav.'+key,{defaultValue:title})}</strong><small>{summary}</small></span>
+            <span><strong>{t('nav.'+key,{defaultValue:title})}</strong><small>{t('nav.summary_'+key,{defaultValue:summary})}</small></span>
             <FiChevronRight aria-hidden="true"/>
           </Link>;
         })}

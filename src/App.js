@@ -89,7 +89,6 @@ function AppContent() {
   const toggleLogoMenu = () => setIsLogoMenuOpen(prev => !prev);
 
   const toggleTutorialModal = () => {
-    console.log("Comando para abrir/fechar o tutorial recebido no App.js!");
     setShowTutorialModal(prev => !prev);
   };
 
@@ -135,7 +134,8 @@ function AppContent() {
     const next=getSwipeDestination(location.pathname,touch.clientX-start.x,touch.clientY-start.y,Date.now()-start.at);
     if(next){event.preventDefault();navigate(next);}
   };
-  const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil','/meu-personal':'Meu Personal','/painel-personal':'Área Personal'})[location.pathname];
+  const headerKey=({'/':'today','/alimentacao':'food','/treino':'workout','/perfil':'profile','/meu-personal':'coach','/painel-personal':'professionalArea'})[location.pathname];
+  const headerLabel=headerKey?t('nav.'+headerKey):t('nav.progress');
 
   return (
     <div className="App" data-gg-mode={settings.mode}>
@@ -145,21 +145,21 @@ function AppContent() {
             <img className="gg-header-monogram" src="/gg-mark.svg" alt="" aria-hidden="true"/>
             <span className="gg-logo-text">GABGYM</span>
           </Link>
-          <button type="button" aria-label="Abrir atalhos" aria-expanded={isLogoMenuOpen} className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
+          <button type="button" aria-label={t('nav.openShortcuts')} aria-expanded={isLogoMenuOpen} className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
             <BsChevronDown />
           </button>
           {isLogoMenuOpen && (
             <div className="gg-logo-dropdown">
-              <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>Biblioteca</Link>
-              <Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?'Área profissional':'Meu Personal'}</Link>
+              <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('nav.library')}</Link>
+              <Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea'):t('nav.coach')}</Link>
             </div>
           )}
-          <span className="gg-header-route" aria-live="polite">{headerLabel||'SEU PROGRESSO'}</span>
+          <span className="gg-header-route" aria-live="polite">{headerLabel}</span>
         </div>
         <nav className="gg-nav-desktop">
           <ul className="gg-nav-list">
             <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?'ÁREA PROFISSIONAL':t('header.perfil')}</Link></li>
+            <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea').toUpperCase():t('header.perfil')}</Link></li>
           </ul>
         </nav>
         <div className="gg-header-right"><LanguageSwitcher compact/>
@@ -169,7 +169,7 @@ function AppContent() {
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>
-          {!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?"Fechar menu":"Abrir menu"} aria-expanded={isMobileMenuOpen}>
+          {!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?t('nav.closeMenu'):t('nav.openMenu')} aria-expanded={isMobileMenuOpen}>
             {isMobileMenuOpen?<FiX className="gg-menu-symbol" aria-hidden="true"/>:<FiMenu className="gg-menu-symbol" aria-hidden="true"/>}
           </button>}
         </div>

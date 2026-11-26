@@ -30,17 +30,17 @@ export default function DesktopRail() {
   const shown=[{key:'today',to:'/',label:'Hoje'},
     ...data.menu.map(item=>({key:item.key,to:item.to,label:item.label}))];
   if(!shown.some(x=>x.to==='/perfil'))shown.push({key:'profile',to:'/perfil',label:'Perfil'});
-  return <aside className={'gg-desktop-rail'+(expanded?' is-expanded':'')} aria-label="Barra lateral GabGym">
+  return <aside className={'gg-desktop-rail'+(expanded?' is-expanded':'')} aria-label={t('nav.sidebar')}>
     <div className="gg-desktop-rail-brand">
       <img src="/gg-mark.svg" alt="" aria-hidden="true"/>
       {expanded&&<strong>GABGYM</strong>}
-      <button type="button" aria-label={expanded?'Recolher barra lateral':'Expandir barra lateral'}
+      <button type="button" aria-label={expanded?t('nav.collapseSidebar'):t('nav.expandSidebar')}
         aria-expanded={expanded} aria-controls="gg-desktop-rail-links"
         onClick={()=>setExpanded(v=>!v)}>
         {expanded?<FiChevronLeft aria-hidden="true"/>:<FiChevronRight aria-hidden="true"/>}
       </button>
     </div>
-    <nav id="gg-desktop-rail-links" aria-label="Acessos rápidos"
+    <nav id="gg-desktop-rail-links" aria-label={t('nav.shortcuts')}
       className="gg-desktop-rail-links" aria-hidden={!expanded}>
       {shown.map(({key,to,label})=>{
         const Icon=icons[key]||FiHome;
@@ -51,6 +51,6 @@ export default function DesktopRail() {
         </NavLink>;
       })}
     </nav>
-    {expanded&&<p className="gg-desktop-rail-foot">CONSTÂNCIA ACIMA DE PERFEIÇÃO.</p>}
+    {expanded&&<p className="gg-desktop-rail-foot">{t('nav.consistency')}</p>}
   </aside>;
 }
