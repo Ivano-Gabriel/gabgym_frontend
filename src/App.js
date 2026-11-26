@@ -33,6 +33,8 @@ import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import PersonalPage from './pages/PersonalPage';
 import ExperienceOnboardingPage from './pages/ExperienceOnboardingPage';
+import ExperienceSettingsPage from './pages/ExperienceSettingsPage';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import {ExperienceProvider,useExperience} from './context/ExperienceContext';
 import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
 import CoachDashboard from './pages/CoachDashboard';
@@ -57,6 +59,7 @@ import './styles/interactionPolish.css';
 import './styles/redEdition.css';
 import './styles/premiumModules.css';
 import './styles/premiumRefinements.css';
+import './styles/adaptivePolish.css';
 
 
 function RequireAuth({ children, admin = false, professional = false }) {
@@ -159,7 +162,7 @@ function AppContent() {
             <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?'ÁREA PROFISSIONAL':t('header.perfil')}</Link></li>
           </ul>
         </nav>
-        <div className="gg-header-right">
+        <div className="gg-header-right"><LanguageSwitcher compact/>
           <Link
             to={isLoggedIn() ? (isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')) : '/login'}
             className="gg-header-cta"
@@ -207,6 +210,7 @@ function AppContent() {
           <Route path="/historico" element={<RequireAuth><HistoryPage /></RequireAuth>} />
           <Route path="/meu-personal" element={<RequireAuth><PersonalPage /></RequireAuth>} />
           <Route path="/experiencia" element={<RequireAuth><ExperienceOnboardingPage /></RequireAuth>} />
+          <Route path="/configuracoes" element={<RequireAuth><ExperienceSettingsPage /></RequireAuth>} />
           <Route path="/painel-personal" element={<RequireAuth professional><CoachDashboard /></RequireAuth>} />
           <Route path="/registros" element={<RequireAuth><RegistrosPage /></RequireAuth>} />
           <Route path="/minhas-metas" element={<RequireAuth><MinhasMetasPage /></RequireAuth>} />
