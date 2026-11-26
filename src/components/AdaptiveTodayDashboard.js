@@ -13,7 +13,7 @@ import './AdaptiveTodayDashboard.css';
 const routes=[
   {key:'food',label:'REGISTRAR REFEIÇÃO',hint:'Alimentação e calorias',to:'/alimentacao',Icon:FiCoffee},
   {key:'workout',label:'INICIAR UM TREINO',hint:'Fichas, séries e cargas',to:'/treino',Icon:FiActivity},
-  {key:'weight',label:'ATUALIZAR PESO',hint:'Medidas e metas',to:'/perfil',Icon:FiTarget},
+  {key:'weight',label:'ATUALIZAR PESO',hint:'Medidas e metas',to:'/profile-form',Icon:FiTarget},
   {key:'coach',label:'MEU PERSONAL',hint:'Acompanhamento e mensagens',to:'/meu-personal',Icon:FiUsers}
 ];
 
@@ -39,7 +39,7 @@ function SimpleToday({settings}){
         if(!alive)return;
         setPerson(profile);
         setLogs(Array.isArray(day.data)?day.data:[]);
-      }catch{if(alive)setError('Não foi possível consultar seu diário. O servidor pode estar iniciando.');}
+      }catch{if(alive)setError('today.dayError');}
       finally{if(alive)setLoading(false);}
     })();
     return()=>{alive=false;};
@@ -53,10 +53,10 @@ function SimpleToday({settings}){
       await addDiaryLog(entry);
       try{
         const response=await getDiaryLogs(person.id,dayKey());
-        setLogs(Array.isArray(response.data)?response.data:[]); 
+        setLogs(old=>Array.isArray(response.data)?response.data:[...old,entry]);
       }catch{setLogs(old=>[...old,entry]);}
       setMessage(t('simple.waterSaved'));
-    }catch{setMessage('Não foi possível confirmar o registro. Confira o diário antes de tentar novamente.');}
+    }catch{setMessage(t('today.waterError'));}
     finally{lock.current=false;setBusy(false);}
   };
   const enabled=routes.filter(r=>settings[r.key]);
@@ -65,11 +65,11 @@ function SimpleToday({settings}){
       <header className="gg-simple-day-hero">
         <span>GABGYM / {t('simple.kicker')}</span>
         <h1>{t('simple.title')}<br/><em>{t('simple.accent')}</em></h1>
-        <p>{person?.name&&person.name.split(' ')[0]+' · '}{t('simple.description')}</p>
-        <Link to="/experiencia?edit=1">{t('simple.personalize')} <FiArrowRight aria-hidden="true"/></Link>
+        <p>{typeof person?.name==='string'&&/[A-Za-zÀ-ÿ]/.test(person.name)&&!person.name.includes('@')&&person.name.split(' ')[0]+' · '}{t('simple.description')}</p>
+        <Link to="/configuracoes">{t('simple.personalize')} <FiArrowRight aria-hidden="true"/></Link>
       </header>
       {loading&&<p role="status" className="gg-simple-day-notice">{t('simple.loading')}</p>}
-      {error&&<div role="alert" className="gg-simple-day-notice">{error}
+      {error&&<div role="alert" className="gg-simple-day-notice">{t(error)}
         <button type="button" onClick={()=>setRevision(x=>x+1)}><FiRefreshCw/> {t('simple.retry')}</button>
       </div>}
       {!loading&&!error&&<>
@@ -99,13 +99,13 @@ export default function AdaptiveTodayDashboard(){
     (!settings.food?' gg-adaptive-hide-food':'')+
     (!settings.workout?' gg-adaptive-hide-workout':'')+
     (!settings.weight?' gg-adaptive-hide-weight':'')}>
-    <TodayDashboard/>
+    <TodayDashboard settings={settings}/>
     {settings.mode==='complete'&&<nav className="gg-adaptive-advanced" aria-label="Ferramentas avançadas">
       <strong>{t('experience.completeDetail')}</strong>
       <div>
         <Link to="/historico"><FiBarChart2/> {t('nav.history')}</Link>
         <Link to="/registros"><FiActivity/> {t('nav.records')}</Link>
-        <Link to="/experiencia?edit=1"><FiTarget/> {t('nav.experience')}</Link>
+        <Link to="/configuracoes"><FiTarget/> {t('nav.experience')}</Link>
       </div>
     </nav>}
   </div>;

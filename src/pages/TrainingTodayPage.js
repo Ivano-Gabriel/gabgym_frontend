@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiActivity, FiArrowRight, FiBookOpen, FiClock, FiCompass, FiMapPin, FiTrendingUp, FiZap, FiTarget } from 'react-icons/fi';
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
 import { dayKey, calorieProgress } from '../utils/nutrition';
 import PremiumPhoto from '../components/PremiumPhoto';
 import WorkoutPlanner from '../components/WorkoutPlanner';
+import {useExperience} from '../context/ExperienceContext';
 import './TrainingTodayPage.css';
 
 const format = value => Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1});
@@ -22,6 +23,9 @@ export const summarizeMovement = logs => {
 };
 
 export default function TrainingTodayPage(){
+  const {settings}=useExperience();
+  const simple=settings.mode==='simple';
+  const mutationLock=useRef(false);
   const [logs,setLogs]=useState([]);
   const [user,setUser]=useState(null);
   const [showWorkout,setShowWorkout]=useState(false);
@@ -70,7 +74,7 @@ export default function TrainingTodayPage(){
   };
   const saveWorkout=async event=>{
     event.preventDefault();
-    if(!user?.id||busy)return;
+    if(!user?.id||mutationLock.current)return;
     const minutes=Number(workout.minutes);
     const kcal=workout.calories===''?0:Number(workout.calories);
     const name=workout.name.trim();
@@ -83,7 +87,7 @@ export default function TrainingTodayPage(){
       setMessage('Confira treino, duração e a estimativa opcional de calorias.');
       return;
     }
-    setBusy(true);setMessage('');
+    mutationLock.current=true;setBusy(true);setMessage('');
     try{
       await addDiaryLog({
         userId:user.id,type:'exercise',name:name+(exercise?' · '+exercise:'')+(sets&&reps?' · '+sets+'x'+reps:'')+' ('+minutes+' min)',
@@ -98,7 +102,7 @@ export default function TrainingTodayPage(){
         setMessage('Treino salvo no servidor. Atualize a página para ver os totais.');
       }
     }catch{setMessage('Não conseguimos registrar este treino. Confira a conexão.');}
-    finally{setBusy(false);}
+    finally{mutationLock.current=false;setBusy(false);}
   };
   return (
     <main className="gg-movement">
@@ -106,10 +110,10 @@ export default function TrainingTodayPage(){
         <header className="gg-movement-hero gg-photo-hero">
           <PremiumPhoto scene="strength" decorative priority />
           <span className="gg-movement-kicker"><FiActivity aria-hidden="true"/> MOVIMENTO / TODOS OS DIAS</span>
-          <h1>TREINO <em>+</em> CARDIO<span>.</span></h1>
+          <h1>{simple?'TREINO':<>TREINO <em>+</em> CARDIO</>}<span>.</span></h1>
           <p>Escolha sua atividade. Faça o seu melhor hoje.</p>
         </header>
-        <section className="gg-movement-day" aria-labelledby="gg-movement-today">
+        {!simple&&<section className="gg-movement-day" aria-labelledby="gg-movement-today">
           <div className="gg-movement-day-title">
             <div><span>SEU PROGRESSO</span><h2 id="gg-movement-today">HOJE.</h2></div>
             <Link to="/historico">VER HISTÓRICO <FiArrowRight aria-hidden="true"/></Link>
@@ -143,10 +147,11 @@ export default function TrainingTodayPage(){
               </label></div>
           </div>
           <p className="gg-movement-note">Estimativas não são subtraídas da alimentação. Duração e distância do GPS ainda não sincronizam com o servidor.</p>
-        </section>
+        </section>}
+        {simple&&(loading?<p role="status">Carregando atividades…</p>:error?<p role="alert">{error}</p>:<p className="gg-simple-module-summary">{workoutsDone} treino(s) registrado(s) hoje.</p>)}
         <section className="gg-movement-actions" aria-labelledby="gg-movement-start">
           <div className="gg-movement-section-heading"><span>01 / AÇÃO</span><h2 id="gg-movement-start">O QUE VAMOS FAZER?</h2></div>
-          <div className="gg-movement-planner-entry">
+          {!simple&&<div className="gg-movement-planner-entry">
             <button type="button" className="gg-movement-primary gg-movement-workout-toggle"
               aria-expanded={showPlanner} aria-label="Abrir fichas e séries"
               onClick={()=>setShowPlanner(value=>!value)}>
@@ -158,11 +163,11 @@ export default function TrainingTodayPage(){
               const result=await getDiaryLogs(user.id,dayKey());
               if(Array.isArray(result.data))setLogs(result.data);
             }}/>}
-          </div>
+          </div>}
           <button type="button" className="gg-movement-primary gg-movement-workout-toggle" aria-expanded={showWorkout}
             onClick={()=>setShowWorkout(!showWorkout)} aria-label="Registrar treino feito">
             <span className="gg-movement-action-icon"><FiActivity aria-hidden="true"/></span>
-            <span><strong>REGISTRAR TREINO FEITO</strong><small>Musculação, séries e gasto estimado</small></span>
+            <span><strong>REGISTRAR TREINO FEITO</strong><small>{simple?'Escolha o treino e a duração':'Musculação, séries e gasto estimado'}</small></span>
             <FiArrowRight aria-hidden="true"/>
           </button>
           {showWorkout&&<form className="gg-movement-workout-form" onSubmit={saveWorkout}>
@@ -171,16 +176,16 @@ export default function TrainingTodayPage(){
                 {['Costas e bíceps','Peito e tríceps','Pernas','Ombros','Superior','Inferior','Corpo inteiro'].map(name=><option key={name}>{name}</option>)}
               </select>
             </label>
-            <label>Exercício (opcional)<input type="text" maxLength="60" value={workout.exercise} placeholder="Ex.: Supino unilateral" onChange={e=>setWorkout({...workout,exercise:e.target.value})}/></label>
+            {!simple&&<><label>Exercício (opcional)<input type="text" maxLength="60" value={workout.exercise} placeholder="Ex.: Supino unilateral" onChange={e=>setWorkout({...workout,exercise:e.target.value})}/></label>
              <label>Séries (opcional)<input type="number" min="1" max="30" value={workout.sets} onChange={e=>setWorkout({...workout,sets:e.target.value})}/></label>
-             <label>Repetições (opcional)<input type="number" min="1" max="100" value={workout.reps} onChange={e=>setWorkout({...workout,reps:e.target.value})}/></label>
+             <label>Repetições (opcional)<input type="number" min="1" max="100" value={workout.reps} onChange={e=>setWorkout({...workout,reps:e.target.value})}/></label></>}
              <label>Minutos de treino
               <input type="number" min="1" max="600" value={workout.minutes} onChange={e=>setWorkout({...workout,minutes:e.target.value})} inputMode="numeric"/>
             </label>
-            <label>Gasto estimado em kcal (opcional)
+            {!simple&&<><label>Gasto estimado em kcal (opcional)
               <input type="number" min="0" max="3000" value={workout.calories} onChange={e=>setWorkout({...workout,calories:e.target.value})} placeholder="Se souber; não calculamos automaticamente" inputMode="numeric"/>
             </label>
-            <p>Exercício, séries e repetições ficam no registro. O gasto estimado é opcional e nunca aumenta a meta alimentar.</p>
+            <p>Exercício, séries e repetições ficam no registro. O gasto estimado é opcional e nunca aumenta a meta alimentar.</p></>}
             <button type="submit" disabled={busy} className="gg-movement-save-workout">{busy?'SALVANDO…':'SALVAR TREINO'}</button>
           </form>}
           {message&&<p className="gg-movement-message" role="status">{message}</p>}
@@ -189,12 +194,12 @@ export default function TrainingTodayPage(){
             <span><strong>COMEÇAR CARDIO</strong><small>Corrida, caminhada ou cronômetro</small></span>
             <FiArrowRight aria-hidden="true"/>
           </Link>
-          <Link className="gg-movement-secondary" to="/routine-generator" aria-label="Montar rotina">
+          {!simple&&<><Link className="gg-movement-secondary" to="/routine-generator" aria-label="Montar rotina">
             <FiTarget aria-hidden="true"/><span><strong>MONTAR ROTINA</strong><small>Seu plano semanal de treinos</small></span><FiArrowRight aria-hidden="true"/>
           </Link>
           <Link className="gg-movement-secondary" to="/exercise-library" aria-label="Abrir biblioteca de exercícios">
             <FiBookOpen aria-hidden="true"/><span><strong>BIBLIOTECA DE EXERCÍCIOS</strong><small>Encontre movimentos e execução</small></span><FiArrowRight aria-hidden="true"/>
-          </Link>
+          </Link></>}
         </section>
         <div className="gg-movement-bottom"><FiCompass aria-hidden="true"/> CONSTÂNCIA ACIMA DE PERFEIÇÃO.</div>
       </div>

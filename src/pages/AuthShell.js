@@ -1,7 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import { Link } from 'react-router-dom';
-import LanguageSwitcher from '../components/LanguageSwitcher';
 import './LoginPage.css';
 import '../styles/premiumExperience.css';
 import './AuthPremium.css';
@@ -21,7 +20,7 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
           <strong>GAB<span>GYM</span></strong>
           <small>TREINE · EVOLUA</small>
         </Link>
-        <div className="gg-auth-masthead-side"><LanguageSwitcher compact/>
+        <div className="gg-auth-masthead-side">
           <span className="gg-auth-masthead-edition">{coach ? 'ÁREA PROFISSIONAL' : 'UM DIA DE CADA VEZ'}</span>
           <Link to={coach ? (isSignup ? '/login-personal' : '/cadastro-personal') : (isSignup ? '/login' : '/signup')} className="gg-auth-masthead-link">
             {isSignup ? t('auth.signIn') : t('auth.newUser')} <span aria-hidden="true">↗</span>

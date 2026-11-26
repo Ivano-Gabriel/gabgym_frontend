@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TrainingTodayPage from './TrainingTodayPage';
+let mockMode='normal';
+jest.mock('../context/ExperienceContext',()=>({useExperience:()=>({settings:{mode:mockMode}})}));
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
 
 jest.mock('react-router-dom', () => ({
@@ -60,4 +62,18 @@ test('adiciona supino com séries sem inventar calorias',async()=>{
  expect(entry.name).toContain('Supino unilateral');
  expect(entry.name).toContain('3x10');
  expect(entry.calories).toBe(0);
+});
+
+test('simple training offers only the essentials and preserves the real save flow',async()=>{
+ mockMode='simple';
+ try{
+  const {fireEvent,waitFor}=require('@testing-library/react');
+  render(<TrainingTodayPage/>);
+  expect(await screen.findByText(/1 treino\(s\) registrado/)).toBeInTheDocument();
+  expect(screen.queryByRole('link',{name:/montar rotina/i})).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:/registrar treino feito/i}));
+  expect(screen.queryByLabelText(/Gasto estimado em kcal/i)).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:/salvar treino/i}));
+  await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'exercise',calories:0})));
+ }finally{mockMode='normal';}
 });

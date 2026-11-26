@@ -1,15 +1,14 @@
 import { dayKey } from './nutrition';
 
-export function greetingFor(user) {
+export function greetingFor(user,t) {
   for (const candidate of [user?.name,user?.username]) {
     if (typeof candidate !== 'string') continue;
     const first = candidate.trim().split(/\s+/)[0];
-    // APIs antigas às vezes retornam ID no campo "name".
     if (first && first.length <= 30 && /[A-Za-zÀ-ÿ]/.test(first) && !first.includes('@')) {
-      return 'Continue, ' + first + '.';
+      return t?t('today.greeting',{name:first}):'Continue, '+first+'.';
     }
   }
-  return 'O importante é continuar.';
+  return t?t('today.greetingDefault'):'O importante é continuar.';
 }
 
 export function makeWaterEntry(userId, volume, date = dayKey(), timestamp = Date.now()) {

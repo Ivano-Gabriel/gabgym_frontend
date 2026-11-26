@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {GiFlame} from 'react-icons/gi';
 import {FiChevronDown} from 'react-icons/fi';
 import {getDiaryLogs} from '../services/apiService';
@@ -7,6 +8,8 @@ import {activeDay,computeStreak} from '../utils/streak';
 import './StreakCalendar.css';
 
 export default function StreakCalendar({userId,todayLogs,compact=false}){
+ const {t,i18n}=useTranslation();
+ const locale=i18n.resolvedLanguage==='pt'?'pt-BR':i18n.resolvedLanguage||'pt-BR';
  const [days,setDays]=useState(null),[open,setOpen]=useState(false);
  useEffect(()=>{
    if(!userId){setDays(null);return undefined;}
@@ -20,19 +23,19 @@ export default function StreakCalendar({userId,todayLogs,compact=false}){
  },[userId,todayLogs]);
  const reliable=days?.every(x=>x.known);
  const streak=reliable?computeStreak(days.map(x=>x.activity)):null;
- return <section className={'gg27-streak'+(compact?' compact':'')+(open?' is-expanded':'')} aria-label="Calendário da constância">
+ return <section className={'gg27-streak'+(compact?' compact':'')+(open?' is-expanded':'')} aria-label={t('today.streakLabel')}>
    <button type="button" className="gg27-streak-button" aria-expanded={open} onClick={()=>setOpen(v=>!v)}>
      <span className="gg27-flame" aria-hidden="true"><GiFlame className="gg27-flame-icon"/></span>
-     <span className="gg27-streak-copy"><strong>{streak?streak.days+(streak.capped?'+':'')+' DIA'+(streak.days!==1?'S':''):'SUA CONSTÂNCIA'}</strong>
-       <small>{streak?.atRisk?'Registre hoje para manter a sequência':'Toque para ver seus dias'}</small></span>
+     <span className="gg27-streak-copy"><strong>{streak?t(streak.days===1?'today.streakOne':'today.streakMany',{days:streak.days+(streak.capped?'+':'')}):t('today.streakTitle')}</strong>
+       <small>{streak?.atRisk?t('today.streakRisk'):t('today.streakTap')}</small></span>
      <FiChevronDown className={open?'opened':''} aria-hidden="true"/>
    </button>
    {open&&<div className="gg27-calendar">
-     <strong>ÚLTIMOS 7 DIAS</strong>
-     {days?<div className="gg27-calendar-week">{days.slice().reverse().map(x=><div key={x.key} className={'gg27-calendar-day '+(!x.known?'unknown':x.activity?'marked':'unmarked')} title={!x.known?'Indisponível':x.activity?'Registro realizado':'Sem registro'}>
-       <small>{new Intl.DateTimeFormat('pt-BR',{weekday:'short'}).format(x.date).replace('.','')}</small><b>{x.date.getDate()}</b>
-     </div>)}</div>:<p>Consultando registros…</p>}
-     <p>Marcação vermelha: alimentação, água ou atividade registrada. Só abrir o aplicativo não conta. Falha de conexão não é falta.</p>
+     <strong>{t('today.streakWeek')}</strong>
+     {days?<div className="gg27-calendar-week">{days.slice().reverse().map(x=><div key={x.key} className={'gg27-calendar-day '+(!x.known?'unknown':x.activity?'marked':'unmarked')} title={!x.known?t('today.streakUnknown'):x.activity?t('today.streakMarked'):t('today.streakUnmarked')}>
+       <small>{new Intl.DateTimeFormat(locale,{weekday:'short'}).format(x.date).replace('.','')}</small><b>{x.date.getDate()}</b>
+     </div>)}</div>:<p>{t('today.streakLoading')}</p>}
+     <p>{t('today.streakNote')}</p>
    </div>}
  </section>;
 }

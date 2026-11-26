@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import NutritionTodayPage from './NutritionTodayPage';
+let mockMode='normal';
+jest.mock('../context/ExperienceContext',()=>({useExperience:()=>({settings:{mode:mockMode}})}));
 import {toast} from 'react-toastify';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 
@@ -144,3 +146,27 @@ test('atualização do consumo muda o preenchimento da barra sem contar exercíc
 test('sem dados do perfil, não inventa 2300 kcal',async()=>{getCurrentUser.mockResolvedValueOnce({data:{id:17,name:'Teste'}});render(<NutritionTodayPage/>);expect(await screen.findByText(/Nada de 2.300 kcal/i)).toBeInTheDocument();expect(screen.queryByRole('progressbar',{name:'Calorias consumidas'})).not.toBeInTheDocument();});
 
 test('falha ao salvar nao mostra falsa confirmacao de sucesso',async()=>{addDiaryLog.mockRejectedValueOnce(new Error('offline'));render(<NutritionTodayPage/>);fireEvent.click(await screen.findByRole('button',{name:'+ 250 ML'}));expect(await screen.findByRole('alert')).toHaveTextContent(/não conseguimos salvar/i);expect(toast.success).not.toHaveBeenCalled();expect(toast.error).toHaveBeenCalledTimes(1);});
+
+test('simple nutrition opens the catalog and keeps water and food registration',async()=>{
+ mockMode='simple';
+ try{
+  render(<NutritionTodayPage/>);
+  expect(await screen.findByRole('button',{name:/Ovo cozido/i})).toBeInTheDocument();
+  expect(screen.queryByRole('button',{name:/DEFINIR META CALÓRICA/i})).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:'+ 250 ML'}));
+  await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'water',volume:250})));
+ }finally{mockMode='normal';}
+});
+
+test('food deletion requires explicit confirmation and cancel never deletes',async()=>{
+ getDiaryLogs.mockResolvedValue({data:[{id:42,type:'food',name:'Ovo cozido',calories:78}]});
+ render(<NutritionTodayPage/>);
+ fireEvent.click(await screen.findByRole('button',{name:'Excluir Ovo cozido'}));
+ expect(deleteDiaryLog).not.toHaveBeenCalled();
+ fireEvent.click(screen.getByRole('button',{name:'Cancelar exclusão'}));
+ expect(deleteDiaryLog).not.toHaveBeenCalled();
+ fireEvent.click(screen.getByRole('button',{name:'Excluir Ovo cozido'}));
+ fireEvent.click(screen.getByRole('button',{name:'Confirmar exclusão'}));
+ await waitFor(()=>expect(deleteDiaryLog).toHaveBeenCalledWith(42));
+ await waitFor(()=>expect(screen.queryByRole('button',{name:'Excluir Ovo cozido'})).not.toBeInTheDocument());
+});

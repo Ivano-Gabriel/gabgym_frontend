@@ -1,17 +1,24 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {toast} from 'react-toastify';
+import {useTranslation} from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiDroplet, FiMinus, FiPlus, FiSearch, FiTrash2, FiEdit3, FiSliders, FiImage, FiChevronDown, FiCheckCircle } from 'react-icons/fi';
 import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } from '../services/apiService';
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
 import PremiumPhoto from '../components/PremiumPhoto';
+import {useExperience} from '../context/ExperienceContext';
 import './NutritionTodayPage.css';
 
 const todayLabel = () => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 const formatGram = amount => Number(amount).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 
 export default function NutritionTodayPage() {
+  const {settings}=useExperience();
+  const {t}=useTranslation();
+  const mutationLock=useRef(false);
+  const [pendingDelete,setPendingDelete]=useState(null);
+  const simple=settings.mode==='simple';
   const [user, setUser] = useState(null);
   const [foods, setFoods] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -20,7 +27,7 @@ export default function NutritionTodayPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [query, setQuery] = useState('');
-  const [catalogOpen, setCatalogOpen] = useState(false);
+  const [catalogOpen, setCatalogOpen] = useState(simple);
   const [category, setCategory] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [servings, setServings] = useState('1');
@@ -47,8 +54,6 @@ export default function NutritionTodayPage() {
         const records = await getDiaryLogs(person.id, dayKey());
         if (!mounted) return;
         setUser(person);
-        // Preferencias locais temporarias do piloto (por conta, neste dispositivo).
-        // Nao se confunde com uma meta clinica nem com metabolismo basal.
         setDailyGoal(localStorage.getItem('gabgym:daily-goal:' + person.id) || '');
         setWaterGoal(localStorage.getItem('gabgym:water-goal:' + person.id) || '');
         setMacroGoals(Object.fromEntries(['protein','carbs','fat'].map(k=>[k,localStorage.getItem('gabgym:macro-goal:'+person.id+':'+k)||''])));
@@ -119,7 +124,8 @@ export default function NutritionTodayPage() {
   const foodLogs = logs.filter(item => item.type === 'food');
 
   const perform = async (action, success, kind='record') => {
-    if (!user || busy) return;
+    if (!user || mutationLock.current) return;
+    mutationLock.current=true;
     setError('');
     setMessage('');
     setBusy(true);
@@ -139,6 +145,7 @@ export default function NutritionTodayPage() {
       toast.error('Não foi possível salvar. Confira sua conexão.',{className:'gg-toast gg-toast-error',autoClose:4200});
       return false;
     } finally {
+      mutationLock.current=false;
       setBusy(false);
     }
   };
@@ -185,7 +192,11 @@ export default function NutritionTodayPage() {
       calories: 0, protein: 0, carbs: 0, fat: 0, logDate: dayKey(), timestamp: Date.now() }),
     '+' + milliliters + ' ml registrados. Continue se hidratando.', 'water'
   );
-  const removeLog = id => perform(() => deleteDiaryLog(id), 'Registro excluído do diário.');
+  const removeLog = async id => {
+    if(pendingDelete!==id)return;
+    const saved=await perform(()=>deleteDiaryLog(id),t('journal.deleted'));
+    if(saved){setLogs(current=>current.filter(item=>item.id!==id));setPendingDelete(null);}
+  };
 
   return (
     <main className="gg-daily">
@@ -203,6 +214,7 @@ export default function NutritionTodayPage() {
 
         {!loading && user && (
           <>
+            {simple?<section className="gg-simple-module-summary" aria-label="Resumo do dia"><div><span>Calorias de hoje</span><strong>{totals.calories.toLocaleString('pt-BR')} kcal</strong></div><div><span>Água de hoje</span><strong>{totals.water.toLocaleString('pt-BR')} ml</strong></div><button type="button" disabled={busy} onClick={()=>addWater(250)}>+ 250 ML</button></section>:<>
             <section className="gg-consumption" aria-label="Resumo do dia">
               <header className="gg-consumption-header">
                 <div><span>SEU DIA / ALIMENTAÇÃO</span><h2>CALORIAS DE HOJE</h2></div>
@@ -282,6 +294,7 @@ export default function NutritionTodayPage() {
               </div>}
             </section>
 
+            </>}
             <section className="gg-daily-section" ref={foodSectionRef} aria-labelledby="gg-foods-heading">
               <div className="gg-daily-heading">
                 <div><span>01 / DIÁRIO ALIMENTAR</span><h2 id="gg-foods-heading">REGISTRE O QUE COMEU.</h2></div>
@@ -394,7 +407,7 @@ export default function NutritionTodayPage() {
 
             </section>
 
-            <section className="gg-daily-section" aria-labelledby="gg-water-heading">
+            {!simple&&<section className="gg-daily-section" aria-labelledby="gg-water-heading">
               <div className="gg-daily-heading">
                 <div><span>02 / HIDRATAÇÃO</span><h2 id="gg-water-heading">ÁGUA, TODO DIA.</h2></div>
               </div>
@@ -413,7 +426,7 @@ export default function NutritionTodayPage() {
                   <button type="button" disabled={busy} onClick={() => addWater(500)}>+ 500 ML</button>
                 </div>
               </div>
-            </section>
+            </section>}
 
             <section className="gg-daily-section gg-daily-history" aria-labelledby="gg-history-heading">
               <div className="gg-daily-heading">
@@ -423,7 +436,8 @@ export default function NutritionTodayPage() {
               {[...logs].filter(item => item.type === 'food' || item.type === 'water').reverse().map(item =>
                 <div className="gg-daily-history-item" key={item.id}>
                   <span><strong>{item.name}</strong><small>{item.type === 'water' ? item.volume + ' ml' : item.calories + ' kcal'}</small></span>
-                  <button type="button" title="Excluir registro" aria-label={'Excluir ' + item.name} disabled={busy} onClick={() => removeLog(item.id)}><FiTrash2 /></button>
+                  <button type="button" title={t('journal.deleteLabel',{label:item.name})} aria-label={t('journal.deleteLabel',{label:item.name})} disabled={busy} onClick={()=>setPendingDelete(item.id)}><FiTrash2 /></button>
+                  {pendingDelete===item.id&&<div className="gg-daily-confirm" role="group" aria-label={t('journal.deleteLabel',{label:item.name})}><strong>{t('journal.deleteQuestion')}</strong><button type="button" disabled={busy} aria-label={t('journal.cancelDelete')} onClick={()=>setPendingDelete(null)}>{t('journal.cancel')}</button><button type="button" disabled={busy} aria-label={t('journal.confirmDelete')} onClick={()=>removeLog(item.id)}>{t('journal.delete')}</button></div>}
                 </div>
               )}
               <div className="gg-daily-next">

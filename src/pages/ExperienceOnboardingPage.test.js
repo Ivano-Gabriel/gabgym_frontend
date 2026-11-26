@@ -32,3 +32,12 @@ test('ninguém pode esconder todos os módulos',()=>{
   }
   expect(screen.getByRole('button',{name:/COMEÇAR COM ESSA EXPERIÊNCIA/i})).toBeDisabled();
 });
+
+test('first access requires explicit mode selection without a skip button',()=>{
+ render(<ExperienceOnboardingPage/>);
+ const start=screen.getByRole('button',{name:/COMEÇAR COM ESSA EXPERIÊNCIA/i});
+ expect(start).toBeDisabled();
+ expect(screen.queryByRole('button',{name:/pular/i})).not.toBeInTheDocument();
+ fireEvent.click(screen.getByRole('radio',{name:/NORMAL/i}));
+ expect(start).toBeEnabled();
+});

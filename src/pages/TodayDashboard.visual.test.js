@@ -3,6 +3,7 @@ import {render, screen, fireEvent, waitFor, act} from '@testing-library/react';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 import TodayDashboard from './TodayDashboard';
+import i18n from '../i18n';
 import {getCurrentUser,getDiaryLogs,getMetas,addDiaryLog} from '../services/apiService';
 
 jest.mock('react-router-dom',()=>({
@@ -144,4 +145,23 @@ test('se POST conclui e GET falha, não informa erro falso e reflete a água na 
   fireEvent.click(await screen.findByRole('button',{name:'Registrar 250 mililitros de água'}));
   expect(await screen.findByText(/250 ml registrados no diário/)).toBeInTheDocument();
   expect(screen.getByRole('progressbar',{name:'Água diária'})).toHaveAttribute('aria-valuenow','250');
+});
+
+test('dashboard in English retains real metric values and water controls',async()=>{
+ try{
+  await i18n.changeLanguage('en');
+  render(<TodayDashboard/>);
+  expect(await screen.findByRole('progressbar',{name:'Daily calories'})).toHaveAttribute('aria-valuenow','800');
+  expect(screen.getByRole('progressbar',{name:'Daily water'})).toHaveAttribute('aria-valuenow','1000');
+  expect(screen.getByRole('button',{name:'Log 250 milliliters of water'})).toBeInTheDocument();
+  expect(screen.getByRole('link',{name:'OPEN MY WORKOUT'})).toHaveAttribute('href','/treino');
+ }finally{await i18n.changeLanguage('pt');}
+});
+
+test('normal dashboard with coach only renders coach action, not disabled meal or workout controls',async()=>{
+ render(<TodayDashboard settings={{food:false,workout:false,weight:false,coach:true}}/>);
+ expect(await screen.findByRole('link',{name:/meu personal/i})).toHaveAttribute('href','/meu-personal');
+ expect(screen.queryByRole('progressbar',{name:'Calorias diárias'})).not.toBeInTheDocument();
+ expect(screen.queryByRole('link',{name:/abrir meu treino/i})).not.toBeInTheDocument();
+ expect(screen.queryByRole('button',{name:/registrar 250 mililitros/i})).not.toBeInTheDocument();
 });

@@ -31,3 +31,69 @@
 @media(max-width:770px){.gg-auth-masthead-side .gg-auth-masthead-edition{display:none}.gg-header-right .gg-header-cta{padding:8px!important;min-height:38px!important;font-size:10px!important}.gg-language-switcher>svg{display:none}.gg-language-switcher.is-compact select{max-width:90px}.gg-header-right{gap:5px}.gg-auth-masthead-side{gap:7px}}
 @media(max-width:400px){.gg-header-right .gg-header-cta{font-size:9px!important}.gg-header-route{display:none}.gg-language-switcher.is-compact select{max-width:75px;font-size:9px!important;padding:5px!important}.gg-auth-masthead-side .gg-auth-masthead-link{font-size:9px!important;padding:8px!important}.gg-auth-masthead-side .gg-language-switcher select{max-width:88px}}
 @media(prefers-reduced-motion:reduce){.gg-language-switcher *,.gg-settings *{transition:none!important;animation:none!important}}
+
+.App :is(.gg-daily,.gg-movement,.gg-profile,.gg-history,.gg-records,.gg-today){font-family:var(--gg-font-body,Manrope,Arial,sans-serif)}
+.App :is(.gg-daily-title,.gg-movement-hero,.gg-history-heading,.gg-records-heading){border-bottom-color:#424242}
+.App :is(.gg-daily-title h1,.gg-movement-hero h1,.gg-history-heading h1,.gg-records-heading h1,.gg-experience-hero h1){overflow-wrap:anywhere;text-wrap:balance}
+.App :is(.gg-records-summary>div,.gg-movement-stats>div,.gg-today-measures>div){background:#222;border-color:#484848;border-radius:12px;font-variant-numeric:tabular-nums}
+.App :is(.gg-daily-title p,.gg-movement-hero p,.gg-history-heading p,.gg-records-heading p,.gg-experience-hero p){font-size:14px;line-height:1.65}
+.App :is(.gg-experience-feature,.gg-experience-mode){min-height:88px;padding:16px;border-radius:12px;background:#242424}
+.App :is(.gg-experience-feature,.gg-experience-mode):has(input:checked){background:#302124;border-color:#e15a64}
+.App :is(.gg-experience-feature,.gg-experience-mode) strong{font:800 14px/1.3 var(--gg-font-body,Manrope,Arial,sans-serif)}
+.App :is(.gg-experience-feature,.gg-experience-mode) small{font-size:12px}
+.App .gg-experience-footer button{font:800 12px/1.4 var(--gg-font-body,Manrope,Arial,sans-serif);min-height:54px}
+@media(max-width:767px){
+.App .gg-daily-navigation{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.App .gg-daily-navitem span{overflow-wrap:anywhere;line-height:1.2}
+.App[data-gg-mode="simple"] .gg-hub-links{grid-template-columns:minmax(0,1fr)}
+.App .gg-hub-link small{line-height:1.4;overflow-wrap:anywhere}
+.App :is(.gg-records-summary,.gg-movement-stats)>div{padding:12px 8px}
+.App .gg-experience-hero h1{font-size:clamp(38px,9vw,64px);line-height:.95}
+}
+@media(min-width:768px){
+.App .gg-experience-wrap{max-width:980px}
+.App .gg-experience-form{gap:32px}
+}
+
+.gg-header-settings{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:9px 13px;border:1px solid #555;border-radius:9px;color:#fff;background:#242424;text-decoration:none;font:800 12px/1.2 var(--gg-font-body,Manrope,Arial,sans-serif);white-space:nowrap}
+.gg-header-settings svg{font-size:19px;flex:none}
+.gg-header-settings:hover{background:#343434;border-color:#b1111b}
+.gg-required-experience{min-height:100dvh;background:#101113;padding:0!important;margin:0!important}
+.gg-required-experience .gg-experience{padding-bottom:36px}
+.gg-experience-wait{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;padding:24px;text-align:center;color:#fff}
+.gg-experience-wait img{width:64px;height:64px}
+.gg-experience-wait h1{font-size:20px}
+.gg-experience-wait button{min-height:48px;padding:12px 20px;background:#262626;color:#fff;border:1px solid #646464;border-radius:9px;cursor:pointer}
+.App[data-gg-mode="simple"] .gg-nav-desktop{display:none}
+.App[data-gg-mode="simple"] .gg-simple-day-hero{min-height:190px}
+.App[data-gg-mode="simple"] .gg-simple-day-actions>a{min-height:80px}
+@media(max-width:767px){.gg-header-settings{min-height:42px;padding:8px;font-size:11px}.gg-header-settings svg{font-size:17px}.App[data-gg-mode="simple"] .gg-header-route{display:none}}
+@media(max-width:350px){.gg-header-settings span{font-size:10px}}
+
+.gg-simple-module-summary{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;padding:18px;margin:16px 0;background:#242424;border:1px solid #505050;border-radius:12px;color:#f5f5f5;font-size:15px}
+.gg-simple-module-summary>div{display:grid;gap:5px;min-width:105px}
+.gg-simple-module-summary span{font-size:12px;color:#dedede}
+.gg-simple-module-summary strong{font-size:24px;font-variant-numeric:tabular-nums}
+.gg-simple-module-summary button{min-height:48px;padding:12px 16px;color:#fff;background:#b1111b;border:0;border-radius:8px;font-weight:800;cursor:pointer}
+.App[data-gg-mode="simple"] :is(.gg-daily-title,.gg-movement-hero){min-height:150px;padding-block:18px}
+.App[data-gg-mode="simple"] :is(.gg-movement-primary,.gg-catalog-trigger){min-height:76px}
+.App[data-gg-mode="simple"] .gg-daily-categories{display:none}
+.App[data-gg-mode="simple"] .gg-daily-prediction{display:none}
+
+.gg-today-coach-entry{display:flex;align-items:center;gap:12px;min-height:58px;margin:16px 0;padding:16px;background:#262626;color:#fff;border:1px solid #505050;border-radius:10px;text-decoration:none;font-weight:800}
+.gg-today-coach-entry:hover{border-color:#d32f3b}
+.App[data-gg-mode="simple"] .gg-profile-editor-section{padding:18px;border-radius:12px}
+.App[data-gg-mode="simple"] .gg-profile-editor-header h1{font-size:clamp(40px,8vw,66px)}
+
+.gg-daily-confirm{display:flex;flex-wrap:wrap;align-items:center;gap:8px;flex:1 1 100%;padding:12px;background:#242424;border:1px solid #777;border-radius:9px}
+.gg-daily-confirm strong{flex:1 1 100%;font-size:14px;color:#fff}
+.gg-daily-history-item:has(.gg-daily-confirm){flex-wrap:wrap}
+.gg-daily-confirm button{min-height:44px;min-width:100px;width:auto;padding:8px 13px;color:#fff;background:#333;border:1px solid #777;border-radius:8px;font-weight:700}
+.gg-daily-confirm button:last-child{background:#b1111b;border-color:#e05a65}
+.gg-required-experience .gg-experience-hero{min-height:180px}
+.gg-required-experience .gg-experience-footer{position:sticky;bottom:0;z-index:3;background:#101113;padding:14px 0 max(14px,env(safe-area-inset-bottom));border-top:1px solid #414141}
+.App[data-gg-mode="simple"] .gg-simple-day-hero{min-height:146px;padding:20px;background-color:#222}
+.App[data-gg-mode="simple"] .gg-simple-day-hero h1{font:800 clamp(34px,7vw,58px)/1.05 var(--gg-font-body,Manrope,Arial,sans-serif);margin:10px 0;overflow-wrap:anywhere}
+.App[data-gg-mode="simple"] .gg-simple-day-actions strong{font-size:16px;line-height:1.3}
+.App[data-gg-mode="simple"] .gg-simple-day-actions small{font-size:13px;line-height:1.5}
+@media(max-width:690px){.gg-required-experience .gg-experience-hero h1{font-size:clamp(32px,8vw,52px)}.gg-required-experience .gg-experience-form{gap:20px}.gg-required-experience .gg-experience-footer{flex-direction:row;flex-wrap:nowrap}.gg-required-experience .gg-experience-footer button:first-child{flex:1}.gg-required-experience .gg-experience-footer .gg-experience-skip{width:auto;flex:none;padding:10px}.gg-required-experience .gg-experience-mode{min-height:66px}}

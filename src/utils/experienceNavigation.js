@@ -27,3 +27,13 @@ export function experienceNavigation(input) {
   menu.push({key:'experience',to:'/configuracoes',label:'Personalizar',title:'Personalizar',summary:'Alterar módulos e modo'});
   return {primary,menu,available};
 }
+
+export function experienceRouteAllowed(path,input) {
+  const state=normalizeExperience(input);
+  const at=(...prefixes)=>prefixes.some(prefix=>path.toLowerCase()===prefix||path.toLowerCase().startsWith(prefix+'/'));
+  if(at('/alimentacao','/dietas','/biblioteca-alimentos','/diario-alimentar','/diario','/legado/dietas','/legado/diario','/legado/diario-alimentar','/legado/biblioteca-alimentos')&&!state.food)return false;
+  if(at('/treino','/training-models','/legado/training-models','/cardio','/plano-de-treino','/exercicios','/routine-generator','/exercise-library','/exercicio')&&!state.workout)return false;
+  if(at('/meu-personal')&&!state.coach)return false;
+  if(state.mode==='simple'&&at('/training-models','/legado/training-models','/plano-de-treino','/exercicios','/routine-generator','/exercise-library','/exercicio'))return false;
+  return true;
+}
