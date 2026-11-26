@@ -36,7 +36,7 @@ export default function ProfileForm(){
     getCurrentUser().then(({data})=>{
       if(!active)return;
       setUser(data);
-      setWeightTarget(localStorage.getItem('gabgym:weight-goal:'+data.id)||'');
+      try{setWeightTarget(localStorage.getItem('gabgym:weight-goal:'+data.id)||'');}catch{}
       setForm({
         name:data.name || '', age:data.age ?? '', weight:data.weight ?? '',
         height:data.height ?? '', gender:data.gender || '', objective:data.objective || 'maintain-weight',
@@ -81,7 +81,7 @@ export default function ProfileForm(){
       }catch{setError('profileEditor.localError');return;}
       toast.success(t('profileEditor.saved'));
       navigate('/perfil',{replace:true});
-    }catch{setError('Não foi possível salvar no servidor. Seus dados ainda não foram alterados.');}
+    }catch{setError('profileEditor.saveError');}
     finally{mutationLock.current=false;setSaving(false);}
   };
   return (
@@ -106,10 +106,10 @@ export default function ProfileForm(){
                 <input type="number" min="13" max="120" inputMode="numeric" value={form.age} onChange={e=>change('age',e.target.value)} placeholder={t('profileEditor.years')} />
               </label>
               <label className="gg-profile-editor-field">{t('profileEditor.weight')}
-                <input type="number" min="20" max="600" step=".1" inputMode="decimal" value={form.weight} onChange={e=>change('weight',e.target.value)} placeholder="Ex.: 80" />
+                <input type="number" min="20" max="600" step=".1" inputMode="decimal" value={form.weight} onChange={e=>change('weight',e.target.value)} placeholder="80" />
               </label>
               <label className="gg-profile-editor-field">{t('profileEditor.height')}
-                <input type="number" min="100" max="250" step=".1" inputMode="decimal" value={form.height} onChange={e=>change('height',e.target.value)} placeholder="Ex.: 180" />
+                <input type="number" min="100" max="250" step=".1" inputMode="decimal" value={form.height} onChange={e=>change('height',e.target.value)} placeholder="180" />
               </label>
               <label className="gg-profile-editor-field">{t('profileEditor.objective')}
                 <select value={form.objective} onChange={e=>change('objective',e.target.value)}>
@@ -136,7 +136,7 @@ export default function ProfileForm(){
             <div><span>{t('profileEditor.goalsSection')}</span><h2>{t('profileEditor.goals')}</h2></div>
             <p>{t('profileEditor.goalsNote')}</p>
             <label className="gg-profile-editor-field">{t('profileEditor.weightGoal')}
-              <input type="number" min="20" max="600" step=".1" inputMode="decimal" value={weightTarget} onChange={e=>setWeightTarget(e.target.value)} placeholder="Ex.: 90"/>
+              <input type="number" min="20" max="600" step=".1" inputMode="decimal" value={weightTarget} onChange={e=>setWeightTarget(e.target.value)} placeholder="90"/>
             </label>
             <p>{t('profileEditor.goalNote')}</p>
             <Link to="/minhas-metas">{t('profileEditor.openGoals')} <FiArrowRight aria-hidden="true"/></Link>

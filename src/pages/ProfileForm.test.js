@@ -54,3 +54,13 @@ test('French profile preserves numeric weight and backend objective values',asyn
   await waitFor(()=>expect(updateUser).toHaveBeenCalledWith(17,expect.objectContaining({weight:80,objective:'gain-muscle'})));
  }finally{await i18n.changeLanguage('pt');}
 });
+
+test('profile server failure gives accurate feedback and does not write local measurements',async()=>{
+ updateUser.mockRejectedValueOnce(new Error('network'));
+ render(<ProfileForm/>);
+ await screen.findByLabelText(/^PESO \(KG\)$/i);
+ fireEvent.change(screen.getByLabelText(/cintura/i),{target:{value:'99'}});
+ fireEvent.click(screen.getByRole('button',{name:/salvar perfil/i}));
+ expect(await screen.findByRole('alert')).toHaveTextContent('Não foi possível confirmar a atualização no servidor.');
+ expect(localStorage.getItem('gabgym:body-measures:17')).toBeNull();
+});

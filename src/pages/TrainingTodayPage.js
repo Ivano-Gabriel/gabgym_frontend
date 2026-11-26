@@ -50,8 +50,10 @@ export default function TrainingTodayPage(){
         if(!user?.id) throw new Error('Não autenticado');
         if(alive) {
           setUser(user);
-          setBurnGoal(localStorage.getItem('gabgym:burn-goal:'+user.id)||'');
-          setSessionGoal(localStorage.getItem('gabgym:session-goal:'+user.id)||'');
+          try{
+            setBurnGoal(localStorage.getItem('gabgym:burn-goal:'+user.id)||'');
+            setSessionGoal(localStorage.getItem('gabgym:session-goal:'+user.id)||'');
+          }catch{}
         }
         const response=await getDiaryLogs(user.id,dayKey());
         if(alive)setLogs(Array.isArray(response.data)?response.data:[]);
@@ -139,7 +141,7 @@ export default function TrainingTodayPage(){
                 <p className="gg-movement-empty">{t('training.empty')}</p>}
             </>
           }
-          <div className="gg-movement-meters">
+          {!loading&&!error&&<div className="gg-movement-meters">
             <div><div className="gg-movement-meter-head"><strong>{t('training.dayWorkout')}</strong><span>{workoutsDone+' / '+sessionTarget+' '+t('training.records')}</span></div>
               <div className="gg-movement-meter" role="progressbar" aria-label={t('training.done')} aria-valuenow={Math.min(workoutsDone,sessionTarget)} aria-valuemin="0" aria-valuemax={sessionTarget}>
                 <span style={{width:sessionProgress.percent+'%'}} /></div><label className="gg-movement-goal-label">{t('training.sessionGoal')}<input type="number" min="1" max="20" placeholder="1" value={sessionGoal} inputMode="numeric" onChange={e=>saveSessionGoal(e.target.value)}/></label></div>
@@ -150,7 +152,7 @@ export default function TrainingTodayPage(){
                 <input type="number" min="30" max="3000" placeholder={t('training.referencePlaceholder')}
                   value={burnGoal} onChange={e=>saveGoal(e.target.value)} inputMode="numeric"/>
               </label></div>
-          </div>
+          </div>}
           <p className="gg-movement-note">{t('training.note')}</p>
         </section>}
         {simple&&(loading?<p role="status">{t('training.loading')}</p>:error?<p role="alert">{t(error)}</p>:<p className="gg-simple-module-summary">{t('training.simpleCount',{count:workoutsDone})}</p>)}

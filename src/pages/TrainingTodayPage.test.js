@@ -91,3 +91,13 @@ test('Spanish training displays localized options without changing stored workou
   await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'exercise',name:expect.stringContaining('Pernas')})));
  }finally{await i18n.changeLanguage('pt');}
 });
+
+test('failed movement sync hides misleading progress and supports retry',async()=>{
+ getDiaryLogs.mockRejectedValueOnce(new Error('network'));
+ const {fireEvent}=require('@testing-library/react');
+ render(<TrainingTodayPage/>);
+ expect(await screen.findByRole('alert')).toHaveTextContent(/histórico continua salvo/i);
+ expect(screen.queryByRole('progressbar',{name:'Treino realizado hoje'})).not.toBeInTheDocument();
+ fireEvent.click(screen.getByRole('button',{name:/tentar novamente/i}));
+ expect(await screen.findByRole('progressbar',{name:'Treino realizado hoje'})).toBeInTheDocument();
+});
