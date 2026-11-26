@@ -31,7 +31,7 @@ export default function LoginPage() {
       } else if (login.data.role === 'SUPER_ADMIN') {
         navigate('/admin', { replace: true });
       } else {
-        const user = (await getCurrentUser()).data;
+        await getCurrentUser();
         navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
       }
     } catch (err) {
