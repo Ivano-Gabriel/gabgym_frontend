@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import DailyNavigation from './DailyNavigation';
 
 jest.mock('react-router-dom', () => ({
@@ -18,8 +18,8 @@ test('menu mobile tem acesso direto a hoje, comer, hub, treino e perfil', () => 
   fireEvent.click(screen.getByRole('button', { name: /abrir hub/i }));
   expect(screen.getByRole('dialog', { name: /hub gabgym/i })).toBeInTheDocument();
   expect(screen.getByRole('link', { name: /^cardio\b/i })).toHaveAttribute('href','/cardio/select');
-  expect(screen.getByRole('link', { name: /metas/i })).toHaveAttribute('href','/minhas-metas');
-  fireEvent.click(screen.getByRole('button', { name: /fechar hub/i }));
+  expect(screen.getByRole('link', { name: /^metas\b/i })).toHaveAttribute('href','/minhas-metas');
+  fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: /fechar hub/i }));
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 });
 
@@ -32,7 +32,7 @@ test('hub permanece montado e alterna visibilidade para animar o fechamento',()=
  fireEvent.click(screen.getByRole('button',{name:/abrir hub/i}));
  expect(sheet).toHaveAttribute('aria-hidden','false');
  expect(sheet).toHaveClass('is-visible');
- fireEvent.click(screen.getByRole('button',{name:/fechar hub/i}));
+ fireEvent.click(within(screen.getByRole('dialog')).getByRole('button',{name:/fechar hub/i}));
  expect(sheet).toHaveAttribute('aria-hidden','true');
  expect(sheet).not.toHaveClass('is-visible');
 });
