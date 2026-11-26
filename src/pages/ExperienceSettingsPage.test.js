@@ -3,10 +3,11 @@ import {render,screen,fireEvent,waitFor} from '@testing-library/react';
 import ExperienceSettingsPage from './ExperienceSettingsPage';
 
 const mockSave=jest.fn();
-jest.mock('../context/ExperienceContext',()=>({
-  useExperience:()=>({settings:{mode:'normal',food:true,workout:true,weight:true,coach:true,
-    language:'pt',completed:true},ready:true,save:mockSave,source:'server',error:''})
-}));
+jest.mock('../context/ExperienceContext',()=>{
+  const settings={mode:'normal',food:true,workout:true,weight:true,coach:true,
+    language:'pt',completed:true};
+  return {useExperience:()=>({settings,ready:true,save:mockSave,source:'server',error:''})};
+});
 jest.mock('react-router-dom',()=>({
   Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children)
 }));
