@@ -24,6 +24,6 @@ export function experienceNavigation(input) {
     menu.push({key:'history',to:'/historico',label:'Histórico',title:'Histórico',summary:'Analise seu progresso'});
     menu.push({key:'records',to:'/registros',label:'Registros',title:'Registros',summary:'Seu diário completo'});
   }
-  menu.push({key:'experience',to:'/experiencia?edit=1',label:'Personalizar',title:'Personalizar',summary:'Alterar módulos e modo'});
+  menu.push({key:'experience',to:'/configuracoes',label:'Personalizar',title:'Personalizar',summary:'Alterar módulos e modo'});
   return {primary,menu,available};
 }

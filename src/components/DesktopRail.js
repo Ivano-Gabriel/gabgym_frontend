@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {NavLink,useLocation} from 'react-router-dom';
 import {FiActivity,FiBarChart2,FiChevronLeft,FiChevronRight,FiCoffee,
   FiHeart,FiHome,FiTarget,FiUser,FiUsers,FiBookOpen,FiSettings} from 'react-icons/fi';
@@ -13,6 +14,7 @@ const icons={
 };
 
 export default function DesktopRail() {
+  const {t}=useTranslation();
   const [expanded,setExpanded]=useState(false);
   const {pathname}=useLocation();
   const {settings}=useExperience();
@@ -45,7 +47,7 @@ export default function DesktopRail() {
         return <NavLink key={key} to={to} end={to==='/'} tabIndex={expanded?0:-1}
           onClick={()=>setExpanded(false)} className={({isActive})=>
             'gg-desktop-rail-link'+(isActive?' is-active':'')}>
-          <Icon aria-hidden="true"/><span>{label}</span>
+          <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
         </NavLink>;
       })}
     </nav>

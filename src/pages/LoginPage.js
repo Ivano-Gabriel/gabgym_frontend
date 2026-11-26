@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useTranslation} from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, getCurrentUser, warmUpApi } from '../services/apiService';
 import AuthShell from './AuthShell';
@@ -15,6 +16,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const {t}=useTranslation();
   const connection=useApiReady();
 
   const handleSubmit = async event => {
@@ -30,7 +32,7 @@ export default function LoginPage() {
         navigate('/admin', { replace: true });
       } else {
         const user = (await getCurrentUser()).data;
-        navigate('/experiencia', { replace: true });
+        navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
       }
     } catch (err) {
       const status = err.response?.status;
@@ -46,15 +48,15 @@ export default function LoginPage() {
     }
   };
 
-  return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : 'BEM-VINDO DE VOLTA.'}
-    subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : 'Acesse seu progresso.'}
-    footer={<>Ainda não tem uma conta? <Link to="/signup">Criar conta</Link> · <Link to="/login-personal">Sou personal</Link></>}>
+  return <AuthShell type="login" title={mfaRequired ? 'VALIDE SEU ACESSO.' : t('auth.loginTitle')}
+    subtitle={mfaRequired ? 'Seus seis dígitos garantem que só você entre.' : t('auth.loginSubtitle')}
+    footer={<> {t("auth.already")} <Link to="/signup">{t("auth.newUser")}</Link> · <Link to="/login-personal">{t("auth.professional")}</Link></>}>
     <form className="gg-auth-form" onSubmit={handleSubmit} aria-busy={isLoading}>
-      <label className="gg-auth-field"><span>Usuário</span>
+      <label className="gg-auth-field"><span>{t('auth.username')}</span>
         <input name="username" value={username} onChange={e => { setUsername(e.target.value); setMfaRequired(false); }}
           autoComplete="username" placeholder="Seu nome de usuário" required maxLength={40} disabled={isLoading} />
       </label>
-      <label className="gg-auth-field"><span>Senha</span>
+      <label className="gg-auth-field"><span>{t('auth.password')}</span>
         <div className="gg-auth-input-wrap">
           <input name="password" type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)}
             autoComplete="current-password" placeholder="Sua senha" required disabled={isLoading}/>
@@ -71,7 +73,7 @@ export default function LoginPage() {
       <ApiWakeNotice connection={connection}/>
       {error && <p className="gg-auth-error" role="alert">{error}</p>}
       <button className="gg-auth-submit" type="submit" disabled={isLoading||!connection.ready}>
-        <span>{isLoading ? 'VERIFICANDO...' : mfaRequired ? 'VALIDAR CÓDIGO' : 'ENTRAR NO GABGYM'}</span>
+        <span>{isLoading ? 'VERIFICANDO...' : mfaRequired ? 'VALIDAR CÓDIGO' : t('auth.login')}</span>
         <span aria-hidden="true">→</span>
       </button>
     </form>

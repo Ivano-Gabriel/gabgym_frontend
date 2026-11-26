@@ -1,4 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {NavLink,Link,useLocation} from 'react-router-dom';
 import {FiHome,FiActivity,FiCoffee,FiUser,FiShield,FiX,FiTarget,
   FiHeart,FiBarChart2,FiChevronRight,FiBookOpen,FiUsers,FiSettings} from 'react-icons/fi';
@@ -14,6 +15,7 @@ const icons={
 };
 
 export default function DailyNavigation() {
+  const {t}=useTranslation();
   const admin=isSuperAdmin();
   const {settings}=useExperience();
   const [open,setOpen]=useState(false);
@@ -50,18 +52,18 @@ export default function DailyNavigation() {
       {primary.slice(0,2).map(({key,label,to})=>{
         const Icon=admin&&key==='profile'?FiShield:(icons[key]||FiHome);
         return <NavLink key={key} to={to} end={to==='/'} className={({isActive})=>'gg-daily-navitem'+(isActive?' active':'')}>
-          <Icon aria-hidden="true"/><span>{label}</span>
+          <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
         </NavLink>;
       })}
       <button ref={triggerRef} type="button" className={'gg-hub-trigger'+(open?' active':'')}
-        aria-label={open?'Recolher hub':'Abrir hub'} aria-expanded={open} aria-controls="gg-hub-sheet"
+        aria-label={open?t('nav.closeHub'):t('nav.openHub')} aria-expanded={open} aria-controls="gg-hub-sheet"
         onClick={()=>setOpen(value=>!value)}>
-        <span className="gg-hub-glyph" aria-hidden="true"><img src="/gg-mark.svg" alt=""/></span><span>Hub</span>
+        <span className="gg-hub-glyph" aria-hidden="true"><img src="/gg-mark.svg" alt=""/></span><span>{t('nav.hub')}</span>
       </button>
       {primary.slice(2).map(({key,label,to})=>{
         const Icon=admin&&key==='profile'?FiShield:(icons[key]||FiUser);
         return <NavLink key={key} to={to} className={({isActive})=>'gg-daily-navitem'+(isActive?' active':'')}>
-          <Icon aria-hidden="true"/><span>{label}</span>
+          <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
         </NavLink>;
       })}
     </nav>
@@ -76,7 +78,7 @@ export default function DailyNavigation() {
           dragStart.current=null;}}/>
       <div className="gg-hub-sheet-head">
         <div><span>GABGYM / ACESSO RÁPIDO</span><h2>SEU HUB<span>.</span></h2></div>
-        <button ref={closeRef} tabIndex={open?0:-1} type="button" aria-label="Fechar hub"
+        <button ref={closeRef} tabIndex={open?0:-1} type="button" aria-label={t('nav.closeHub')}
           onClick={()=>setOpen(false)}><FiX/></button>
       </div>
       <div className="gg-hub-links">
@@ -86,12 +88,12 @@ export default function DailyNavigation() {
             onClick={()=>setOpen(false)} style={{'--gg-card-index':index}}
             className={'gg-hub-link'+(key==='coach'?' gg-hub-link--personal':'')}>
             <Icon aria-hidden="true"/>
-            <span><strong>{title}</strong><small>{summary}</small></span>
+            <span><strong>{t('nav.'+key,{defaultValue:title})}</strong><small>{summary}</small></span>
             <FiChevronRight aria-hidden="true"/>
           </Link>;
         })}
       </div>
-      <p className="gg-hub-caption">UM DIA DE CADA VEZ.</p>
+      <p className="gg-hub-caption">{t('nav.dayByDay')}</p>
     </section>
   </>;
 }

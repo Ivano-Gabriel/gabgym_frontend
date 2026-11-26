@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, FiCamera } from 'react-icons/fi';
+import { FiUser, FiEdit3, FiTarget, FiClock, FiLogOut, FiArrowRight, FiShield, FiCamera, FiSettings } from 'react-icons/fi';
 import { getCurrentUser, logoutUser } from '../services/apiService';
 import { isSuperAdmin } from '../utils/auth';
 import PremiumPhoto from '../components/PremiumPhoto';
@@ -8,9 +8,11 @@ import './ProfilePage.css';
 import {loadWeightHistory,weightTrend,safeWeightProjection,weightGoalProgress} from '../utils/weightProgress';
 import {readProfileAvatar,saveProfileAvatar,isSupportedProfileImage} from '../utils/profileAvatar';
 import StreakCalendar from '../components/StreakCalendar';
+import {useTranslation} from 'react-i18next';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const {t}=useTranslation();
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
   const [avatar,setAvatar] = useState('');
@@ -36,7 +38,7 @@ export default function ProfilePage() {
   },[]);
   const logout=async()=>{
     if(busy)return;setBusy(true);
-    try{ await logoutUser(); }catch{ /* Serviço pode estar dormindo. */ }
+    try{ await logoutUser(); }catch{}
     navigate('/login',{replace:true});
   };
   const imagePicked=event=>{
@@ -118,6 +120,7 @@ export default function ProfilePage() {
           <div className="gg-profile-section-name"><span>02 / CONTINUAR</span><h2>SEUS PRÓXIMOS PASSOS.</h2></div>
           <div className="gg-profile-links">
             {links.map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
+            <Link to="/configuracoes"><FiSettings aria-hidden="true"/><span><strong>{t("nav.experience")}</strong><small>{t("settings.description")}</small></span><FiArrowRight aria-hidden="true"/></Link>
             {isSuperAdmin()&&<Link to="/admin"><FiShield aria-hidden="true"/><span><strong>ADMINISTRAÇÃO</strong><small>Gerenciar alunos</small></span><FiArrowRight aria-hidden="true"/></Link>}
           </div>
           <button className="gg-profile-logout" onClick={logout} disabled={busy}><FiLogOut aria-hidden="true"/> SAIR DA CONTA</button>

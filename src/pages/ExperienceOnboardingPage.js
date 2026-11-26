@@ -1,23 +1,18 @@
 import React,{useEffect,useState} from 'react';
 import {Link,useLocation,useNavigate} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 import {FiArrowRight,FiCheck,FiCoffee,FiTarget,FiUsers,FiActivity} from 'react-icons/fi';
 import {useExperience} from '../context/ExperienceContext';
 import {normalizeExperience} from '../utils/experience';
 import './ExperienceOnboardingPage.css';
 
-const features=[
-  {key:'food',icon:FiCoffee,title:'Alimentação e água',detail:'Refeições, calorias e hidratação'},
-  {key:'workout',icon:FiActivity,title:'Treinos e cardio',detail:'Séries, fichas, cargas e atividades'},
-  {key:'weight',icon:FiTarget,title:'Peso e evolução',detail:'Medidas, histórico e metas'},
-  {key:'coach',icon:FiUsers,title:'Meu Personal',detail:'Mensagens e acompanhamento autorizado'}
-];
-const modes=[
-  {key:'simple',title:'SIMPLES',detail:'Poucos botões, um passo por vez'},
-  {key:'normal',title:'NORMAL',detail:'Resumo, atalhos e detalhes essenciais'},
-  {key:'complete',title:'COMPLETO',detail:'Métricas, histórico e mais ferramentas'}
-];
+const features=[{key:'food',Icon:FiCoffee},{key:'workout',Icon:FiActivity},
+  {key:'weight',Icon:FiTarget},{key:'coach',Icon:FiUsers}];
+const modes=['simple','normal','complete'];
+const languages=[['pt','Português'],['en','English'],['es','Español'],['fr','Français']];
 
 export default function ExperienceOnboardingPage() {
+  const {t}=useTranslation();
   const experience=useExperience();
   const navigate=useNavigate();
   const location=useLocation();
@@ -36,68 +31,78 @@ export default function ExperienceOnboardingPage() {
   },[experience.ready,experience.settings.completed,edit,navigate]);
 
   const save=async event=>{
-    event.preventDefault();
-    if(saving)return;
+    event.preventDefault();if(saving)return;
     setSaving(true);setError('');
     try{
       const outcome=await experience.save({...draft,completed:true});
-      if(outcome.source==='local'){
-        setMessage('Preferências salvas neste navegador. A sincronização fica disponível quando a API for atualizada.');
-      }else navigate('/',{replace:true});
-    }catch{
-      setError('Não foi possível confirmar as preferências. Verifique sua conexão.');
-    }finally{setSaving(false);}
+      if(outcome.source==='local')setMessage(t('experience.offline'));
+      else navigate('/',{replace:true});
+    }catch{setError(t('experience.error'));}
+    finally{setSaving(false);}
   };
-
   const skip=async()=>{
     if(saving)return;
     setSaving(true);
     try{
       await experience.save({...experience.settings,completed:true});
       navigate('/',{replace:true});
-    }catch{setError('Não foi possível salvar. Tente novamente.');setSaving(false);}
+    }catch{setError(t('experience.error'));setSaving(false);}
   };
   const select=key=>setDraft(old=>({...old,[key]:!old[key]}));
 
   return <main className="gg-experience">
     <div className="gg-experience-wrap">
       <header className="gg-experience-hero">
-        <span>GABGYM / SUA EXPERIÊNCIA</span>
-        <h1>O SEU GABGYM.<br/><em>DO SEU JEITO.</em></h1>
-        <p>Escolha só o que importa agora. Você pode mudar tudo depois, sem apagar seus registros.</p>
+        <span>GABGYM / {t('experience.kicker')}</span>
+        <h1>{t('experience.titleTop')}<br/><em>{t('experience.titleBottom')}</em></h1>
+        <p>{t('experience.description')}</p>
       </header>
-      {!experience.ready?<p role="status">Buscando suas preferências…</p>:
+      {!experience.ready?<p role="status">{t('experience.loading')}</p>:
       <form onSubmit={save} className="gg-experience-form">
         {experience.error&&<p role="status" className="gg-experience-warning">{experience.error}</p>}
         {error&&<p role="alert" className="gg-experience-warning">{error}</p>}
         {message&&<p role="status" className="gg-experience-warning">{message}
-          <Link to="/"> Continuar para o GabGym</Link></p>}
-        <section aria-label="Suas áreas">
-          <div className="gg-experience-heading"><span>01 / O QUE FAZ SENTIDO</span><h2>ESCOLHA SUAS ÁREAS.</h2></div>
+          <Link to="/">{t('experience.continue')}</Link></p>}
+        <section aria-label={t('experience.areas')}>
+          <div className="gg-experience-heading"><span>01 / {t('experience.kicker')}</span>
+            <h2>{t('experience.areas')}</h2></div>
           <div className="gg-experience-features">
-            {features.map(({key,icon:Icon,title,detail})=><label className="gg-experience-feature" key={key}>
+            {features.map(({key,Icon})=><label className="gg-experience-feature" key={key}>
               <input type="checkbox" checked={Boolean(draft[key])} disabled={saving}
                 onChange={()=>select(key)}/>
-              <Icon aria-hidden="true"/><span><strong>{title}</strong><small>{detail}</small></span>
+              <Icon aria-hidden="true"/><span><strong>{t('experience.'+key)}</strong>
+                <small>{t('experience.'+key+'Detail')}</small></span>
               {draft[key]&&<FiCheck aria-hidden="true"/>}
             </label>)}
           </div>
         </section>
-        <section aria-label="Nível de detalhes">
-          <div className="gg-experience-heading"><span>02 / QUANTO DETALHE</span><h2>ESCOLHA SEU RITMO.</h2></div>
+        <section aria-label={t('experience.complexity')}>
+          <div className="gg-experience-heading"><span>02 / {t('experience.kicker')}</span>
+            <h2>{t('experience.complexity')}</h2></div>
           <div className="gg-experience-modes">
-            {modes.map(item=><label key={item.key} className="gg-experience-mode">
-              <input type="radio" name="mode" value={item.key} checked={draft.mode===item.key}
-                onChange={()=>setDraft(old=>({...old,mode:item.key}))}/>
-              <span><strong>{item.title}</strong><small>{item.detail}</small></span>
+            {modes.map(key=><label key={key} className="gg-experience-mode">
+              <input type="radio" name="mode" value={key} checked={draft.mode===key}
+                onChange={()=>setDraft(old=>({...old,mode:key}))}/>
+              <span><strong>{t('experience.'+key)}</strong>
+                <small>{t('experience.'+key+'Detail')}</small></span>
             </label>)}
           </div>
         </section>
+        <section>
+          <div className="gg-experience-heading"><span>03 / {t('experience.language')}</span>
+            <h2>{t('experience.language')}</h2></div>
+          <label className="gg-experience-language">{t('settings.language')}
+            <select value={draft.language} onChange={e=>setDraft(old=>({...old,language:e.target.value}))}>
+              {languages.map(([code,label])=><option key={code} value={code}>{label}</option>)}
+            </select>
+          </label>
+        </section>
         <div className="gg-experience-footer">
           <button type="submit" disabled={saving||!features.some(item=>draft[item.key])}>
-            {saving?'SALVANDO…':edit?'SALVAR MINHA EXPERIÊNCIA':'COMEÇAR COM ESSA EXPERIÊNCIA'} <FiArrowRight aria-hidden="true"/>
+            {saving?'…':edit?t('experience.save'):t('experience.start')}<FiArrowRight aria-hidden="true"/>
           </button>
-          {!edit&&<button type="button" className="gg-experience-skip" disabled={saving} onClick={skip}>PULAR POR ENQUANTO</button>}
+          {!edit&&<button type="button" className="gg-experience-skip" disabled={saving} onClick={skip}>
+            {t('experience.skip')}</button>}
         </div>
       </form>}
     </div>
