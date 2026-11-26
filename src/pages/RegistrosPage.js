@@ -7,12 +7,7 @@ import {dayKey,summarizeDay} from '../utils/nutrition';
 import './RegistrosPage.css';
 
 const icons={food:FiCoffee,water:FiDroplet,cardio:FiActivity,exercise:FiActivity};
-const types=[
-  {value:'all',label:'Todos'},
-  {value:'food',label:'Alimentação'},
-  {value:'movement',label:'Movimento'},
-  {value:'water',label:'Água'}
-];
+const types=['all','food','movement','water'];
 const matches=(row,filter)=>filter==='all'||row.type===filter||
   (filter==='movement'&&['cardio','exercise'].includes(row.type));
 const safe=value=>{const n=Number(value);return Number.isFinite(n)?Math.max(0,n):0;};
@@ -84,12 +79,12 @@ export default function RegistrosPage(){
         <section className="gg-records-summary" aria-label={t('journal.todaySummary')}>
           <div><FiCoffee aria-hidden="true"/><span>{t('journal.food')}</span><strong>{number(food.calories)} <small>kcal</small></strong></div>
           <div><FiDroplet aria-hidden="true"/><span>{t('journal.water')}</span><strong>{number(food.water)} <small>ml</small></strong></div>
-          <div><FiActivity aria-hidden="true"/><span>{t('journal.movement')}</span><strong>{movements} <small>{t('journal.activity',{count:movements})}</small></strong></div>
+          <div><FiActivity aria-hidden="true"/><span>{t('journal.movement')}</span><strong>{movements} <small>{t(movements===1?'journal.activity_one':'journal.activity_other')}</small></strong></div>
         </section>
         <nav className="gg-records-filters" aria-label={t('journal.filterLabel')}>
-          {types.map(type=><button key={type.value} type="button"
-            aria-pressed={filter===type.value} onClick={()=>{setFilter(type.value);setPendingDelete(null);}}>
-            {t('journal.filter_'+type.value)}</button>)}
+          {types.map(type=><button key={type} type="button"
+            aria-pressed={filter===type} onClick={()=>{setFilter(type);setPendingDelete(null);}}>
+            {t('journal.filter_'+type)}</button>)}
         </nav>
         {visible.length===0?<div className="gg-records-empty">
           <strong>{logs.length===0?t('journal.emptyAll'):t('journal.emptyFilter')}</strong>

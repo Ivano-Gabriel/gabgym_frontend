@@ -1,6 +1,7 @@
 import React from 'react';
 import { render,screen,waitFor } from '@testing-library/react';
 import HistoryPage from './HistoryPage';
+import i18n from '../i18n';
 import { dayKey } from '../utils/nutrition';
 import { getCurrentUser,getDiaryLogs } from '../services/apiService';
 
@@ -26,4 +27,14 @@ test('falha parcial de uma data não a apresenta como dia sem registros',async()
  getDiaryLogs.mockRejectedValue(new Error('offline'));
  render(<HistoryPage/>);
  expect(await screen.findAllByText(/Não foi possível carregar/i)).not.toHaveLength(0);
+});
+test('historique en français conserve les données de la semaine',async()=>{
+ try{
+  await i18n.changeLanguage('fr');
+  render(<HistoryPage/>);
+  expect(await screen.findByRole('heading',{name:/HISTORIQUE/i})).toBeInTheDocument();
+  expect(await screen.findByText('Cuscuz')).toBeInTheDocument();
+  expect(screen.getByRole('region',{name:'Résumé de la semaine'})).toBeInTheDocument();
+  expect(getDiaryLogs).toHaveBeenCalledTimes(7);
+ }finally{await i18n.changeLanguage('pt');}
 });

@@ -12,3 +12,11 @@ test('português, inglês, espanhol e francês oferecem as mesmas chaves centrai
    }
  }
 });
+
+test('journal translations preserve interpolation placeholders',()=>{
+ for(const locale of [en,es,fr]){
+  for(const key of ['daysLoaded','remove','deleteLabel']){
+   expect(locale.journal[key].match(/\{\{\w+\}\}/g)).toEqual(pt.journal[key].match(/\{\{\w+\}\}/g));
+  }
+ }
+});
