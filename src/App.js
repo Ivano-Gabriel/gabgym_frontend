@@ -1,10 +1,8 @@
-// src/App.js
 import React, { useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 
-// Imports Completos e Verificados
 import HomePage from './pages/HomePage';
 import ProfileForm from './pages/ProfileForm';
 import MobileMenu from './components/MobileMenu';
@@ -34,6 +32,8 @@ import ExerciseDetailPage from './pages/ExerciseDetailPage';
 import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import PersonalPage from './pages/PersonalPage';
+import ExperienceOnboardingPage from './pages/ExperienceOnboardingPage';
+import {ExperienceProvider} from './context/ExperienceContext';
 import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
 import CoachDashboard from './pages/CoachDashboard';
 import RegistrosPage from './pages/RegistrosPage';
@@ -46,7 +46,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BsChevronDown } from "react-icons/bs";
 import { FiMenu, FiX, FiArrowRight } from "react-icons/fi";
-import FoodLibraryPage from './pages/FoodLibraryPage'; // <--- A LINHA MÁGICA
+import FoodLibraryPage from './pages/FoodLibraryPage';
 import { isLoggedIn, isSuperAdmin, isPersonal } from './utils/auth';
 import AdminPage from './pages/AdminPage';
 import { nutritionLegacyAliases, nutritionHome } from './utils/nutritionRoutes';
@@ -205,6 +205,7 @@ function AppContent() {
           <Route path="/exercicio/:exerciseId" element={<ExerciseDetailPage />} />
           <Route path="/historico" element={<RequireAuth><HistoryPage /></RequireAuth>} />
           <Route path="/meu-personal" element={<RequireAuth><PersonalPage /></RequireAuth>} />
+          <Route path="/experiencia" element={<RequireAuth><ExperienceOnboardingPage /></RequireAuth>} />
           <Route path="/painel-personal" element={<RequireAuth professional><CoachDashboard /></RequireAuth>} />
           <Route path="/registros" element={<RequireAuth><RegistrosPage /></RequireAuth>} />
           <Route path="/minhas-metas" element={<RequireAuth><MinhasMetasPage /></RequireAuth>} />
@@ -226,7 +227,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <ExperienceProvider><AppContent /></ExperienceProvider>
     </Router>
   );
 }

@@ -120,3 +120,6 @@ export const postPersonalMessage = (studentId,kind,content) =>
   apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/timeline`,{kind,content});
 export const decidePersonalPlan = (studentId,entryId,decision) =>
   apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/plans/${encodeURIComponent(entryId)}/decision`,{decision});
+
+export const getExperiencePreferences=()=>apiClient.get('/users/me/preferences');
+export const updateExperiencePreferences=state=>apiClient.put('/users/me/preferences',state);
