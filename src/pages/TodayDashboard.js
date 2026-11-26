@@ -14,7 +14,7 @@ import {greetingFor,makeWaterEntry,recentFoodsToday} from '../utils/todayActions
 import './TodayActions.css';
 
 
-export default function TodayDashboard() {
+export default function TodayDashboard({settings={food:true,workout:true,weight:true,coach:true}}) {
   const {t,i18n}=useTranslation();
   const locale=i18n.resolvedLanguage==='pt'?'pt-BR':i18n.resolvedLanguage||'pt-BR';
   const n=value=>Number(value).toLocaleString(locale,{maximumFractionDigits:1});
@@ -101,9 +101,9 @@ export default function TodayDashboard() {
             <span className="gg-today-eyebrow"><FiCalendar aria-hidden="true" /> {dateLabel}</span>
             <h1>{t('today.title')}<span>.</span></h1>
             <p>{greetingFor(user,t)}</p>
-            <Link to="/treino" className="gg-today-hero-action">
+            {settings.workout&&<Link to="/treino" className="gg-today-hero-action">
               {t('today.openWorkout')} <FiArrowRight aria-hidden="true" />
-            </Link>
+            </Link>}
           </div>
           <span className="gg-today-hero-watermark" aria-hidden="true">GABGYM / 01</span>
         </header>
@@ -119,7 +119,7 @@ export default function TodayDashboard() {
             <section className="gg-today-dashboard-main" aria-label={t('today.dailyRecords')}>
           <StreakCalendar userId={user.id} todayLogs={logs}/>
           <div className="gg-today-section-heading"><div><span>{t('today.todaySection')}</span><h2>{t('today.consistency')}</h2></div></div>
-          <div className="gg-today-progress-grid">
+          {settings.food&&<><div className="gg-today-progress-grid">
             <Link to="/alimentacao" className="gg-today-progress-card gg-today-progress-card--food">
               <PremiumPhoto scene="food" decorative />
               <div className="gg-today-card-top"><FiCoffee aria-hidden="true"/><span>{t('journal.food')}</span><FiArrowRight aria-hidden="true"/></div>
@@ -160,7 +160,8 @@ export default function TodayDashboard() {
                 {Number.isFinite(Number(food.calories))&&food.calories!==null&&food.calories!==undefined
                   ? <small>{n(food.calories)} kcal</small>:null}</li>)}</ul>
             </div>}
-          </section>
+          </section></>}
+          {settings.coach&&<Link className="gg-today-coach-entry" to="/meu-personal"><FiArrowRight aria-hidden="true"/>{t('nav.coach')}</Link>}
             </section>
             <section className="gg-today-dashboard-aside" aria-label={t('today.goalsActions')}>
               <PremiumPhoto scene="goals" decorative />
@@ -177,8 +178,8 @@ export default function TodayDashboard() {
             <Link className="gg-today-no-goal" to="/minhas-metas"><FiTarget aria-hidden="true"/><span><strong>{t('today.firstGoal')}</strong><small>{t('today.firstGoalDetail')}</small></span><FiArrowRight aria-hidden="true"/></Link>}
           <Link to="/biblioteca" className="gg27-biblioteca"><FiBookOpen aria-hidden="true"/> {t('today.library')} <FiArrowRight aria-hidden="true"/></Link>
           <div className="gg-today-shortcuts">
-            <Link to="/treino"><FiActivity aria-hidden="true"/> {t('today.startWorkout')} <FiArrowRight aria-hidden="true"/></Link>
-            <Link to="/alimentacao"><FiCoffee aria-hidden="true"/> {t('today.logMeal')} <FiArrowRight aria-hidden="true"/></Link>
+            {settings.workout&&<Link to="/treino"><FiActivity aria-hidden="true"/> {t('today.startWorkout')} <FiArrowRight aria-hidden="true"/></Link>}
+            {settings.food&&<Link to="/alimentacao"><FiCoffee aria-hidden="true"/> {t('today.logMeal')} <FiArrowRight aria-hidden="true"/></Link>}
           </div>
             </section>
           </div>

@@ -35,6 +35,7 @@ import PersonalPage from './pages/PersonalPage';
 import ExperienceOnboardingPage from './pages/ExperienceOnboardingPage';
 import ExperienceSettingsPage from './pages/ExperienceSettingsPage';
 import {experienceGate} from './utils/experience';
+import {experienceRouteAllowed} from './utils/experienceNavigation';
 import {logoutUser} from './services/apiService';
 import {ExperienceProvider,useExperience} from './context/ExperienceContext';
 import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
@@ -147,7 +148,7 @@ function AppContent() {
   if(gate==='loading'||gate==='unavailable')return <div className="App gg-required-experience"><main className="gg-experience-wait"><img src="/gg-mark.svg" alt="GABGYM"/><h1>{t('experience.loading')}</h1>{gate==='unavailable'&&<><p role="alert">{error||t('experience.error')}</p><button type="button" onClick={refresh}>{t('journal.retry')}</button></>}<button type="button" onClick={async()=>{try{await logoutUser();}catch{}navigate('/login',{replace:true});}}>{t('profilePage.logout')}</button></main></div>;
   if(gate==='redirect')return <Navigate to="/experiencia" replace/>;
   if(gate==='onboarding')return <div className="App gg-required-experience" data-gg-mode={settings.mode}><ExperienceOnboardingPage/></div>;
-  if(simple&&((location.pathname==='/alimentacao'&&!settings.food)||(location.pathname==='/treino'&&!settings.workout)||(location.pathname==='/meu-personal'&&!settings.coach)))return <Navigate to="/" replace/>;
+  if(student&&!experienceRouteAllowed(location.pathname,settings))return <Navigate to="/" replace/>;
 
   return (
     <div className="App" data-gg-mode={settings.mode}>
@@ -163,7 +164,7 @@ function AppContent() {
           {!simple&&isLogoMenuOpen && (
             <div className="gg-logo-dropdown">
               <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('nav.library')}</Link>
-              <Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea'):t('nav.coach')}</Link>
+              {(!student||settings.coach)&&<Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea'):t('nav.coach')}</Link>}
             </div>
           )}
           <span className="gg-header-route" aria-live="polite">{headerLabel}</span>

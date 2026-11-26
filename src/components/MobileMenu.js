@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import { FiHelpCircle, FiUsers, FiFolder, FiBookOpen, FiX } from 'react-icons/fi';
 import './MobileMenu.css';
+import {useExperience} from '../context/ExperienceContext';
 
 export default function MobileMenu({isOpen,onClose}){
   const {t}=useTranslation();
+  const {settings}=useExperience();
   const closeRef=useRef(null);
   const navRef=useRef(null);
   useEffect(()=>{
@@ -25,7 +27,7 @@ export default function MobileMenu({isOpen,onClose}){
   },[isOpen,onClose]);
   const links=[
     {label:t('nav.help'),to:'/me-ajude',Icon:FiHelpCircle},
-    {label:t('nav.coachMenu'),to:'/meu-personal',Icon:FiUsers},
+    {label:t('nav.coachMenu'),to:'/meu-personal',Icon:FiUsers,enabled:settings.coach},
     {label:t('nav.activityLog'),to:'/registros',Icon:FiFolder},
     {label:t('nav.contentLibrary'),to:'/biblioteca',Icon:FiBookOpen}
   ];
@@ -33,7 +35,7 @@ export default function MobileMenu({isOpen,onClose}){
     <button ref={closeRef} tabIndex={isOpen?0:-1} type="button" onClick={onClose} className="gg-mobile-menu-close" aria-label={t('nav.closeMenu')}><FiX/></button>
     <div className="gg-mobile-menu-heading">{t('nav.moreOptions')}</div>
     <nav ref={navRef} className="gg-mobile-menu-nav" aria-label={t('nav.secondaryTools')}>
-      {links.map(({label,to,Icon},index)=><Link key={to} to={to} style={{'--drawer-index':index}} className="gg-mobile-menu-link" onClick={onClose} tabIndex={isOpen?0:-1}>
+      {links.filter(link=>link.enabled!==false).map(({label,to,Icon},index)=><Link key={to} to={to} style={{'--drawer-index':index}} className="gg-mobile-menu-link" onClick={onClose} tabIndex={isOpen?0:-1}>
         <Icon aria-hidden="true"/> {label}
       </Link>)}
     </nav>

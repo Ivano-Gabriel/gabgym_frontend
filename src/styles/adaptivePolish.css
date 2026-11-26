@@ -79,3 +79,8 @@
 .App[data-gg-mode="simple"] :is(.gg-movement-primary,.gg-catalog-trigger){min-height:76px}
 .App[data-gg-mode="simple"] .gg-daily-categories{display:none}
 .App[data-gg-mode="simple"] .gg-daily-prediction{display:none}
+
+.gg-today-coach-entry{display:flex;align-items:center;gap:12px;min-height:58px;margin:16px 0;padding:16px;background:#262626;color:#fff;border:1px solid #505050;border-radius:10px;text-decoration:none;font-weight:800}
+.gg-today-coach-entry:hover{border-color:#d32f3b}
+.App[data-gg-mode="simple"] .gg-profile-editor-section{padding:18px;border-radius:12px}
+.App[data-gg-mode="simple"] .gg-profile-editor-header h1{font-size:clamp(40px,8vw,66px)}

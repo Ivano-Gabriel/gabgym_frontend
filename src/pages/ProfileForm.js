@@ -6,6 +6,7 @@ import { getCurrentUser, updateUser } from '../services/apiService';
 import './ProfileForm.css';
 import {dayKey} from '../utils/nutrition';
 import {persistWeightMeasurement} from '../utils/weightProgress';
+import {useExperience} from '../context/ExperienceContext';
 
 const initial = { name:'', age:'', weight:'', height:'', gender:'', objective:'maintain-weight', activityLevel:'light' };
 const extrasInitial = { waist:'', chest:'', thigh:'', biceps:'' };
@@ -18,6 +19,8 @@ const measurements = [
 const validNum = (value,min,max) => value === '' || (Number.isFinite(Number(value)) && Number(value) >= min && Number(value) <= max);
 export default function ProfileForm(){
   const navigate = useNavigate();
+  const {settings}=useExperience();
+  const simple=settings.mode==='simple';
   const [user,setUser] = useState(null);
   const [form,setForm] = useState(initial);
   const [extras,setExtras] = useState(extrasInitial);
@@ -39,7 +42,7 @@ export default function ProfileForm(){
       try {
         const saved=JSON.parse(localStorage.getItem('gabgym:body-measures:'+data.id)||'{}');
         if(saved && typeof saved==='object') setExtras({...extrasInitial,...Object.fromEntries(Object.keys(extrasInitial).map(k=>[k,saved[k]??'']))});
-      }catch{ /* Dados locais legados inválidos não impedem editar o perfil. */ }
+      }catch{}
     }).catch(()=>{if(active)setError('Não foi possível carregar seus dados. Tente atualizar.');})
       .finally(()=>{if(active)setLoading(false);});
     return()=>{active=false};
@@ -52,7 +55,7 @@ export default function ProfileForm(){
     const name=form.name.trim();
     if(name.length<2 || name.length>80 || !validNum(form.age,13,120) ||
       !validNum(form.weight,20,600) || !validNum(form.height,100,250) ||
-      !Object.values(extras).every(x=>validNum(x,10,300)) || !validNum(weightTarget,20,600)){ 
+      (!simple&&(!Object.values(extras).every(x=>validNum(x,10,300)) || !validNum(weightTarget,20,600)))){ 
       setError('Confira nome e medidas. Campos de medidas podem ficar vazios.');return;
     }
     setSaving(true);setError('');
@@ -65,10 +68,12 @@ export default function ProfileForm(){
       const converted=Object.fromEntries(Object.entries(extras)
         .filter(([,value])=>value!=='')
         .map(([key,value])=>[key,Number(value)]));
-      localStorage.setItem('gabgym:body-measures:'+user.id,JSON.stringify(converted));
+      if(!simple)localStorage.setItem('gabgym:body-measures:'+user.id,JSON.stringify(converted));
       if(form.weight!==''&&Number(form.weight)>0) persistWeightMeasurement(user.id,Number(form.weight),dayKey());
-      if(weightTarget!=='') localStorage.setItem('gabgym:weight-goal:'+user.id,weightTarget);
-      else localStorage.removeItem('gabgym:weight-goal:'+user.id);
+      if(!simple){
+        if(weightTarget!=='') localStorage.setItem('gabgym:weight-goal:'+user.id,weightTarget);
+        else localStorage.removeItem('gabgym:weight-goal:'+user.id);
+      }
       toast.success('Perfil atualizado.');
       navigate('/',{replace:true});
     }catch{setError('Não foi possível salvar no servidor. Seus dados ainda não foram alterados.');}
@@ -110,7 +115,7 @@ export default function ProfileForm(){
               </label>
             </div>
           </section>
-          <section className="gg-profile-editor-section">
+          {!simple&&<><section className="gg-profile-editor-section">
             <div><span>02 / ACOMPANHAMENTO OPCIONAL</span><h2>SUAS MEDIDAS.</h2></div>
             <p>Você decide o que acompanhar. Todos os campos abaixo são opcionais.</p>
             <div className="gg-profile-editor-grid">
@@ -130,7 +135,7 @@ export default function ProfileForm(){
             </label>
             <p>A meta de peso e o histórico de pesagens ficam neste navegador durante o piloto. A evolução depende de novas pesagens; não é promessa de prazo ou resultado.</p>
             <Link to="/minhas-metas">IR PARA METAS <FiArrowRight aria-hidden="true"/></Link>
-          </section>
+          </section></>}
           <button className="gg-profile-editor-save" type="submit" disabled={saving}>{saving?'SALVANDO…':'SALVAR PERFIL'} <FiArrowRight/></button>
         </form>}
       </div>

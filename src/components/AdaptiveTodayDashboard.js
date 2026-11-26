@@ -13,7 +13,7 @@ import './AdaptiveTodayDashboard.css';
 const routes=[
   {key:'food',label:'REGISTRAR REFEIÇÃO',hint:'Alimentação e calorias',to:'/alimentacao',Icon:FiCoffee},
   {key:'workout',label:'INICIAR UM TREINO',hint:'Fichas, séries e cargas',to:'/treino',Icon:FiActivity},
-  {key:'weight',label:'ATUALIZAR PESO',hint:'Medidas e metas',to:'/perfil',Icon:FiTarget},
+  {key:'weight',label:'ATUALIZAR PESO',hint:'Medidas e metas',to:'/profile-form',Icon:FiTarget},
   {key:'coach',label:'MEU PERSONAL',hint:'Acompanhamento e mensagens',to:'/meu-personal',Icon:FiUsers}
 ];
 
@@ -99,7 +99,7 @@ export default function AdaptiveTodayDashboard(){
     (!settings.food?' gg-adaptive-hide-food':'')+
     (!settings.workout?' gg-adaptive-hide-workout':'')+
     (!settings.weight?' gg-adaptive-hide-weight':'')}>
-    <TodayDashboard/>
+    <TodayDashboard settings={settings}/>
     {settings.mode==='complete'&&<nav className="gg-adaptive-advanced" aria-label="Ferramentas avançadas">
       <strong>{t('experience.completeDetail')}</strong>
       <div>
