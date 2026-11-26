@@ -12,7 +12,8 @@ import {useTranslation} from 'react-i18next';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const {t}=useTranslation();
+  const {t,i18n}=useTranslation();
+  const locale=i18n.resolvedLanguage==='pt'?'pt-BR':i18n.resolvedLanguage||'pt-BR';
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
   const [avatar,setAvatar] = useState('');
@@ -33,7 +34,7 @@ export default function ProfilePage() {
         const saved=JSON.parse(localStorage.getItem('gabgym:body-measures:'+data.id)||'{}');
         setExtras(saved && typeof saved==='object'?saved:{});
       }catch{setExtras({});}
-    }).catch(()=>{if(alive)setError('Não conseguimos carregar seu perfil.');});
+    }).catch(()=>{if(alive)setError('profilePage.loadError');});
     return()=>{alive=false};
   },[]);
   const logout=async()=>{
@@ -46,7 +47,7 @@ export default function ProfilePage() {
     if(!file)return;
     if(!user?.id)return;
     if(!isSupportedProfileImage(file)){
-      setError('Use PNG, JPG ou WebP com até 1,5 MB.');return;
+      setError('profilePage.imageType');return;
     }
     const reader=new FileReader();
     reader.onload=()=>{
@@ -54,9 +55,9 @@ export default function ProfilePage() {
       if(saveProfileAvatar(user.id,reader.result)){
         setAvatar(reader.result);
         setError('');
-      }else setError('O navegador não conseguiu salvar a foto. Libere espaço ou tente outra imagem.');
+      }else setError('profilePage.imageSaveError');
     };
-    reader.onerror=()=>setError('Não foi possível ler a foto escolhida.');
+    reader.onerror=()=>setError('profilePage.imageReadError');
     reader.readAsDataURL(file);
   };
   const trend=weightTrend(weightHistory);
@@ -69,61 +70,61 @@ export default function ProfilePage() {
   const observedWeeklyRate=daySpan>=14 ? (last.weight-first.weight)/(daySpan/7) : 0;
   const projection=weightGoal&&currentWeight ? safeWeightProjection(currentWeight,weightGoal,observedWeeklyRate):null;
   const stats=[
-    ['PESO',user?.weight,'kg'],['ALTURA',user?.height,'cm'],
-    ['CINTURA',extras.waist,'cm'],['PEITORAL',extras.chest,'cm'],
-    ['COXA',extras.thigh,'cm'],['BÍCEPS',extras.biceps,'cm']
+    [t('profilePage.weight'),user?.weight,'kg'],[t('profilePage.height'),user?.height,'cm'],
+    [t('profilePage.waist'),extras.waist,'cm'],[t('profilePage.chest'),extras.chest,'cm'],
+    [t('profilePage.thigh'),extras.thigh,'cm'],[t('profilePage.biceps'),extras.biceps,'cm']
   ];
   const links=[
-    {to:'/profile-form',label:'EDITAR MEDIDAS',Icon:FiEdit3,description:'Peso, altura e acompanhamento'},
-    {to:'/minhas-metas',label:'MINHAS METAS',Icon:FiTarget,description:'Pequenas escolhas, todos os dias'},
-    {to:'/historico',label:'HISTÓRICO',Icon:FiClock,description:'Seus registros e sua evolução'},
+    {to:'/profile-form',label:t('profilePage.editMeasures'),Icon:FiEdit3,description:t('profilePage.editDetail')},
+    {to:'/minhas-metas',label:t('profilePage.myGoals'),Icon:FiTarget,description:t('profilePage.goalsDetail')},
+    {to:'/historico',label:t('journal.historyTitle'),Icon:FiClock,description:t('profilePage.historyDetail')},
   ];
   return (
     <main className="gg-profile">
       <div className="gg-profile-wrap">
-        <div className="gg-profile-eyebrow">GABGYM / SUA JORNADA</div>
+        <div className="gg-profile-eyebrow">{t('profilePage.journey')}</div>
         <section className="gg-profile-heading gg-photo-hero">
           <PremiumPhoto scene="gym" decorative priority />
           <div className="gg-profile-avatar">
-            {avatar?<img src={avatar} alt="Foto de perfil"/>:<FiUser aria-hidden="true"/>}
-            <label title="Alterar foto de perfil" aria-label="Alterar foto de perfil"><FiCamera aria-hidden="true"/>
-              <input type="file" accept="image/*" onChange={imagePicked} aria-label="Escolher foto de perfil"/>
+            {avatar?<img src={avatar} alt={t('profilePage.photo')}/>:<FiUser aria-hidden="true"/>}
+            <label title={t('profilePage.changePhoto')} aria-label={t('profilePage.changePhoto')}><FiCamera aria-hidden="true"/>
+              <input type="file" accept="image/*" onChange={imagePicked} aria-label={t('profilePage.choosePhoto')}/>
             </label>
           </div>
-          <div><span className="gg27-profile-kicker">SUA EVOLUÇÃO</span><h1>{user?.name || user?.username || 'MEU PERFIL'}<span>.</span></h1><p>Seu progresso, seu ritmo.</p></div>
+          <div><span className="gg27-profile-kicker">{t('profilePage.progress')}</span><h1>{user?.name || user?.username || t('profilePage.myProfile')}<span>.</span></h1><p>{t('profilePage.subtitle')}</p></div>
         </section>
-        {error&&<p className="gg-profile-error" role="alert">{error}</p>}
-        {!user&&!error&&<p role="status">Carregando perfil…</p>}
+        {error&&<p className="gg-profile-error" role="alert">{t(error)}</p>}
+        {!user&&!error&&<p role="status">{t('profilePage.loading')}</p>}
         {user&&<>
           <StreakCalendar compact userId={user.id}/>
-          <p className="gg27-profile-timing">Medidas: acompanhe semanal, quinzenal ou mensalmente.</p>
-          <div className="gg-profile-section-name"><span>01 / ACOMPANHAMENTO</span><h2>SUAS MEDIDAS.</h2></div>
+          <p className="gg27-profile-timing">{t('profilePage.timing')}</p>
+          <div className="gg-profile-section-name"><span>{t('profilePage.tracking')}</span><h2>{t('profilePage.measures')}</h2></div>
           <div className="gg-profile-stat-grid">
-            {stats.map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={'Atualizar '+name.toLowerCase()}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString('pt-BR',{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
+            {stats.map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={t('profilePage.update',{name:name.toLocaleLowerCase(locale)})}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString(locale,{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
           </div>
-          <Link className="gg-profile-data-link" to="/profile-form">REGISTRAR NOVO PESO E MEDIDAS <FiArrowRight aria-hidden="true"/></Link>
-          <section className="gg-profile-weight-progress gg-photo-surface" aria-label="Evolução do peso">
+          <Link className="gg-profile-data-link" to="/profile-form">{t('profilePage.recordMeasures')} <FiArrowRight aria-hidden="true"/></Link>
+          <section className="gg-profile-weight-progress gg-photo-surface" aria-label={t('profilePage.weightProgress')}>
             <PremiumPhoto scene="goals" decorative />
-            <header><span>META DE PESO</span><Link to="/profile-form" className="gg27-weight-link"><strong>{weightGoal?weightGoal.toLocaleString('pt-BR')+' kg':'DEFINIR META'}</strong><FiEdit3 aria-hidden="true"/></Link></header>
+            <header><span>{t('profilePage.weightGoal')}</span><Link to="/profile-form" className="gg27-weight-link"><strong>{weightGoal?weightGoal.toLocaleString(locale)+' kg':t('profilePage.setGoal')}</strong><FiEdit3 aria-hidden="true"/></Link></header>
             {weightGoal&&currentWeight ? <>
               {weightProgressPct!==null ? <>
-                <div className="gg-profile-weight-track" role="progressbar" aria-label="Progresso real em direção à meta de peso" aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">
+                <div className="gg-profile-weight-track" role="progressbar" aria-label={t('profilePage.realProgress')} aria-valuenow={weightProgressPct} aria-valuemin="0" aria-valuemax="100">
                   <span style={{width:weightProgressPct+'%'}}/>
                 </div>
-                <p>{weightProgressPct}% do caminho até sua meta. {weightDelta!==null ? (weightDelta>0?'+':'')+weightDelta.toLocaleString('pt-BR')+' kg desde a primeira pesagem registrada.' : ''}</p>
-              </> : <p>Registre seu peso para começar a acompanhar o progresso em direção à meta.</p>}
-              {projection?<p className="gg-profile-projection">Se a tendência observada entre pesagens continuar: cerca de {projection.weeks} semanas. É apenas um cenário, não uma previsão garantida.</p>:
-                <p>Registre novas pesagens ao longo das semanas para acompanhar a tendência, sem estimar prazos prematuramente.</p>}
-            </> : <p>Sem meta definida. Você pode escolher uma meta opcional na edição do perfil.</p>}
-            <small>Meta e histórico de peso ficam apenas neste navegador. Não são sincronizados entre dispositivos.</small>
+                <p>{t('profilePage.goalPct',{pct:weightProgressPct})} {weightDelta!==null?t('profilePage.weightDelta',{delta:(weightDelta>0?'+':'')+weightDelta.toLocaleString(locale)}):''}</p>
+              </> : <p>{t('profilePage.startTrack')}</p>}
+              {projection?<p className="gg-profile-projection">{t('profilePage.projection',{weeks:projection.weeks})}</p>:
+                <p>{t('profilePage.moreWeights')}</p>}
+            </> : <p>{t('profilePage.noGoal')}</p>}
+            <small>{t('profilePage.localOnly')}</small>
           </section>
-          <div className="gg-profile-section-name"><span>02 / CONTINUAR</span><h2>SEUS PRÓXIMOS PASSOS.</h2></div>
+          <div className="gg-profile-section-name"><span>{t('profilePage.next')}</span><h2>{t('profilePage.nextSteps')}</h2></div>
           <div className="gg-profile-links">
             {links.map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
             <Link to="/configuracoes"><FiSettings aria-hidden="true"/><span><strong>{t("nav.experience")}</strong><small>{t("settings.description")}</small></span><FiArrowRight aria-hidden="true"/></Link>
-            {isSuperAdmin()&&<Link to="/admin"><FiShield aria-hidden="true"/><span><strong>ADMINISTRAÇÃO</strong><small>Gerenciar alunos</small></span><FiArrowRight aria-hidden="true"/></Link>}
+            {isSuperAdmin()&&<Link to="/admin"><FiShield aria-hidden="true"/><span><strong>{t('profilePage.admin')}</strong><small>{t('profilePage.adminDetail')}</small></span><FiArrowRight aria-hidden="true"/></Link>}
           </div>
-          <button className="gg-profile-logout" onClick={logout} disabled={busy}><FiLogOut aria-hidden="true"/> SAIR DA CONTA</button>
+          <button className="gg-profile-logout" onClick={logout} disabled={busy}><FiLogOut aria-hidden="true"/> {t('profilePage.logout')}</button>
         </>}
       </div>
     </main>
