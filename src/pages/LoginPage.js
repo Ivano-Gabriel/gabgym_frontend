@@ -29,7 +29,7 @@ export default function LoginPage() {
       } else if (login.data.role === 'SUPER_ADMIN') {
         navigate('/admin', { replace: true });
       } else {
-        const user = (await getCurrentUser()).data;
+        await getCurrentUser();
         navigate('/experiencia', { replace: true });
       }
     } catch (err) {
