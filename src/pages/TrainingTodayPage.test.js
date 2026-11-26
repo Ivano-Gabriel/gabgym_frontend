@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TrainingTodayPage from './TrainingTodayPage';
+import i18n from '../i18n';
 let mockMode='normal';
 jest.mock('../context/ExperienceContext',()=>({useExperience:()=>({settings:{mode:mockMode}})}));
 import { getCurrentUser, getDiaryLogs, addDiaryLog } from '../services/apiService';
@@ -76,4 +77,17 @@ test('simple training offers only the essentials and preserves the real save flo
   fireEvent.click(screen.getByRole('button',{name:/salvar treino/i}));
   await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'exercise',calories:0})));
  }finally{mockMode='normal';}
+});
+
+test('Spanish training displays localized options without changing stored workout name',async()=>{
+ try{
+  await i18n.changeLanguage('es');
+  const {fireEvent,waitFor}=require('@testing-library/react');
+  render(<TrainingTodayPage/>);
+  fireEvent.click(await screen.findByRole('button',{name:'Registrar entrenamiento realizado'}));
+  fireEvent.change(screen.getByLabelText('Tipo de entrenamiento'),{target:{value:'Pernas'}});
+  expect(screen.getByRole('option',{name:'Piernas'}).selected).toBe(true);
+  fireEvent.click(screen.getByRole('button',{name:/GUARDAR ENTRENAMIENTO/i}));
+  await waitFor(()=>expect(addDiaryLog).toHaveBeenCalledWith(expect.objectContaining({type:'exercise',name:expect.stringContaining('Pernas')})));
+ }finally{await i18n.changeLanguage('pt');}
 });

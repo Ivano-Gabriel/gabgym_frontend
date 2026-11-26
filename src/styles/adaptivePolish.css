@@ -97,3 +97,9 @@
 .App[data-gg-mode="simple"] .gg-simple-day-actions strong{font-size:16px;line-height:1.3}
 .App[data-gg-mode="simple"] .gg-simple-day-actions small{font-size:13px;line-height:1.5}
 @media(max-width:690px){.gg-required-experience .gg-experience-hero h1{font-size:clamp(32px,8vw,52px)}.gg-required-experience .gg-experience-form{gap:20px}.gg-required-experience .gg-experience-footer{flex-direction:row;flex-wrap:nowrap}.gg-required-experience .gg-experience-footer button:first-child{flex:1}.gg-required-experience .gg-experience-footer .gg-experience-skip{width:auto;flex:none;padding:10px}.gg-required-experience .gg-experience-mode{min-height:66px}}
+
+.App :is(.gg-profile-editor-field input,.gg-profile-editor-field select,.gg-movement-workout-form input,.gg-movement-workout-form select){min-height:48px;font-size:16px;max-width:100%;box-sizing:border-box}
+.App :is(.gg-movement-primary,.gg-movement-secondary,.gg-profile-editor-save){line-height:1.4;overflow-wrap:anywhere}
+.App[data-gg-mode="simple"] .gg-movement-workout-form{grid-template-columns:minmax(0,1fr);gap:14px}
+.App[data-gg-mode="simple"] .gg-movement-workout-form button{min-height:54px}
+@media(max-width:480px){.App .gg-profile-editor-grid{grid-template-columns:minmax(0,1fr)}.App .gg-movement-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.App .gg-movement-stats>div{min-width:0}.App .gg-movement-stats strong{overflow-wrap:anywhere}}

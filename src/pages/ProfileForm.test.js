@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import ProfileForm from './ProfileForm';
+import i18n from '../i18n';
 let mockMode='normal';
 jest.mock('../context/ExperienceContext',()=>({useExperience:()=>({settings:{mode:mockMode}})}));
 import { getCurrentUser, updateUser } from '../services/apiService';
@@ -41,4 +42,15 @@ test('simple profile edits weight without erasing existing measurements or goals
   expect(JSON.parse(localStorage.getItem('gabgym:body-measures:17'))).toEqual({waist:98,chest:110});
   expect(localStorage.getItem('gabgym:weight-goal:17')).toBe('75');
  }finally{mockMode='normal';localStorage.removeItem('gabgym:weight-goal:17');}
+});
+
+test('French profile preserves numeric weight and backend objective values',async()=>{
+ try{
+  await i18n.changeLanguage('fr');
+  render(<ProfileForm/>);
+  expect(await screen.findByLabelText('POIDS (KG)')).toHaveValue(80);
+  fireEvent.change(screen.getByLabelText('OBJECTIF'),{target:{value:'gain-muscle'}});
+  fireEvent.click(screen.getByRole('button',{name:/ENREGISTRER LE PROFIL/i}));
+  await waitFor(()=>expect(updateUser).toHaveBeenCalledWith(17,expect.objectContaining({weight:80,objective:'gain-muscle'})));
+ }finally{await i18n.changeLanguage('pt');}
 });
