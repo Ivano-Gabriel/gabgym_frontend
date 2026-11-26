@@ -206,7 +206,8 @@
     "offline": "Preferences saved only in this browser. Sync when the API is updated.",
     "error": "Unable to confirm your preferences.",
     "continue": "Continue to GabGym",
-    "language": "LANGUAGE"
+    "language": "LANGUAGE",
+    "requiredChoice": "Choose a level and the features you want to use to continue. You can change everything later in settings."
   },
   "settings": {
     "kicker": "SETTINGS",
@@ -219,7 +220,8 @@
     "saved": "Preferences updated.",
     "local": "Saved only in this browser.",
     "back": "BACK",
-    "note": "Hiding a module never deletes its data."
+    "note": "Hiding a module never deletes its data.",
+    "headerButton": "Settings"
   },
   "auth": {
     "login": "SIGN IN TO GABGYM",

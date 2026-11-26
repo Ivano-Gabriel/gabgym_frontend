@@ -189,7 +189,8 @@
     "offline": "Preferências salvas apenas neste navegador. Sincronize quando a API for atualizada.",
     "error": "Não foi possível confirmar as preferências.",
     "continue": "Continuar para o GabGym",
-    "language": "IDIOMA"
+    "language": "IDIOMA",
+    "requiredChoice": "Escolha um nível e as funções que deseja usar para continuar. Você pode mudar tudo depois nas configurações."
   },
   "settings": {
     "kicker": "CONFIGURAÇÕES",
@@ -202,7 +203,8 @@
     "saved": "Preferências atualizadas.",
     "local": "Preferências salvas somente neste navegador.",
     "back": "VOLTAR",
-    "note": "Ocultar um módulo não apaga seus dados."
+    "note": "Ocultar um módulo não apaga seus dados.",
+    "headerButton": "Configurações"
   },
   "auth": {
     "login": "ENTRAR NO GABGYM",

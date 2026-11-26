@@ -189,7 +189,8 @@
     "offline": "Preferencias guardadas solo en este navegador.",
     "error": "No se pudieron guardar las preferencias.",
     "continue": "Continuar a GabGym",
-    "language": "IDIOMA"
+    "language": "IDIOMA",
+    "requiredChoice": "Elige un nivel y las funciones que quieres usar para continuar. Puedes cambiar todo después en configuración."
   },
   "settings": {
     "kicker": "CONFIGURACIÓN",
@@ -202,7 +203,8 @@
     "saved": "Preferencias actualizadas.",
     "local": "Guardadas solo en este navegador.",
     "back": "VOLVER",
-    "note": "Ocultar una sección no borra los datos."
+    "note": "Ocultar una sección no borra los datos.",
+    "headerButton": "Configuración"
   },
   "auth": {
     "login": "ENTRAR A GABGYM",

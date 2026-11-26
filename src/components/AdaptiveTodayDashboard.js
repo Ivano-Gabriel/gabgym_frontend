@@ -39,7 +39,7 @@ function SimpleToday({settings}){
         if(!alive)return;
         setPerson(profile);
         setLogs(Array.isArray(day.data)?day.data:[]);
-      }catch{if(alive)setError('Não foi possível consultar seu diário. O servidor pode estar iniciando.');}
+      }catch{if(alive)setError('today.dayError');}
       finally{if(alive)setLoading(false);}
     })();
     return()=>{alive=false;};
@@ -56,7 +56,7 @@ function SimpleToday({settings}){
         setLogs(Array.isArray(response.data)?response.data:[]); 
       }catch{setLogs(old=>[...old,entry]);}
       setMessage(t('simple.waterSaved'));
-    }catch{setMessage('Não foi possível confirmar o registro. Confira o diário antes de tentar novamente.');}
+    }catch{setMessage(t('today.waterError'));}
     finally{lock.current=false;setBusy(false);}
   };
   const enabled=routes.filter(r=>settings[r.key]);
@@ -66,10 +66,10 @@ function SimpleToday({settings}){
         <span>GABGYM / {t('simple.kicker')}</span>
         <h1>{t('simple.title')}<br/><em>{t('simple.accent')}</em></h1>
         <p>{person?.name&&person.name.split(' ')[0]+' · '}{t('simple.description')}</p>
-        <Link to="/experiencia?edit=1">{t('simple.personalize')} <FiArrowRight aria-hidden="true"/></Link>
+        <Link to="/configuracoes">{t('simple.personalize')} <FiArrowRight aria-hidden="true"/></Link>
       </header>
       {loading&&<p role="status" className="gg-simple-day-notice">{t('simple.loading')}</p>}
-      {error&&<div role="alert" className="gg-simple-day-notice">{error}
+      {error&&<div role="alert" className="gg-simple-day-notice">{t(error)}
         <button type="button" onClick={()=>setRevision(x=>x+1)}><FiRefreshCw/> {t('simple.retry')}</button>
       </div>}
       {!loading&&!error&&<>
@@ -105,7 +105,7 @@ export default function AdaptiveTodayDashboard(){
       <div>
         <Link to="/historico"><FiBarChart2/> {t('nav.history')}</Link>
         <Link to="/registros"><FiActivity/> {t('nav.records')}</Link>
-        <Link to="/experiencia?edit=1"><FiTarget/> {t('nav.experience')}</Link>
+        <Link to="/configuracoes"><FiTarget/> {t('nav.experience')}</Link>
       </div>
     </nav>}
   </div>;

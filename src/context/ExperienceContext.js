@@ -16,16 +16,16 @@ export function ExperienceProvider({children}) {
   useLocation();
   const token=sessionStorage.getItem('authToken')||'';
   const [state,setState]=useState({settings:EXPERIENCE_DEFAULTS,ready:false,
-    accountId:null,source:'default',error:''});
+    accountId:null,source:'default',error:'',sessionToken:null});
   const [revision,setRevision]=useState(0);
 
   useEffect(()=>{
     let alive=true;
     if(!token){
-      setState({settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,source:'default',error:''});
+      setState({settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,source:'default',error:'',sessionToken:token});
       return ()=>{alive=false;};
     }
-    setState(previous=>({...previous,ready:false}));
+    setState({settings:EXPERIENCE_DEFAULTS,ready:false,accountId:null,source:'default',error:'',sessionToken:token});
     (async()=>{
       try{
         const me=await getCurrentUser();
@@ -37,31 +37,31 @@ export function ExperienceProvider({children}) {
           const result=await getExperiencePreferences();
           if(!alive)return;
           const settings=normalizeExperience(result.data);
-          setState({settings,ready:true,accountId:userId,source:'server',error:''});
+          setState({settings,ready:true,accountId:userId,source:'server',error:'',sessionToken:token});
         }catch(error){
           if(!alive)return;
           const fallback=local||EXPERIENCE_DEFAULTS;
-          setState({settings:fallback,ready:true,accountId:userId,source:'local',
+          setState({settings:fallback,ready:true,accountId:userId,source:'local',sessionToken:token,
             error:error.response?.status===404?'Preferências ainda não sincronizam neste servidor.':
               'Sem conexão para sincronizar preferências. Suas escolhas locais permanecem disponíveis.'});
         }
       }catch{
         if(alive)setState({settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,
-          source:'default',error:'Não foi possível identificar sua conta.'});
+          source:'default',error:'Não foi possível identificar sua conta.',sessionToken:token});
       }
     })();
     return()=>{alive=false;};
   },[token,revision]);
 
   useEffect(()=>{
-    if(!state.ready||!state.accountId)return;
+    if(!state.ready||!state.accountId||state.sessionToken!==token)return;
     const language=state.settings.language;
     if(i18n.language!==language)i18n.changeLanguage(language);
     try{localStorage.setItem('gabgym:interface-language',language);}catch{}
-  },[state.ready,state.accountId,state.settings.language]);
+  },[state.ready,state.accountId,state.settings.language,state.sessionToken,token]);
 
     const save=useCallback(async input=>{
-    if(!state.accountId)throw new Error('Entre na sua conta para salvar preferências.');
+    if(!state.accountId||state.sessionToken!==token)throw new Error('Entre na sua conta para salvar preferências.');
     const next=validateExperience(input);
     try{
       const response=await updateExperiencePreferences(next);
@@ -76,9 +76,9 @@ export function ExperienceProvider({children}) {
         error:'Seu servidor ainda não sincroniza preferências. Alterações salvas somente neste navegador.'}));
       return {settings:stored,source:'local'};
     }
-  },[state.accountId]);
+  },[state.accountId,state.sessionToken,token]);
 
   const refresh=useCallback(()=>setRevision(old=>old+1),[]);
-  const value=useMemo(()=>({...state,save,refresh}),[state,save,refresh]);
+  const value=useMemo(()=>{const {sessionToken,...publicState}=state;return {...publicState,ready:state.ready&&sessionToken===token,accountId:sessionToken===token?state.accountId:null,save,refresh};},[state,save,refresh,token]);
   return <ExperienceContext.Provider value={value}>{children}</ExperienceContext.Provider>;
 }

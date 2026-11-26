@@ -48,3 +48,11 @@ export function visibleSections(settings) {
   const state=normalizeExperience(settings);
   return MODULE_KEYS.filter(key=>state[key]);
 }
+
+export function experienceGate({student,ready,accountId,completed,path}) {
+  if(!student)return 'open';
+  if(!ready)return 'loading';
+  if(!accountId)return 'unavailable';
+  if(path==='/experiencia')return 'onboarding';
+  return completed===true?'open':'redirect';
+}

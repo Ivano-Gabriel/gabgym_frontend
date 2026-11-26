@@ -189,7 +189,8 @@
     "offline": "Préférences enregistrées uniquement dans ce navigateur.",
     "error": "Impossible de confirmer les préférences.",
     "continue": "Continuer vers GabGym",
-    "language": "LANGUE"
+    "language": "LANGUE",
+    "requiredChoice": "Choisissez un niveau et les fonctions souhaitées pour continuer. Vous pourrez modifier vos choix dans les paramètres."
   },
   "settings": {
     "kicker": "PARAMÈTRES",
@@ -202,7 +203,8 @@
     "saved": "Préférences mises à jour.",
     "local": "Enregistrées seulement dans ce navigateur.",
     "back": "RETOUR",
-    "note": "Masquer une rubrique ne supprime pas ses données."
+    "note": "Masquer une rubrique ne supprime pas ses données.",
+    "headerButton": "Paramètres"
   },
   "auth": {
     "login": "SE CONNECTER À GABGYM",
