@@ -1,11 +1,12 @@
 import React,{createContext,useCallback,useContext,useEffect,useMemo,useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {getCurrentUser,getExperiencePreferences,updateExperiencePreferences} from '../services/apiService';
+import i18n from '../i18n';
 import {EXPERIENCE_DEFAULTS,normalizeExperience,readLocalExperience,
   validateExperience,writeLocalExperience} from '../utils/experience';
 
 const ExperienceContext=createContext({
-  settings:EXPERIENCE_DEFAULTS,ready:false,accountId:null,
+  settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,
   source:'default',error:'',save:async()=>{},refresh:()=>{}
 });
 
@@ -52,7 +53,14 @@ export function ExperienceProvider({children}) {
     return()=>{alive=false;};
   },[token,revision]);
 
-  const save=useCallback(async input=>{
+  useEffect(()=>{
+    if(!state.ready||!state.accountId)return;
+    const language=state.settings.language;
+    if(i18n.language!==language)i18n.changeLanguage(language);
+    try{localStorage.setItem('gabgym:interface-language',language);}catch{}
+  },[state.ready,state.accountId,state.settings.language]);
+
+    const save=useCallback(async input=>{
     if(!state.accountId)throw new Error('Entre na sua conta para salvar preferências.');
     const next=validateExperience(input);
     try{

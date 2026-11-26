@@ -1,0 +1,33 @@
+:root{--gg-prime-red:#b1111b;--gg-prime-strong:#c31320;--gg-prime-ink:#101113;--gg-prime-surface:#222427;--gg-prime-border:#505358;--gg-prime-text:#f8f8f8}
+.gg-language-switcher{display:flex;align-items:center;gap:7px;flex:0 0 auto;min-width:0;position:relative;color:#fff}
+.gg-language-switcher>svg{flex:0 0 17px;font-size:16px}
+.gg-language-switcher select{background:#252628!important;border:1px solid #616468!important;border-radius:7px!important;color:#fff!important;font:700 11px/1.3 Archivo,Arial,sans-serif!important;min-height:38px;max-width:145px;min-width:0;width:100%;padding:7px 9px!important;cursor:pointer}
+.gg-language-switcher.is-compact select{max-width:114px;padding:7px 6px!important;font-size:10px!important}
+.gg-language-switcher label{min-width:0}
+.gg-language-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.gg-language-error{position:absolute;right:0;top:44px;z-index:40;width:250px;max-width:90vw;background:#292a2c;border:1px solid #777;color:#fff;padding:9px;border-radius:8px;font-size:11px;line-height:1.4}
+.gg-language-switcher select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.gg-header-right{display:flex;align-items:center;gap:9px}
+.gg-header-right .gg-header-cta{min-height:38px!important;padding:9px 12px!important;font-size:11px!important;line-height:1.15!important;letter-spacing:.01em!important}
+.gg-auth-masthead-side{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.gg-auth-masthead-side .gg-auth-masthead-link{padding:9px 12px!important;min-height:38px!important;font-size:10px!important}
+.gg-auth-masthead-side .gg-language-switcher{margin:0}
+.gg-settings .gg-settings-language{display:grid;gap:10px;max-width:360px;font:800 12px Archivo,Arial,sans-serif}
+.gg-settings .gg-settings-language select{appearance:auto;width:100%;min-height:52px;padding:13px;border-radius:9px;background:#28292c;border:1px solid #62656a;color:#fff;font-size:16px}
+.gg-settings-safe{display:flex;align-items:center;gap:11px;border:1px solid #50535a;background:#242629;border-radius:10px;padding:14px 15px;color:#d9dadc;font-size:12px;line-height:1.6}
+.gg-settings-safe svg{font-size:20px;flex:none}
+.gg-settings-back{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:13px 16px;border:1px solid #62656a;border-radius:9px;color:#fff;font:800 11px Archivo,Arial,sans-serif;text-decoration:none}
+.gg-settings-back:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.App[data-gg-mode="simple"] .gg-header-route{font-size:10px}
+.App[data-gg-mode="simple"] .gg-daily-navigation .gg-daily-navitem{min-width:0}
+.App[data-gg-mode="simple"] .gg-hub-links .gg-hub-link{min-height:68px}
+.App[data-gg-mode="complete"] .gg-hub-links{max-height:58dvh;overflow-y:auto;overscroll-behavior:contain}
+.gg-profile-links>a[href="/configuracoes"]{border-color:#a12a35!important;background:linear-gradient(100deg,#361f24,#252629)!important;color:#fff!important}
+.gg-profile-links>a[href="/configuracoes"] svg{color:#fff!important}
+.gg-experience .gg-experience-language{display:grid;gap:9px;max-width:350px;margin-top:4px;color:#fff;font:800 11px Archivo,Arial,sans-serif}
+.gg-experience-language select{min-height:50px;border:1px solid #65676b;background:#292b2e;color:#fff;border-radius:8px;padding:12px;font:600 15px Manrope,Arial,sans-serif}
+.gg-experience-language select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.App :is(button,a,input,select,textarea):focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:770px){.gg-auth-masthead-side .gg-auth-masthead-edition{display:none}.gg-header-right .gg-header-cta{padding:8px!important;min-height:38px!important;font-size:10px!important}.gg-language-switcher>svg{display:none}.gg-language-switcher.is-compact select{max-width:90px}.gg-header-right{gap:5px}.gg-auth-masthead-side{gap:7px}}
+@media(max-width:400px){.gg-header-right .gg-header-cta{font-size:9px!important}.gg-header-route{display:none}.gg-language-switcher.is-compact select{max-width:75px;font-size:9px!important;padding:5px!important}.gg-auth-masthead-side .gg-auth-masthead-link{font-size:9px!important;padding:8px!important}.gg-auth-masthead-side .gg-language-switcher select{max-width:88px}}
+@media(prefers-reduced-motion:reduce){.gg-language-switcher *,.gg-settings *{transition:none!important;animation:none!important}}

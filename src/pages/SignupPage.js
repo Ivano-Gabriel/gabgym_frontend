@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useTranslation} from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/apiService';
 import AuthShell from './AuthShell';
@@ -12,6 +13,7 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const {t}=useTranslation();
   const connection=useApiReady();
 
   const submit = async event => {
@@ -31,16 +33,16 @@ export default function SignupPage() {
     }
   };
 
-  return <AuthShell type="signup" title="SEU COMEÇO."
-    subtitle="Crie sua conta e comece."
-    footer={<>Já tem uma conta? <Link to="/login">Entrar</Link> · <Link to="/cadastro-personal">Sou personal</Link></>}>
+  return <AuthShell type="signup" title={t("auth.registerTitle")}
+    subtitle={t("auth.registerSubtitle")}
+    footer={<>{t("auth.already")} <Link to="/login">{t("auth.signIn")}</Link> · <Link to="/cadastro-personal">{t("auth.professional")}</Link></>}>
     <form className="gg-auth-form" onSubmit={submit} aria-busy={isLoading}>
-      <label className="gg-auth-field"><span>Nome de usuário</span>
+      <label className="gg-auth-field"><span>{t('auth.username')}</span>
         <input name="username" value={username} onChange={e => setUsername(e.target.value)}
           autoComplete="username" placeholder="Como vamos chamar você?" required
           pattern="[A-Za-z0-9_.\-]{3,40}" maxLength={40} disabled={isLoading}/>
       </label>
-      <label className="gg-auth-field"><span>Senha (10 a 72 caracteres)</span>
+      <label className="gg-auth-field"><span>{t('auth.password')} (10–72)</span>
         <div className="gg-auth-input-wrap">
           <input name="password" type={showPassword ? 'text' : 'password'} value={password}
             onChange={e => setPassword(e.target.value)} autoComplete="new-password"
@@ -53,7 +55,7 @@ export default function SignupPage() {
       <ApiWakeNotice connection={connection}/>
       {error && <p role="alert" className="gg-auth-error">{error}</p>}
       <button className="gg-auth-submit" type="submit" disabled={isLoading||!connection.ready}>
-        <span>{isLoading ? 'CRIANDO CONTA...' : 'CRIAR MINHA CONTA'}</span>
+        <span>{isLoading ? 'CRIANDO CONTA...' : t('auth.create')}</span>
         <span aria-hidden="true">→</span>
       </button>
     </form>

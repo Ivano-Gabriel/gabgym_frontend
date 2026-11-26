@@ -33,7 +33,9 @@ import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import PersonalPage from './pages/PersonalPage';
 import ExperienceOnboardingPage from './pages/ExperienceOnboardingPage';
-import {ExperienceProvider} from './context/ExperienceContext';
+import ExperienceSettingsPage from './pages/ExperienceSettingsPage';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import {ExperienceProvider,useExperience} from './context/ExperienceContext';
 import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
 import CoachDashboard from './pages/CoachDashboard';
 import RegistrosPage from './pages/RegistrosPage';
@@ -57,6 +59,7 @@ import './styles/interactionPolish.css';
 import './styles/redEdition.css';
 import './styles/premiumModules.css';
 import './styles/premiumRefinements.css';
+import './styles/adaptivePolish.css';
 
 
 function RequireAuth({ children, admin = false, professional = false }) {
@@ -69,6 +72,7 @@ function RequireAuth({ children, admin = false, professional = false }) {
 
 function AppContent() {
   const { t } = useTranslation();
+  const {settings}=useExperience();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
@@ -134,7 +138,7 @@ function AppContent() {
   const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil','/meu-personal':'Meu Personal','/painel-personal':'Área Personal'})[location.pathname];
 
   return (
-    <div className="App">
+    <div className="App" data-gg-mode={settings.mode}>
       {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>
@@ -158,7 +162,7 @@ function AppContent() {
             <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?'ÁREA PROFISSIONAL':t('header.perfil')}</Link></li>
           </ul>
         </nav>
-        <div className="gg-header-right">
+        <div className="gg-header-right"><LanguageSwitcher compact/>
           <Link
             to={isLoggedIn() ? (isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')) : '/login'}
             className="gg-header-cta"
@@ -206,6 +210,7 @@ function AppContent() {
           <Route path="/historico" element={<RequireAuth><HistoryPage /></RequireAuth>} />
           <Route path="/meu-personal" element={<RequireAuth><PersonalPage /></RequireAuth>} />
           <Route path="/experiencia" element={<RequireAuth><ExperienceOnboardingPage /></RequireAuth>} />
+          <Route path="/configuracoes" element={<RequireAuth><ExperienceSettingsPage /></RequireAuth>} />
           <Route path="/painel-personal" element={<RequireAuth professional><CoachDashboard /></RequireAuth>} />
           <Route path="/registros" element={<RequireAuth><RegistrosPage /></RequireAuth>} />
           <Route path="/minhas-metas" element={<RequireAuth><MinhasMetasPage /></RequireAuth>} />
