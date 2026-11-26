@@ -21,7 +21,7 @@ test('mudar para simples em espanhol salva os módulos sem remover dados',async(
  await waitFor(()=>expect(mockSave).toHaveBeenCalledWith(expect.objectContaining({
    mode:'simple',workout:false,language:'es',completed:true
  })));
- expect(screen.getByText('Preferências atualizadas.')).toBeInTheDocument();
+ expect(await screen.findByText('Preferências atualizadas.')).toBeInTheDocument();
 });
 test('não deixa desativar todas as áreas',()=>{
  render(<ExperienceSettingsPage/>);

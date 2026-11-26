@@ -143,7 +143,8 @@
     "openHub": "Open hub",
     "closeHub": "Close hub",
     "quick": "QUICK ACCESS",
-    "dayByDay": "ONE DAY AT A TIME."
+    "dayByDay": "ONE DAY AT A TIME.",
+    "collapseHub": "Collapse hub"
   },
   "experience": {
     "kicker": "YOUR EXPERIENCE",

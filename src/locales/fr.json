@@ -126,7 +126,8 @@
     "openHub": "Ouvrir le menu",
     "closeHub": "Fermer le menu",
     "quick": "ACCÈS RAPIDE",
-    "dayByDay": "UN JOUR À LA FOIS."
+    "dayByDay": "UN JOUR À LA FOIS.",
+    "collapseHub": "Réduire le hub"
   },
   "experience": {
     "kicker": "VOTRE EXPÉRIENCE",
