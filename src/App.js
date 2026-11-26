@@ -33,7 +33,7 @@ import LoginPage from './pages/LoginPage';
 import HistoryPage  from './pages/HistoryPage';
 import PersonalPage from './pages/PersonalPage';
 import ExperienceOnboardingPage from './pages/ExperienceOnboardingPage';
-import {ExperienceProvider} from './context/ExperienceContext';
+import {ExperienceProvider,useExperience} from './context/ExperienceContext';
 import ProfessionalAuthPage from './pages/ProfessionalAuthPage';
 import CoachDashboard from './pages/CoachDashboard';
 import RegistrosPage from './pages/RegistrosPage';
@@ -69,6 +69,7 @@ function RequireAuth({ children, admin = false, professional = false }) {
 
 function AppContent() {
   const { t } = useTranslation();
+  const {settings}=useExperience();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
@@ -134,7 +135,7 @@ function AppContent() {
   const headerLabel=({'/':'Hoje','/alimentacao':'Comer','/treino':'Treino','/perfil':'Perfil','/meu-personal':'Meu Personal','/painel-personal':'Área Personal'})[location.pathname];
 
   return (
-    <div className="App">
+    <div className="App" data-gg-mode={settings.mode}>
       {!isAuthPage && <header className="gg-header">
         <div className="gg-logo-container">
           <Link to="/" className="gg-logo-link" onClick={handleLogoClick}>

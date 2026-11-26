@@ -5,14 +5,14 @@ import {EXPERIENCE_DEFAULTS,normalizeExperience,readLocalExperience,
   validateExperience,writeLocalExperience} from '../utils/experience';
 
 const ExperienceContext=createContext({
-  settings:EXPERIENCE_DEFAULTS,ready:false,accountId:null,
+  settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,
   source:'default',error:'',save:async()=>{},refresh:()=>{}
 });
 
 export const useExperience=()=>useContext(ExperienceContext);
 
 export function ExperienceProvider({children}) {
-  const location=useLocation();
+  useLocation();
   const token=sessionStorage.getItem('authToken')||'';
   const [state,setState]=useState({settings:EXPERIENCE_DEFAULTS,ready:false,
     accountId:null,source:'default',error:''});

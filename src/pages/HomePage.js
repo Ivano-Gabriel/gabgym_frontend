@@ -6,12 +6,8 @@ import {
 } from 'react-icons/fi';
 import { isLoggedIn } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
-import TodayDashboard from './TodayDashboard';
+import AdaptiveTodayDashboard from '../components/AdaptiveTodayDashboard';
 import './HomePage.css';
-
-// Fotografia de Prateek Saxena — Unsplash License (sem dados fictícios de usuários).
-// Fonte original: https://unsplash.com/photos/HRsaEyu_3B0
-// A versão de alta definição é escolhida responsivamente, até 3840 px.
 const HERO_PHOTO_ID = 'photo-1770616756218-f0abe20da404';
 const heroPhoto = width =>
   `https://images.unsplash.com/${HERO_PHOTO_ID}?auto=format&fit=crop&q=82&w=${width}`;
@@ -34,7 +30,7 @@ const featureEssays = [
 
 export default function HomePage() {
   useEffect(() => { warmUpApi(); }, []);
-  if (isLoggedIn()) return <TodayDashboard />;
+  if (isLoggedIn()) return <AdaptiveTodayDashboard />;
 
   return (
     <div className="gg-home gg-home-premium">
