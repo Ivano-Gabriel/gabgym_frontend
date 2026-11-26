@@ -28,3 +28,12 @@
 .gg-adaptive-advanced a{min-height:45px;display:inline-flex;align-items:center;gap:9px;padding:10px 13px;border-radius:8px;background:#303135;color:#fff;font:800 10px Archivo,Arial,sans-serif;text-decoration:none}
 @media(max-width:510px){.gg-simple-day-hero{min-height:260px;padding:24px 17px}.gg-simple-day-progress>div{padding:15px 11px}.gg-simple-day-actions>a{min-height:74px;padding:13px}}
 @media(prefers-reduced-motion:reduce){.gg-simple-day *,.gg-adaptive-advanced *{transition:none!important;animation:none!important}}
+
+.gg-adaptive-hide-food .gg-today-progress-grid,
+.gg-adaptive-hide-food .gg-today-quick-actions,
+.gg-adaptive-hide-food .gg-today-progress-card--food,
+.gg-adaptive-hide-food .gg-today-progress-card--water{display:none!important}
+.gg-adaptive-hide-workout .gg-today-hero-action,
+.gg-adaptive-hide-weight .gg-today-dashboard-aside{display:none!important}
+.gg-adaptive-home.gg-adaptive-hide-weight .gg-today-dashboard-grid{grid-template-columns:minmax(0,1fr)}
+.gg-adaptive-home.gg-adaptive-hide-food.gg-adaptive-hide-weight .gg-today-section-heading{display:none!important}
