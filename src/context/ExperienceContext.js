@@ -12,7 +12,7 @@ const ExperienceContext=createContext({
 export const useExperience=()=>useContext(ExperienceContext);
 
 export function ExperienceProvider({children}) {
-  const location=useLocation();
+  useLocation();
   const token=sessionStorage.getItem('authToken')||'';
   const [state,setState]=useState({settings:EXPERIENCE_DEFAULTS,ready:false,
     accountId:null,source:'default',error:''});
