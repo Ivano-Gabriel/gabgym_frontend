@@ -6,12 +6,15 @@ import { getCurrentUser, getFoods, getDiaryLogs, addDiaryLog, deleteDiaryLog } f
 import { dayKey, summarizeDay, scaleFood, isValidServingCount, parseReferenceGrams, scaleFoodGrams, calorieProgress, estimateRestingEnergy } from '../utils/nutrition';
 import {suggestDailyGoals,goalOrEstimate} from '../utils/nutritionGoals';
 import PremiumPhoto from '../components/PremiumPhoto';
+import {useExperience} from '../context/ExperienceContext';
 import './NutritionTodayPage.css';
 
 const todayLabel = () => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 const formatGram = amount => Number(amount).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 
 export default function NutritionTodayPage() {
+  const {settings}=useExperience();
+  const simple=settings.mode==='simple';
   const [user, setUser] = useState(null);
   const [foods, setFoods] = useState([]);
   const [logs, setLogs] = useState([]);
@@ -20,7 +23,7 @@ export default function NutritionTodayPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [query, setQuery] = useState('');
-  const [catalogOpen, setCatalogOpen] = useState(false);
+  const [catalogOpen, setCatalogOpen] = useState(simple);
   const [category, setCategory] = useState('');
   const [selectedFood, setSelectedFood] = useState(null);
   const [servings, setServings] = useState('1');
@@ -201,6 +204,7 @@ export default function NutritionTodayPage() {
 
         {!loading && user && (
           <>
+            {simple?<section className="gg-simple-module-summary" aria-label="Resumo do dia"><div><span>Calorias de hoje</span><strong>{totals.calories.toLocaleString('pt-BR')} kcal</strong></div><div><span>Água de hoje</span><strong>{totals.water.toLocaleString('pt-BR')} ml</strong></div><button type="button" disabled={busy} onClick={()=>addWater(250)}>+ 250 ML</button></section>:<>
             <section className="gg-consumption" aria-label="Resumo do dia">
               <header className="gg-consumption-header">
                 <div><span>SEU DIA / ALIMENTAÇÃO</span><h2>CALORIAS DE HOJE</h2></div>
@@ -280,6 +284,7 @@ export default function NutritionTodayPage() {
               </div>}
             </section>
 
+            </>}
             <section className="gg-daily-section" ref={foodSectionRef} aria-labelledby="gg-foods-heading">
               <div className="gg-daily-heading">
                 <div><span>01 / DIÁRIO ALIMENTAR</span><h2 id="gg-foods-heading">REGISTRE O QUE COMEU.</h2></div>
@@ -392,7 +397,7 @@ export default function NutritionTodayPage() {
 
             </section>
 
-            <section className="gg-daily-section" aria-labelledby="gg-water-heading">
+            {!simple&&<section className="gg-daily-section" aria-labelledby="gg-water-heading">
               <div className="gg-daily-heading">
                 <div><span>02 / HIDRATAÇÃO</span><h2 id="gg-water-heading">ÁGUA, TODO DIA.</h2></div>
               </div>
@@ -411,7 +416,7 @@ export default function NutritionTodayPage() {
                   <button type="button" disabled={busy} onClick={() => addWater(500)}>+ 500 ML</button>
                 </div>
               </div>
-            </section>
+            </section>}
 
             <section className="gg-daily-section gg-daily-history" aria-labelledby="gg-history-heading">
               <div className="gg-daily-heading">

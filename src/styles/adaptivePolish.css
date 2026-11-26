@@ -69,3 +69,13 @@
 .App[data-gg-mode="simple"] .gg-simple-day-actions>a{min-height:80px}
 @media(max-width:767px){.gg-header-settings{min-height:42px;padding:8px;font-size:11px}.gg-header-settings svg{font-size:17px}.App[data-gg-mode="simple"] .gg-header-route{display:none}}
 @media(max-width:350px){.gg-header-settings span{font-size:10px}}
+
+.gg-simple-module-summary{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;padding:18px;margin:16px 0;background:#242424;border:1px solid #505050;border-radius:12px;color:#f5f5f5;font-size:15px}
+.gg-simple-module-summary>div{display:grid;gap:5px;min-width:105px}
+.gg-simple-module-summary span{font-size:12px;color:#dedede}
+.gg-simple-module-summary strong{font-size:24px;font-variant-numeric:tabular-nums}
+.gg-simple-module-summary button{min-height:48px;padding:12px 16px;color:#fff;background:#b1111b;border:0;border-radius:8px;font-weight:800;cursor:pointer}
+.App[data-gg-mode="simple"] :is(.gg-daily-title,.gg-movement-hero){min-height:150px;padding-block:18px}
+.App[data-gg-mode="simple"] :is(.gg-movement-primary,.gg-catalog-trigger){min-height:76px}
+.App[data-gg-mode="simple"] .gg-daily-categories{display:none}
+.App[data-gg-mode="simple"] .gg-daily-prediction{display:none}

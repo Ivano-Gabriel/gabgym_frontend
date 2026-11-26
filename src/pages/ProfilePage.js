@@ -9,9 +9,12 @@ import {loadWeightHistory,weightTrend,safeWeightProjection,weightGoalProgress} f
 import {readProfileAvatar,saveProfileAvatar,isSupportedProfileImage} from '../utils/profileAvatar';
 import StreakCalendar from '../components/StreakCalendar';
 import {useTranslation} from 'react-i18next';
+import {useExperience} from '../context/ExperienceContext';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const {settings}=useExperience();
+  const simple=settings.mode==='simple';
   const {t,i18n}=useTranslation();
   const locale=i18n.resolvedLanguage==='pt'?'pt-BR':i18n.resolvedLanguage||'pt-BR';
   const [user, setUser] = useState(null);
@@ -96,14 +99,14 @@ export default function ProfilePage() {
         {error&&<p className="gg-profile-error" role="alert">{t(error)}</p>}
         {!user&&!error&&<p role="status">{t('profilePage.loading')}</p>}
         {user&&<>
-          <StreakCalendar compact userId={user.id}/>
+          {!simple&&<StreakCalendar compact userId={user.id}/>}
           <p className="gg27-profile-timing">{t('profilePage.timing')}</p>
           <div className="gg-profile-section-name"><span>{t('profilePage.tracking')}</span><h2>{t('profilePage.measures')}</h2></div>
           <div className="gg-profile-stat-grid">
-            {stats.map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={t('profilePage.update',{name:name.toLocaleLowerCase(locale)})}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString(locale,{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
+            {(simple?stats.slice(0,2):stats).map(([name,value,unit])=><Link to="/profile-form" key={name} aria-label={t('profilePage.update',{name:name.toLocaleLowerCase(locale)})}><span>{name}</span><strong>{value!=null&&value!==''?Number(value).toLocaleString(locale,{maximumFractionDigits:1})+' '+unit:'—'}</strong><FiEdit3 aria-hidden="true"/></Link>)}
           </div>
           <Link className="gg-profile-data-link" to="/profile-form">{t('profilePage.recordMeasures')} <FiArrowRight aria-hidden="true"/></Link>
-          <section className="gg-profile-weight-progress gg-photo-surface" aria-label={t('profilePage.weightProgress')}>
+          {!simple&&settings.weight&&<section className="gg-profile-weight-progress gg-photo-surface" aria-label={t('profilePage.weightProgress')}>
             <PremiumPhoto scene="goals" decorative />
             <header><span>{t('profilePage.weightGoal')}</span><Link to="/profile-form" className="gg27-weight-link"><strong>{weightGoal?weightGoal.toLocaleString(locale)+' kg':t('profilePage.setGoal')}</strong><FiEdit3 aria-hidden="true"/></Link></header>
             {weightGoal&&currentWeight ? <>
@@ -117,10 +120,10 @@ export default function ProfilePage() {
                 <p>{t('profilePage.moreWeights')}</p>}
             </> : <p>{t('profilePage.noGoal')}</p>}
             <small>{t('profilePage.localOnly')}</small>
-          </section>
+          </section>}
           <div className="gg-profile-section-name"><span>{t('profilePage.next')}</span><h2>{t('profilePage.nextSteps')}</h2></div>
           <div className="gg-profile-links">
-            {links.map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
+            {(simple?links.slice(0,1):links).map(({to,label,Icon,description})=><Link to={to} key={to}><Icon aria-hidden="true"/><span><strong>{label}</strong><small>{description}</small></span><FiArrowRight aria-hidden="true"/></Link>)}
             <Link to="/configuracoes"><FiSettings aria-hidden="true"/><span><strong>{t("nav.experience")}</strong><small>{t("settings.description")}</small></span><FiArrowRight aria-hidden="true"/></Link>
             {isSuperAdmin()&&<Link to="/admin"><FiShield aria-hidden="true"/><span><strong>{t('profilePage.admin')}</strong><small>{t('profilePage.adminDetail')}</small></span><FiArrowRight aria-hidden="true"/></Link>}
           </div>
