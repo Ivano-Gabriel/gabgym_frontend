@@ -157,3 +157,11 @@ test('dashboard in English retains real metric values and water controls',async(
   expect(screen.getByRole('link',{name:'OPEN MY WORKOUT'})).toHaveAttribute('href','/treino');
  }finally{await i18n.changeLanguage('pt');}
 });
+
+test('normal dashboard with coach only renders coach action, not disabled meal or workout controls',async()=>{
+ render(<TodayDashboard settings={{food:false,workout:false,weight:false,coach:true}}/>);
+ expect(await screen.findByRole('link',{name:/meu personal/i})).toHaveAttribute('href','/meu-personal');
+ expect(screen.queryByRole('progressbar',{name:'Calorias diárias'})).not.toBeInTheDocument();
+ expect(screen.queryByRole('link',{name:/abrir meu treino/i})).not.toBeInTheDocument();
+ expect(screen.queryByRole('button',{name:/registrar 250 mililitros/i})).not.toBeInTheDocument();
+});
