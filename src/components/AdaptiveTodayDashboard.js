@@ -91,7 +91,10 @@ export default function AdaptiveTodayDashboard(){
   const {settings,ready}=useExperience();
   if(!ready)return <div className="gg-simple-day gg-simple-day-loading" role="status">Preparando sua experiência…</div>;
   if(settings.mode==='simple')return <SimpleToday settings={settings}/>;
-  return <div className={'gg-adaptive-home gg-adaptive-home--'+settings.mode}>
+  return <div className={'gg-adaptive-home gg-adaptive-home--'+settings.mode+
+    (!settings.food?' gg-adaptive-hide-food':'')+
+    (!settings.workout?' gg-adaptive-hide-workout':'')+
+    (!settings.weight?' gg-adaptive-hide-weight':'')}>
     <TodayDashboard/>
     {settings.mode==='complete'&&<nav className="gg-adaptive-advanced" aria-label="Ferramentas avançadas">
       <strong>FERRAMENTAS DA SUA EVOLUÇÃO</strong>
