@@ -7,7 +7,7 @@ import {EXPERIENCE_DEFAULTS,readLocalExperience,
 
 const ExperienceContext=createContext({
   settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,
-  source:'default',error:'',save:async()=>{},refresh:()=>{}
+  source:'default',error:'',save:async()=>{},saveLocal:async()=>{throw new Error('Account unavailable');},refresh:()=>{}
 });
 
 export const useExperience=()=>useContext(ExperienceContext);
@@ -43,8 +43,7 @@ export function ExperienceProvider({children}) {
           if(!alive)return;
           const fallback=local||EXPERIENCE_DEFAULTS;
           setState({settings:fallback,ready:true,accountId:userId,source:'local',sessionToken:token,
-            error:error.response?.status===404?'Preferências ainda não sincronizam neste servidor.':
-              'Sem conexão para sincronizar preferências. Suas escolhas locais permanecem disponíveis.'});
+            error:'experience.syncUnavailable'});
         }
       }catch{
         if(alive)setState({settings:EXPERIENCE_DEFAULTS,ready:true,accountId:null,
@@ -74,12 +73,22 @@ export function ExperienceProvider({children}) {
       if(error.response?.status!==404)throw error;
       const stored=writeLocalExperience(state.accountId,next);
       setState(previous=>previous.sessionToken===token?({...previous,settings:stored,source:'local',
-        error:'Seu servidor ainda não sincroniza preferências. Alterações salvas somente neste navegador.'}):previous);
+        error:'experience.localOnly'}):previous);
       return {settings:stored,source:'local'};
     }
   },[state.accountId,state.sessionToken,token]);
 
+  const saveLocal=useCallback(async input=>{
+    if(!state.ready||!state.accountId||state.sessionToken!==token||!token)throw new Error('Account unavailable');
+    const next=validateExperience(input);
+    const profile=await getCurrentUser();
+    if(String(profile.data?.id)!==String(state.accountId)||sessionStorage.getItem('authToken')!==token)throw new Error('Account unavailable');
+    const stored=writeLocalExperience(state.accountId,next);
+    setState(previous=>previous.sessionToken===token?({...previous,settings:stored,source:'local',error:'experience.localOnly'}):previous);
+    return {settings:stored,source:'local'};
+  },[state.ready,state.accountId,state.sessionToken,token]);
+
   const refresh=useCallback(()=>setRevision(old=>old+1),[]);
-  const value=useMemo(()=>{const {sessionToken,...publicState}=state;return {...publicState,ready:state.ready&&sessionToken===token,accountId:sessionToken===token?state.accountId:null,save,refresh};},[state,save,refresh,token]);
+  const value=useMemo(()=>{const {sessionToken,...publicState}=state;return {...publicState,ready:state.ready&&sessionToken===token,accountId:sessionToken===token?state.accountId:null,save,saveLocal,refresh};},[state,save,saveLocal,refresh,token]);
   return <ExperienceContext.Provider value={value}>{children}</ExperienceContext.Provider>;
 }

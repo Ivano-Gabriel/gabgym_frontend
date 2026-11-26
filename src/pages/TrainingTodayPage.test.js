@@ -41,7 +41,9 @@ test('sem movimentos não inventa calorias gastas', async()=>{
 test('registrar musculação envia exercise ao backend, sem contar alimentação',async()=>{
   const {fireEvent,waitFor}=require('@testing-library/react');
   render(<TrainingTodayPage/>);
-  fireEvent.click(await screen.findByRole('button',{name:/registrar treino feito/i}));
+  const register=await screen.findByRole('button',{name:/registrar treino feito/i});
+ await waitFor(()=>expect(register).toBeEnabled());
+ fireEvent.click(register);
   fireEvent.change(screen.getByLabelText(/Tipo de treino/i),{target:{value:'Costas e bíceps'}});
   fireEvent.change(screen.getByLabelText(/Minutos de treino/i),{target:{value:'45'}});
   fireEvent.change(screen.getByLabelText(/Gasto estimado em kcal/i),{target:{value:'180'}});
@@ -53,7 +55,9 @@ test('registrar musculação envia exercise ao backend, sem contar alimentação
 test('adiciona supino com séries sem inventar calorias',async()=>{
  const {fireEvent,waitFor}=require('@testing-library/react');
  render(<TrainingTodayPage/>);
- fireEvent.click(await screen.findByRole('button',{name:/registrar treino feito/i}));
+ const register=await screen.findByRole('button',{name:/registrar treino feito/i});
+ await waitFor(()=>expect(register).toBeEnabled());
+ fireEvent.click(register);
  fireEvent.change(screen.getByLabelText(/^Exercício/i),{target:{value:'Supino unilateral'}});
  fireEvent.change(screen.getByLabelText(/^Séries/i),{target:{value:'3'}});
  fireEvent.change(screen.getByLabelText(/^Repetições/i),{target:{value:'10'}});
@@ -84,7 +88,9 @@ test('Spanish training displays localized options without changing stored workou
   await i18n.changeLanguage('es');
   const {fireEvent,waitFor}=require('@testing-library/react');
   render(<TrainingTodayPage/>);
-  fireEvent.click(await screen.findByRole('button',{name:'Registrar entrenamiento realizado'}));
+  const register=await screen.findByRole('button',{name:'Registrar entrenamiento realizado'});
+ await waitFor(()=>expect(register).toBeEnabled());
+ fireEvent.click(register);
   fireEvent.change(screen.getByLabelText('Tipo de entrenamiento'),{target:{value:'Pernas'}});
   expect(screen.getByRole('option',{name:'Piernas'}).selected).toBe(true);
   fireEvent.click(screen.getByRole('button',{name:/GUARDAR ENTRENAMIENTO/i}));

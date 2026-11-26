@@ -22,6 +22,7 @@ export default function ExperienceOnboardingPage() {
   const [saving,setSaving]=useState(false);
   const [error,setError]=useState('');
   const [selectedMode,setSelectedMode]=useState(null);
+  const [localOffered,setLocalOffered]=useState(false);
 
   useEffect(()=>{if(experience.ready)setDraft(normalizeExperience(experience.settings));},
     [experience.ready,experience.settings]);
@@ -31,13 +32,15 @@ export default function ExperienceOnboardingPage() {
       navigate('/',{replace:true});
   },[experience.ready,experience.settings.completed,edit,navigate]);
 
-  const save=async event=>{
-    event.preventDefault();if(saving||!selectedMode)return;
+  const save=async(event,local=false)=>{
+    event.preventDefault();if(saving||!selectedMode||!features.some(item=>draft[item.key]))return;
     setSaving(true);setError('');
     try{
-      await experience.save({...draft,mode:selectedMode,completed:true});
+      const input={...draft,mode:selectedMode,completed:true};
+      if(local)await experience.saveLocal(input);
+      else await experience.save(input);
       navigate('/',{replace:true});
-    }catch{setError(t('experience.error'));}
+    }catch{setError(t('experience.error'));if(!local)setLocalOffered(true);}
     finally{setSaving(false);}
   };
   const exit=async()=>{if(saving)return;try{await logoutUser();}catch{}navigate('/login',{replace:true});};
@@ -51,8 +54,8 @@ export default function ExperienceOnboardingPage() {
         <p>{t('experience.requiredChoice')}</p>
       </header>
       {!experience.ready?<p role="status">{t('experience.loading')}</p>:
-      <form onSubmit={save} className="gg-experience-form">
-        {experience.error&&<p role="status" className="gg-experience-warning">{experience.error}</p>}
+      <form onSubmit={event=>save(event)} className="gg-experience-form">
+        {experience.error&&<p role="status" className="gg-experience-warning">{t(experience.error)}</p>}
         {error&&<p role="alert" className="gg-experience-warning">{error}</p>}
         <section aria-label={t('experience.areas')}>
           <div className="gg-experience-heading"><span>01 / {t('experience.kicker')}</span>
@@ -88,6 +91,7 @@ export default function ExperienceOnboardingPage() {
             </select>
           </label>
         </section>
+        {(localOffered||experience.source==='local')&&<div className="gg-experience-warning gg-local-choice"><p>{t('experience.localChoice')}</p><button type="button" disabled={saving||!selectedMode||!features.some(item=>draft[item.key])} onClick={event=>save(event,true)}>{t('experience.saveLocal')}</button></div>}
         <div className="gg-experience-footer">
           <button type="submit" disabled={saving||!selectedMode||!features.some(item=>draft[item.key])}>
             {saving?'…':edit?t('experience.save'):t('experience.start')}<FiArrowRight aria-hidden="true"/>

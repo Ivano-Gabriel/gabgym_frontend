@@ -36,7 +36,7 @@ export default function ExperienceSettingsPage() {
         <p>{t('settings.description')}</p>
       </header>
       {!state.ready?<p role="status">{t('experience.loading')}</p>:<form onSubmit={save} className="gg-experience-form">
-        {state.error&&<p className="gg-experience-warning" role="status">{state.error}</p>}
+        {state.error&&<p className="gg-experience-warning" role="status">{t(state.error)}</p>}
         {error&&<p className="gg-experience-warning" role="alert">{error}</p>}
         {message&&<p className="gg-experience-warning" role="status">{t(message)}</p>}
         <section>

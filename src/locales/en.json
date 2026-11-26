@@ -207,7 +207,11 @@
     "error": "Unable to confirm your preferences.",
     "continue": "Continue to GabGym",
     "language": "LANGUAGE",
-    "requiredChoice": "Choose a level and the features you want to use to continue. You can change everything later in settings."
+    "requiredChoice": "Choose a level and the features you want to use to continue. You can change everything later in settings.",
+    "localOnly": "Preferences are saved in this browser only. They are not synced with your account.",
+    "syncUnavailable": "The server could not sync preferences.",
+    "localChoice": "You can save your choice in this browser to use GabGym. This does not sync preferences across devices.",
+    "saveLocal": "SAVE IN THIS BROWSER"
   },
   "settings": {
     "kicker": "SETTINGS",

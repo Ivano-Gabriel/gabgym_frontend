@@ -190,7 +190,11 @@
     "error": "No se pudieron guardar las preferencias.",
     "continue": "Continuar a GabGym",
     "language": "IDIOMA",
-    "requiredChoice": "Elige un nivel y las funciones que quieres usar para continuar. Puedes cambiar todo después en configuración."
+    "requiredChoice": "Elige un nivel y las funciones que quieres usar para continuar. Puedes cambiar todo después en configuración.",
+    "localOnly": "Preferencias guardadas solo en este navegador. No están sincronizadas con tu cuenta.",
+    "syncUnavailable": "El servidor no pudo sincronizar las preferencias.",
+    "localChoice": "Puedes guardar tu elección en este navegador para usar GabGym. Esto no sincroniza las preferencias entre dispositivos.",
+    "saveLocal": "GUARDAR EN ESTE NAVEGADOR"
   },
   "settings": {
     "kicker": "CONFIGURACIÓN",

@@ -190,7 +190,11 @@
     "error": "Impossible de confirmer les préférences.",
     "continue": "Continuer vers GabGym",
     "language": "LANGUE",
-    "requiredChoice": "Choisissez un niveau et les fonctions souhaitées pour continuer. Vous pourrez modifier vos choix dans les paramètres."
+    "requiredChoice": "Choisissez un niveau et les fonctions souhaitées pour continuer. Vous pourrez modifier vos choix dans les paramètres.",
+    "localOnly": "Préférences enregistrées uniquement dans ce navigateur. Elles ne sont pas synchronisées avec votre compte.",
+    "syncUnavailable": "Le serveur n’a pas pu synchroniser les préférences.",
+    "localChoice": "Vous pouvez enregistrer votre choix dans ce navigateur pour utiliser GabGym. Cela ne synchronise pas les préférences entre appareils.",
+    "saveLocal": "ENREGISTRER DANS CE NAVIGATEUR"
   },
   "settings": {
     "kicker": "PARAMÈTRES",

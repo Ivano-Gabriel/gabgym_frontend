@@ -103,3 +103,5 @@
 .App[data-gg-mode="simple"] .gg-movement-workout-form{grid-template-columns:minmax(0,1fr);gap:14px}
 .App[data-gg-mode="simple"] .gg-movement-workout-form button{min-height:54px}
 @media(max-width:480px){.App .gg-profile-editor-grid{grid-template-columns:minmax(0,1fr)}.App .gg-movement-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.App .gg-movement-stats>div{min-width:0}.App .gg-movement-stats strong{overflow-wrap:anywhere}}
+
+.gg-local-choice{display:grid;gap:12px}.gg-local-choice p{margin:0}.gg-local-choice button{min-height:48px;border:1px solid #777;border-radius:8px;background:#333;color:#fff;font-weight:800;padding:12px;cursor:pointer}.gg-local-choice button:disabled{opacity:.45;cursor:not-allowed}
