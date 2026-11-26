@@ -32,7 +32,7 @@ export default function LoginPage() {
         navigate('/admin', { replace: true });
       } else {
         await getCurrentUser();
-        navigate(user.weight && user.height ? '/perfil' : '/profile-form', { replace: true });
+        navigate('/experiencia', { replace: true });
       }
     } catch (err) {
       const status = err.response?.status;
