@@ -1,7 +1,7 @@
-import React,{useEffect,useState} from 'react';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {NavLink,useLocation} from 'react-router-dom';
-import {FiActivity,FiBarChart2,FiChevronLeft,FiChevronRight,FiCoffee,
+import {NavLink} from 'react-router-dom';
+import {FiActivity,FiBarChart2,FiCoffee,
   FiHeart,FiHome,FiTarget,FiUser,FiUsers,FiBookOpen,FiSettings} from 'react-icons/fi';
 import {useExperience} from '../context/ExperienceContext';
 import {experienceNavigation} from '../utils/experienceNavigation';
@@ -15,42 +15,26 @@ const icons={
 
 export default function DesktopRail() {
   const {t}=useTranslation();
-  const [expanded,setExpanded]=useState(false);
-  const {pathname}=useLocation();
   const {settings}=useExperience();
-  useEffect(()=>{setExpanded(false);},[pathname]);
-  useEffect(()=>{
-    if(!expanded)return undefined;
-    const onKeyDown=event=>{if(event.key==='Escape')setExpanded(false);};
-    document.addEventListener('keydown',onKeyDown);
-    return()=>document.removeEventListener('keydown',onKeyDown);
-  },[expanded]);
-
   const data=experienceNavigation(settings);
   const shown=[{key:'today',to:'/',label:'Hoje'},
     ...data.menu.map(item=>({key:item.key,to:item.to,label:item.label}))];
   if(!shown.some(x=>x.to==='/perfil'))shown.push({key:'profile',to:'/perfil',label:'Perfil'});
-  return <aside className={'gg-desktop-rail'+(expanded?' is-expanded':'')} aria-label={t('nav.sidebar')}>
+  return <aside className="gg-desktop-rail is-expanded" aria-label={t('nav.sidebar')}>
     <div className="gg-desktop-rail-brand">
       <img src="/gg-mark.svg" alt="" aria-hidden="true"/>
-      {expanded&&<strong>GABGYM</strong>}
-      <button type="button" aria-label={expanded?t('nav.collapseSidebar'):t('nav.expandSidebar')}
-        aria-expanded={expanded} aria-controls="gg-desktop-rail-links"
-        onClick={()=>setExpanded(v=>!v)}>
-        {expanded?<FiChevronLeft aria-hidden="true"/>:<FiChevronRight aria-hidden="true"/>}
-      </button>
+      <strong>GABGYM</strong>
     </div>
     <nav id="gg-desktop-rail-links" aria-label={t('nav.shortcuts')}
-      className="gg-desktop-rail-links" aria-hidden={!expanded}>
+      className="gg-desktop-rail-links">
       {shown.map(({key,to,label})=>{
         const Icon=icons[key]||FiHome;
-        return <NavLink key={key} to={to} end={to==='/'} tabIndex={expanded?0:-1}
-          onClick={()=>setExpanded(false)} className={({isActive})=>
+        return <NavLink key={key} to={to} end={to==='/'} className={({isActive})=>
             'gg-desktop-rail-link'+(isActive?' is-active':'')}>
           <Icon aria-hidden="true"/><span>{t('nav.'+key,{defaultValue:label})}</span>
         </NavLink>;
       })}
     </nav>
-    {expanded&&<p className="gg-desktop-rail-foot">{t('nav.consistency')}</p>}
+    <p className="gg-desktop-rail-foot">{t('nav.consistency')}</p>
   </aside>;
 }

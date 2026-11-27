@@ -189,3 +189,19 @@
   .gg-auth-premium .gg-auth-showcase h1 {font-size:54px;}
   .gg-auth-premium .gg-auth-access {padding:24px 16px 37px;}
 }
+
+@media(max-width:769px){
+.gg-auth-premium.gg-auth-screen{min-height:100dvh;display:flex;flex-direction:column;background:#111214}
+.gg-auth-premium .gg-auth-stage{flex:1;position:relative;isolation:isolate;display:flex;justify-content:flex-end;min-height:0}
+.gg-auth-premium .gg-auth-showcase{position:absolute;inset:0;z-index:-1;min-height:0;padding:0;border:0;pointer-events:none}
+.gg-auth-premium .gg-auth-photo-overlay{background:linear-gradient(180deg,#10111255,#101112e8 48%,#101112 84%)}
+.gg-auth-premium .gg-auth-showcase-top,.gg-auth-premium .gg-auth-showcase-copy,.gg-auth-premium .gg-auth-photo-credit,.gg-auth-premium .gg-auth-page-footer{display:none!important}
+.gg-auth-premium .gg-auth-access{background:transparent!important;min-height:0;padding:24px 20px max(22px,env(safe-area-inset-bottom));width:100%;box-sizing:border-box}
+.gg-auth-premium .gg-auth-panel-meta,.gg-auth-premium .gg-auth-context,.gg-auth-premium .gg-auth-trust{display:none}
+.gg-auth-premium .gg-auth-panel h2{font:800 clamp(27px,7vw,38px)/1.15 Manrope,Arial,sans-serif;letter-spacing:-.035em}
+.gg-auth-premium .gg-auth-description{margin:8px 0 18px;font-size:13px;line-height:1.45}
+.gg-auth-premium .gg-auth-form{gap:12px}
+.gg-auth-premium .gg-auth-field input{min-height:49px;padding:12px 14px}
+.gg-auth-premium .gg-auth-submit{min-height:53px;border-radius:27px}
+.gg-auth-premium .gg-auth-bottom{margin-top:14px;font-size:12px}
+}

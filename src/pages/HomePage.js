@@ -8,7 +8,7 @@ import { isLoggedIn } from '../utils/auth';
 import { warmUpApi } from '../services/apiService';
 import AdaptiveTodayDashboard from '../components/AdaptiveTodayDashboard';
 import './HomePage.css';
-const HERO_PHOTO_ID = 'photo-1770616756218-f0abe20da404';
+const HERO_PHOTO_ID = 'photo-1546817372-628669db4655';
 const heroPhoto = width =>
   `https://images.unsplash.com/${HERO_PHOTO_ID}?auto=format&fit=crop&q=82&w=${width}`;
 const heroPhotoSet = [640, 960, 1440, 1920, 2560, 3840]
@@ -73,7 +73,7 @@ export default function HomePage() {
                 src={heroPhoto(1440)}
                 srcSet={heroPhotoSet}
                 sizes="(max-width: 720px) 100vw, (max-width: 1180px) 50vw, 56vw"
-                alt="Atleta em treino de força sob iluminação vermelha"
+                alt="Atleta levantando uma barra na academia"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -92,7 +92,7 @@ export default function HomePage() {
               <FiArrowUpRight aria-hidden="true" className="gg-home-float-arrow" />
             </div>
             <div className="gg-home-photo-credit">
-              FOTO: <a href="https://unsplash.com/photos/HRsaEyu_3B0" target="_blank" rel="noreferrer">PRATEEK SAXENA / UNSPLASH</a>
+              FOTO: <a href="https://unsplash.com/photos/woman-standing-and-carrying-barbell-eFx1KZhaSvo" target="_blank" rel="noreferrer">SUSHIL GHIMIRE / UNSPLASH</a>
             </div>
           </div>
         </div>

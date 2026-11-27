@@ -48,7 +48,6 @@ import MinhasMetasPage from './pages/MinhasMetasPage';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BsChevronDown } from "react-icons/bs";
 import { FiMenu, FiX, FiArrowRight, FiSettings } from "react-icons/fi";
 import FoodLibraryPage from './pages/FoodLibraryPage';
 import { isLoggedIn, isSuperAdmin, isPersonal } from './utils/auth';
@@ -78,7 +77,6 @@ function AppContent() {
   const student=isLoggedIn()&&!isPersonal()&&!isSuperAdmin();
   const simple=student&&settings.mode==='simple';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -86,11 +84,10 @@ function AppContent() {
   const swipeSurface = useRef(null);
   const resetSwipe = () => { if (swipeSurface.current) { swipeSurface.current.style.transform = ''; swipeSurface.current.style.transition = ''; } };
 
-  const isOverlayActive = isLogoMenuOpen || isMobileMenuOpen || showTutorialModal;
+  const isOverlayActive = isMobileMenuOpen || showTutorialModal;
   const isAuthPage = ['/login','/signup','/login-personal','/cadastro-personal'].includes(location.pathname);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
-  const toggleLogoMenu = () => setIsLogoMenuOpen(prev => !prev);
 
   const toggleTutorialModal = () => {
     setShowTutorialModal(prev => !prev);
@@ -98,7 +95,6 @@ function AppContent() {
 
   const closeAllMenus = () => {
     setIsMobileMenuOpen(false);
-    setIsLogoMenuOpen(false);
   };
   
   const handleLogoClick = () => {
@@ -141,8 +137,6 @@ function AppContent() {
       if(!student||!moduleKey||settings[moduleKey]){event.preventDefault();navigate(next);}
     }
   };
-  const headerKey=({'/':'today','/alimentacao':'food','/treino':'workout','/perfil':'profile','/meu-personal':'coach','/painel-personal':'professionalArea'})[location.pathname];
-  const headerLabel=headerKey?t('nav.'+headerKey):t('nav.progress');
 
   const gate=experienceGate({student,ready,accountId,completed:settings.completed,path:location.pathname});
   if(gate==='loading'||gate==='unavailable')return <div className="App gg-required-experience"><main className="gg-experience-wait"><img src="/gg-mark.svg" alt="GABGYM"/><h1>{t('experience.loading')}</h1>{gate==='unavailable'&&<><p role="alert">{error||t('experience.error')}</p><button type="button" onClick={refresh}>{t('journal.retry')}</button></>}<button type="button" onClick={async()=>{try{await logoutUser();}catch{}navigate('/login',{replace:true});}}>{t('profilePage.logout')}</button></main></div>;
@@ -158,31 +152,15 @@ function AppContent() {
             <img className="gg-header-monogram" src="/gg-mark.svg" alt="" aria-hidden="true"/>
             <span className="gg-logo-text">GABGYM</span>
           </Link>
-          {!simple&&<button type="button" aria-label={t('nav.openShortcuts')} aria-expanded={isLogoMenuOpen} className={`gg-logo-dropdown-trigger ${isLogoMenuOpen ? 'open' : ''}`} onClick={toggleLogoMenu}>
-            <BsChevronDown />
-          </button>}
-          {!simple&&isLogoMenuOpen && (
-            <div className="gg-logo-dropdown">
-              <Link to="/biblioteca" className="gg-logo-dropdown-link" onClick={closeAllMenus}>{t('nav.library')}</Link>
-              {(!student||settings.coach)&&<Link to={isPersonal()?'/painel-personal':'/meu-personal'} className="gg-logo-dropdown-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea'):t('nav.coach')}</Link>}
-            </div>
-          )}
-          <span className="gg-header-route" aria-live="polite">{headerLabel}</span>
         </div>
-        <nav className="gg-nav-desktop">
-          <ul className="gg-nav-list">
-            <li><Link to="/" className="gg-nav-link" onClick={closeAllMenus}>{t('header.inicio')}</Link></li>
-            <li><Link to={isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')} className="gg-nav-link" onClick={closeAllMenus}>{isPersonal()?t('nav.professionalArea').toUpperCase():t('header.perfil')}</Link></li>
-          </ul>
-        </nav>
         <div className="gg-header-right">{student&&<Link to="/configuracoes" className="gg-header-settings" aria-label={t('settings.headerButton')} onClick={closeAllMenus}><FiSettings aria-hidden="true"/><span>{t('settings.headerButton')}</span></Link>}
-          {(!simple||!student)&&<Link
+          {(!student)&&<Link
             to={isLoggedIn() ? (isPersonal()?'/painel-personal':(isSuperAdmin() ? '/admin' : '/perfil')) : '/login'}
             className="gg-header-cta"
           >
             {isLoggedIn() ? t('header.meu_perfil') : t('header.criar_perfil')} <FiArrowRight />
           </Link>}
-          {!simple&&!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?t('nav.closeMenu'):t('nav.openMenu')} aria-expanded={isMobileMenuOpen}>
+          {isLoggedIn()&&!simple&&!isPersonal() && <button type="button" className={"gg-hamburger"+(isMobileMenuOpen?" is-open":"")} onClick={toggleMobileMenu} aria-label={isMobileMenuOpen?t('nav.closeMenu'):t('nav.openMenu')} aria-expanded={isMobileMenuOpen}>
             {isMobileMenuOpen?<FiX className="gg-menu-symbol" aria-hidden="true"/>:<FiMenu className="gg-menu-symbol" aria-hidden="true"/>}
           </button>}
         </div>
@@ -236,7 +214,7 @@ function AppContent() {
       </main>
       
       {!isAuthPage && isLoggedIn() && !isPersonal() && <DailyNavigation />}
-      {!simple&&!isPersonal() && <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} />}
+      {isLoggedIn()&&!simple&&!isPersonal() && <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} onTutorialClick={toggleTutorialModal} />}
       {showTutorialModal && ( <TutorialModal onClose={toggleTutorialModal} /> )}
     </div>
   );
