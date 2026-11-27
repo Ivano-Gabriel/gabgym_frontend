@@ -233,3 +233,5 @@
 .gg-home.gg-home-premium .gg-home-hero-bottom,.gg-home.gg-home-premium .gg-home-float-card,.gg-home.gg-home-premium .gg-home-photo-caption,.gg-home.gg-home-premium .gg-home-hero-footer{display:none}
 .gg-home.gg-home-premium .gg-home-photo-credit{position:absolute;top:8px;right:12px;bottom:auto;font-size:8px}
 }
+
+@media(max-width:767px){.gg-home.gg-home-premium .gg-home-features,.gg-home.gg-home-premium .gg-home-closing{display:none}.gg-home.gg-home-premium{min-height:calc(100dvh - 64px)}}

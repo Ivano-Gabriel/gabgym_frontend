@@ -45,3 +45,5 @@
 @keyframes gg-wizard-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 @media(min-width:770px){.gg-wizard-wrap{padding:32px 0;max-width:640px}.gg-wizard-content{padding:15px 0 30px}.gg-wizard-focus .gg-wizard-option{min-height:48px}}
 @media(prefers-reduced-motion:reduce){.gg-wizard-content{animation:none}}
+
+.gg-wizard-goals .gg-wizard-option{position:relative;overflow:hidden;padding:14px 12px;min-height:102px}.gg-wizard-goal-photo{width:96px;height:78px;object-fit:cover;object-position:center;border-radius:9px;filter:saturate(.75);flex:none}.gg-wizard-goals .gg-wizard-option strong{font-size:15px}@media(max-width:360px){.gg-wizard-goal-photo{width:70px}.gg-wizard-goals .gg-wizard-option{gap:8px}}

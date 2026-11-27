@@ -4,6 +4,9 @@ import ExperienceOnboardingPage from './ExperienceOnboardingPage';
 const mockSave=jest.fn();
 const mockSaveLocal=jest.fn();
 const mockNavigate=jest.fn();
+const mockGetUser=jest.fn();
+const mockUpdate=jest.fn();
+jest.mock('../services/apiService',()=>({getCurrentUser:()=>mockGetUser(),updateUser:(...args)=>mockUpdate(...args),logoutUser:jest.fn()}));
 jest.mock('react-router-dom',()=>({
   Link:({to,children,...props})=>require('react').createElement('a',{href:to,...props},children),
   useNavigate:()=>mockNavigate,useLocation:()=>({search:''})
@@ -11,7 +14,7 @@ jest.mock('react-router-dom',()=>({
 jest.mock('../context/ExperienceContext',()=>{
   const settings={mode:'normal',food:true,workout:true,weight:true,coach:true,
     language:'pt',completed:false};
-  return {useExperience:()=>({settings,ready:true,save:mockSave,saveLocal:mockSaveLocal})};
+  return {useExperience:()=>({settings,ready:true,accountId:17,save:mockSave,saveLocal:mockSaveLocal})};
 });
 beforeEach(()=>{jest.clearAllMocks();mockSave.mockResolvedValue({source:'server'});});
 const next=()=>fireEvent.click(screen.getByRole('button',{name:'Continuar'}));
@@ -41,5 +44,17 @@ test('failed server save requires explicit local confirmation',async()=>{
  expect(mockNavigate).not.toHaveBeenCalled();
  fireEvent.click(local);
  await waitFor(()=>expect(mockSaveLocal).toHaveBeenCalledWith(expect.objectContaining({mode:'simple',completed:true})));
+ await waitFor(()=>expect(mockNavigate).toHaveBeenCalledWith('/',{replace:true}));
+});
+
+test('optional measurements update only selected profile fields in the authenticated account',async()=>{
+ mockGetUser.mockResolvedValueOnce({data:{id:17}});mockUpdate.mockResolvedValueOnce({data:{id:17}});
+ render(<ExperienceOnboardingPage/>);
+ fireEvent.click(screen.getByRole('radio',{name:'Masculino'}));next();
+ fireEvent.click(screen.getByRole('radio',{name:'Ganhar músculos'}));next();next();next();
+ fireEvent.change(screen.getByLabelText('Peso (kg)'),{target:{value:'83.5'}});next();
+ fireEvent.click(screen.getByRole('radio',{name:/NORMAL/i}));next();
+ fireEvent.click(screen.getByRole('button',{name:/COMEÇAR COM ESSA EXPERIÊNCIA/i}));
+ await waitFor(()=>expect(mockUpdate).toHaveBeenCalledWith(17,{gender:'male',objective:'gain-muscle',weight:83.5}));
  await waitFor(()=>expect(mockNavigate).toHaveBeenCalledWith('/',{replace:true}));
 });
