@@ -14,7 +14,7 @@ test('visitante vê landing premium com foto real responsiva e sem métricas inv
   const title=screen.getByRole('heading',{level:1});
   expect(title).toHaveAttribute('id','gg-home-title');
   expect(title.textContent).toMatch(/disciplina|constância/i);
-  const hero=screen.getByRole('img',{name:/atleta.*treino/i});
+  const hero=screen.getByRole('img',{name:/atleta levantando uma barra/i});
   expect(hero.getAttribute('src')).toMatch(/^https:\/\/images\.unsplash\.com\/photo-/);
   expect(hero.getAttribute('srcset')).toContain('w=3840');
   expect(hero).toHaveAttribute('sizes');
@@ -22,7 +22,8 @@ test('visitante vê landing premium com foto real responsiva e sem métricas inv
   expect(screen.getByRole('link',{name:/entrar na conta/i})).toHaveAttribute('href','/login');
   expect(screen.getByRole('link',{name:/conhecer recursos/i})).toHaveAttribute('href','#recursos');
   expect(screen.getByRole('region',{name:/recursos/i})).toBeInTheDocument();
-  expect(screen.getByText(/prateek saxena/i)).toBeInTheDocument();
+  expect(hero).toHaveAttribute('src',expect.stringContaining('photo-1546817372-628669db4655'));
+  expect(screen.getAllByText(/SUSHIL GHIMIRE \/ UNSPLASH/i)).toHaveLength(2);
   expect(screen.getAllByRole('article')).toHaveLength(3);
   expect(screen.getByRole('heading',{name:/execução acima de desculpas/i})).toBeInTheDocument();
   expect(screen.getByRole('heading',{name:/rotina sem adivinhação/i})).toBeInTheDocument();

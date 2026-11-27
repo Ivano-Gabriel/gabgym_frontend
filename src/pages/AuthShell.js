@@ -1,14 +1,15 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import '../styles/premiumExperience.css';
 import './AuthPremium.css';
 
-/** Premium visual shell shared by Login and Signup. Authentication logic stays separate. */
 const image = width => `https://images.unsplash.com/photo-1546817372-628669db4655?auto=format&fit=crop&q=80&w=${width}`;
 const imageSet = [480,720,960,1440,1920,2560].map(w => `${image(w)} ${w}w`).join(', ');
 
 export default function AuthShell({ type = 'login', title, subtitle, children, footer, audience = 'student' }) {
+  const {t}=useTranslation();
   const isSignup = type === 'signup';
   const coach = audience === 'personal';
   return (
@@ -22,7 +23,7 @@ export default function AuthShell({ type = 'login', title, subtitle, children, f
         <div className="gg-auth-masthead-side">
           <span className="gg-auth-masthead-edition">{coach ? 'ÁREA PROFISSIONAL' : 'UM DIA DE CADA VEZ'}</span>
           <Link to={coach ? (isSignup ? '/login-personal' : '/cadastro-personal') : (isSignup ? '/login' : '/signup')} className="gg-auth-masthead-link">
-            {isSignup ? 'JÁ TENHO CONTA' : 'CRIAR CONTA'} <span aria-hidden="true">↗</span>
+            {isSignup ? t('auth.signIn') : t('auth.newUser')} <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </header>

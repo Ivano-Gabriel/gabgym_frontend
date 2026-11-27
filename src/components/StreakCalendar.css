@@ -67,3 +67,11 @@
   .gg27-streak * {animation:none!important;transition:none!important;}
   .gg27-streak.is-expanded .gg27-flame {transform:none!important;}
 }
+
+.gg27-streak .gg27-flame{background:#2b2023;border-color:#603138;border-radius:14px}
+.gg27-streak .gg27-flame-icon{width:34px;height:40px;filter:drop-shadow(0 3px 9px #e5223d66);transform-origin:center 83%;animation:gg-ember-breathe 2.8s ease-in-out infinite}
+.gg27-streak-copy strong{font:800 clamp(21px,4vw,28px)/1.2 Manrope,Arial,sans-serif;letter-spacing:-.02em}
+.gg27-streak.compact .gg27-streak-copy strong{font-size:20px}
+.gg27-streak.compact .gg27-flame-icon{width:27px;height:34px}
+@keyframes gg-ember-breathe{0%,100%{transform:scale(.97) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.gg27-streak .gg27-flame-icon{animation:none}}

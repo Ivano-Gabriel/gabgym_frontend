@@ -1,6 +1,7 @@
 import React from 'react';
 import { render,screen,fireEvent,waitFor } from '@testing-library/react';
 import RegistrosPage from './RegistrosPage';
+import i18n from '../i18n';
 import {getCurrentUser,getDiaryLogs,deleteDiaryLog} from '../services/apiService';
 
 jest.mock('react-router-dom',()=>({
@@ -33,4 +34,15 @@ test('filtros mostram tipo de registro sem apagar dados',async()=>{
  expect(screen.getByText('250 ml')).toBeInTheDocument();
  fireEvent.click(screen.getByRole('button',{name:/Todos/i}));
  expect(screen.getByText('Bife Grelhado')).toBeInTheDocument();
+});
+test('English records retain confirmation and do not delete on cancel',async()=>{
+ try{
+  await i18n.changeLanguage('en');
+  render(<RegistrosPage/>);
+  expect(await screen.findByText('Bife Grelhado')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:'Remove Bife Grelhado'}));
+  expect(screen.getByText('Delete this record?')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:'Cancel deletion'}));
+  expect(deleteDiaryLog).not.toHaveBeenCalled();
+ }finally{await i18n.changeLanguage('pt');}
 });

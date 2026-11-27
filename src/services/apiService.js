@@ -3,8 +3,6 @@ import { clearAuthSession } from '../utils/auth';
 import { chooseApiBaseUrl } from '../utils/apiRouting';
 import { waitForApiReady } from '../utils/apiReadiness';
 
-// Em deploys Vercel, requisicoes usam o mesmo dominio /api (vercel.json).
-// REACT_APP_API_URL continua disponivel apenas para desenvolvimento local.
 const baseURL = chooseApiBaseUrl(process.env.NODE_ENV, process.env.REACT_APP_API_URL);
 
 /** Sonda pública de prontidão, sem token; GET seguro para repetir.
@@ -27,8 +25,6 @@ export const checkApiReady=async signal=>{
 };
 export const ensureApiReady=options=>waitForApiReady({probe:checkApiReady,...options});
 
-// Render Free pode demorar a iniciar apos inatividade. Dispara um GET publico
-// sem token, nao bloqueante; nao cria intervalo nem ciclo de requisicoes.
 export const warmUpApi = () => {
   if (typeof window === 'undefined' || typeof window.fetch !== 'function') return;
   try {
@@ -70,7 +66,6 @@ export const loginUser = async (credentials) => {
   clearAuthSession();
   sessionStorage.setItem('authToken', token);
   sessionStorage.setItem('role', role);
-  // IDs no browser são apenas dicas de interface, nunca autorizam requisições.
   localStorage.setItem('userId', String(userId));
   localStorage.setItem('username', username);
   return response;
@@ -120,3 +115,6 @@ export const postPersonalMessage = (studentId,kind,content) =>
   apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/timeline`,{kind,content});
 export const decidePersonalPlan = (studentId,entryId,decision) =>
   apiClient.post(`/personal/students/${encodeURIComponent(studentId)}/plans/${encodeURIComponent(entryId)}/decision`,{decision});
+
+export const getExperiencePreferences=()=>apiClient.get('/users/me/preferences');
+export const updateExperiencePreferences=state=>apiClient.put('/users/me/preferences',state);

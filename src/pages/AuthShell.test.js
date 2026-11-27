@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AuthShell from './AuthShell';
-
-// O projeto usa React Router 7 com CRA/Jest; mock de links para isolar a interface.
 jest.mock('react-router-dom', () => ({
   Link: ({ to, children, ...props }) => require('react').createElement('a', { href: to, ...props }, children),
 }));
@@ -36,6 +34,6 @@ test('cadastro mostra contexto e link de login sem mudar fluxo de autenticacao',
     </AuthShell>
   );
   expect(screen.getByText('PRIMEIRO PASSO')).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: /já tenho conta/i })).toHaveAttribute('href', '/login');
+  expect(screen.getByRole('link', { name: /^entrar$/i })).toHaveAttribute('href', '/login');
   expect(screen.getByRole('textbox', { name: /nome de usuário/i })).toBeInTheDocument();
 });

@@ -216,3 +216,22 @@
 @media(prefers-reduced-motion:reduce){
   .gg-home-premium *, .gg-home-premium *::before,.gg-home-premium *::after {animation:none!important;transition:none!important;scroll-behavior:auto!important;}
 }
+
+@media(max-width:767px){
+.gg-home.gg-home-premium .gg-home-hero{min-height:calc(100dvh - 64px);display:grid;align-items:end;position:relative;isolation:isolate}
+.gg-home.gg-home-premium .gg-home-hero-shell{display:flex;flex-direction:column;justify-content:flex-end;min-height:calc(100dvh - 64px);padding:24px 20px max(24px,env(safe-area-inset-bottom));gap:0;position:relative;isolation:isolate}
+.gg-home.gg-home-premium .gg-home-stage{position:absolute;inset:0;width:100%;max-width:none;height:100%;margin:0;z-index:-1;animation:none}
+.gg-home.gg-home-premium .gg-home-photo-frame{border:0;border-radius:0;box-shadow:none}
+.gg-home.gg-home-premium .gg-home-photo{object-position:center 30%}
+.gg-home.gg-home-premium .gg-home-photo-tint{background:linear-gradient(180deg,#10111222 0%,#10111255 30%,#101112f5 73%,#101112 100%)}
+.gg-home.gg-home-premium .gg-home-copy{width:100%;max-width:460px;margin:0 auto;animation:none}
+.gg-home.gg-home-premium h1{font-size:clamp(45px,12vw,66px);line-height:.87;margin:10px 0 12px}
+.gg-home.gg-home-premium .gg-home-eyebrow{font-size:9px;letter-spacing:.06em;white-space:normal}
+.gg-home.gg-home-premium .gg-home-intro{font-size:14px;line-height:1.5;margin:0 0 16px}
+.gg-home.gg-home-premium .gg-home-actions{display:grid;gap:10px}
+.gg-home.gg-home-premium .gg-home-actions a{width:100%;min-height:52px;box-sizing:border-box;justify-content:center;border-radius:28px}
+.gg-home.gg-home-premium .gg-home-hero-bottom,.gg-home.gg-home-premium .gg-home-float-card,.gg-home.gg-home-premium .gg-home-photo-caption,.gg-home.gg-home-premium .gg-home-hero-footer{display:none}
+.gg-home.gg-home-premium .gg-home-photo-credit{position:absolute;top:8px;right:12px;bottom:auto;font-size:8px}
+}
+
+@media(max-width:767px){.gg-home.gg-home-premium .gg-home-features,.gg-home.gg-home-premium .gg-home-closing{display:none}.gg-home.gg-home-premium{min-height:calc(100dvh - 64px)}}
