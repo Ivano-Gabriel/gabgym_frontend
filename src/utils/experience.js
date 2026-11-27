@@ -56,3 +56,16 @@ export function experienceGate({student,ready,accountId,completed,path}) {
   if(path==='/experiencia')return 'onboarding';
   return completed===true?'open':'redirect';
 }
+
+export function onboardingProfilePayload(input) {
+ const out={};
+ if(['male','female'].includes(input.gender))out.gender=input.gender;
+ if(['maintain-weight','lose-fat','gain-muscle'].includes(input.objective))out.objective=input.objective;
+ for(const [key,min,max] of [['age',13,120],['weight',20,600],['height',100,250]]){
+   if(input[key]===undefined||input[key]==='')continue;
+   const n=Number(input[key]);
+   if(!Number.isFinite(n)||n<min||n>max||(key==='age'&&!Number.isInteger(n)))throw new Error('Invalid measurement');
+   out[key]=n;
+ }
+ return out;
+}

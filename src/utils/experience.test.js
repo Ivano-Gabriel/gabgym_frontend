@@ -42,3 +42,11 @@ test('gate waits for the current account and preserves professional routes',()=>
  expect(experienceGate({student:true,ready:true,accountId:17,completed:true,path:'/'})).toBe('open');
  expect(experienceGate({student:false,ready:false,path:'/painel-personal'})).toBe('open');
 });
+
+test('optional onboarding measurements preserve absent profile fields and reject invalid values',()=>{
+ const {onboardingProfilePayload}=require('./experience');
+ expect(onboardingProfilePayload({gender:'',age:'',weight:'80.5',height:'180',objective:'gain-muscle'})).toEqual({weight:80.5,height:180,objective:'gain-muscle'});
+ expect(()=>onboardingProfilePayload({age:'21.5'})).toThrow();
+ expect(()=>onboardingProfilePayload({weight:'0'})).toThrow();
+ expect(onboardingProfilePayload({gender:'unspecified'})).toEqual({});
+});

@@ -1,6 +1,6 @@
 /* GABGYM Red Edition — dock e hub GG, um único sistema visual. */
 .gg-daily-navigation,.gg-hub-overlay,.gg-hub-sheet{display:none}
-@media(max-width:767px){
+@media(max-width:1023px){
   .gg-daily-navigation{
     position:fixed;z-index:1200;left:0;right:0;bottom:0;
     display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
